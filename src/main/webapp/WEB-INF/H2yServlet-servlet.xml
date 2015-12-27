@@ -1,0 +1,78 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/mvc
+           http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+           ">
+
+    
+
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+    <!--<property name="prefix" value="/WEB-INF/pages/"/>-->
+    <!--<property name="suffix" value=".jsp"/>-->
+    <!--</bean>-->
+
+    <!-- 开启controller注解支持 -->
+    <mvc:annotation-driven/>
+    <!-- 注解扫描 -->
+    <!-- <context:component-scan base-package="com.h2y.*"/> -->
+    
+    <context:component-scan base-package="com.h2y.*">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
+   </context:component-scan>
+    <!-- 处理静态资源 location为项目下路径，mapping为映射地址 -->
+    <mvc:resources location="/resources/**" mapping="/resources/**"/>
+    <!-- 设置不过滤内容，比如:css,jquery,img 等资源文件 -->
+    <!--
+    <mvc:resources location="/js/*" mapping="/js/**" />
+    <mvc:resources location="/img/*" mapping="/img/**" />
+    -->
+
+    <!-- 视图解释类 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".jsp"/>
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+    </bean>
+
+    <!-- 上传拦截，如最大上传值及最小上传值 -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="10000000"/>
+        <property name="maxInMemorySize" value="4096"/>
+    </bean>
+
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/*/*.htm"/>
+            <mvc:mapping path="/*/*/*.htm"/>
+            <bean class="com.h2y.bmg.interceptor.CommonInterceptor">
+                <property name="loginUrl" value="portal/login/init.htm"/>
+                <property name="errorUrl" value="error.do"/>
+                <property name="indexUrl" value="index.do"/>
+                <property name="noFilterUrls">
+                    <list>
+                        <value>portal/login/check.htm</value>
+                        <value>image/show.htm</value>
+                        <value>common/upload/doUpload.htm</value>
+                        <value>common/upload/uploadInit.htm</value>
+                        <value>common/file/down.htm</value>
+                        <value>common/image/view.htm</value>
+                        <value>wechat/material/detail.htm</value>
+                        <value>wx/wxs/msg.htm</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+    
+    
+    <bean class="com.h2y.spring.IocUtil" lazy-init="false" />
+</beans>

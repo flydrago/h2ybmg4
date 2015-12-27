@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.jxc.dao.IJxcSysUnitsDao">
+
+	<resultMap type="com.h2y.jxc.entity.SysUnits" id="sysunitsDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitCode" column="unit_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="parentId" column="parent_id" javaType="long" jdbcType="BIGINT" />
+		<result property="zoneCode" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="unitDomain" column="unit_domain" javaType="string" jdbcType="VARCHAR" />
+		<result property="unitName" column="unit_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="shortName" column="short_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="regDate" column="reg_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="stopDate" column="stop_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="userCount" column="user_count" javaType="long" jdbcType="BIGINT" />
+		<result property="unitStatus" column="unit_status" javaType="string" jdbcType="VARCHAR" />
+		<result property="adminUrl" column="admin_url" javaType="string" jdbcType="VARCHAR" />
+		<result property="portalUrl" column="portal_url" javaType="string" jdbcType="VARCHAR" />
+		<result property="unitAddress" column="unit_address" javaType="string" jdbcType="VARCHAR" />
+		<result property="telAreaCode" column="tel_area_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="tel" column="tel" javaType="string" jdbcType="VARCHAR" />
+		<result property="telService" column="tel_service" javaType="string" jdbcType="VARCHAR" />
+		<result property="fax" column="fax" javaType="string" jdbcType="VARCHAR" />
+		<result property="legalPerson" column="legal_person" javaType="string" jdbcType="VARCHAR" />
+		<result property="legalPersonMobile" column="legal_person_mobile" javaType="string" jdbcType="VARCHAR" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="unitType" column="unit_type" javaType="int" jdbcType="INTEGER" />
+		<result property="s3ucode" column="s3ucode" javaType="string" jdbcType="VARCHAR" />
+		<result property="s3uname" column="s3uname" javaType="string" jdbcType="VARCHAR" />
+		<result property="s3createdate" column="s3createdate" javaType="date" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="sysunitsDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_CODE" column="unit_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="PARENT_ID" column="parent_id" javaType="long" jdbcType="BIGINT" />
+		<result property="ZONE_CODE" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="UNIT_DOMAIN" column="unit_domain" javaType="string" jdbcType="VARCHAR" />
+		<result property="UNIT_NAME" column="unit_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="SHORT_NAME" column="short_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="REG_DATE" column="reg_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="STOP_DATE" column="stop_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="USER_COUNT" column="user_count" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_STATUS" column="unit_status" javaType="string" jdbcType="VARCHAR" />
+		<result property="ADMIN_URL" column="admin_url" javaType="string" jdbcType="VARCHAR" />
+		<result property="PORTAL_URL" column="portal_url" javaType="string" jdbcType="VARCHAR" />
+		<result property="UNIT_ADDRESS" column="unit_address" javaType="string" jdbcType="VARCHAR" />
+		<result property="TEL_AREA_CODE" column="tel_area_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="TEL" column="tel" javaType="string" jdbcType="VARCHAR" />
+		<result property="TELSERVICE" column="tel_service" javaType="string" jdbcType="VARCHAR" />
+		<result property="FAX" column="fax" javaType="string" jdbcType="VARCHAR" />
+		<result property="LEGAL_PERSON" column="legal_person" javaType="string" jdbcType="VARCHAR" />
+		<result property="LEGAL_PERSON_MOBILE" column="legal_person_mobile" javaType="string" jdbcType="VARCHAR" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="UNIT_TYPE" column="unit_type" javaType="int" jdbcType="INTEGER" />
+		<result property="S3UCODE" column="s3ucode" javaType="string" jdbcType="VARCHAR" />
+		<result property="S3UNAME" column="s3uname" javaType="string" jdbcType="VARCHAR" />
+		<result property="S3CREATEDATE" column="s3createdate" javaType="date" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	
+	
+	<insert id="add" parameterType="com.h2y.jxc.entity.SysUnits">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_sys_units 
+		</selectKey>  
+		insert into tb_sys_units
+		(
+		unit_code,
+		parent_id,
+		zone_code,
+		unit_domain,
+		unit_name,
+		short_name,
+		reg_date,
+		stop_date,
+		user_count,
+		unit_status,
+		admin_url,
+		portal_url,
+		unit_address,
+		tel_area_code,
+		tel,
+		tel_service,
+		fax,
+		legal_person,
+		legal_person_mobile,
+		memo,
+		unit_type,
+		s3ucode,
+		s3uname,
+		s3createdate
+		)
+		values (
+		#{unitCode,jdbcType=VARCHAR},
+		#{parentId,jdbcType=BIGINT},
+		#{zoneCode,jdbcType=VARCHAR},
+		#{unitDomain,jdbcType=VARCHAR},
+		#{unitName,jdbcType=VARCHAR},
+		#{shortName,jdbcType=VARCHAR},
+		#{regDate,jdbcType=TIMESTAMP},
+		#{stopDate,jdbcType=TIMESTAMP},
+		#{userCount,jdbcType=BIGINT},
+		#{unitStatus,jdbcType=VARCHAR},
+		#{adminUrl,jdbcType=VARCHAR},
+		#{portalUrl,jdbcType=VARCHAR},
+		#{unitAddress,jdbcType=VARCHAR},
+		#{telAreaCode,jdbcType=VARCHAR},
+		#{tel,jdbcType=VARCHAR},
+		#{telService,jdbcType=VARCHAR},
+		#{fax,jdbcType=VARCHAR},
+		#{legalPerson,jdbcType=VARCHAR},
+		#{legalPersonMobile,jdbcType=VARCHAR},
+		#{memo,jdbcType=VARCHAR},
+		#{unitType,jdbcType=INTEGER},
+		#{s3ucode,jdbcType=VARCHAR},
+		#{s3uname,jdbcType=VARCHAR},
+		#{s3createdate,jdbcType=TIMESTAMP}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.jxc.entity.SysUnits">
+		update tb_sys_units
+		set
+		unit_code = #{unitCode,jdbcType=VARCHAR},
+		parent_id = #{parentId,jdbcType=BIGINT},
+		zone_code = #{zoneCode,jdbcType=VARCHAR},
+		unit_domain = #{unitDomain,jdbcType=VARCHAR},
+		unit_name = #{unitName,jdbcType=VARCHAR},
+		short_name = #{shortName,jdbcType=VARCHAR},
+		reg_date = #{regDate,jdbcType=TIMESTAMP},
+		stop_date = #{stopDate,jdbcType=TIMESTAMP},
+		user_count = #{userCount,jdbcType=BIGINT},
+		unit_status = #{unitStatus,jdbcType=VARCHAR},
+		admin_url = #{adminUrl,jdbcType=VARCHAR},
+		portal_url = #{portalUrl,jdbcType=VARCHAR},
+		unit_address = #{unitAddress,jdbcType=VARCHAR},
+		tel_area_code = #{telAreaCode,jdbcType=VARCHAR},
+		tel = #{tel,jdbcType=VARCHAR},
+		tel_service = #{telService,jdbcType=VARCHAR},
+		fax = #{fax,jdbcType=VARCHAR},
+		legal_person = #{legalPerson,jdbcType=VARCHAR},
+		legal_person_mobile = #{legalPersonMobile,jdbcType=VARCHAR},
+		memo = #{memo,jdbcType=VARCHAR},
+		unit_type = #{unitType,jdbcType=INTEGER},
+		s3ucode = #{s3ucode,jdbcType=VARCHAR},
+		s3uname = #{s3uname,jdbcType=VARCHAR},
+		s3createdate = #{s3createdate,jdbcType=TIMESTAMP}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.jxc.entity.SysUnits">
+		delete from
+		tb_sys_units
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_sys_units
+		where
+		id = #{id} 
+	</delete>
+
+	<select id="get" parameterType="long"
+		resultMap="sysunitsDaoMap">
+		select * from tb_sys_units where id = #{id}
+	</select>
+
+	<select id="getUnitTreeDataByUnitId" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			id,
+			parent_id as pid,
+			unit_name as text
+		FROM
+			tb_sys_units
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="unitId!=null and unitId!='' and unitId != 1">
+				id = #{unitId}
+			</if>
+			<if test="partentId!=null and partentId!=''">
+				parent_id = #{partentId}
+			</if>
+		</trim>
+	</select>
+	
+	<!-- 省级代理审核旗舰店 -->
+	<select id="getUnitTreeDataByProvinceId" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			id,
+			parent_id as pid,
+			unit_name as text
+		FROM
+			tb_sys_units
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			(unit_status = 'register' or unit_status = 'recheck')			
+			<if test="partentId!=null and partentId!=''">
+				and parent_id = #{partentId}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="getUnitTreeData" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			id,
+			parent_id as pid,
+			unit_name as text
+		FROM
+			tb_sys_units		
+	</select>
+	
+	
+	
+	
+	<select id="getUnitListMap" parameterType="hashmap" resultMap="sysunitsDaoListMap">
+		SELECT
+			*
+		FROM
+			tb_sys_units
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			parent_id = #{parentId}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	<select id="getUnitListRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(id)
+		FROM
+			tb_sys_units
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			parent_id = #{parentId}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="getUnCheckListMap" parameterType="hashmap" resultMap="sysunitsDaoListMap">
+		SELECT
+			*
+		FROM
+			tb_sys_units		
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			(unit_status = 'register' or unit_status = 'recheck')
+			<if test="parentUnitId!=null and parentUnitId!=''">
+				and parent_id = #{parentUnitId}
+			</if>
+		</trim>
+		
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	<select id="getUnCheckListRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(id)
+		FROM
+			tb_sys_units
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			unit_status = 'register'
+			<if test="parentUnitId!=null and parentUnitId!=''">
+				and parent_id = #{parentUnitId}
+			</if>
+		</trim>
+	</select>
+	
+	
+	<select id="getPassUnitList" parameterType="hashmap" resultMap="sysunitsDaoListMap">
+		SELECT
+			*
+		FROM
+			tb_sys_units
+		where (unit_status = 'pass' and stop_date &gt; now()) or id = 1
+	</select>
+	
+	<select id="getChildZoneList" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			id as ID,
+			code as CODE,
+			name as NAME
+		FROM
+			tb_zone
+		WHERE
+		<choose>
+			<when test="flag == 'first'">
+				level = 1
+			</when>
+			<otherwise>
+				pcode = #{pcode}
+			</otherwise>
+		</choose>
+	</select>
+	
+	
+	
+	<select id="getChildZoneListByPid" parameterType="long" resultType="hashmap">
+		SELECT
+			id as ID,
+			code as CODE,
+			name as NAME
+		FROM
+			tb_zone
+		WHERE
+			pid = #{pid}
+	</select>
+	
+	
+	<select id="getZonePrefixByCode" parameterType="string" resultType="string">
+		SELECT
+			pre_fix
+		FROM
+			tb_zone
+		WHERE
+			code = #{code}
+		limit 0,1
+	</select>
+	
+	
+	<select id="getUnitRowsByZoneCode" parameterType="hashmap" resultType="long">
+		SELECT
+			count(id)
+		FROM
+			tb_sys_units
+		WHERE
+			zone_code = #{zoneCode}
+		and unit_type = 0
+		<if test="id !=null">
+			and id &lt;&gt; #{id}
+		</if>
+	</select>
+	
+	
+	<select id="getUnitRowsBySame" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			*
+		FROM
+			tb_sys_units
+		WHERE 1=1
+			
+		<if test="unitDomain !=null and unitDomain!=''">
+			and unit_domain = #{unitDomain}
+		</if>
+		<if test="id !=null and id!=''">
+			and id &lt;&gt; #{id}
+		</if>
+		<if test="unitName !=null and unitName!=''">
+			and unit_name = #{unitName}
+		</if>
+	</select>
+	
+</mapper>

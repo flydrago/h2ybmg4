@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IFileDataDao">
+
+	<resultMap type="com.h2y.bmg.entity.FileData" id="filedataDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="fileName" column="file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="diskFileName" column="disk_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="rootPath" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="relativePath" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="fileSize" column="file_size" javaType="long" jdbcType="BIGINT" />
+		<result property="fileSuffix" column="file_suffix" javaType="string" jdbcType="VARCHAR" />
+		<result property="ifDelete" column="if_delete" javaType="int" jdbcType="INTEGER" />
+		<result property="fileType" column="file_type" javaType="int" jdbcType="INTEGER" />
+		<result property="dataId" column="data_id" javaType="long" jdbcType="BIGINT" />
+		<result property="dataVersion" column="data_version" javaType="int" jdbcType="INTEGER" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ord" column="ord" javaType="int" jdbcType="INTEGER" />
+		<result property="dataType" column="data_type" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="filedataDaoListMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="fileName" column="file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="diskFileName" column="disk_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="rootPath" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="relativePath" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="fileSize" column="file_size" javaType="long" jdbcType="BIGINT" />
+		<result property="fileSuffix" column="file_suffix" javaType="string" jdbcType="VARCHAR" />
+		<result property="ifDelete" column="if_delete" javaType="int" jdbcType="INTEGER" />
+		<result property="fileType" column="file_type" javaType="int" jdbcType="INTEGER" />
+		<result property="dataId" column="data_id" javaType="long" jdbcType="BIGINT" />
+		<result property="dataVersion" column="data_version" javaType="int" jdbcType="INTEGER" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ord" column="ord" javaType="int" jdbcType="INTEGER" />
+		<result property="dataType" column="data_type" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.FileData">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_file_data 
+		</selectKey>  
+		insert into tb_file_data
+		(
+		file_name,
+		disk_file_name,
+		root_path,
+		relative_path,
+		file_size,
+		file_suffix,
+		if_delete,
+		file_type,
+		data_id,
+		data_version,
+		create_date,
+		ord,
+		data_type
+		)
+		values (
+		#{fileName,jdbcType=VARCHAR},
+		#{diskFileName,jdbcType=VARCHAR},
+		#{rootPath,jdbcType=VARCHAR},
+		#{relativePath,jdbcType=VARCHAR},
+		#{fileSize,jdbcType=BIGINT},
+		#{fileSuffix,jdbcType=VARCHAR},
+		#{ifDelete,jdbcType=INTEGER},
+		#{fileType,jdbcType=INTEGER},
+		#{dataId,jdbcType=BIGINT},
+		#{dataVersion,jdbcType=INTEGER},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{ord,jdbcType=INTEGER},
+		#{dataType,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.FileData">
+		update tb_file_data
+		set
+		file_name = #{fileName,jdbcType=VARCHAR},
+		disk_file_name = #{diskFileName,jdbcType=VARCHAR},
+		root_path = #{rootPath,jdbcType=VARCHAR},
+		relative_path = #{relativePath,jdbcType=VARCHAR},
+		file_size = #{fileSize,jdbcType=BIGINT},
+		file_suffix = #{fileSuffix,jdbcType=VARCHAR},
+		if_delete = #{ifDelete,jdbcType=INTEGER},
+		file_type = #{fileType,jdbcType=INTEGER},
+		data_id = #{dataId,jdbcType=BIGINT},
+		data_version = #{dataVersion,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		ord = #{ord,jdbcType=INTEGER},
+		data_type = #{dataType,jdbcType=INTEGER}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.FileData">
+		delete from
+		tb_file_data
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_file_data
+		where
+		id = #{id} 
+	</delete>
+
+	<select id="get" parameterType="long"
+		resultMap="filedataDaoMap">
+		select * from tb_file_data where id = #{id}
+	</select>
+	
+	<insert id="addBatch" parameterType="com.h2y.bmg.entity.FileData">
+		insert into tb_file_data
+		(
+		file_name,
+		disk_file_name,
+		root_path,
+		relative_path,
+		file_size,
+		file_suffix,
+		if_delete,
+		file_type,
+		data_id,
+		data_version,
+		create_date,
+		ord,
+		data_type
+		)
+		values 
+		<foreach collection="list" item="item" separator=",">
+        (
+		#{item.fileName,jdbcType=VARCHAR},
+		#{item.diskFileName,jdbcType=VARCHAR},
+		#{item.rootPath,jdbcType=VARCHAR},
+		#{item.relativePath,jdbcType=VARCHAR},
+		#{item.fileSize,jdbcType=BIGINT},
+		#{item.fileSuffix,jdbcType=VARCHAR},
+		#{item.ifDelete,jdbcType=INTEGER},
+		#{item.fileType,jdbcType=INTEGER},
+		#{item.dataId,jdbcType=BIGINT},
+		#{item.dataVersion,jdbcType=INTEGER},
+		#{item.createDate,jdbcType=TIMESTAMP},
+		#{item.ord,jdbcType=INTEGER},
+		#{item.dataType,jdbcType=INTEGER}
+		)
+        </foreach>
+	</insert>
+	
+	<select id="getListByGoodsVersion" parameterType="hashmap" resultMap="filedataDaoListMap">
+		select 
+			id,
+			file_name,
+			file_type,
+			ord,
+			data_type
+		from tb_file_data 
+		where data_id = #{dataId} 
+		and if_delete != 1
+		order by ord
+	</select>
+	
+	
+	<select id="getFileListByGoodsVersion" parameterType="hashmap" resultMap="filedataDaoMap">
+		select * from tb_file_data 
+		where data_id = #{dataId} 
+		and data_version = #{dataVersion}
+		and data_type = #{dataType}
+		order by ord
+	</select>
+	
+	
+	<update id="deleteByGoodsId" parameterType="hashmap">
+		update tb_file_data
+		set
+		if_delete = 1
+		where data_id = #{goodsId} 
+		and file_type = #{fileType}
+		<if test="ids!=null">
+			and id not in
+			<foreach collection="ids" item="id" open="(" separator=","
+				close=")"> #{id} 
+			</foreach>
+		</if>
+	</update>
+	
+
+</mapper>

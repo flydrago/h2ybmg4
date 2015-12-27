@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ICommonImageDao">
+
+	<resultMap type="com.h2y.bmg.entity.CommonImage" id="commonimageDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="typeCode" column="type_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="logoName" column="logo_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="rootPath" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="relativePath" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="iosFileName" column="ios_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="androidFileName" column="android_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="wechatFileName" column="wechat_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="startDate" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="endDate" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="isDefault" column="is_default" javaType="int" jdbcType="INTEGER" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="ord" column="ord" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="commonimageDaoListMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="typeCode" column="type_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="logoName" column="logo_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="rootPath" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="relativePath" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="iosFileName" column="ios_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="androidFileName" column="android_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="wechatFileName" column="wechat_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="startDate" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="endDate" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="isDefault" column="is_default" javaType="int" jdbcType="INTEGER" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="ord" column="ord" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.CommonImage">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_common_image 
+		</selectKey>  
+		insert into tb_common_image
+		(
+		unit_id,
+		type_code,
+		logo_name,
+		root_path,
+		relative_path,
+		ios_file_name,
+		android_file_name,
+		wechat_file_name,
+		create_date,
+		update_date,
+		start_date,
+		end_date,
+		is_default,
+		status,
+		memo,
+		ord
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{typeCode,jdbcType=VARCHAR},
+		#{logoName,jdbcType=VARCHAR},
+		#{rootPath,jdbcType=VARCHAR},
+		#{relativePath,jdbcType=VARCHAR},
+		#{iosFileName,jdbcType=VARCHAR},
+		#{androidFileName,jdbcType=VARCHAR},
+		#{wechatFileName,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{startDate,jdbcType=TIMESTAMP},
+		#{endDate,jdbcType=TIMESTAMP},
+		#{isDefault,jdbcType=INTEGER},
+		#{status,jdbcType=INTEGER},
+		#{memo,jdbcType=VARCHAR},
+		#{ord,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.CommonImage">
+		update tb_common_image
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		type_code = #{typeCode,jdbcType=VARCHAR},
+		logo_name = #{logoName,jdbcType=VARCHAR},
+		root_path = #{rootPath,jdbcType=VARCHAR},
+		relative_path = #{relativePath,jdbcType=VARCHAR},
+		ios_file_name = #{iosFileName,jdbcType=VARCHAR},
+		android_file_name = #{androidFileName,jdbcType=VARCHAR},
+		wechat_file_name = #{wechatFileName,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		start_date = #{startDate,jdbcType=TIMESTAMP},
+		end_date = #{endDate,jdbcType=TIMESTAMP},
+		is_default = #{isDefault,jdbcType=INTEGER},
+		status = #{status,jdbcType=INTEGER},
+		memo = #{memo,jdbcType=VARCHAR},
+		ord = #{ord,jdbcType=BIGINT}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.CommonImage">
+		delete from
+		tb_common_image
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_common_image
+		where
+		id = #{id} 
+	</delete>
+
+	<select id="get" parameterType="long"
+		resultMap="commonimageDaoMap">
+		select * from tb_common_image where id = #{id}
+	</select>
+	
+	
+	<select id="getListMap" parameterType="hashmap" resultMap="commonimageDaoListMap">
+		select
+		 *
+		from
+		tb_common_image
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			unit_id = #{unitId}
+			and status &lt;&gt; -1
+			and type_code = #{typeCode}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by is_default,ord desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select
+		 count(id)
+		from
+		tb_common_image
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			unit_id = #{unitId}
+			and status &lt;&gt; -1
+			and type_code = #{typeCode}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	
+	<select id="getDateCrossListRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(id)
+		FROM
+			tb_common_image 
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			!(start_date &gt;= #{endDate} OR end_date &lt;= #{startDate})
+			AND type_code = #{typeCode}
+			AND unit_id = #{unitId}
+			AND is_default &lt;&gt; 1
+			AND `status` &lt;&gt; -1
+			<if test="op == 'modify'">
+				and id &lt;&gt; #{id}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="getDefaultListRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(id)
+		FROM
+			tb_common_image 
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			AND type_code = #{typeCode}
+			AND unit_id = #{unitId}
+			AND is_default = 1
+			AND `status` &lt;&gt; -1
+			<if test="op == 'modify'">
+				and id &lt;&gt; #{id}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="getResult" parameterType="hashmap" resultMap="commonimageDaoMap">
+		select * from tb_common_image where unit_id = #{unitId} 
+		and type_code = #{typeCode}
+		and ((NOW() BETWEEN start_date AND end_date) or is_default = 1)
+		and `status` = 0
+		order by is_default
+		limit 0,1
+	</select>
+
+</mapper>

@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IUnitSortDao">
+
+	<resultMap type="com.h2y.bmg.entity.UnitSort" id="unitsortDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="parentId" column="parent_id" javaType="long" jdbcType="BIGINT" />
+		<result property="sortCode" column="sort_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="sortName" column="sort_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="sortPrefix" column="sort_prefix" javaType="string" jdbcType="VARCHAR" />
+		<result property="ord" column="ord" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	<insert id="add" parameterType="com.h2y.bmg.entity.UnitSort">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_unit_sort 
+		</selectKey>  
+		insert into tb_unit_sort
+		(
+		parent_id,
+		sort_code,
+		sort_name,
+		create_date,
+		update_date,
+		memo,
+		status,
+		sort_prefix,
+		ord
+		)
+		values (
+		#{parentId,jdbcType=BIGINT},
+		#{sortCode,jdbcType=VARCHAR},
+		#{sortName,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{memo,jdbcType=VARCHAR},
+		#{status,jdbcType=INTEGER},
+		#{sortPrefix,jdbcType=VARCHAR},
+		#{ord,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.UnitSort">
+		update tb_unit_sort
+		set
+		parent_id = #{parentId,jdbcType=BIGINT},
+		sort_code = #{sortCode,jdbcType=VARCHAR},
+		sort_name = #{sortName,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		memo = #{memo,jdbcType=VARCHAR},
+		status = #{status,jdbcType=INTEGER},
+		sort_prefix = #{sortPrefix,jdbcType=VARCHAR},
+		ord = #{ord,jdbcType=BIGINT}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.UnitSort">
+		delete from
+		tb_unit_sort
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_unit_sort
+		where
+		id = #{id} 
+	</delete>
+	
+	<delete id="deleteByIds">
+		delete from
+		tb_unit_sort
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	
+
+	<select id="get" parameterType="long"
+		resultMap="unitsortDaoMap">
+		select * from tb_unit_sort where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.bmg.entity.UnitSort"
+		resultMap="unitsortDaoMap">
+		select * from
+		tb_unit_sort
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="parentId!= null">
+			and parent_id = #{parentId}
+			</if>
+			<if test="sortCode!= null and sortCode!=''">
+			and sort_code = #{sortCode}
+			</if>
+			<if test="sortName!= null and sortName!=''">
+			and sort_name = #{sortName}
+			</if>
+			<if test="createDate!= null and createDate!=''">
+			and create_date = #{createDate}
+			</if>
+			<if test="updateDate!= null and updateDate!=''">
+			and update_date = #{updateDate}
+			</if>
+			<if test="memo!= null and memo!=''">
+			and memo = #{memo}
+			</if>
+			<if test="status!= null">
+			and status = #{status}
+			</if>
+			<if test="sortPrefix!= null and sortPrefix!=''">
+			and sort_prefix = #{sortPrefix}
+			</if>
+			<if test="ord!= null">
+			and ord = #{ord}
+			</if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListMap" parameterType="hashmap" resultMap="unitsortDaoMap">
+		select
+		*
+		from
+		tb_unit_sort
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+					status &lt;&gt; -1
+				<if test="parentId!= null">
+					and parent_id = #{parentId}
+				</if>	
+				<if test="ifQuery!=null and ifQuery!=''">
+					and ${ifQuery}
+				</if>							
+			</trim>
+			<choose>
+				<when test="sortname !=null and sortname !=''">
+					order by ${sortname}
+					<if test="sortorder !=null and sortorder !='' ">
+						${sortorder}
+					</if>
+				</when>
+			<otherwise>
+				order by ord desc
+			</otherwise>
+		</choose>
+
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_unit_sort
+
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+					status &lt;&gt; -1
+				<if test="parentId!= null">
+					and parent_id = #{parentId}
+				</if>
+				<if test="ifQuery!=null and ifQuery!=''">
+					and ${ifQuery}
+				</if>								
+			</trim>
+		
+	</select>
+	
+	
+	
+	<select id="getChildTreeListById" parameterType="long"
+		resultType="hashmap">
+		select
+		id,
+		parent_id as pid,
+		sort_name as text,
+		sort_code as code
+		from
+		tb_unit_sort
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			status=0
+			and
+			parent_id = #{id}
+		</trim>
+		order by ord desc
+	</select>
+
+
+	<select id="getChildRowsById" parameterType="long" resultType="long">
+		select
+		count(id)
+		from
+		tb_unit_sort
+		where status=0
+		and parent_id= #{id}
+	</select>
+
+	<select id="getAllTreeList" resultType="hashmap">
+		select
+		id,
+		parent_id as pid,
+		sort_name as text,
+		sort_code as code
+		from
+		tb_unit_sort
+		where status = 0
+		order by ord desc
+	</select>
+
+	<select id="getChildSelectListById" parameterType="long"
+		resultType="hashmap">
+		select
+		id,
+		sort_name as name,
+		sort_code as code
+		from
+		tb_unit_sort
+		where status=0
+		and parent_id = #{id}
+		order by ord
+		desc
+	</select>
+
+
+	<select id="getRowsByParentId" parameterType="long" resultType="hashmap">
+		select
+		*
+		from
+		tb_unit_sort
+		where status=0
+		and parent_id= #{parentId}
+	</select>
+	
+	
+	<select id="getUnitSortByCode" parameterType="com.h2y.bmg.entity.UnitSort" resultType="hashmap">
+		select
+		*
+		from
+		tb_unit_sort
+		where status=0
+		and id &lt;&gt; #{id}
+		and sort_code= #{sortCode}
+	</select>
+	
+	
+	
+	<select id="getListMapById" parameterType="hashmap" resultType="hashmap">
+		select
+		id,
+		parent_id as pid,
+		sort_name as text,
+		sort_code as code
+		from
+		tb_unit_sort
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			status=0
+			and
+			parent_id = #{id}
+			<if test="sortName!= null and sortName!=''">
+				and sort_name like #{sortName}
+			</if>
+		</trim>
+		order by ord desc
+	</select>
+	
+	
+	
+	
+</mapper>

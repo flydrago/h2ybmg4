@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ICommonActivitySubjectRtDao">
+
+	<resultMap type="com.h2y.bmg.entity.CommonActivitySubjectRt" id="commonactivitysubjectDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="activityId" column="activity_id" javaType="long" jdbcType="BIGINT" />
+		<result property="subjectId" column="subject_id" javaType="long" jdbcType="BIGINT" />
+		<result property="ord" column="ord" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="commonactivitysubjectDaoListMap">
+		<result property="SUBJECT_NAME" column="subject_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="SUBJECT_TYPE" column="subject_type" javaType="int" jdbcType="INTEGER" />
+		<result property="SUBJECT_CONTENT" column="subject_content" javaType="string" jdbcType="VARCHAR" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="ROOT_PATH" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="RELATIVE_PATH" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="IOS_FILE_NAME" column="ios_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="ANDROID_FILE_NAME" column="android_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="WECHAT_FILE_NAME" column="wechat_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="SUBJECT_ID" column="subject_id" javaType="string" jdbcType="VARCHAR" />
+		<result property="ORD" column="ord" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.CommonActivitySubjectRt">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_common_activity_subject_rt 
+		</selectKey>  
+		insert into tb_common_activity_subject_rt
+		(
+		activity_id,
+		subject_id,
+		ord
+		)
+		values (
+		#{activityId,jdbcType=BIGINT},
+		#{subjectId,jdbcType=BIGINT},
+		#{ord,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.CommonActivitySubjectRt">
+		update tb_common_activity_subject_rt
+		set
+		activity_id = #{activityId,jdbcType=BIGINT},
+		subject_id = #{subjectId,jdbcType=BIGINT},
+		ord = #{ord,jdbcType=INTEGER}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.CommonActivitySubjectRt">
+		delete from
+		tb_common_activity_subject_rt
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_common_activity_subject_rt
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_common_activity_subject_rt
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="commonactivitysubjectDaoMap">
+		select * from tb_common_activity_subject_rt where id = #{id}
+	</select>
+	
+	
+	<select id="getListMap" parameterType="hashmap" resultMap="commonactivitysubjectDaoListMap">
+		SELECT
+			cs.subject_name,
+			cs.subject_type,
+			cs.subject_content,
+			cs.unit_id,
+			cs.root_path,
+			cs.relative_path,
+			cs.ios_file_name,
+			cs.android_file_name,
+			cs.wechat_file_name,
+			cs.create_date,
+			cs.status,
+			cas.id,
+			cas.subject_id,
+			cas.ord
+		FROM
+			tb_common_subject cs
+		JOIN tb_common_activity_subject_rt cas ON cs.id = cas.subject_id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			cas.activity_id = #{activityId}
+			and cs.unit_id = #{unitId}
+			and cs.status &lt;&gt; 2
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by cas.ord desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<delete id="deleteByActivityIdAndSubjectIds" parameterType="hashmap">
+		delete from
+		tb_common_activity_subject_rt
+		where
+		activity_id = #{activityId}
+		and subject_id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	
+	<delete id="deleteByActivityIdAndSubjectId" parameterType="hashmap">
+		delete from
+		tb_common_activity_subject_rt
+		where
+		activity_id = #{activityId}
+		and subject_id = #{subjectId}
+	</delete>
+	
+	<insert id="addBatch" parameterType="com.h2y.bmg.entity.CommonActivitySubjectRt">
+		insert into tb_common_activity_subject_rt
+		(
+		activity_id,
+		subject_id,
+		ord
+		)
+		values 
+		<foreach collection="list" item="item" separator=",">
+        (
+		#{item.activityId,jdbcType=BIGINT},
+		#{item.subjectId,jdbcType=BIGINT},
+		#{item.ord,jdbcType=INTEGER}
+		)
+        </foreach>
+	</insert>
+	
+	<select id="getRowsByActivityId" parameterType="long" resultType="long">
+		SELECT
+			count(id)
+		FROM
+			tb_common_activity_subject_rt
+		where activity_id = #{activityId}
+	</select>
+	
+</mapper>

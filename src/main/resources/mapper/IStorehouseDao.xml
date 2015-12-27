@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IStorehouseDao">
+
+	<resultMap type="com.h2y.bmg.entity.Storehouse" id="storehouseDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="type" column="type" javaType="int" jdbcType="INTEGER" />
+		<result property="storeName" column="store_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="storeSpeName" column="store_spe_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="storeFirSpeName" column="store_fir_spe_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitType" column="unit_type" javaType="int" jdbcType="INTEGER" />
+		<result property="zoneCode" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="shopId" column="shop_id" javaType="long" jdbcType="BIGINT" />
+		<result property="parentType" column="parent_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="longitude" column="longitude" javaType="double" jdbcType="DOUBLE" />
+		<result property="latitude" column="latitude" javaType="double" jdbcType="DOUBLE" />
+		<result property="zoneDetail" column="zone_detail" javaType="string" jdbcType="VARCHAR" />
+		<result property="telePhone" column="tele_phone" javaType="string" jdbcType="VARCHAR" />
+		<result property="principal" column="principal" javaType="string" jdbcType="VARCHAR" />
+		<result property="principalMobile" column="principal_mobile" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="s3stcode" column="s3stcode" javaType="string" jdbcType="VARCHAR" />
+		<result property="s3createdate" column="s3createdate" javaType="date" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="storehouseDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="TYPE" column="type" javaType="string" jdbcType="VARCHAR" />
+		<result property="STORE_NAME" column="store_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="STORE_SPE_NAME" column="store_spe_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="STORE_FIR_SPE_NAME" column="store_fir_spe_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_TYPE" column="unit_type" javaType="int" jdbcType="INTEGER" />
+		<result property="ZONE_CODE" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="SHOP_ID" column="shop_id" javaType="long" jdbcType="BIGINT" />
+		<result property="PARENT_TYPE" column="parent_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="LONGITUDE" column="longitude" javaType="double" jdbcType="DOUBLE" />
+		<result property="LATITUDE" column="latitude" javaType="double" jdbcType="DOUBLE" />
+		<result property="ZONE_DETAIL" column="zone_detail" javaType="string" jdbcType="VARCHAR" />
+		<result property="TELEPHONE" column="tele_phone" javaType="string" jdbcType="VARCHAR" />
+		<result property="PRINCIPAL" column="principal" javaType="string" jdbcType="VARCHAR" />
+		<result property="PRINCIPAL_MOBILE" column="principal_mobile" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.Storehouse">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_storehouse 
+		</selectKey>  
+		insert into tb_storehouse
+		(
+		type,
+		store_name,
+		store_spe_name,
+		store_fir_spe_name,
+		status,
+		unit_id,
+		unit_type,
+		zone_code,
+		shop_id,
+		parent_type,
+		longitude,
+		latitude,
+		zone_detail,
+		tele_phone,
+		principal,
+		principal_mobile,
+		create_date,
+		memo,
+		s3stcode,
+		s3createdate
+		)
+		values (
+		#{type,jdbcType=INTEGER},
+		#{storeName,jdbcType=VARCHAR},
+		#{storeSpeName,jdbcType=VARCHAR},
+		#{storeFirSpeName,jdbcType=VARCHAR},
+		#{status,jdbcType=INTEGER},
+		#{unitId,jdbcType=BIGINT},
+		#{unitType,jdbcType=INTEGER},
+		#{zoneCode,jdbcType=VARCHAR},
+		#{shopId,jdbcType=BIGINT},
+		#{parentType,jdbcType=VARCHAR},
+		#{longitude,jdbcType=DOUBLE},
+		#{latitude,jdbcType=DOUBLE},
+		#{zoneDetail,jdbcType=VARCHAR},
+		#{telePhone,jdbcType=VARCHAR},
+		#{principal,jdbcType=VARCHAR},
+		#{principalMobile,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{memo,jdbcType=VARCHAR},
+		#{s3stcode,jdbcType=VARCHAR},
+		#{s3createdate,jdbcType=TIMESTAMP}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.Storehouse">
+		update tb_storehouse
+		set
+		type = #{type,jdbcType=INTEGER},
+		store_name = #{storeName,jdbcType=VARCHAR},
+		store_spe_name = #{storeSpeName,jdbcType=VARCHAR},
+		store_fir_spe_name = #{storeFirSpeName,jdbcType=VARCHAR},
+		status = #{status,jdbcType=INTEGER},
+		unit_id = #{unitId,jdbcType=BIGINT},
+		unit_type = #{unitType,jdbcType=INTEGER},
+		zone_code = #{zoneCode,jdbcType=VARCHAR},
+		shop_id = #{shopId,jdbcType=BIGINT},
+		parent_type = #{parentType,jdbcType=VARCHAR},
+		longitude = #{longitude,jdbcType=DOUBLE},
+		latitude = #{latitude,jdbcType=DOUBLE},
+		zone_detail = #{zoneDetail,jdbcType=VARCHAR},
+		tele_phone = #{telePhone,jdbcType=VARCHAR},
+		principal = #{principal,jdbcType=VARCHAR},
+		principal_mobile = #{principalMobile,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		memo = #{memo,jdbcType=VARCHAR},
+		s3stcode = #{s3stcode,jdbcType=VARCHAR},
+		s3createdate = #{s3createdate,jdbcType=TIMESTAMP}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.Storehouse">
+		delete from
+		tb_storehouse
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_storehouse
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_storehouse
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="storehouseDaoMap">
+		select * from tb_storehouse where id = #{id}
+	</select>
+
+	<select id="getListMap" parameterType="hashmap" resultMap="storehouseDaoListMap">
+		select * from
+		tb_storehouse
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			status &lt;&gt; -1
+			and unit_id = #{unitId}
+			and parent_type = #{parentType}
+			<if test="parentType=='shop'">
+				and shop_id = #{shopId}
+			</if>
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if>
+			</when>
+			<otherwise>
+				order by create_date desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select
+		count(id)
+		from
+		tb_storehouse
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			status &lt;&gt; 2
+			and unit_id = #{unitId}
+			and parent_type = #{parentType}
+			<if test="parentType=='shop'">
+				and shop_id = #{shopId}
+			</if>
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	<update id="updateStatusByIds" parameterType="hashmap">
+		update tb_storehouse
+		set
+		status = #{status}
+		where id in
+		<foreach collection="ids" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+		<if test="op=='delete'">
+			and type = 4		
+		</if>
+	</update>
+	
+	<select id="getShopTreeList" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			CONCAT('dept_',CAST(id AS CHAR)) as id,
+			CASE
+			WHEN parent_id = 0 THEN
+				CONCAT('unit_', CAST(unit_id AS CHAR))
+			ELSE
+				CONCAT('dept_', CAST(parent_id AS CHAR))
+			END AS pid,
+		 	dept_name AS text,
+		 	dept_type AS type
+		FROM
+			tb_sys_department
+		WHERE
+			unit_id = #{unitId}
+		AND if_delete = 0
+		AND((dept_type = 0 AND if_has_shop = 1) OR(dept_type = 1))
+		UNION 
+		SELECT
+			CONCAT('unit_', CAST(id AS CHAR))AS id,
+			0 AS pid,
+			unit_name AS text,
+			 -1 AS type
+		FROM
+			tb_sys_units
+		WHERE
+			id = #{unitId}
+	</select>
+	
+	
+	<select id="getRowsByParentType" parameterType="hashmap" resultType="long">
+		select
+		count(id)
+		from
+		tb_storehouse
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			status &lt;&gt; -1
+			and unit_id = #{unitId}
+			and parent_type = #{parentType}
+			<if test="parentType=='shop'">
+				and shop_id = #{shopId}
+			</if>
+		</trim>
+	</select>
+
+</mapper>

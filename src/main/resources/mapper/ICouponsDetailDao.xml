@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ICouponsDetailDao">
+
+	<resultMap type="com.h2y.bmg.entity.CouponsDetail" id="couponsdetailDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="couponsId" column="coupons_id" javaType="long" jdbcType="BIGINT" />
+		<result property="couponsCode" column="coupons_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="couponsRule" column="coupons_rule" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<insert id="add" parameterType="com.h2y.bmg.entity.CouponsDetail">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_coupons_detail 
+		</selectKey>  
+		insert into tb_coupons_detail
+		(
+		coupons_id,
+		coupons_code,
+		coupons_rule
+		)
+		values (
+		#{couponsId,jdbcType=BIGINT},
+		#{couponsCode,jdbcType=VARCHAR},
+		#{couponsRule,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.CouponsDetail">
+		update tb_coupons_detail
+		set
+		coupons_id = #{couponsId,jdbcType=BIGINT},
+		coupons_code = #{couponsCode,jdbcType=VARCHAR},
+		coupons_rule = #{couponsRule,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.CouponsDetail">
+		delete from
+		tb_coupons_detail
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_coupons_detail
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_coupons_detail
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="couponsdetailDaoMap">
+		select * from tb_coupons_detail where id = #{id}
+	</select>
+
+	<select id="getByCouponsCode" parameterType="string"
+		resultMap="couponsdetailDaoMap">
+		select * from tb_coupons_detail where coupons_code = #{couponsCode}
+	</select>
+	
+</mapper>

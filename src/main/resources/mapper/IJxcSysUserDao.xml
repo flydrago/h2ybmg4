@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.jxc.dao.IJxcSysUserDao">
+
+	<resultMap type="com.h2y.jxc.entity.SysUser" id="sysuserDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="userName" column="user_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="account" column="account" javaType="string" jdbcType="VARCHAR" />
+		<result property="password" column="password" javaType="string" jdbcType="VARCHAR" />
+		<result property="mobile" column="mobile" javaType="string" jdbcType="VARCHAR" />
+		<result property="email" column="email" javaType="string" jdbcType="VARCHAR" />
+		<result property="userCord" column="user_cord" javaType="string" jdbcType="VARCHAR" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ifLock" column="if_lock" javaType="long" jdbcType="BIGINT" />
+		<result property="ifSys" column="if_sys" javaType="long" jdbcType="BIGINT" />
+		<result property="ifDelete" column="if_delete" javaType="long" jdbcType="BIGINT" />
+		<result property="userOrd" column="user_ord" javaType="long" jdbcType="BIGINT" />
+		<result property="reverse1" column="reverse_1" javaType="long" jdbcType="BIGINT" />
+		<result property="reverse2" column="reverse_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="reverse3" column="reverse_3" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<insert id="add" parameterType="com.h2y.jxc.entity.SysUser">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_sys_user 
+		</selectKey>  
+		insert into tb_sys_user
+		(
+		unit_id,
+		user_name,
+		account,
+		password,
+		mobile,
+		email,
+		user_cord,
+		update_date,
+		if_lock,
+		if_sys,
+		if_delete,
+		user_ord,
+		reverse_1,
+		reverse_2,
+		reverse_3
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{userName,jdbcType=VARCHAR},
+		#{account,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR},
+		#{mobile,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR},
+		#{userCord,jdbcType=VARCHAR},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{ifLock,jdbcType=BIGINT},
+		#{ifSys,jdbcType=BIGINT},
+		#{ifDelete,jdbcType=BIGINT},
+		#{userOrd,jdbcType=BIGINT},
+		#{reverse1,jdbcType=BIGINT},
+		#{reverse2,jdbcType=VARCHAR},
+		#{reverse3,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.jxc.entity.SysUser">
+		update tb_sys_user
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		user_name = #{userName,jdbcType=VARCHAR},
+		account = #{account,jdbcType=VARCHAR},
+		password = #{password,jdbcType=VARCHAR},
+		mobile = #{mobile,jdbcType=VARCHAR},
+		email = #{email,jdbcType=VARCHAR},
+		user_cord = #{userCord,jdbcType=VARCHAR},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		if_lock = #{ifLock,jdbcType=BIGINT},
+		if_sys = #{ifSys,jdbcType=BIGINT},
+		if_delete = #{ifDelete,jdbcType=BIGINT},
+		user_ord = #{userOrd,jdbcType=BIGINT},
+		reverse_1 = #{reverse1,jdbcType=BIGINT},
+		reverse_2 = #{reverse2,jdbcType=VARCHAR},
+		reverse_3 = #{reverse3,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.jxc.entity.SysUser">
+		delete from
+		tb_sys_user
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_sys_user
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_sys_user
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="sysuserDaoMap">
+		select * from tb_sys_user where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.jxc.entity.SysUser"
+		resultMap="sysuserDaoMap">
+		select * from
+		tb_sys_user
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="unitId!= null">
+			and unit_id = #{unitId}
+			</if>
+			<if test="userName!= null and userName!=''">
+			and user_name = #{userName}
+			</if>
+			<if test="account!= null and account!=''">
+			and account = #{account}
+			</if>
+			<if test="password!= null and password!=''">
+			and password = #{password}
+			</if>
+			<if test="mobile!= null and mobile!=''">
+			and mobile = #{mobile}
+			</if>
+			<if test="email!= null and email!=''">
+			and email = #{email}
+			</if>
+			<if test="userCord!= null and userCord!=''">
+			and user_cord = #{userCord}
+			</if>
+			<if test="updateDate!= null and updateDate!=''">
+			and update_date = #{updateDate}
+			</if>
+			<if test="ifLock!= null">
+			and if_lock = #{ifLock}
+			</if>
+			<if test="ifSys!= null">
+			and if_sys = #{ifSys}
+			</if>
+			<if test="ifDelete!= null">
+			and if_delete = #{ifDelete}
+			</if>
+			<if test="userOrd!= null">
+			and user_ord = #{userOrd}
+			</if>
+			<if test="reverse1!= null">
+			and reverse_1 = #{reverse1}
+			</if>
+			<if test="reverse2!= null and reverse2!=''">
+			and reverse_2 = #{reverse2}
+			</if>
+			<if test="reverse3!= null and reverse3!=''">
+			and reverse_3 = #{reverse3}
+			</if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="sysuserDaoMap">
+		select
+		*
+		from
+		tb_sys_user
+		<if test="keySysUser!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keySysUser.id!= null">
+				and id = #{keySysUser.id}
+				</if>
+				<if test="keySysUser.unitId!= null">
+				and unit_id = #{keySysUser.unitId}
+				</if>
+				<if test="keySysUser.userName!= null and keySysUser.userName!=''">
+				and user_name = #{keySysUser.userName}
+				</if>
+				<if test="keySysUser.account!= null and keySysUser.account!=''">
+				and account = #{keySysUser.account}
+				</if>
+				<if test="keySysUser.password!= null and keySysUser.password!=''">
+				and password = #{keySysUser.password}
+				</if>
+				<if test="keySysUser.mobile!= null and keySysUser.mobile!=''">
+				and mobile = #{keySysUser.mobile}
+				</if>
+				<if test="keySysUser.email!= null and keySysUser.email!=''">
+				and email = #{keySysUser.email}
+				</if>
+				<if test="keySysUser.userCord!= null and keySysUser.userCord!=''">
+				and user_cord = #{keySysUser.userCord}
+				</if>
+				<if test="keySysUser.updateDate!= null and keySysUser.updateDate!=''">
+				and update_date = #{keySysUser.updateDate}
+				</if>
+				<if test="keySysUser.ifLock!= null">
+				and if_lock = #{keySysUser.ifLock}
+				</if>
+				<if test="keySysUser.ifSys!= null">
+				and if_sys = #{keySysUser.ifSys}
+				</if>
+				<if test="keySysUser.ifDelete!= null">
+				and if_delete = #{keySysUser.ifDelete}
+				</if>
+				<if test="keySysUser.userOrd!= null">
+				and user_ord = #{keySysUser.userOrd}
+				</if>
+				<if test="keySysUser.reverse1!= null">
+				and reverse_1 = #{keySysUser.reverse1}
+				</if>
+				<if test="keySysUser.reverse2!= null and keySysUser.reverse2!=''">
+				and reverse_2 = #{keySysUser.reverse2}
+				</if>
+				<if test="keySysUser.reverse3!= null and keySysUser.reverse3!=''">
+				and reverse_3 = #{keySysUser.reverse3}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_sys_user
+		<if test="keySysUser!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keySysUser.id!= null">
+				and id = #{keySysUser.id}
+				</if>
+				<if test="keySysUser.unitId!= null">
+				and unit_id = #{keySysUser.unitId}
+				</if>
+				<if test="keySysUser.userName!= null and keySysUser.userName!=''">
+				and user_name = #{keySysUser.userName}
+				</if>
+				<if test="keySysUser.account!= null and keySysUser.account!=''">
+				and account = #{keySysUser.account}
+				</if>
+				<if test="keySysUser.password!= null and keySysUser.password!=''">
+				and password = #{keySysUser.password}
+				</if>
+				<if test="keySysUser.mobile!= null and keySysUser.mobile!=''">
+				and mobile = #{keySysUser.mobile}
+				</if>
+				<if test="keySysUser.email!= null and keySysUser.email!=''">
+				and email = #{keySysUser.email}
+				</if>
+				<if test="keySysUser.userCord!= null and keySysUser.userCord!=''">
+				and user_cord = #{keySysUser.userCord}
+				</if>
+				<if test="keySysUser.updateDate!= null and keySysUser.updateDate!=''">
+				and update_date = #{keySysUser.updateDate}
+				</if>
+				<if test="keySysUser.ifLock!= null">
+				and if_lock = #{keySysUser.ifLock}
+				</if>
+				<if test="keySysUser.ifSys!= null">
+				and if_sys = #{keySysUser.ifSys}
+				</if>
+				<if test="keySysUser.ifDelete!= null">
+				and if_delete = #{keySysUser.ifDelete}
+				</if>
+				<if test="keySysUser.userOrd!= null">
+				and user_ord = #{keySysUser.userOrd}
+				</if>
+				<if test="keySysUser.reverse1!= null">
+				and reverse_1 = #{keySysUser.reverse1}
+				</if>
+				<if test="keySysUser.reverse2!= null and keySysUser.reverse2!=''">
+				and reverse_2 = #{keySysUser.reverse2}
+				</if>
+				<if test="keySysUser.reverse3!= null and keySysUser.reverse3!=''">
+				and reverse_3 = #{keySysUser.reverse3}
+				</if>
+			</trim>
+		</if>
+	</select>
+</mapper>

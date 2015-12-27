@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ISysParamDao">
+
+	<resultMap type="com.h2y.bmg.entity.SysParam" id="sysparamDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="typeId" column="type_id" javaType="long" jdbcType="BIGINT" />
+		<result property="paramsCode" column="params_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="paramsValue" column="params_value" javaType="string" jdbcType="VARCHAR" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="ord" column="ord" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="sysparamDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="TYPE_ID" column="type_id" javaType="long" jdbcType="BIGINT" />
+		<result property="PARAMS_CODE" column="params_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="PARAMS_VALUE" column="params_value" javaType="string" jdbcType="VARCHAR" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="ORD" column="ord" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.SysParam">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_sys_param 
+		</selectKey>  
+		insert into tb_sys_param
+		(
+		unit_id,
+		type_id,
+		params_code,
+		params_value,
+		memo,
+		ord
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{typeId,jdbcType=BIGINT},
+		#{paramsCode,jdbcType=VARCHAR},
+		#{paramsValue,jdbcType=VARCHAR},
+		#{memo,jdbcType=VARCHAR},
+		#{ord,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.SysParam">
+		update tb_sys_param
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		type_id = #{typeId,jdbcType=BIGINT},
+		params_code = #{paramsCode,jdbcType=VARCHAR},
+		params_value = #{paramsValue,jdbcType=VARCHAR},
+		memo = #{memo,jdbcType=VARCHAR},
+		ord = #{ord,jdbcType=BIGINT}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.SysParam">
+		delete from
+		tb_sys_param
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_sys_param
+		where
+		id = #{id} 
+	</delete>
+	
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_sys_param
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="sysparamDaoMap">
+		select * from tb_sys_param where id = #{id}
+	</select>
+
+	<select id="getListMap" parameterType="hashmap"
+		resultMap="sysparamDaoListMap">
+		SELECT
+			*
+		FROM
+		(
+			SELECT
+				*
+			FROM
+				tb_sys_param
+			WHERE
+				unit_id = #{unitId}
+			AND type_id = #{typeId}
+			<if test="unitId != 1">
+			UNION
+			SELECT
+				*
+			FROM
+				tb_sys_param
+			WHERE
+				unit_id = 1
+			AND type_id = #{typeId}
+			AND params_code NOT IN(
+				SELECT
+					params_code
+				FROM
+					tb_sys_param
+				WHERE
+					unit_id = #{unitId}
+				AND type_id = #{typeId}
+			)
+			</if>
+		)a 
+		<if test="sortname !=null and sortname !='' ">
+			order by ${sortname}
+			<if test="sortorder !=null and sortorder !='' ">
+				${sortorder} 
+			</if>
+		</if>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(id)
+		FROM
+		(
+			SELECT
+				id
+			FROM
+				tb_sys_param
+			WHERE
+				unit_id = #{unitId}
+			AND type_id = #{typeId}
+			<if test="unitId != 1">
+			UNION
+			SELECT
+				id
+			FROM
+				tb_sys_param
+			WHERE
+				unit_id = 1
+			AND type_id = #{typeId}
+			AND params_code NOT IN(
+				SELECT
+					params_code
+				FROM
+					tb_sys_param
+				WHERE
+					unit_id = #{unitId}
+				AND type_id = #{typeId}
+			)
+			</if>
+		)a 
+	</select>
+	
+	
+	<select id="getRowsByTypeIdAndCode" parameterType="hashmap" resultType="long">
+		select
+		count(id)
+		from
+		tb_sys_param
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			unit_id = #{unitId}
+			and type_id = #{typeId}
+			and params_code = #{paramsCode}
+			<if test="id!=null">
+				and id &lt;&gt; #{id}
+			</if>
+		</trim>
+	</select>
+	
+	<insert id="addBatch" parameterType="com.h2y.bmg.entity.SysParam">
+		insert into tb_sys_param
+		(
+		unit_id,
+		type_id,
+		params_code,
+		params_value,
+		memo,
+		ord
+		)
+		values 
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.unitId,jdbcType=BIGINT},
+			#{item.typeId,jdbcType=BIGINT},
+			#{item.paramsCode,jdbcType=VARCHAR},
+			#{item.paramsValue,jdbcType=VARCHAR},
+			#{item.memo,jdbcType=VARCHAR},
+			#{item.ord,jdbcType=BIGINT}
+			)
+        </foreach>
+	</insert>
+	
+	
+	<select id="getByTypeIdAndCode" parameterType="hashmap" resultMap="sysparamDaoMap">
+		select
+			*
+		from
+		tb_sys_param
+		where 
+		unit_id = #{unitId}
+		and type_id = #{typeId}
+		and params_code = #{paramsCode}
+		limit 0,1
+	</select>
+	
+	<select id="getListByTypeId" parameterType="hashmap" resultMap="sysparamDaoMap">
+	
+		select * from (
+		SELECT
+			*
+		FROM
+			tb_sys_param
+		WHERE
+			unit_id = #{unitId}
+		AND type_id = #{typeId}
+		<if test="unitId != 1">
+		UNION
+		SELECT
+			*
+		FROM
+			tb_sys_param
+		WHERE
+			unit_id = 1
+		AND type_id = #{typeId}
+		AND params_code NOT IN(
+			SELECT
+				params_code
+			FROM
+				tb_sys_param
+			WHERE
+				unit_id = #{unitId}
+			AND type_id = #{typeId}
+		)
+		</if>) a order by a.ord
+	</select>
+	
+</mapper>

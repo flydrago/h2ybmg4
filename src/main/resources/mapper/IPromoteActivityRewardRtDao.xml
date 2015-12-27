@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IPromoteActivityRewardRtDao">
+
+	<resultMap type="com.h2y.bmg.entity.PromoteActivityRewardRt" id="promoteactivityrewardrtDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="promoteId" column="promote_id" javaType="long" jdbcType="BIGINT" />
+		<result property="rewardTarget" column="reward_target" javaType="int" jdbcType="INTEGER" />
+		<result property="dataType" column="data_type" javaType="int" jdbcType="INTEGER" />
+		<result property="bigint1" column="bigint_1" javaType="long" jdbcType="BIGINT" />
+		<result property="bigint2" column="bigint_2" javaType="long" jdbcType="BIGINT" />
+		<result property="date1" column="date_1" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="date2" column="date_2" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="int1" column="int_1" javaType="int" jdbcType="INTEGER" />
+		<result property="int2" column="int_2" javaType="int" jdbcType="INTEGER" />
+		<result property="double1" column="double_1" javaType="double" jdbcType="DOUBLE" />
+		<result property="double2" column="double_2" javaType="double" jdbcType="DOUBLE" />
+		<result property="str1" column="str_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="str2" column="str_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="str3" column="str_3" javaType="string" jdbcType="VARCHAR" />
+		<result property="str4" column="str_4" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<insert id="add" parameterType="com.h2y.bmg.entity.PromoteActivityRewardRt">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_promote_activity_reward_rt 
+		</selectKey>  
+		insert into tb_promote_activity_reward_rt
+		(
+		promote_id,
+		reward_target,
+		data_type,
+		bigint_1,
+		bigint_2,
+		date_1,
+		date_2,
+		int_1,
+		int_2,
+		double_1,
+		double_2,
+		str_1,
+		str_2,
+		str_3,
+		str_4
+		)
+		values (
+		#{promoteId,jdbcType=BIGINT},
+		#{rewardTarget,jdbcType=INTEGER},
+		#{dataType,jdbcType=INTEGER},
+		#{bigint1,jdbcType=BIGINT},
+		#{bigint2,jdbcType=BIGINT},
+		#{date1,jdbcType=TIMESTAMP},
+		#{date2,jdbcType=TIMESTAMP},
+		#{int1,jdbcType=INTEGER},
+		#{int2,jdbcType=INTEGER},
+		#{double1,jdbcType=DOUBLE},
+		#{double2,jdbcType=DOUBLE},
+		#{str1,jdbcType=VARCHAR},
+		#{str2,jdbcType=VARCHAR},
+		#{str3,jdbcType=VARCHAR},
+		#{str4,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.PromoteActivityRewardRt">
+		update tb_promote_activity_reward_rt
+		set
+		promote_id = #{promoteId,jdbcType=BIGINT},
+		reward_target = #{rewardTarget,jdbcType=INTEGER},
+		data_type = #{dataType,jdbcType=INTEGER},
+		bigint_1 = #{bigint1,jdbcType=BIGINT},
+		bigint_2 = #{bigint2,jdbcType=BIGINT},
+		date_1 = #{date1,jdbcType=TIMESTAMP},
+		date_2 = #{date2,jdbcType=TIMESTAMP},
+		int_1 = #{int1,jdbcType=INTEGER},
+		int_2 = #{int2,jdbcType=INTEGER},
+		double_1 = #{double1,jdbcType=DOUBLE},
+		double_2 = #{double2,jdbcType=DOUBLE},
+		str_1 = #{str1,jdbcType=VARCHAR},
+		str_2 = #{str2,jdbcType=VARCHAR},
+		str_3 = #{str3,jdbcType=VARCHAR},
+		str_4 = #{str4,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.PromoteActivityRewardRt">
+		delete from
+		tb_promote_activity_reward_rt
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_promote_activity_reward_rt
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_promote_activity_reward_rt
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="promoteactivityrewardrtDaoMap">
+		select * from tb_promote_activity_reward_rt where id = #{id}
+	</select>
+
+
+	<!-- 根据活动id获取 -->
+	<select id="getByPromoteId" parameterType="long"
+		resultMap="promoteactivityrewardrtDaoMap">
+		select * from tb_promote_activity_reward_rt where promote_id = #{promoteId}
+	</select>
+	
+	
+	
+	<select id="getListMap" parameterType="hashmap"	resultMap="promoteactivityrewardrtDaoMap">
+		select * from
+		tb_promote_activity_reward_rt
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			promote_id = #{promoteId}
+			
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by id desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select
+			count(id)
+		from
+		tb_promote_activity_reward_rt
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			promote_id = #{promoteId}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			
+		</trim>
+	</select>
+	
+	
+	<!-- 判断数据是否已经维护 -->
+	<select id="getSameDataList" parameterType="hashmap" resultType="long">
+		select
+			count(id)
+		from
+		tb_promote_activity_reward_rt
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			promote_id = #{promoteId}
+			and reward_target = #{rewardTarget}
+			<if test="op!=null and op!='' and op=='modify'">
+				and id &lt;&gt; #{id}
+			</if>
+		</trim>
+	</select>
+	
+	
+</mapper>

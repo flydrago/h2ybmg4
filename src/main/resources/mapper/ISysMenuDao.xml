@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ISysMenuDao">
+
+    <resultMap type="com.h2y.bmg.entity.SysMenu" id="sysmenuDaoMap">
+        <result property="id" column="id" javaType="long" jdbcType="BIGINT"/>
+        <result property="parentId" column="parent_id" javaType="long" jdbcType="BIGINT"/>
+        <result property="menuName" column="menu_name" javaType="string" jdbcType="VARCHAR"/>
+        <result property="menuUrl" column="menu_url" javaType="string" jdbcType="VARCHAR"/>
+        <result property="menuIcon" column="menu_icon" javaType="string" jdbcType="VARCHAR"/>
+        <result property="menuOrd" column="menu_ord" javaType="long" jdbcType="BIGINT"/>
+        <result property="ifVisible" column="if_visible" javaType="long" jdbcType="BIGINT"/>
+        <result property="ifMain" column="if_main" javaType="long" jdbcType="BIGINT"/>
+        <result property="ifGrid" column="if_grid" javaType="long" jdbcType="BIGINT"/>
+        <result property="ifQuery" column="if_query" javaType="long" jdbcType="BIGINT"/>
+        <result property="ifValidate" column="if_validate" javaType="long" jdbcType="BIGINT"/>
+        <result property="ifSys" column="if_sys" javaType="long" jdbcType="BIGINT"/>
+    </resultMap>
+
+
+    <resultMap type="java.util.Map" id="sysmenuDaoListMap">
+        <result property="ID" column="id" javaType="long" jdbcType="BIGINT"/>
+        <result property="PARENT_ID" column="parent_id" javaType="long" jdbcType="BIGINT"/>
+        <result property="MENU_NAME" column="menu_name" javaType="string" jdbcType="VARCHAR"/>
+        <result property="MENU_URL" column="menu_url" javaType="string" jdbcType="VARCHAR"/>
+        <result property="MENU_ICON" column="menu_icon" javaType="string" jdbcType="VARCHAR"/>
+        <result property="MENU_ORD" column="menu_ord" javaType="long" jdbcType="BIGINT"/>
+        <result property="IF_VISIBLE" column="if_visible" javaType="long" jdbcType="BIGINT"/>
+        <result property="IF_MAIN" column="if_main" javaType="long" jdbcType="BIGINT"/>
+        <result property="IF_GRID" column="if_grid" javaType="long" jdbcType="BIGINT"/>
+        <result property="IF_QUERY" column="if_query" javaType="long" jdbcType="BIGINT"/>
+        <result property="IF_VALIDATE" column="if_validate" javaType="long" jdbcType="BIGINT"/>
+        <result property="IF_SYS" column="if_sys" javaType="long" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <insert id="add" parameterType="com.h2y.bmg.entity.SysMenu">
+        <selectKey keyProperty="id" resultType="Long" order="AFTER">
+            SELECT max(id) AS value from tb_sys_menu
+        </selectKey>
+        insert into tb_sys_menu
+        (
+        parent_id,
+        menu_name,
+        menu_url,
+        menu_icon,
+        menu_ord,
+        if_visible,
+        if_main,
+        if_grid,
+        if_query,
+        if_validate,
+        if_sys
+        )
+        values (
+        #{parentId,jdbcType=BIGINT},
+        #{menuName,jdbcType=VARCHAR},
+        #{menuUrl,jdbcType=VARCHAR},
+        #{menuIcon,jdbcType=VARCHAR},
+        #{menuOrd,jdbcType=BIGINT},
+        #{ifVisible,jdbcType=BIGINT},
+        #{ifMain,jdbcType=BIGINT},
+        #{ifGrid,jdbcType=BIGINT},
+        #{ifQuery,jdbcType=BIGINT},
+        #{ifValidate,jdbcType=BIGINT},
+        #{ifSys,jdbcType=BIGINT}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.h2y.bmg.entity.SysMenu">
+		update tb_sys_menu
+		set
+		parent_id = #{parentId,jdbcType=BIGINT},
+		menu_name = #{menuName,jdbcType=VARCHAR},
+		menu_url = #{menuUrl,jdbcType=VARCHAR},
+		menu_icon = #{menuIcon,jdbcType=VARCHAR},
+		menu_ord = #{menuOrd,jdbcType=BIGINT},
+		if_visible = #{ifVisible,jdbcType=BIGINT},
+		if_main = #{ifMain,jdbcType=BIGINT},
+		if_grid = #{ifGrid,jdbcType=BIGINT},
+		if_query = #{ifQuery,jdbcType=BIGINT},
+		if_validate = #{ifValidate,jdbcType=BIGINT},
+		if_sys = #{ifSys,jdbcType=BIGINT}
+		where id = #{id}
+	</update>
+
+    <delete id="delete" parameterType="com.h2y.bmg.entity.SysMenu">
+		delete from
+		tb_sys_menu
+		where
+		id = #{id} 
+	</delete>
+
+    <delete id="deleteById" parameterType="long">
+		delete from
+		tb_sys_menu
+		where
+		id = #{id} 
+	</delete>
+
+    <delete id="deleteByIds">
+        delete from
+        tb_sys_menu
+        where
+        id in
+        <foreach collection="list" item="id" open="(" separator=","
+                 close=")">#{id}
+        </foreach>
+    </delete>
+
+
+    <select id="get" parameterType="long"
+            resultMap="sysmenuDaoMap">
+		select * from tb_sys_menu where id = #{id}
+	</select>
+
+    <select id="getList" parameterType="com.h2y.bmg.entity.SysMenu"
+            resultMap="sysmenuDaoMap">
+        select * from
+        tb_sys_menu
+
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+            <if test="id!= null">
+                and id = #{id}
+            </if>
+            <if test="parentId!= null">
+                and parent_id = #{parentId}
+            </if>
+            <if test="menuName!= null and menuName!=''">
+                and menu_name = #{menuName}
+            </if>
+            <if test="menuUrl!= null and menuUrl!=''">
+                and menu_url = #{menuUrl}
+            </if>
+            <if test="menuIcon!= null and menuIcon!=''">
+                and menu_icon = #{menuIcon}
+            </if>
+            <if test="menuOrd!= null">
+                and menu_ord = #{menuOrd}
+            </if>
+            <if test="ifVisible!= null">
+                and if_visible = #{ifVisible}
+            </if>
+            <if test="ifMain!= null">
+                and if_main = #{ifMain}
+            </if>
+            <if test="ifGrid!= null">
+                and if_grid = #{ifGrid}
+            </if>
+            <if test="ifQuery!= null">
+                and if_query = #{ifQuery}
+            </if>
+            <if test="ifValidate!= null">
+                and if_validate = #{ifValidate}
+            </if>
+            <if test="ifSys!= null">
+                and if_sys = #{ifSys}
+            </if>
+        </trim>
+
+    </select>
+
+    <select id="getListPage" parameterType="hashmap" resultMap="sysmenuDaoMap">
+        select
+        *
+        from
+        tb_sys_menu
+        <if test="keySysMenu!= null">
+            <trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+                <if test="keySysMenu.id!= null">
+                    and id = #{keySysMenu.id}
+                </if>
+                <if test="keySysMenu.parentId!= null">
+                    and parent_id = #{keySysMenu.parentId}
+                </if>
+                <if test="keySysMenu.menuName!= null and keySysMenu.menuName!=''">
+                    and menu_name = #{keySysMenu.menuName}
+                </if>
+                <if test="keySysMenu.menuUrl!= null and keySysMenu.menuUrl!=''">
+                    and menu_url = #{keySysMenu.menuUrl}
+                </if>
+                <if test="keySysMenu.menuIcon!= null and keySysMenu.menuIcon!=''">
+                    and menu_icon = #{keySysMenu.menuIcon}
+                </if>
+                <if test="keySysMenu.menuOrd!= null">
+                    and menu_ord = #{keySysMenu.menuOrd}
+                </if>
+                <if test="keySysMenu.ifVisible!= null">
+                    and if_visible = #{keySysMenu.ifVisible}
+                </if>
+                <if test="keySysMenu.ifMain!= null">
+                    and if_main = #{keySysMenu.ifMain}
+                </if>
+                <if test="keySysMenu.ifGrid!= null">
+                    and if_grid = #{keySysMenu.ifGrid}
+                </if>
+                <if test="keySysMenu.ifQuery!= null">
+                    and if_query = #{keySysMenu.ifQuery}
+                </if>
+                <if test="keySysMenu.ifValidate!= null">
+                    and if_validate = #{keySysMenu.ifValidate}
+                </if>
+                <if test="keySysMenu.ifSys!= null">
+                    and if_sys = #{keySysMenu.ifSys}
+                </if>
+            </trim>
+        </if>
+        limit ${(page-1)*pagesize},${pagesize}
+    </select>
+
+    <select id="getRows" parameterType="hashmap" resultType="long">
+        select
+        count(*) from
+        tb_sys_menu
+        <if test="keySysMenu!= null">
+            <trim prefix="WHERE" prefixOverrides="AND |OR ">
+                <if test="keySysMenu.id!= null">
+                    and id = #{keySysMenu.id}
+                </if>
+                <if test="keySysMenu.parentId!= null">
+                    and parent_id = #{keySysMenu.parentId}
+                </if>
+                <if test="keySysMenu.menuName!= null and keySysMenu.menuName!=''">
+                    and menu_name = #{keySysMenu.menuName}
+                </if>
+                <if test="keySysMenu.menuUrl!= null and keySysMenu.menuUrl!=''">
+                    and menu_url = #{keySysMenu.menuUrl}
+                </if>
+                <if test="keySysMenu.menuIcon!= null and keySysMenu.menuIcon!=''">
+                    and menu_icon = #{keySysMenu.menuIcon}
+                </if>
+                <if test="keySysMenu.menuOrd!= null">
+                    and menu_ord = #{keySysMenu.menuOrd}
+                </if>
+                <if test="keySysMenu.ifVisible!= null">
+                    and if_visible = #{keySysMenu.ifVisible}
+                </if>
+                <if test="keySysMenu.ifMain!= null">
+                    and if_main = #{keySysMenu.ifMain}
+                </if>
+                <if test="keySysMenu.ifGrid!= null">
+                    and if_grid = #{keySysMenu.ifGrid}
+                </if>
+                <if test="keySysMenu.ifQuery!= null">
+                    and if_query = #{keySysMenu.ifQuery}
+                </if>
+                <if test="keySysMenu.ifValidate!= null">
+                    and if_validate = #{keySysMenu.ifValidate}
+                </if>
+                <if test="keySysMenu.ifSys!= null">
+                    and if_sys = #{keySysMenu.ifSys}
+                </if>
+            </trim>
+        </if>
+    </select>
+
+    <select id="getTreeData" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			id,
+			parent_id AS pid,
+			menu_name AS text
+		FROM
+			tb_sys_menu
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="pid!= null">
+                parent_id = #{pid}
+            </if>
+            <if test="ifGrid!= null">
+                if_grid = #{ifGrid}
+            </if>
+            <if test="ifQuery!= null">
+                if_query = #{ifQuery}
+            </if>
+            <if test="ifValidate!= null">
+                if_validate = #{ifValidate}
+            </if>
+        </trim>
+        order by menu_ord
+	</select>
+
+    <select id="getUserMenuTreeData" parameterType="hashmap" resultType="hashmap">
+    
+    	SELECT
+    		DISTINCT
+			sm.id AS id,
+			sm.parent_id AS pid,
+			sm.menu_name AS text,
+			sm.menu_url AS url,
+			sm.menu_icon AS icon
+		FROM
+		<choose>
+			<when test="unitId == 1">
+				tb_sys_menu
+			</when>
+			<otherwise>
+				(SELECT
+					usm.*
+				FROM
+					tb_sys_menu usm,tb_sys_privilege_list upl 
+				WHERE upl.privilege_master = 'ROLE'
+				AND upl.privilege_master_value = #{sysRoleId}
+				AND upl.privilege_access = 'MENU'
+				AND upl.privilege_access_value = usm.id)
+			</otherwise>
+		</choose> sm
+		JOIN tb_sys_privilege_list pl ON pl.privilege_master = 'ROLE'
+		AND pl.privilege_access = 'MENU'
+		AND sm.id = pl.privilege_access_value
+		WHERE sm.if_sys = 0 and sm.if_visible = 1
+		and privilege_master_value in  
+		<foreach collection="roleList" item="id" open="(" separator=","
+                 close=")">#{id}
+        </foreach>
+        order by sm.menu_ord
+	</select>
+	
+	
+	<select id="getSysMenuTreeData" resultType="hashmap">
+		SELECT
+			id AS id,
+			parent_id AS pid,
+			menu_name AS text,
+			menu_url as url,
+			menu_icon as icon
+		FROM
+			tb_sys_menu
+		where if_sys = 1
+		order by menu_ord
+	</select>
+	
+
+    <select id="getListMap" parameterType="hashmap" resultMap="sysmenuDaoListMap">
+		SELECT
+			*
+		FROM
+			tb_sys_menu
+		where parent_id = #{pid} order by menu_ord
+	</select>
+
+
+    <select id="getChildMenuRows" parameterType="long" resultType="long">
+        select
+        count(id) from
+        tb_sys_menu
+        where parent_id = #{menuId}
+    </select>
+
+    <select id="getParentMenus" parameterType="long" resultMap="sysmenuDaoMap">
+        select
+        *
+        from
+        tb_sys_menu
+        where parent_id = #{menuId}  order by menu_ord
+    </select>
+
+
+    <select id="getMenuByUrl" parameterType="hashmap" resultMap="sysmenuDaoMap">
+        select
+        *
+        from
+        tb_sys_menu
+        where menu_url = #{menuUrl}
+    </select>
+    
+    
+   	<select id="getMenuIdByParentIds" parameterType="hashmap" resultType="long">
+		select
+        id
+        from
+        tb_sys_menu
+        where parent_id in (${parentIds});
+	</select>
+
+</mapper>

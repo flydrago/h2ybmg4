@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ICouponsDao">
+
+	<resultMap type="com.h2y.bmg.entity.Coupons" id="couponsDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitType" column="unit_type" javaType="int" jdbcType="INTEGER" />
+		<result property="zoneCode" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="couponsCode" column="coupons_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="couponsName" column="coupons_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="couponsBalance" column="coupons_balance" javaType="double" jdbcType="DOUBLE" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="startDate" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="endDate" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="isActivity" column="is_activity" javaType="int" jdbcType="INTEGER" />
+		<result property="isMulti" column="is_multi" javaType="int" jdbcType="INTEGER" />
+		<result property="isLimitAmount" column="is_limit_amount" javaType="int" jdbcType="INTEGER" />
+		<result property="limitAmount" column="limit_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="isLimitType" column="is_limit_type" javaType="int" jdbcType="INTEGER" />
+		<result property="limitType" column="limit_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="isLimitMark" column="is_limit_mark" javaType="int" jdbcType="INTEGER" />
+		<result property="limitMark" column="limit_mark" javaType="string" jdbcType="VARCHAR" />
+		<result property="isLimitGoods" column="is_limit_goods" javaType="int" jdbcType="INTEGER" />
+		<result property="limitGoods" column="limit_goods" javaType="long" jdbcType="BIGINT" />
+		<result property="isLimitPlatform" column="is_limit_platform" javaType="int" jdbcType="INTEGER" />
+		<result property="limitPlatform" column="limit_platform" javaType="string" jdbcType="VARCHAR" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="str1" column="str_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="str2" column="str_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="isLimitCount" column="is_limit_count" javaType="int" jdbcType="INTEGER" />
+		<result property="limitCount" column="limit_count" javaType="long" jdbcType="BIGINT" />
+		<result property="claimedCount" column="claimed_count" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="couponsDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_TYPE" column="unit_type" javaType="int" jdbcType="INTEGER" />
+		<result property="ZONE_CODE" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="COUPONS_CODE" column="coupons_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="COUPONS_NAME" column="coupons_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="COUPONS_BALANCE" column="coupons_balance" javaType="double" jdbcType="DOUBLE" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="START_DATE" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="END_DATE" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="IS_ACTIVITY" column="is_activity" javaType="int" jdbcType="INTEGER" />
+		<result property="IS_MULTI" column="is_multi" javaType="int" jdbcType="INTEGER" />
+		<result property="IS_LIMIT_AMOUNT" column="is_limit_amount" javaType="int" jdbcType="INTEGER" />
+		<result property="LIMIT_AMOUNT" column="limit_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="IS_LIMIT_TYPE" column="is_limit_type" javaType="int" jdbcType="INTEGER" />
+		<result property="LIMIT_TYPE" column="limit_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="IS_LIMIT_MARK" column="is_limit_mark" javaType="int" jdbcType="INTEGER" />
+		<result property="LIMIT_MARK" column="limit_mark" javaType="string" jdbcType="VARCHAR" />
+		<result property="IS_LIMIT_GOODS" column="is_limit_goods" javaType="int" jdbcType="INTEGER" />
+		<result property="LIMIT_GOODS" column="limit_goods" javaType="long" jdbcType="BIGINT" />
+		<result property="IS_LIMIT_PLATFORM" column="is_limit_platform" javaType="int" jdbcType="INTEGER" />
+		<result property="LIMIT_PLATFORM" column="limit_platform" javaType="string" jdbcType="VARCHAR" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="STR_1" column="str_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="STR_2" column="str_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="IS_LIMIT_COUNT" column="is_limit_count" javaType="int" jdbcType="INTEGER" />
+		<result property="LIMIT_COUNT" column="limit_count" javaType="long" jdbcType="BIGINT" />
+		<result property="CLAIMED_COUNT" column="claimed_count" javaType="long" jdbcType="BIGINT" />
+		<result property="SOURCE_CODE" column="source_code" javaType="string" jdbcType="VARCHAR" />		
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="couponsUserDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="CLAIM_CODE" column="claim_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="COUPONS_ID" column="coupons_id" javaType="long" jdbcType="BIGINT" />
+		<result property="COUPONS_CODE" column="coupons_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="ACCOUNT" column="account" javaType="string" jdbcType="VARCHAR" />
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="USE_DATE" column="use_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="SOURCE_CODE" column="source_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="ORDER_NO" column="order_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="STR_1" column="str_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="STR_2" column="str_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="STR_3" column="str_3" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATE_1" column="date_1" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="DATE_2" column="date_2" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="INT_1" column="int_1" javaType="int" jdbcType="INTEGER" />
+		<result property="INT_2" column="int_2" javaType="int" jdbcType="INTEGER" />
+		<result property="DOUBLE_1" column="double_1" javaType="double" jdbcType="DOUBLE" />
+		<result property="DOUBLE_2" column="double_2" javaType="double" jdbcType="DOUBLE" />
+		<result property="REAL_NAME" column="real_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="NICK_NAME" column="nick_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="SOURCE_CODE_NAME" column="source_code_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="IS_LIMIT_COUNT" column="is_limit_count" javaType="int" jdbcType="INTEGER" />
+		<result property="LIMIT_COUNT" column="limit_count" javaType="long" jdbcType="BIGINT" />
+		<result property="CLAIMED_COUNT" column="claimed_count" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.Coupons">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_coupons 
+		</selectKey>  
+		insert into tb_coupons
+		(
+		unit_id,
+		unit_type,
+		zone_code,
+		coupons_code,
+		coupons_name,
+		coupons_balance,
+		create_date,
+		start_date,
+		end_date,
+		status,
+		is_activity,
+		is_multi,
+		is_limit_amount,
+		limit_amount,
+		is_limit_type,
+		limit_type,
+		is_limit_mark,
+		limit_mark,
+		is_limit_goods,
+		limit_goods,
+		is_limit_platform,
+		limit_platform,
+		memo,
+		str_1,
+		str_2,
+		is_limit_count,
+		limit_count,
+		claimed_count
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{unitType,jdbcType=INTEGER},
+		#{zoneCode,jdbcType=VARCHAR},
+		#{couponsCode,jdbcType=VARCHAR},
+		#{couponsName,jdbcType=VARCHAR},
+		#{couponsBalance,jdbcType=DOUBLE},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{startDate,jdbcType=TIMESTAMP},
+		#{endDate,jdbcType=TIMESTAMP},
+		#{status,jdbcType=INTEGER},
+		#{isActivity,jdbcType=INTEGER},
+		#{isMulti,jdbcType=INTEGER},
+		#{isLimitAmount,jdbcType=INTEGER},
+		#{limitAmount,jdbcType=DOUBLE},
+		#{isLimitType,jdbcType=INTEGER},
+		#{limitType,jdbcType=VARCHAR},
+		#{isLimitMark,jdbcType=INTEGER},
+		#{limitMark,jdbcType=VARCHAR},
+		#{isLimitGoods,jdbcType=INTEGER},
+		#{limitGoods,jdbcType=BIGINT},
+		#{isLimitPlatform,jdbcType=INTEGER},
+		#{limitPlatform,jdbcType=VARCHAR},
+		#{memo,jdbcType=VARCHAR},
+		#{str1,jdbcType=VARCHAR},
+		#{str2,jdbcType=VARCHAR},
+		#{isLimitCount,jdbcType=INTEGER},
+		#{limitCount,jdbcType=BIGINT},
+		#{claimedCount,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.Coupons">
+		update tb_coupons
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		unit_type = #{unitType,jdbcType=INTEGER},
+		zone_code = #{zoneCode,jdbcType=VARCHAR},
+		coupons_code = #{couponsCode,jdbcType=VARCHAR},
+		coupons_name = #{couponsName,jdbcType=VARCHAR},
+		coupons_balance = #{couponsBalance,jdbcType=DOUBLE},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		start_date = #{startDate,jdbcType=TIMESTAMP},
+		end_date = #{endDate,jdbcType=TIMESTAMP},
+		status = #{status,jdbcType=INTEGER},
+		is_activity = #{isActivity,jdbcType=INTEGER},
+		is_multi = #{isMulti,jdbcType=INTEGER},
+		is_limit_amount = #{isLimitAmount,jdbcType=INTEGER},
+		limit_amount = #{limitAmount,jdbcType=DOUBLE},
+		is_limit_type = #{isLimitType,jdbcType=INTEGER},
+		limit_type = #{limitType,jdbcType=VARCHAR},
+		is_limit_mark = #{isLimitMark,jdbcType=INTEGER},
+		limit_mark = #{limitMark,jdbcType=VARCHAR},
+		is_limit_goods = #{isLimitGoods,jdbcType=INTEGER},
+		limit_goods = #{limitGoods,jdbcType=BIGINT},
+		is_limit_platform = #{isLimitPlatform,jdbcType=INTEGER},
+		limit_platform = #{limitPlatform,jdbcType=VARCHAR},
+		memo = #{memo,jdbcType=VARCHAR},
+		str_1 = #{str1,jdbcType=VARCHAR},
+		str_2 = #{str2,jdbcType=VARCHAR},
+		is_limit_count = #{isLimitCount,jdbcType=INTEGER},
+		limit_count = #{limitCount,jdbcType=BIGINT},
+		claimed_count = #{claimedCount,jdbcType=BIGINT}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.Coupons">
+		delete from
+		tb_coupons
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_coupons
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_coupons
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="couponsDaoMap">
+		select * from tb_coupons where id = #{id}
+	</select>
+
+	<select id="getListMap" parameterType="hashmap" resultMap="couponsDaoListMap">
+		select * from
+		tb_coupons
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			unit_id = #{unitId}
+			and status &lt;&gt; -1
+			<if test="isStart!=null and isStart=='yes'">
+				and NOW() BETWEEN  start_date AND end_date
+			</if>
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			<if test="couponsCodeList!=null">
+				and coupons_code not in 
+				<foreach collection="couponsCodeList" item="couponsCode" open="(" separator=","
+					close=")"> #{couponsCode} 
+				</foreach>
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by create_date desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select
+			count(id)
+		from
+		tb_coupons
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			unit_id = #{unitId}
+			and status &lt;&gt; -1
+			<if test="isStart!=null and isStart=='yes'">
+				and NOW() BETWEEN  start_date AND end_date
+			</if>
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			<if test="couponsCodeList!=null">
+				and coupons_code not in 
+				<foreach collection="couponsCodeList" item="couponsCode" open="(" separator=","
+					close=")"> #{couponsCode} 
+				</foreach>
+			</if>
+		</trim>
+	</select>
+	
+	<select id="getMaxCodeByDate" parameterType="hashmap" resultType="string">
+		select
+			MAX(coupons_code)
+		from
+		tb_coupons
+		where
+		coupons_code like #{date}
+	</select>
+	
+	
+	<select id="getClaimListMap" parameterType="hashmap" resultMap="couponsUserDaoListMap">
+		SELECT
+			cu.*, mu.real_name,
+			mu.nick_name,
+			dd.`value` as source_code_name
+		FROM
+			tb_coupons_user_rt cu
+		JOIN tb_member_user mu ON cu.account = mu.account
+		JOIN(
+			tb_sys_dict_detail dd
+			JOIN tb_sys_dict_main dm ON dd.dict_main_id = dm.id
+			AND dm.dict_code = 'sourceCode'
+		)ON cu.source_code = dd.`code`
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			cu.coupons_code = #{couponsCode}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by cu.create_date desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getClaimListRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(cu.id)
+		FROM
+			tb_coupons_user_rt cu
+		JOIN tb_member_user mu ON cu.account = mu.account
+		JOIN(
+			tb_sys_dict_detail dd
+			JOIN tb_sys_dict_main dm ON dd.dict_main_id = dm.id
+			AND dm.dict_code = 'sourceCode'
+		)ON cu.source_code = dd.`code`
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			cu.coupons_code = #{couponsCode}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	
+	<select id="getListMapBySourceId" parameterType="hashmap" resultMap="couponsDaoListMap">
+		SELECT
+			c.*,
+			cs.id as CS_RT_ID,
+			s.source_code
+		FROM
+			tb_coupons c
+		JOIN tb_coupons_source_rt cs ON cs.source_id = #{sourceId}
+		JOIN tb_coupons_source s on s.id = cs.source_id
+		AND c.coupons_code = cs.coupons_code
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			c.unit_id = #{unitId}
+			and c.status &lt;&gt; -1
+			and cs.status &lt;&gt; -1
+			and s.status &lt;&gt; -1
+			<if test="isStart!=null and isStart=='yes'">
+				and NOW() BETWEEN  c.start_date AND  c.end_date
+			</if>
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by c.create_date desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getListRowsBySourceId" parameterType="hashmap" resultType="long">
+		SELECT
+			count(c.id)
+		FROM
+			tb_coupons c
+		JOIN tb_coupons_source_rt cs ON cs.source_id = #{sourceId}
+		AND c.coupons_code = cs.coupons_code
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			c.unit_id = #{unitId}
+			and c.status &lt;&gt; -1
+			and cs.status &lt;&gt; -1
+			<if test="isStart!=null and isStart=='yes'">
+				and NOW() BETWEEN  c.start_date AND  c.end_date
+			</if>
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+
+</mapper>

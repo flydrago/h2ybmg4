@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IFindServiceDao">
+
+	<resultMap type="com.h2y.bmg.entity.FindService" id="findserviceDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="serviceCode" column="service_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="servicePrefix" column="service_prefix" javaType="string" jdbcType="VARCHAR" />
+		<result property="parentId" column="parent_id" javaType="long" jdbcType="BIGINT" />
+		<result property="name" column="name" javaType="string" jdbcType="VARCHAR" />
+		<result property="rootPath" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="relativePath" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="iosFileName" column="ios_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="androidFileName" column="android_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="wechatFileName" column="wechat_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="ord" column="ord" javaType="int" jdbcType="INTEGER" />
+		<result property="serviceUrl" column="service_url" javaType="string" jdbcType="VARCHAR" />
+		<result property="clickEvent" column="click_event" javaType="int" jdbcType="INTEGER" />
+		<result property="urlParams" column="url_params" javaType="string" jdbcType="VARCHAR" />
+		<result property="dataType" column="data_type" javaType="int" jdbcType="INTEGER" />
+		<result property="serviceType" column="service_type" javaType="int" jdbcType="INTEGER" />
+		<result property="isLogin" column="is_login" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="findserviceDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="SERVICE_CODE" column="service_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="SERVICE_PREFIX" column="service_prefix" javaType="string" jdbcType="VARCHAR" />
+		<result property="PARENT_ID" column="parent_id" javaType="long" jdbcType="BIGINT" />
+		<result property="NAME" column="name" javaType="string" jdbcType="VARCHAR" />
+		<result property="ROOT_PATH" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="RELATIVE_PATH" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="IOS_FILE_NAME" column="ios_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="ANDROID_FILE_NAME" column="android_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="WECHAT_FILE_NAME" column="wechat_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="UPDATE_DATE" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="ORD" column="ord" javaType="int" jdbcType="INTEGER" />
+		<result property="DATA_TYPE" column="data_type" javaType="int" jdbcType="INTEGER" />
+		<result property="SERVICE_TYPE" column="service_type" javaType="int" jdbcType="INTEGER" />
+		<result property="CLICK_EVENT" column="click_event" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.FindService">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_find_service 
+		</selectKey>  
+		insert into tb_find_service
+		(
+		service_code,
+		service_prefix,
+		parent_id,
+		name,
+		root_path,
+		relative_path,
+		ios_file_name,
+		android_file_name,
+		wechat_file_name,
+		create_date,
+		update_date,
+		status,
+		memo,
+		ord,
+		service_url,
+		click_event,
+		url_params,
+		data_type,
+		service_type,
+		is_login
+		)
+		values (
+		#{serviceCode,jdbcType=VARCHAR},
+		#{servicePrefix,jdbcType=VARCHAR},
+		#{parentId,jdbcType=BIGINT},
+		#{name,jdbcType=VARCHAR},
+		#{rootPath,jdbcType=VARCHAR},
+		#{relativePath,jdbcType=VARCHAR},
+		#{iosFileName,jdbcType=VARCHAR},
+		#{androidFileName,jdbcType=VARCHAR},
+		#{wechatFileName,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{status,jdbcType=INTEGER},
+		#{memo,jdbcType=VARCHAR},
+		#{ord,jdbcType=INTEGER},
+		#{serviceUrl,jdbcType=VARCHAR},
+		#{clickEvent,jdbcType=INTEGER},
+		#{urlParams,jdbcType=VARCHAR},
+		#{dataType,jdbcType=INTEGER},
+		#{serviceType,jdbcType=INTEGER},
+		#{isLogin,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.FindService">
+		update tb_find_service
+		set
+		service_code = #{serviceCode,jdbcType=VARCHAR},
+		service_prefix = #{servicePrefix,jdbcType=VARCHAR},
+		parent_id = #{parentId,jdbcType=BIGINT},
+		name = #{name,jdbcType=VARCHAR},
+		root_path = #{rootPath,jdbcType=VARCHAR},
+		relative_path = #{relativePath,jdbcType=VARCHAR},
+		ios_file_name = #{iosFileName,jdbcType=VARCHAR},
+		android_file_name = #{androidFileName,jdbcType=VARCHAR},
+		wechat_file_name = #{wechatFileName,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		status = #{status,jdbcType=INTEGER},
+		memo = #{memo,jdbcType=VARCHAR},
+		ord = #{ord,jdbcType=INTEGER},
+		service_url = #{serviceUrl,jdbcType=VARCHAR},
+		click_event = #{clickEvent,jdbcType=INTEGER},
+		url_params = #{urlParams,jdbcType=VARCHAR},
+		data_type = #{dataType,jdbcType=INTEGER},
+		service_type = #{serviceType,jdbcType=INTEGER},
+		is_login = #{isLogin,jdbcType=INTEGER}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.FindService">
+		delete from
+		tb_find_service
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_find_service
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_find_service
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="findserviceDaoMap">
+		select * from tb_find_service where id = #{id}
+	</select>
+
+	<select id="getListMap" parameterType="hashmap" resultMap="findserviceDaoListMap">
+		select * from
+		tb_find_service
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+     		parent_id = #{parentId}
+			and status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			<if test="serviceType!=null and serviceType!=''">
+				and service_type = #{serviceType}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by ord desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select count(id) from
+		tb_find_service
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+     		parent_id = #{parentId}
+			and status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			<if test="serviceType!=null and serviceType!=''">
+				and service_type = #{serviceType}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="getTreeList" resultType="hashmap" parameterType="hashmap">
+		select
+			id,
+			name as text,
+			parent_id as pid,
+			data_type as dataType
+		from
+		tb_find_service
+		where status &lt;&gt; -1
+		<if test="serviceType!=null and serviceType !='' ">
+    		and service_type = #{serviceType}
+    	</if>
+		
+		order by ord desc
+	</select>
+	
+	
+	<select id="getSameServiceCodeRows" parameterType="hashmap" resultType="long">
+		select count(id) from
+		tb_find_service
+    	where service_code = #{serviceCode}
+    	<if test="memo!=null and memo !='' ">
+    		and memo = #{memo}
+    	</if> 
+    	<if test="op=='modify'">
+    		and id &lt;&gt; #{id}
+    	</if>
+		and status &lt;&gt; -1
+	</select>
+	
+	
+	<select id="getByServiceCode" parameterType="string"
+		resultMap="findserviceDaoMap">
+		select * from tb_find_service where service_code = #{serviceCode} limit 0,1
+	</select>
+</mapper>

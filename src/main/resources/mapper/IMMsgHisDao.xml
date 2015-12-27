@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IMMsgHisDao">
+
+	<resultMap type="com.h2y.bmg.entity.MMsgHis" id="mmsghisDaoMap">
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="topic" column="topic" javaType="string" jdbcType="VARCHAR" />
+		<result property="title" column="title" javaType="string" jdbcType="VARCHAR" />
+		<result property="describtion" column="describtion" javaType="string" jdbcType="VARCHAR" />
+		<result property="url" column="url" javaType="string" jdbcType="VARCHAR" />
+		<result property="body" column="body" javaType="string" jdbcType="VARCHAR" />
+		<result property="mfrom" column="mfrom" javaType="string" jdbcType="VARCHAR" />
+		<result property="mto" column="mto" javaType="string" jdbcType="VARCHAR" />
+		<result property="channelId" column="channel_id" javaType="string" jdbcType="VARCHAR" />
+		<result property="tag" column="tag" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="sendDate" column="send_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="type" column="type" javaType="int" jdbcType="INTEGER" />
+		<result property="isall" column="isall" javaType="int" jdbcType="INTEGER" />
+		<result property="receiptMark" column="receipt_mark" javaType="int" jdbcType="INTEGER" />
+		<result property="receiptDate" column="receipt_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="data1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="data2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+		<result property="data4" column="data_4" javaType="int" jdbcType="INTEGER" />
+		<result property="data5" column="data_5" javaType="int" jdbcType="INTEGER" />
+		<result property="datasourceType" column="datasource_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="datasourceId" column="datasource_id" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<!-- 配送端映射 -->
+	<resultMap type="java.util.Map" id="mmsghisDeliveryDaoMap">
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="TOPIC" column="topic" javaType="string" jdbcType="VARCHAR" />
+		<result property="TITLE" column="title" javaType="string" jdbcType="VARCHAR" />
+		<result property="DESCRIBTION" column="describtion" javaType="string" jdbcType="VARCHAR" />
+		<result property="URL" column="url" javaType="string" jdbcType="VARCHAR" />
+		<result property="BODY" column="body" javaType="string" jdbcType="VARCHAR" />
+		<result property="MFROM" column="mfrom" javaType="string" jdbcType="VARCHAR" />
+		<result property="MTO" column="mto" javaType="string" jdbcType="VARCHAR" />
+		<result property="CHANNEL_ID" column="channel_id" javaType="string" jdbcType="VARCHAR" />
+		<result property="TAG" column="tag" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="SEND_DATE" column="send_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="TYPE" column="type" javaType="int" jdbcType="INTEGER" />
+		<result property="IS_ALL" column="isall" javaType="int" jdbcType="INTEGER" />
+		<result property="RECEIPT_MARK" column="receipt_mark" javaType="int" jdbcType="INTEGER" />
+		<result property="RECEIPT_DATE" column="receipt_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="DATA_1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_4" column="data_4" javaType="int" jdbcType="INTEGER" />
+		<result property="DATA_5" column="data_5" javaType="int" jdbcType="INTEGER" />
+		<result property="DATASOURCE_TYPE" column="datasource_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATASOURCE_ID" column="datasource_id" javaType="string" jdbcType="VARCHAR" />
+	
+		<result property="NAME" column="name" javaType="string" jdbcType="VARCHAR" />
+		<result property="ACCOUNT" column="account" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+	<!-- app映射 -->
+	<resultMap type="java.util.Map" id="mmsghisAppDaoMap">
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="TOPIC" column="topic" javaType="string" jdbcType="VARCHAR" />
+		<result property="TITLE" column="title" javaType="string" jdbcType="VARCHAR" />
+		<result property="DESCRIBTION" column="describtion" javaType="string" jdbcType="VARCHAR" />
+		<result property="URL" column="url" javaType="string" jdbcType="VARCHAR" />
+		<result property="BODY" column="body" javaType="string" jdbcType="VARCHAR" />
+		<result property="MFROM" column="mfrom" javaType="string" jdbcType="VARCHAR" />
+		<result property="MTO" column="mto" javaType="string" jdbcType="VARCHAR" />
+		<result property="CHANNEL_ID" column="channel_id" javaType="string" jdbcType="VARCHAR" />
+		<result property="TAG" column="tag" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="SEND_DATE" column="send_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="TYPE" column="type" javaType="int" jdbcType="INTEGER" />
+		<result property="IS_ALL" column="isall" javaType="int" jdbcType="INTEGER" />
+		<result property="RECEIPT_MARK" column="receipt_mark" javaType="int" jdbcType="INTEGER" />
+		<result property="RECEIPT_DATE" column="receipt_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="DATA_1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_4" column="data_4" javaType="int" jdbcType="INTEGER" />
+		<result property="DATA_5" column="data_5" javaType="int" jdbcType="INTEGER" />
+		<result property="DATASOURCE_TYPE" column="datasource_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATASOURCE_ID" column="datasource_id" javaType="string" jdbcType="VARCHAR" />
+		
+		<result property="NICK_NAME" column="nick_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="REAL_NAME" column="real_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="ACCOUNT" column="account" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- pc映射 -->
+	<resultMap type="java.util.Map" id="mmsghisPcDaoMap">
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="TOPIC" column="topic" javaType="string" jdbcType="VARCHAR" />
+		<result property="TITLE" column="title" javaType="string" jdbcType="VARCHAR" />
+		<result property="DESCRIBTION" column="describtion" javaType="string" jdbcType="VARCHAR" />
+		<result property="URL" column="url" javaType="string" jdbcType="VARCHAR" />
+		<result property="BODY" column="body" javaType="string" jdbcType="VARCHAR" />
+		<result property="MFROM" column="mfrom" javaType="string" jdbcType="VARCHAR" />
+		<result property="MTO" column="mto" javaType="string" jdbcType="VARCHAR" />
+		<result property="CHANNEL_ID" column="channel_id" javaType="string" jdbcType="VARCHAR" />
+		<result property="TAG" column="tag" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="SEND_DATE" column="send_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="TYPE" column="type" javaType="int" jdbcType="INTEGER" />
+		<result property="IS_ALL" column="isall" javaType="int" jdbcType="INTEGER" />
+		<result property="RECEIPT_MARK" column="receipt_mark" javaType="int" jdbcType="INTEGER" />
+		<result property="RECEIPT_DATE" column="receipt_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="DATA_1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_4" column="data_4" javaType="int" jdbcType="INTEGER" />
+		<result property="DATA_5" column="data_5" javaType="int" jdbcType="INTEGER" />
+		<result property="DATASOURCE_TYPE" column="datasource_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATASOURCE_ID" column="datasource_id" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+		
+	<select id="getDeliveryListMap" parameterType="hashmap" resultMap="mmsghisDeliveryDaoMap">
+		
+		SELECT
+			dus.`name`,
+			dus.account,
+			mh.topic,
+			mh.title,
+			mh.describtion,
+			mh.create_date,
+			mh.send_date,
+			mh.`status`,
+			mh.type,
+			mh.receipt_mark,
+			mh.receipt_date,
+			mh.datasource_id,
+			mh.datasource_type
+		FROM
+			tb_m_msg_his mh
+		JOIN tb_delivery_user dus ON mh.mto = dus.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			mh.topic IN ('baidupd', 'iosd')
+			AND mh.datasource_type = #{datasourceType}
+			AND mh.datasource_id = #{datasourceId}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by mh.create_date desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	<select id="getDeliveryListRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(mh.id)
+		FROM
+			tb_m_msg_his mh
+		JOIN tb_delivery_user dus ON mh.mto = dus.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			mh.topic IN ('baidupd', 'iosd')
+			AND mh.datasource_type = #{datasourceType}
+			AND mh.datasource_id = #{datasourceId}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	
+	<select id="getAppListMap" parameterType="hashmap" resultMap="mmsghisAppDaoMap">
+		SELECT
+			mu.account,
+			mu.nick_name,
+			mu.real_name,
+			mh.id,
+			mh.topic,
+			mh.title,
+			mh.describtion,
+			mh.create_date,
+			mh.send_date,
+			mh.`status`,
+			mh.type,
+			mh.receipt_mark,
+			mh.receipt_date,
+			mh.datasource_id,
+			mh.datasource_type
+		FROM
+			tb_m_msg_his mh JOIN tb_member_user mu ON mh.mto = mu.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			mh.topic in ('baidupc','iosc')
+			AND mh.datasource_type = #{datasourceType}
+			AND mh.datasource_id = #{datasourceId}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by mh.create_date desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	<select id="getAppListRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(mh.id)
+		FROM
+			tb_m_msg_his mh JOIN tb_member_user mu ON mh.mto = mu.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			mh.topic in ('baidupc','iosc')
+			AND mh.datasource_type = #{datasourceType}
+			AND mh.datasource_id = #{datasourceId}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	
+	<select id="getPcListMap" parameterType="hashmap" resultMap="mmsghisPcDaoMap">
+		SELECT
+			mh.id,
+			mh.mto,
+			mh.topic,
+			mh.title,
+			mh.describtion,
+			mh.create_date,
+			mh.send_date,
+			mh.`status`,
+			mh.type,
+			mh.receipt_mark,
+			mh.receipt_date,
+			mh.datasource_id,
+			mh.datasource_type
+		FROM
+			tb_m_msg_his mh 
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			mh.topic = 'topic/h2y/p2p'
+			AND mh.datasource_type = #{datasourceType}
+			AND mh.datasource_id = #{datasourceId}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by mh.create_date desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	
+	<select id="getPcListRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(mh.id)
+		FROM
+			tb_m_msg_his mh 
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			mh.topic = 'topic/h2y/p2p'
+			AND mh.datasource_type = #{datasourceType}
+			AND mh.datasource_id = #{datasourceId}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+</mapper>

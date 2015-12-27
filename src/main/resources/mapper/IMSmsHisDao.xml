@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IMSmsHisDao">
+
+	<resultMap type="com.h2y.bmg.entity.MSmsHis" id="msmshisDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="userId" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="mobile" column="mobile" javaType="string" jdbcType="VARCHAR" />
+		<result property="moduleName" column="module_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="sendDate" column="send_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="sendState" column="send_state" javaType="string" jdbcType="VARCHAR" />
+		<result property="msg" column="msg" javaType="string" jdbcType="VARCHAR" />
+		<result property="batchId" column="batch_id" javaType="string" jdbcType="VARCHAR" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="receiptStatus" column="receipt_status" javaType="string" jdbcType="VARCHAR" />
+		<result property="receiptDate" column="receipt_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="data1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="data2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+	<resultMap type="java.util.Map" id="msmshisDaoListMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="USER_ID" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="MOBILE" column="mobile" javaType="string" jdbcType="VARCHAR" />
+		<result property="MODULE_NAME" column="module_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="SEND_DATE" column="send_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="SEND_STATE" column="send_state" javaType="string" jdbcType="VARCHAR" />
+		<result property="MSG" column="msg" javaType="string" jdbcType="VARCHAR" />
+		<result property="BATCH_ID" column="batch_id" javaType="string" jdbcType="VARCHAR" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="RECEIPT_STATUS" column="receipt_status" javaType="string" jdbcType="VARCHAR" />
+		<result property="RECEIPT_DATE" column="receipt_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="DATA_1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<insert id="add" parameterType="com.h2y.bmg.entity.MSmsHis">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_m_sms_his 
+		</selectKey>  
+		insert into tb_m_sms_his
+		(
+		unit_id,
+		user_id,
+		mobile,
+		module_name,
+		create_date,
+		send_date,
+		send_state,
+		msg,
+		batch_id,
+		memo,
+		receipt_status,
+		receipt_date,
+		data_1,
+		data_2,
+		data_3
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{userId,jdbcType=BIGINT},
+		#{mobile,jdbcType=VARCHAR},
+		#{moduleName,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{sendDate,jdbcType=TIMESTAMP},
+		#{sendState,jdbcType=VARCHAR},
+		#{msg,jdbcType=VARCHAR},
+		#{batchId,jdbcType=VARCHAR},
+		#{memo,jdbcType=VARCHAR},
+		#{receiptStatus,jdbcType=VARCHAR},
+		#{receiptDate,jdbcType=TIMESTAMP},
+		#{data1,jdbcType=VARCHAR},
+		#{data2,jdbcType=VARCHAR},
+		#{data3,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.MSmsHis">
+		update tb_m_sms_his
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		user_id = #{userId,jdbcType=BIGINT},
+		mobile = #{mobile,jdbcType=VARCHAR},
+		module_name = #{moduleName,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		send_date = #{sendDate,jdbcType=TIMESTAMP},
+		send_state = #{sendState,jdbcType=VARCHAR},
+		msg = #{msg,jdbcType=VARCHAR},
+		batch_id = #{batchId,jdbcType=VARCHAR},
+		memo = #{memo,jdbcType=VARCHAR},
+		receipt_status = #{receiptStatus,jdbcType=VARCHAR},
+		receipt_date = #{receiptDate,jdbcType=TIMESTAMP},
+		data_1 = #{data1,jdbcType=VARCHAR},
+		data_2 = #{data2,jdbcType=VARCHAR},
+		data_3 = #{data3,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.MSmsHis">
+		delete from
+		tb_m_sms_his
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_m_sms_his
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_m_sms_his
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="msmshisDaoMap">
+		select * from tb_m_sms_his where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.bmg.entity.MSmsHis" resultMap="msmshisDaoMap">
+		select * from
+		tb_m_sms_his
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="unitId!= null">
+			and unit_id = #{unitId}
+			</if>
+			<if test="userId!= null">
+			and user_id = #{userId}
+			</if>
+			<if test="mobile!= null and mobile!=''">
+			and mobile = #{mobile}
+			</if>
+			<if test="moduleName!= null and moduleName!=''">
+			and module_name = #{moduleName}
+			</if>
+			<if test="createDate!= null and createDate!=''">
+			and create_date = #{createDate}
+			</if>
+			<if test="sendDate!= null and sendDate!=''">
+			and send_date = #{sendDate}
+			</if>
+			<if test="sendState!= null and sendState!=''">
+			and send_state = #{sendState}
+			</if>
+			<if test="msg!= null and msg!=''">
+			and msg = #{msg}
+			</if>
+			<if test="batchId!= null and batchId!=''">
+			and batch_id = #{batchId}
+			</if>
+			<if test="memo!= null and memo!=''">
+			and memo = #{memo}
+			</if>
+			<if test="receiptStatus!= null and receiptStatus!=''">
+			and receipt_status = #{receiptStatus}
+			</if>
+			<if test="receiptDate!= null and receiptDate!=''">
+			and receipt_date = #{receiptDate}
+			</if>
+			<if test="data1!= null and data1!=''">
+			and data_1 = #{data1}
+			</if>
+			<if test="data2!= null and data2!=''">
+			and data_2 = #{data2}
+			</if>
+			<if test="data3!= null and data3!=''">
+			and data_3 = #{data3}
+			</if>
+		</trim>
+
+	</select>
+	
+		<select id="getListMap" parameterType="hashmap" resultMap="msmshisDaoListMap">
+		select * from tb_m_sms_his
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder}
+				</if>
+			</when>
+			<otherwise>
+				order by create_date desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select count(id) from tb_m_sms_his
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+</mapper>

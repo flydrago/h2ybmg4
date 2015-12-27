@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ISysShopInfoDao">
+
+	<resultMap type="com.h2y.bmg.entity.SysShopInfo" id="sysshopinfoDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="shopId" column="shop_id" javaType="long" jdbcType="BIGINT" />
+		<result property="shopPhone" column="shop_phone" javaType="string" jdbcType="VARCHAR" />
+		<result property="shopTel" column="shop_tel" javaType="string" jdbcType="VARCHAR" />
+		<result property="isWifi" column="is_wifi" javaType="int" jdbcType="INTEGER" />
+		<result property="isPark" column="is_park" javaType="int" jdbcType="INTEGER" />
+		<result property="isReservation" column="is_reservation" javaType="int" jdbcType="INTEGER" />
+		<result property="isJyd" column="is_jyd" javaType="int" jdbcType="INTEGER" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="personCost" column="person_cost" javaType="double" jdbcType="DOUBLE" />
+		<result property="hoursStart" column="hours_start" javaType="string" jdbcType="VARCHAR" />
+		<result property="hoursEnd" column="hours_end" javaType="string" jdbcType="VARCHAR" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="isApprove" column="is_approve" javaType="int" jdbcType="INTEGER" />
+		<result property="approveLevel" column="approve_level" javaType="int" jdbcType="INTEGER" />
+		<result property="approveDate" column="approve_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="approveUserId" column="approve_user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="approveReviews" column="approve_reviews" javaType="string" jdbcType="VARCHAR" />
+		<result property="isSpread" column="is_spread" javaType="int" jdbcType="INTEGER" />
+		<result property="spreadStartDate" column="spread_start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="spreadEndDate" column="spread_end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="reverse1" column="reverse_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="reverse2" column="reverse_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="reverse3" column="reverse_3" javaType="string" jdbcType="VARCHAR" />
+		<result property="reverse4" column="reverse_4" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<insert id="add" parameterType="com.h2y.bmg.entity.SysShopInfo">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_sys_shop_info 
+		</selectKey>  
+		insert into tb_sys_shop_info
+		(
+		shop_id,
+		shop_phone,
+		shop_tel,
+		is_wifi,
+		is_park,
+		is_reservation,
+		is_jyd,
+		status,
+		person_cost,
+		hours_start,
+		hours_end,
+		memo,
+		is_approve,
+		approve_level,
+		approve_date,
+		approve_user_id,
+		approve_reviews,
+		is_spread,
+		spread_start_date,
+		spread_end_date,
+		create_date,
+		update_date,
+		reverse_1,
+		reverse_2,
+		reverse_3,
+		reverse_4
+		)
+		values (
+		#{shopId,jdbcType=BIGINT},
+		#{shopPhone,jdbcType=VARCHAR},
+		#{shopTel,jdbcType=VARCHAR},
+		#{isWifi,jdbcType=INTEGER},
+		#{isPark,jdbcType=INTEGER},
+		#{isReservation,jdbcType=INTEGER},
+		#{isJyd,jdbcType=INTEGER},
+		#{status,jdbcType=INTEGER},
+		#{personCost,jdbcType=DOUBLE},
+		#{hoursStart,jdbcType=VARCHAR},
+		#{hoursEnd,jdbcType=VARCHAR},
+		#{memo,jdbcType=VARCHAR},
+		#{isApprove,jdbcType=INTEGER},
+		#{approveLevel,jdbcType=INTEGER},
+		#{approveDate,jdbcType=TIMESTAMP},
+		#{approveUserId,jdbcType=BIGINT},
+		#{approveReviews,jdbcType=VARCHAR},
+		#{isSpread,jdbcType=INTEGER},
+		#{spreadStartDate,jdbcType=TIMESTAMP},
+		#{spreadEndDate,jdbcType=TIMESTAMP},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{reverse1,jdbcType=VARCHAR},
+		#{reverse2,jdbcType=VARCHAR},
+		#{reverse3,jdbcType=VARCHAR},
+		#{reverse4,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.SysShopInfo">
+		update tb_sys_shop_info
+		set
+		shop_id = #{shopId,jdbcType=BIGINT},
+		shop_phone = #{shopPhone,jdbcType=VARCHAR},
+		shop_tel = #{shopTel,jdbcType=VARCHAR},
+		is_wifi = #{isWifi,jdbcType=INTEGER},
+		is_park = #{isPark,jdbcType=INTEGER},
+		is_reservation = #{isReservation,jdbcType=INTEGER},
+		is_jyd = #{isJyd,jdbcType=INTEGER},
+		status = #{status,jdbcType=INTEGER},
+		person_cost = #{personCost,jdbcType=DOUBLE},
+		hours_start = #{hoursStart,jdbcType=VARCHAR},
+		hours_end = #{hoursEnd,jdbcType=VARCHAR},
+		memo = #{memo,jdbcType=VARCHAR},
+		is_approve = #{isApprove,jdbcType=INTEGER},
+		approve_level = #{approveLevel,jdbcType=INTEGER},
+		approve_date = #{approveDate,jdbcType=TIMESTAMP},
+		approve_user_id = #{approveUserId,jdbcType=BIGINT},
+		approve_reviews = #{approveReviews,jdbcType=VARCHAR},
+		is_spread = #{isSpread,jdbcType=INTEGER},
+		spread_start_date = #{spreadStartDate,jdbcType=TIMESTAMP},
+		spread_end_date = #{spreadEndDate,jdbcType=TIMESTAMP},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		reverse_1 = #{reverse1,jdbcType=VARCHAR},
+		reverse_2 = #{reverse2,jdbcType=VARCHAR},
+		reverse_3 = #{reverse3,jdbcType=VARCHAR},
+		reverse_4 = #{reverse4,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.SysShopInfo">
+		delete from
+		tb_sys_shop_info
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_sys_shop_info
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_sys_shop_info
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="sysshopinfoDaoMap">
+		select * from tb_sys_shop_info where id = #{id}
+	</select>
+	
+	
+	<select id="getByShopId" parameterType="long"
+		resultMap="sysshopinfoDaoMap">
+		select * from tb_sys_shop_info where shop_id = #{shopId}
+	</select>
+	
+
+	<select id="getList" parameterType="com.h2y.bmg.entity.SysShopInfo"
+		resultMap="sysshopinfoDaoMap">
+		select * from
+		tb_sys_shop_info
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="shopId!= null">
+			and shop_id = #{shopId}
+			</if>
+			<if test="shopPhone!= null and shopPhone!=''">
+			and shop_phone = #{shopPhone}
+			</if>
+			<if test="shopTel!= null and shopTel!=''">
+			and shop_tel = #{shopTel}
+			</if>
+			<if test="isWifi!= null">
+			and is_wifi = #{isWifi}
+			</if>
+			<if test="isPark!= null">
+			and is_park = #{isPark}
+			</if>
+			<if test="isReservation!= null">
+			and is_reservation = #{isReservation}
+			</if>
+			<if test="isJyd!= null">
+			and is_jyd = #{isJyd}
+			</if>
+			<if test="status!= null">
+			and status = #{status}
+			</if>
+			<if test="personCost!= null and personCost!=''">
+			and person_cost = #{personCost}
+			</if>
+			<if test="hoursStart!= null and hoursStart!=''">
+			and hours_start = #{hoursStart}
+			</if>
+			<if test="hoursEnd!= null and hoursEnd!=''">
+			and hours_end = #{hoursEnd}
+			</if>
+			<if test="memo!= null and memo!=''">
+			and memo = #{memo}
+			</if>
+			<if test="isApprove!= null">
+			and is_approve = #{isApprove}
+			</if>
+			<if test="approveLevel!= null">
+			and approve_level = #{approveLevel}
+			</if>
+			<if test="approveDate!= null and approveDate!=''">
+			and approve_date = #{approveDate}
+			</if>
+			<if test="approveUserId!= null">
+			and approve_user_id = #{approveUserId}
+			</if>
+			<if test="approveReviews!= null and approveReviews!=''">
+			and approve_reviews = #{approveReviews}
+			</if>
+			<if test="isSpread!= null">
+			and is_spread = #{isSpread}
+			</if>
+			<if test="spreadStartDate!= null and spreadStartDate!=''">
+			and spread_start_date = #{spreadStartDate}
+			</if>
+			<if test="spreadEndDate!= null and spreadEndDate!=''">
+			and spread_end_date = #{spreadEndDate}
+			</if>
+			<if test="createDate!= null and createDate!=''">
+			and create_date = #{createDate}
+			</if>
+			<if test="updateDate!= null and updateDate!=''">
+			and update_date = #{updateDate}
+			</if>
+			<if test="reverse1!= null and reverse1!=''">
+			and reverse_1 = #{reverse1}
+			</if>
+			<if test="reverse2!= null and reverse2!=''">
+			and reverse_2 = #{reverse2}
+			</if>
+			<if test="reverse3!= null and reverse3!=''">
+			and reverse_3 = #{reverse3}
+			</if>
+			<if test="reverse4!= null and reverse4!=''">
+			and reverse_4 = #{reverse4}
+			</if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="sysshopinfoDaoMap">
+		select
+		*
+		from
+		tb_sys_shop_info
+		<if test="keySysShopInfo!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keySysShopInfo.id!= null">
+				and id = #{keySysShopInfo.id}
+				</if>
+				<if test="keySysShopInfo.shopId!= null">
+				and shop_id = #{keySysShopInfo.shopId}
+				</if>
+				<if test="keySysShopInfo.shopPhone!= null and keySysShopInfo.shopPhone!=''">
+				and shop_phone = #{keySysShopInfo.shopPhone}
+				</if>
+				<if test="keySysShopInfo.shopTel!= null and keySysShopInfo.shopTel!=''">
+				and shop_tel = #{keySysShopInfo.shopTel}
+				</if>
+				<if test="keySysShopInfo.isWifi!= null">
+				and is_wifi = #{keySysShopInfo.isWifi}
+				</if>
+				<if test="keySysShopInfo.isPark!= null">
+				and is_park = #{keySysShopInfo.isPark}
+				</if>
+				<if test="keySysShopInfo.isReservation!= null">
+				and is_reservation = #{keySysShopInfo.isReservation}
+				</if>
+				<if test="keySysShopInfo.isJyd!= null">
+				and is_jyd = #{keySysShopInfo.isJyd}
+				</if>
+				<if test="keySysShopInfo.status!= null">
+				and status = #{keySysShopInfo.status}
+				</if>
+				<if test="keySysShopInfo.personCost!= null and keySysShopInfo.personCost!=''">
+				and person_cost = #{keySysShopInfo.personCost}
+				</if>
+				<if test="keySysShopInfo.hoursStart!= null and keySysShopInfo.hoursStart!=''">
+				and hours_start = #{keySysShopInfo.hoursStart}
+				</if>
+				<if test="keySysShopInfo.hoursEnd!= null and keySysShopInfo.hoursEnd!=''">
+				and hours_end = #{keySysShopInfo.hoursEnd}
+				</if>
+				<if test="keySysShopInfo.memo!= null and keySysShopInfo.memo!=''">
+				and memo = #{keySysShopInfo.memo}
+				</if>
+				<if test="keySysShopInfo.isApprove!= null">
+				and is_approve = #{keySysShopInfo.isApprove}
+				</if>
+				<if test="keySysShopInfo.approveLevel!= null">
+				and approve_level = #{keySysShopInfo.approveLevel}
+				</if>
+				<if test="keySysShopInfo.approveDate!= null and keySysShopInfo.approveDate!=''">
+				and approve_date = #{keySysShopInfo.approveDate}
+				</if>
+				<if test="keySysShopInfo.approveUserId!= null">
+				and approve_user_id = #{keySysShopInfo.approveUserId}
+				</if>
+				<if test="keySysShopInfo.approveReviews!= null and keySysShopInfo.approveReviews!=''">
+				and approve_reviews = #{keySysShopInfo.approveReviews}
+				</if>
+				<if test="keySysShopInfo.isSpread!= null">
+				and is_spread = #{keySysShopInfo.isSpread}
+				</if>
+				<if test="keySysShopInfo.spreadStartDate!= null and keySysShopInfo.spreadStartDate!=''">
+				and spread_start_date = #{keySysShopInfo.spreadStartDate}
+				</if>
+				<if test="keySysShopInfo.spreadEndDate!= null and keySysShopInfo.spreadEndDate!=''">
+				and spread_end_date = #{keySysShopInfo.spreadEndDate}
+				</if>
+				<if test="keySysShopInfo.createDate!= null and keySysShopInfo.createDate!=''">
+				and create_date = #{keySysShopInfo.createDate}
+				</if>
+				<if test="keySysShopInfo.updateDate!= null and keySysShopInfo.updateDate!=''">
+				and update_date = #{keySysShopInfo.updateDate}
+				</if>
+				<if test="keySysShopInfo.reverse1!= null and keySysShopInfo.reverse1!=''">
+				and reverse_1 = #{keySysShopInfo.reverse1}
+				</if>
+				<if test="keySysShopInfo.reverse2!= null and keySysShopInfo.reverse2!=''">
+				and reverse_2 = #{keySysShopInfo.reverse2}
+				</if>
+				<if test="keySysShopInfo.reverse3!= null and keySysShopInfo.reverse3!=''">
+				and reverse_3 = #{keySysShopInfo.reverse3}
+				</if>
+				<if test="keySysShopInfo.reverse4!= null and keySysShopInfo.reverse4!=''">
+				and reverse_4 = #{keySysShopInfo.reverse4}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_sys_shop_info
+		<if test="keySysShopInfo!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keySysShopInfo.id!= null">
+				and id = #{keySysShopInfo.id}
+				</if>
+				<if test="keySysShopInfo.shopId!= null">
+				and shop_id = #{keySysShopInfo.shopId}
+				</if>
+				<if test="keySysShopInfo.shopPhone!= null and keySysShopInfo.shopPhone!=''">
+				and shop_phone = #{keySysShopInfo.shopPhone}
+				</if>
+				<if test="keySysShopInfo.shopTel!= null and keySysShopInfo.shopTel!=''">
+				and shop_tel = #{keySysShopInfo.shopTel}
+				</if>
+				<if test="keySysShopInfo.isWifi!= null">
+				and is_wifi = #{keySysShopInfo.isWifi}
+				</if>
+				<if test="keySysShopInfo.isPark!= null">
+				and is_park = #{keySysShopInfo.isPark}
+				</if>
+				<if test="keySysShopInfo.isReservation!= null">
+				and is_reservation = #{keySysShopInfo.isReservation}
+				</if>
+				<if test="keySysShopInfo.isJyd!= null">
+				and is_jyd = #{keySysShopInfo.isJyd}
+				</if>
+				<if test="keySysShopInfo.status!= null">
+				and status = #{keySysShopInfo.status}
+				</if>
+				<if test="keySysShopInfo.personCost!= null and keySysShopInfo.personCost!=''">
+				and person_cost = #{keySysShopInfo.personCost}
+				</if>
+				<if test="keySysShopInfo.hoursStart!= null and keySysShopInfo.hoursStart!=''">
+				and hours_start = #{keySysShopInfo.hoursStart}
+				</if>
+				<if test="keySysShopInfo.hoursEnd!= null and keySysShopInfo.hoursEnd!=''">
+				and hours_end = #{keySysShopInfo.hoursEnd}
+				</if>
+				<if test="keySysShopInfo.memo!= null and keySysShopInfo.memo!=''">
+				and memo = #{keySysShopInfo.memo}
+				</if>
+				<if test="keySysShopInfo.isApprove!= null">
+				and is_approve = #{keySysShopInfo.isApprove}
+				</if>
+				<if test="keySysShopInfo.approveLevel!= null">
+				and approve_level = #{keySysShopInfo.approveLevel}
+				</if>
+				<if test="keySysShopInfo.approveDate!= null and keySysShopInfo.approveDate!=''">
+				and approve_date = #{keySysShopInfo.approveDate}
+				</if>
+				<if test="keySysShopInfo.approveUserId!= null">
+				and approve_user_id = #{keySysShopInfo.approveUserId}
+				</if>
+				<if test="keySysShopInfo.approveReviews!= null and keySysShopInfo.approveReviews!=''">
+				and approve_reviews = #{keySysShopInfo.approveReviews}
+				</if>
+				<if test="keySysShopInfo.isSpread!= null">
+				and is_spread = #{keySysShopInfo.isSpread}
+				</if>
+				<if test="keySysShopInfo.spreadStartDate!= null and keySysShopInfo.spreadStartDate!=''">
+				and spread_start_date = #{keySysShopInfo.spreadStartDate}
+				</if>
+				<if test="keySysShopInfo.spreadEndDate!= null and keySysShopInfo.spreadEndDate!=''">
+				and spread_end_date = #{keySysShopInfo.spreadEndDate}
+				</if>
+				<if test="keySysShopInfo.createDate!= null and keySysShopInfo.createDate!=''">
+				and create_date = #{keySysShopInfo.createDate}
+				</if>
+				<if test="keySysShopInfo.updateDate!= null and keySysShopInfo.updateDate!=''">
+				and update_date = #{keySysShopInfo.updateDate}
+				</if>
+				<if test="keySysShopInfo.reverse1!= null and keySysShopInfo.reverse1!=''">
+				and reverse_1 = #{keySysShopInfo.reverse1}
+				</if>
+				<if test="keySysShopInfo.reverse2!= null and keySysShopInfo.reverse2!=''">
+				and reverse_2 = #{keySysShopInfo.reverse2}
+				</if>
+				<if test="keySysShopInfo.reverse3!= null and keySysShopInfo.reverse3!=''">
+				and reverse_3 = #{keySysShopInfo.reverse3}
+				</if>
+				<if test="keySysShopInfo.reverse4!= null and keySysShopInfo.reverse4!=''">
+				and reverse_4 = #{keySysShopInfo.reverse4}
+				</if>
+			</trim>
+		</if>
+	</select>
+</mapper>

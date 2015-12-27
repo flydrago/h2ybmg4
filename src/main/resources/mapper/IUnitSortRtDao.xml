@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IUnitSortRtDao">
+
+	<resultMap type="com.h2y.bmg.entity.UnitSortRt" id="unitsortrtDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="sortId" column="sort_id" javaType="long" jdbcType="BIGINT" />
+		<result property="sortCode" column="sort_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	<insert id="add" parameterType="com.h2y.bmg.entity.UnitSortRt">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_unit_sort_rt 
+		</selectKey>  
+		insert into tb_unit_sort_rt
+		(
+		unit_id,
+		sort_id,
+		sort_code,
+		create_date,
+		update_date,
+		memo,
+		status
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{sortId,jdbcType=BIGINT},
+		#{sortCode,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{memo,jdbcType=VARCHAR},
+		#{status,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.UnitSortRt">
+		update tb_unit_sort_rt
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		sort_id = #{sortId,jdbcType=BIGINT},
+		sort_code = #{sortCode,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		memo = #{memo,jdbcType=VARCHAR},
+		status = #{status,jdbcType=INTEGER}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.UnitSortRt">
+		delete from
+		tb_unit_sort_rt
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_unit_sort_rt
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_unit_sort_rt
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="unitsortrtDaoMap">
+		select * from tb_unit_sort_rt where id = #{id}
+	</select>
+
+
+
+	<update id="deleteSortRt" parameterType="com.h2y.bmg.entity.UnitSortRt">
+		update tb_unit_sort_rt 
+		set status = -1,
+		update_date = #{updateDate,jdbcType=TIMESTAMP} 
+		where unit_id = #{unitId}
+	</update>
+	
+	<!-- 获取经营范围列表 -->
+	<select id="getSortList" parameterType="hashmap" resultType="hashmap">
+		select 
+		s.id,
+		s.parent_id as pid,
+		s.sort_name as text,
+		s.sort_code as code
+		from tb_unit_sort_rt r,tb_unit_sort s
+		where r.sort_id=s.id and s.status=0 and  r.status=0
+		and r.unit_id = #{unitId}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.bmg.entity.UnitSortRt"
+		resultMap="unitsortrtDaoMap">
+		select * from
+		tb_unit_sort_rt
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="unitId!= null">
+			and unit_id = #{unitId}
+			</if>
+			<if test="sortId!= null">
+			and sort_id = #{sortId}
+			</if>
+			<if test="sortCode!= null and sortCode!=''">
+			and sort_code = #{sortCode}
+			</if>
+			<if test="createDate!= null and createDate!=''">
+			and create_date = #{createDate}
+			</if>
+			<if test="updateDate!= null and updateDate!=''">
+			and update_date = #{updateDate}
+			</if>
+			<if test="memo!= null and memo!=''">
+			and memo = #{memo}
+			</if>
+			<if test="status!= null">
+			and status = #{status}
+			</if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="unitsortrtDaoMap">
+		select
+		*
+		from
+		tb_unit_sort_rt
+		<if test="keyUnitSortRt!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keyUnitSortRt.id!= null">
+				and id = #{keyUnitSortRt.id}
+				</if>
+				<if test="keyUnitSortRt.unitId!= null">
+				and unit_id = #{keyUnitSortRt.unitId}
+				</if>
+				<if test="keyUnitSortRt.sortId!= null">
+				and sort_id = #{keyUnitSortRt.sortId}
+				</if>
+				<if test="keyUnitSortRt.sortCode!= null and keyUnitSortRt.sortCode!=''">
+				and sort_code = #{keyUnitSortRt.sortCode}
+				</if>
+				<if test="keyUnitSortRt.createDate!= null and keyUnitSortRt.createDate!=''">
+				and create_date = #{keyUnitSortRt.createDate}
+				</if>
+				<if test="keyUnitSortRt.updateDate!= null and keyUnitSortRt.updateDate!=''">
+				and update_date = #{keyUnitSortRt.updateDate}
+				</if>
+				<if test="keyUnitSortRt.memo!= null and keyUnitSortRt.memo!=''">
+				and memo = #{keyUnitSortRt.memo}
+				</if>
+				<if test="keyUnitSortRt.status!= null">
+				and status = #{keyUnitSortRt.status}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_unit_sort_rt
+		<if test="keyUnitSortRt!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keyUnitSortRt.id!= null">
+				and id = #{keyUnitSortRt.id}
+				</if>
+				<if test="keyUnitSortRt.unitId!= null">
+				and unit_id = #{keyUnitSortRt.unitId}
+				</if>
+				<if test="keyUnitSortRt.sortId!= null">
+				and sort_id = #{keyUnitSortRt.sortId}
+				</if>
+				<if test="keyUnitSortRt.sortCode!= null and keyUnitSortRt.sortCode!=''">
+				and sort_code = #{keyUnitSortRt.sortCode}
+				</if>
+				<if test="keyUnitSortRt.createDate!= null and keyUnitSortRt.createDate!=''">
+				and create_date = #{keyUnitSortRt.createDate}
+				</if>
+				<if test="keyUnitSortRt.updateDate!= null and keyUnitSortRt.updateDate!=''">
+				and update_date = #{keyUnitSortRt.updateDate}
+				</if>
+				<if test="keyUnitSortRt.memo!= null and keyUnitSortRt.memo!=''">
+				and memo = #{keyUnitSortRt.memo}
+				</if>
+				<if test="keyUnitSortRt.status!= null">
+				and status = #{keyUnitSortRt.status}
+				</if>
+			</trim>
+		</if>
+	</select>
+</mapper>

@@ -1,0 +1,856 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IGoodsPriceDao">
+
+	<resultMap type="com.h2y.bmg.entity.GoodsPrice" id="goodspriceDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsId" column="goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsTypeId" column="goods_type_id" javaType="long" jdbcType="BIGINT" />
+		<result property="gdsCode" column="gds_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="gdsCode2" column="gds_code2" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsNumber" column="goods_number" javaType="string" jdbcType="VARCHAR" />
+		<result property="shortGoodsNumber" column="short_goods_number" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsName" column="goods_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsNickName" column="goods_nick_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="inventory" column="inventory" javaType="int" jdbcType="INTEGER" />
+		<result property="goodsUnit" column="goods_unit" javaType="int" jdbcType="INTEGER" />
+		<result property="spec" column="spec" javaType="int" jdbcType="INTEGER" />
+		<result property="spellName" column="spell_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="firSpellName" column="fir_spell_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="maxPrice" column="max_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="minPrice" column="min_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="memberPrice" column="member_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="marketPrice" column="market_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="sellPrice" column="sell_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="version" column="version" javaType="int" jdbcType="INTEGER" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="shelvesDate" column="shelves_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="clickRate" column="click_rate" javaType="int" jdbcType="INTEGER" />
+		<result property="sellRate" column="sell_rate" javaType="int" jdbcType="INTEGER" />
+		<result property="markIds" column="mark_ids" javaType="string" jdbcType="VARCHAR" />
+		<result property="markInfoIds" column="mark_info_ids" javaType="string" jdbcType="VARCHAR" />
+		<result property="ord" column="ord" javaType="long" jdbcType="BIGINT" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="userId" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="sellUnit" column="sell_unit" javaType="long" jdbcType="BIGINT" />
+		<result property="isLimitSell" column="is_limit_sell" javaType="int" jdbcType="INTEGER" />
+		<result property="isAllowGrade" column="is_allow_grade" javaType="int" jdbcType="INTEGER" />
+		<result property="isGiftGrade" column="is_gift_grade" javaType="int" jdbcType="INTEGER" />
+		<result property="limitSellNumber" column="limit_sell_number" javaType="long" jdbcType="BIGINT" />
+		<result property="limitGradeNumber" column="limit_grade_number" javaType="double" jdbcType="DOUBLE" />
+		<result property="limitGiftNumber" column="limit_gift_number" javaType="long" jdbcType="BIGINT" />
+		<result property="isMallVisible" column="is_mall_visible" javaType="int" jdbcType="INTEGER" />
+		<result property="gdsQr1" column="gds_qr_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="gdsQrInside" column="gds_qr_inside" javaType="string" jdbcType="VARCHAR" />
+		<result property="sparePrice1" column="spare_price1" javaType="double" jdbcType="DOUBLE" />
+		<result property="sparePrice2" column="spare_price2" javaType="double" jdbcType="DOUBLE" />
+		<result property="markIds2" column="mark_ids2" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsSource" column="goods_source" javaType="int" jdbcType="INTEGER" />
+		<result property="addedDate" column="added_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="goodsVersion" column="goods_version" javaType="int" jdbcType="INTEGER" />
+		<result property="goodsStatus" column="goods_status" javaType="int" jdbcType="INTEGER" />
+		<result property="zoneCode" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitType" column="unit_type" javaType="int" jdbcType="INTEGER" />
+		<result property="isActivity" column="is_activity" javaType="int" jdbcType="INTEGER" />
+		<result property="activityPrice" column="activity_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="activityGoodsId" column="activity_goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="activityType" column="activity_type" javaType="int" jdbcType="INTEGER" />
+		<result property="isGift" column="is_gift" javaType="int" jdbcType="INTEGER" />
+		<result property="isRelation" column="is_relation" javaType="int" jdbcType="INTEGER" />
+		<result property="weight" column="weight" javaType="long" jdbcType="BIGINT" />
+		<result property="isAd" column="is_ad" javaType="long" jdbcType="BIGINT" />
+		<result property="allowGradePrice" column="allow_grade_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="goodsEditStatus" column="goods_edit_status" javaType="int" jdbcType="INTEGER" />
+		<result property="s3gdscode" column="s3gdscode" javaType="string" jdbcType="VARCHAR" />
+		<result property="s3createdate" column="s3createdate" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="s3ucode" column="s3ucode" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsScode" column="goods_scode" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsScode2" column="goods_scode2" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="goodspriceDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="GOODS_ID" column="goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="GOODS_NICK_NAME" column="goods_nick_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="GOODS_NAME" column="goods_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="GOODS_VERSION" column="goods_version" javaType="int" jdbcType="INTEGER" />
+		<result property="GOODS_STATUS" column="goods_status" javaType="int" jdbcType="INTEGER" />
+		<result property="ZONE_CODE" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_TYPE" column="unit_type" javaType="int" jdbcType="INTEGER" />
+		<result property="MEMBER_PRICE" column="member_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="MARKET_PRICE" column="market_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="SELL_PRICE" column="sell_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="VERSION" column="version" javaType="int" jdbcType="INTEGER" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="SHELVES_DATE" column="shelves_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ADDED_DATE" column="added_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="INVENTORY" column="inventory" javaType="int" jdbcType="INTEGER" />
+		<result property="IF_ACTIVITY" column="if_activity" javaType="int" jdbcType="INTEGER" />
+		<result property="ACTIVITY_PRICE" column="activity_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="ACTIVITY_GOODS_ID" column="activity_goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="ACTIVITY_TYPE" column="activity_type" javaType="int" jdbcType="INTEGER" />
+		<result property="IS_GIFT" column="is_gift" javaType="int" jdbcType="INTEGER" />
+		<result property="IS_RELATION" column="is_relation" javaType="int" jdbcType="INTEGER" />
+		<result property="ORD" column="ord" javaType="long" jdbcType="BIGINT" />
+		<result property="WEIGHT" column="weight" javaType="long" jdbcType="BIGINT" />
+		<result property="TYPE_NAME" column="type_name" javaType="string" jdbcType="VARCHAR" />	
+		<result property="GOODS_NUMBER" column="goods_number" javaType="string" jdbcType="VARCHAR" />
+		<result property="SHORT_GOODS_NUMBER" column="short_goods_number" javaType="string" jdbcType="VARCHAR" />	
+		<result property="SPEC" column="spec" javaType="int" jdbcType="INTEGER" />
+		<result property="GOODS_UNIT_NAME" column="goods_unit_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="GOODS_SOURCE" column="goods_source" javaType="int" jdbcType="INTEGER" />
+		<result property="GOODS_EDIT_STATUS" column="goods_edit_status" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.GoodsPrice">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_goods_price 
+		</selectKey>  
+		insert into tb_goods_price
+		(
+		goods_id,
+		goods_type_id,
+		gds_code,
+		gds_code2,
+		goods_number,
+		short_goods_number,
+		goods_name,
+		goods_nick_name,
+		inventory,
+		goods_unit,
+		spec,
+		spell_name,
+		fir_spell_name,
+		max_price,
+		min_price,
+		member_price,
+		market_price,
+		sell_price,
+		version,
+		status,
+		create_date,
+		shelves_date,
+		click_rate,
+		sell_rate,
+		mark_ids,
+		mark_info_ids,
+		ord,
+		memo,
+		update_date,
+		user_id,
+		sell_unit,
+		is_limit_sell,
+		is_allow_grade,
+		is_gift_grade,
+		limit_sell_number,
+		limit_grade_number,
+		limit_gift_number,
+		is_mall_visible,
+		gds_qr_1,
+		gds_qr_inside,
+		spare_price1,
+		spare_price2,
+		mark_ids2,
+		goods_source,
+		added_date,
+		goods_version,
+		goods_status,
+		zone_code,
+		unit_id,
+		unit_type,
+		is_activity,
+		activity_price,
+		activity_goods_id,
+		activity_type,
+		is_gift,
+		is_relation,
+		weight,
+		is_ad,
+		allow_grade_price,
+		goods_edit_status,
+		s3gdscode,
+		s3createdate,
+		s3ucode,
+		goods_scode,
+		goods_scode2
+		)
+		values (
+		#{goodsId,jdbcType=BIGINT},
+		#{goodsTypeId,jdbcType=BIGINT},
+		#{gdsCode,jdbcType=VARCHAR},
+		#{gdsCode2,jdbcType=VARCHAR},
+		#{goodsNumber,jdbcType=VARCHAR},
+		#{shortGoodsNumber,jdbcType=VARCHAR},
+		#{goodsName,jdbcType=VARCHAR},
+		#{goodsNickName,jdbcType=VARCHAR},
+		#{inventory,jdbcType=INTEGER},
+		#{goodsUnit,jdbcType=INTEGER},
+		#{spec,jdbcType=INTEGER},
+		#{spellName,jdbcType=VARCHAR},
+		#{firSpellName,jdbcType=VARCHAR},
+		#{maxPrice,jdbcType=DOUBLE},
+		#{minPrice,jdbcType=DOUBLE},
+		#{memberPrice,jdbcType=DOUBLE},
+		#{marketPrice,jdbcType=DOUBLE},
+		#{sellPrice,jdbcType=DOUBLE},
+		#{version,jdbcType=INTEGER},
+		#{status,jdbcType=INTEGER},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{shelvesDate,jdbcType=TIMESTAMP},
+		#{clickRate,jdbcType=INTEGER},
+		#{sellRate,jdbcType=INTEGER},
+		#{markIds,jdbcType=VARCHAR},
+		#{markInfoIds,jdbcType=VARCHAR},
+		#{ord,jdbcType=BIGINT},
+		#{memo,jdbcType=VARCHAR},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{userId,jdbcType=BIGINT},
+		#{sellUnit,jdbcType=BIGINT},
+		#{isLimitSell,jdbcType=INTEGER},
+		#{isAllowGrade,jdbcType=INTEGER},
+		#{isGiftGrade,jdbcType=INTEGER},
+		#{limitSellNumber,jdbcType=BIGINT},
+		#{limitGradeNumber,jdbcType=DOUBLE},
+		#{limitGiftNumber,jdbcType=BIGINT},
+		#{isMallVisible,jdbcType=INTEGER},
+		#{gdsQr1,jdbcType=VARCHAR},
+		#{gdsQrInside,jdbcType=VARCHAR},
+		#{sparePrice1,jdbcType=DOUBLE},
+		#{sparePrice2,jdbcType=DOUBLE},
+		#{markIds2,jdbcType=BIGINT},
+		#{goodsSource,jdbcType=INTEGER},
+		#{addedDate,jdbcType=TIMESTAMP},
+		#{goodsVersion,jdbcType=INTEGER},
+		#{goodsStatus,jdbcType=INTEGER},
+		#{zoneCode,jdbcType=VARCHAR},
+		#{unitId,jdbcType=BIGINT},
+		#{unitType,jdbcType=INTEGER},
+		#{isActivity,jdbcType=INTEGER},
+		#{activityPrice,jdbcType=DOUBLE},
+		#{activityGoodsId,jdbcType=BIGINT},
+		#{activityType,jdbcType=INTEGER},
+		#{isGift,jdbcType=INTEGER},
+		#{isRelation,jdbcType=INTEGER},
+		#{weight,jdbcType=BIGINT},
+		#{isAd,jdbcType=BIGINT},
+		#{allowGradePrice,jdbcType=DOUBLE},
+		#{goodsEditStatus,jdbcType=INTEGER},
+		#{s3gdscode,jdbcType=VARCHAR},
+		#{s3createdate,jdbcType=TIMESTAMP},
+		#{s3ucode,jdbcType=VARCHAR},
+		#{goodsScode,jdbcType=VARCHAR},
+		#{goodsScode2,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.GoodsPrice">
+		update tb_goods_price
+		set
+		goods_id = #{goodsId,jdbcType=BIGINT},
+		goods_type_id = #{goodsTypeId,jdbcType=BIGINT},
+		gds_code = #{gdsCode,jdbcType=VARCHAR},
+		gds_code2 = #{gdsCode2,jdbcType=VARCHAR},
+		goods_number = #{goodsNumber,jdbcType=VARCHAR},
+		short_goods_number = #{shortGoodsNumber,jdbcType=VARCHAR},
+		goods_name = #{goodsName,jdbcType=VARCHAR},
+		goods_nick_name = #{goodsNickName,jdbcType=VARCHAR},
+		inventory = #{inventory,jdbcType=INTEGER},
+		goods_unit = #{goodsUnit,jdbcType=INTEGER},
+		spec = #{spec,jdbcType=INTEGER},
+		spell_name = #{spellName,jdbcType=VARCHAR},
+		fir_spell_name = #{firSpellName,jdbcType=VARCHAR},
+		max_price = #{maxPrice,jdbcType=DOUBLE},
+		min_price = #{minPrice,jdbcType=DOUBLE},
+		member_price = #{memberPrice,jdbcType=DOUBLE},
+		market_price = #{marketPrice,jdbcType=DOUBLE},
+		sell_price = #{sellPrice,jdbcType=DOUBLE},
+		version = #{version,jdbcType=INTEGER},
+		status = #{status,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		shelves_date = #{shelvesDate,jdbcType=TIMESTAMP},
+		click_rate = #{clickRate,jdbcType=INTEGER},
+		sell_rate = #{sellRate,jdbcType=INTEGER},
+		mark_ids = #{markIds,jdbcType=VARCHAR},
+		mark_info_ids = #{markInfoIds,jdbcType=VARCHAR},
+		ord = #{ord,jdbcType=BIGINT},
+		memo = #{memo,jdbcType=VARCHAR},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		user_id = #{userId,jdbcType=BIGINT},
+		sell_unit = #{sellUnit,jdbcType=BIGINT},
+		is_limit_sell = #{isLimitSell,jdbcType=INTEGER},
+		is_allow_grade = #{isAllowGrade,jdbcType=INTEGER},
+		is_gift_grade = #{isGiftGrade,jdbcType=INTEGER},
+		limit_sell_number = #{limitSellNumber,jdbcType=BIGINT},
+		limit_grade_number = #{limitGradeNumber,jdbcType=DOUBLE},
+		limit_gift_number = #{limitGiftNumber,jdbcType=BIGINT},
+		is_mall_visible = #{isMallVisible,jdbcType=INTEGER},
+		gds_qr_1 = #{gdsQr1,jdbcType=VARCHAR},
+		gds_qr_inside = #{gdsQrInside,jdbcType=VARCHAR},
+		spare_price1 = #{sparePrice1,jdbcType=DOUBLE},
+		spare_price2 = #{sparePrice2,jdbcType=DOUBLE},
+		mark_ids2 = #{markIds2,jdbcType=BIGINT},
+		goods_source = #{goodsSource,jdbcType=INTEGER},
+		added_date = #{addedDate,jdbcType=TIMESTAMP},
+		goods_version = #{goodsVersion,jdbcType=INTEGER},
+		goods_status = #{goodsStatus,jdbcType=INTEGER},
+		zone_code = #{zoneCode,jdbcType=VARCHAR},
+		unit_id = #{unitId,jdbcType=BIGINT},
+		unit_type = #{unitType,jdbcType=INTEGER},
+		is_activity = #{isActivity,jdbcType=INTEGER},
+		activity_price = #{activityPrice,jdbcType=DOUBLE},
+		activity_goods_id = #{activityGoodsId,jdbcType=BIGINT},
+		activity_type = #{activityType,jdbcType=INTEGER},
+		is_gift = #{isGift,jdbcType=INTEGER},
+		is_relation = #{isRelation,jdbcType=INTEGER},
+		weight = #{weight,jdbcType=BIGINT},
+		is_ad = #{isAd,jdbcType=BIGINT},
+		allow_grade_price = #{allowGradePrice,jdbcType=DOUBLE},
+		goods_edit_status = #{goodsEditStatus,jdbcType=INTEGER},
+		s3gdscode = #{s3gdscode,jdbcType=VARCHAR},
+		s3createdate = #{s3createdate,jdbcType=TIMESTAMP},
+		s3ucode = #{s3ucode,jdbcType=VARCHAR},
+		goods_scode = #{goodsScode,jdbcType=VARCHAR},
+		goods_scode2 = #{goodsScode2,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.GoodsPrice">
+		delete from
+		tb_goods_price
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_goods_price
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_goods_price
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="goodspriceDaoMap">
+		select * from tb_goods_price where id = #{id}
+	</select>
+	
+	<!-- 修改代理状态 -->
+	<update id="updateEditStatus" parameterType="long">
+		update tb_goods_price
+		set
+		goods_edit_status = -1
+		where goods_id = #{goodsId}
+		and   goods_source = 1
+	</update>
+
+
+	<!-- 查询代理数据 -->
+	<select id="getListMap" parameterType="hashmap" resultMap="goodspriceDaoListMap">
+		SELECT
+			gp.*,
+			gt.`type_name` as type_name
+		FROM
+			tb_goods_price gp
+		JOIN tb_goods_type gt ON gp.goods_type_id = gt.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			gp.status &lt;&gt; -1
+			and gt.status &lt;&gt; -1
+			and gp.unit_id = #{unitId}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if>
+			</when>
+			<otherwise>
+				order by gp.weight desc,gp.ord desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		SELECT
+		count(gp.id)
+		FROM tb_goods_price gp
+		JOIN tb_goods_type gt ON gp.goods_type_id = gt.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			gp.status &lt;&gt; -1
+			and gt.status &lt;&gt; -1
+			and gp.unit_id = #{unitId}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	
+	<!-- 查询本公司和代理公司数据 -->
+	<select id="getListPriceMap" parameterType="hashmap" resultMap="goodspriceDaoListMap">
+		SELECT
+			gp.*,
+			gt.`type_name` as type_name,
+			dd.value as goods_unit_name
+		FROM
+			tb_goods_price gp
+		JOIN tb_goods_type gt ON gp.gds_code = gt.type_code
+		JOIN(
+			tb_sys_dict_detail dd
+			JOIN tb_sys_dict_main dm ON dd.dict_main_id = dm.id
+			AND dm.dict_code = 'goods_unit'
+		)ON gp.goods_unit = dd.`code`
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			gp.status &lt;&gt; -1
+			and gt.status &lt;&gt; -1
+			and gp.unit_id = #{unitId}
+			and gp.goods_source = 2
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if>
+			</when>
+			<otherwise>
+				order by gp.weight desc,gp.ord desc
+			</otherwise>
+		</choose>
+
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+		<!-- 获取旗舰店商品列表总数-->
+	<select id="getListPriceRows" parameterType="hashmap" resultType="long">
+        SELECT
+		count(gp.id)
+		FROM
+			tb_goods_price gp
+		JOIN tb_goods_type gt ON gp.gds_code = gt.type_code
+		JOIN(
+			tb_sys_dict_detail dd
+			JOIN tb_sys_dict_main dm ON dd.dict_main_id = dm.id
+			AND dm.dict_code = 'goods_unit'
+		)ON gp.goods_unit = dd.`code`
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			gp.status &lt;&gt; -1
+			and gt.status &lt;&gt; -1
+			and gp.unit_id = #{unitId}
+			and gp.goods_source = 2
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	<!-- 采购商采购商品列表 -->
+	<select id="getBuyGridData" parameterType="hashmap" resultMap="goodspriceDaoListMap">
+	    SELECT
+			gp.*,
+			g.goods_number,
+			g.goods_name,
+			g.spec,
+			gt.type_name as type_name,
+			dd.value as goods_unit_name
+		FROM
+			tb_goods_price gp
+		JOIN tb_goods g ON g.id = gp.goods_id
+		JOIN tb_goods_type gt ON g.gds_code = gt.type_code
+		JOIN tb_sys_units su ON su.id = gp.unit_id
+		JOIN(
+			tb_sys_dict_detail dd
+			JOIN tb_sys_dict_main dm ON dd.dict_main_id = dm.id
+			AND dm.dict_code = 'goods_unit'
+		)ON g.goods_unit = dd.code
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			gp.status &lt;&gt; -1
+			AND g.status &lt;&gt; -1
+			AND gt.status &lt;&gt; -1
+			AND su.stop_date>now()
+			AND su.unit_type = 2
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		LIMIT ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	
+	
+	<select id="getBuyGridDataSize" parameterType="hashmap" resultType="long">
+		SELECT
+			count(gp.id)
+		FROM
+			tb_goods_price gp
+		JOIN tb_goods g ON g.id = gp.goods_id
+		JOIN tb_goods_type gt ON g.gds_code = gt.type_code
+		JOIN tb_sys_units su ON su.id = gp.unit_id
+		JOIN(
+			tb_sys_dict_detail dd
+			JOIN tb_sys_dict_main dm ON dd.dict_main_id = dm.id
+			AND dm.dict_code = 'goods_unit'
+		)ON g.goods_unit = dd.code
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			gp.status &lt;&gt; -1
+			and g.status &lt;&gt; -1
+			and gt.status &lt;&gt; -1
+			AND su.stop_date>now()
+			AND su.unit_type = 2
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	<update id="updateStatusByIds" parameterType="hashmap">
+		update tb_goods_price
+		set
+		status = #{status}
+		<if test="shelvesDate!=null and shelvesDate!=''">
+				,shelves_date = #{shelvesDate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="addedDate!=null and addedDate!=''">
+				,added_date = #{addedDate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="updateDate!=null and updateDate!=''">
+				,update_date = #{updateDate,jdbcType=TIMESTAMP}
+		</if>
+		
+		where id in
+		<foreach collection="ids" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</update>
+	
+	<update id="updateGoodsStatusByIds" parameterType="hashmap">
+		update tb_goods_price
+		set
+		goods_status = #{status}
+		where id in
+		<foreach collection="ids" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</update>
+	
+	<select id="getRowsByGoodsId" parameterType="hashmap" resultType="long">
+		SELECT
+			count(gp.id)
+		FROM
+			tb_goods_price gp
+		where gp.status &lt;&gt; -1
+		and gp.unit_id = #{unitId}
+		and gp.goods_id = #{goodsId}
+		<if test="id != null">
+			and gp.id &lt;&gt; #{id}
+		</if>
+	</select>
+	
+	
+	<select id="getByGoodsId" parameterType="hashmap" resultMap="goodspriceDaoMap">
+		select * from tb_goods_price 
+		where goods_Id = #{goodsId} 
+		and unit_id = #{unitId}
+		and status &lt;&gt; -1
+	</select>
+	
+	
+	<select id="getPriceSelectListMap" parameterType="hashmap" resultMap="goodspriceDaoListMap">
+		SELECT
+			gp.*,
+			gt.`type_name` as type_name
+		FROM
+			tb_goods_price gp
+		JOIN tb_goods_type gt ON gp.goods_type_id = gt.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			gp.status &lt;&gt; -1
+			and gt.status &lt;&gt; -1
+			and gp.unit_id = #{unitId}
+			<if test="typeCode!=null and typeCode!=''">
+				and gt.id = #{typeCode}
+			</if>
+			<if test="number!=null and number!=''">
+				and gp.goods_number like #{number}
+			</if>
+			<if test="name!=null and name!=''">
+				and (gp.goods_nick_name like #{name} or
+				gp.goods_name like #{name} or
+				gp.spell_name like #{name} or
+				gp.fir_spell_name like #{name})
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if>
+			</when>
+			<otherwise>
+				order by gp.weight desc,gp.ord desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	
+	<select id="getPriceSelectListRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(gp.id)
+		FROM
+			tb_goods_price gp
+		JOIN tb_goods_type gt ON gp.goods_type_id = gt.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			gp.status &lt;&gt; -1
+			and gt.status &lt;&gt; -1
+			and gp.unit_id = #{unitId}
+			<if test="typeCode!=null and typeCode!=''">
+				and gt.id = #{typeCode}
+			</if>
+			<if test="number!=null and number!=''">
+				and g.goods_number like #{number}
+			</if>
+			<if test="name!=null and name!=''">
+				and (gp.goods_nick_name like #{name} or 
+				g.goods_name like #{name} or
+				g.spell_name like #{name} or
+				g.fir_spell_name like #{name})
+			</if>
+		</trim>
+	</select>
+	
+	<select id="getSelectDialogGoodsListForJxc" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			gp.id as ID,
+			gp.goods_nick_name as NAME
+		FROM
+			tb_goods_price gp
+		JOIN tb_goods_type gt ON gp.goods_type_id = gt.id
+		WHERE
+			gp.status = 0
+		AND gt.status = 0
+		AND gp.goods_status = 0
+		AND gp.unit_id = #{unitId}
+		<choose>
+			<when test="searchName!=null and searchName!=''">
+				AND (gp.goods_nick_name like #{searchName} or gp.spell_name like #{searchName})
+				<if test="typeId!=0">
+					AND gp.goods_type_id = #{typeId}
+				</if>
+				<if test="goodsUnit!=null and goodsUnit!=''">
+					AND gp.goods_unit &lt;&gt; #{goodsUnit}
+				</if>
+			</when>
+			<otherwise>
+				AND gp.goods_type_id = #{typeId}
+				<if test="goodsUnit!=null and goodsUnit!=''">
+					AND gp.goods_unit &lt;&gt; #{goodsUnit}
+				</if>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 选择商品窗口 -->
+	<select id="getSelectDialogGoodsList" parameterType="hashmap" resultType="hashmap">
+    	SELECT
+			gp.id as ID,
+			gp.goods_nick_name as NAME
+		FROM
+			tb_goods_price gp
+		JOIN tb_goods_type gt ON gp.goods_type_id = gt.id
+		WHERE
+			gp.status = 0
+		AND gt.status = 0
+		AND gp.goods_status = 0
+		AND gp.unit_id = #{unitId}
+		<choose>
+			<when test="searchName!=null and searchName!=''">
+				AND (gp.goods_nick_name like #{searchName} or gp.spell_name like #{searchName})
+				<if test="typeId!=0">
+					AND gp.goods_type_id = #{typeId}
+				</if>
+				<if test="goodsUnit!=null and goodsUnit!=''">
+					AND gp.goods_unit &lt;&gt; #{goodsUnit}
+				</if>
+			</when>
+			<otherwise>
+				AND gp.goods_type_id = #{typeId}
+				<if test="goodsUnit!=null and goodsUnit!=''">
+					AND gp.goods_unit &lt;&gt; #{goodsUnit}
+				</if>
+			</otherwise>
+		</choose>
+    </select>
+    
+    
+    <insert id="addDataGoodsInfo" parameterType="com.h2y.bmg.entity.DataGoodsInfo">
+       insert into tb_data_goods_info
+		(
+		data_goods_id,
+		data_goods_number,
+		data_goods_version,
+		data_goods_count,
+		goods_id,
+		goods_number,
+		goods_version,
+		data_type,
+		create_date,
+		data_status,
+		zone_code,
+		data_goods_source
+		)
+		values (
+		#{dataGoodsId,jdbcType=BIGINT},
+		#{dataGoodsNumber,jdbcType=VARCHAR},
+		#{dataGoodsVersion,jdbcType=INTEGER},
+		#{dataGoodsCount,jdbcType=INTEGER},
+		#{goodsId,jdbcType=BIGINT},
+		#{goodsNumber,jdbcType=VARCHAR},
+		#{goodsVersion,jdbcType=INTEGER},
+		#{dataType,jdbcType=INTEGER},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{dataStatus,jdbcType=INTEGER},
+		#{zoneCode,jdbcType=VARCHAR},
+		#{dataGoodsSource,jdbcType=INTEGER}
+		)
+	</insert>
+	
+	<delete id="delateGoodaGift" parameterType="long">
+		delete from
+		tb_data_goods_info
+		where
+		goods_id = #{goodsId}
+		and data_type = 1
+    </delete>
+    
+    <delete id="deleteRelation" parameterType="long">
+    	delete from
+		tb_data_goods_info
+		where
+		(goods_id = #{goodsId} or data_goods_id = #{goodsId})
+		and data_type = 2
+    </delete>
+    
+    <select id="getRelationGoods" parameterType="hashmap" resultType="hashmap">
+       <if test="dataType==1">
+          SELECT * FROM tb_data_goods_info WHERE data_type = #{dataType} AND data_status = 0 AND goods_id = #{goodsId} and zone_code = #{zoneCode}
+       </if>
+       <if test="dataType==2">
+		SELECT id,goods_id AS data_goods_id,data_goods_source FROM tb_data_goods_info WHERE data_goods_id = #{goodsId} AND data_status = 0 AND data_type = #{dataType} and zone_code = #{zoneCode}
+		UNION ALL
+		SELECT id,data_goods_id,data_goods_source FROM tb_data_goods_info WHERE goods_id = #{goodsId} and data_status = 0 AND data_type = #{dataType} and zone_code = #{zoneCode}
+       </if>
+       <if test="dataType==3">		
+		SELECT id,data_goods_id,data_goods_source FROM tb_data_goods_info WHERE goods_id = #{goodsId} and data_status = 0 AND data_type = #{dataType} and zone_code = #{zoneCode}
+       </if>
+    </select>
+    
+    <!-- 判断该单品是否已被关联 -->
+    <select id="getGoodsPriceRt" parameterType="hashmap" resultType="hashmap">      
+		SELECT id,goods_id AS data_goods_id,data_goods_source FROM tb_data_goods_info WHERE  goods_id &lt;&gt; #{goodsId} AND data_goods_id = #{dataGoodsId} AND data_status = 0 AND data_type = #{dataType} and zone_code = #{zoneCode}		
+    </select>
+    
+    <!-- 判断该箱是否已关联商品 -->
+    <select id="getGoodsPriceRtByGoodsId" parameterType="hashmap" resultType="hashmap">
+		SELECT id,goods_id,data_goods_source,data_goods_id FROM tb_data_goods_info WHERE  goods_id = #{goodsId} AND  data_status = 0 AND data_type = #{dataType} and zone_code = #{zoneCode}		
+    </select>
+    
+    
+    <update id="deleteGoodsPriceRt" parameterType="hashmap">
+    	UPDATE tb_data_goods_info SET data_status = -1 WHERE data_goods_id = #{goodsId } AND data_status=0 AND data_type = #{dataType} and zone_code = #{zoneCode}
+    </update>
+    
+    <update id="updateGoodsPriceRtByIds" parameterType="hashmap">
+		update tb_data_goods_info
+		set data_status = #{status}		
+		where data_type = #{dataType} and goods_id in
+		<foreach collection="ids" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</update>
+    
+    <select id="getRowsByNumber" parameterType="hashmap" resultType="long">
+		SELECT
+		count(id)
+		FROM
+		tb_goods_price
+		where goods_number = #{number}
+		<if test="id!=null">
+			and id &lt;&gt; #{id}
+		</if>
+	</select>
+	
+    <update id="updateIsGiftByGoodsId" parameterType="hashmap">
+		update tb_goods_price
+		set is_gift = #{isGift}	
+		where id = #{id}
+	</update>
+	
+	<update id="updateIsRelationByGoodsId" parameterType="hashmap">
+		update tb_goods_price
+		set is_relation = #{isRelation}	
+		where id = #{id}
+	</update>
+	
+	<select id="getDataGoodsListByGoodsId" parameterType="long" resultType="hashmap">
+	
+		SELECT
+			dgi.data_goods_id as ID,
+			dgi.data_goods_count as GOODS_COUNT,
+			dgi.data_type as DATA_TYPE,
+			gp.goods_nick_name AS GOODS_NICK_NAME
+		FROM
+			tb_data_goods_info dgi JOIN tb_goods_price gp ON dgi.data_goods_id = gp.id
+		WHERE
+			dgi.goods_id = #{goodsId}
+		AND dgi.data_type = 1
+		UNION
+			SELECT
+				dgi.data_goods_id as ID,
+				dgi.data_goods_count as GOODS_COUNT,
+				dgi.data_type as DATA_TYPE,
+				gp.goods_nick_name as GOODS_NICK_NAME
+			FROM
+				tb_data_goods_info dgi JOIN tb_goods_price gp ON dgi.data_goods_id = gp.id
+			WHERE
+				dgi.goods_id = #{goodsId}
+			AND dgi.data_type = 2
+		UNION
+			SELECT
+				dgi.goods_id AS ID,
+				dgi.data_goods_count AS GOODS_COUNT,
+				dgi.data_type as DATA_TYPE,
+				gp.goods_nick_name as GOODS_NICK_NAME
+			FROM
+				tb_data_goods_info dgi JOIN tb_goods_price gp ON dgi.goods_id = gp.id
+			WHERE
+				 dgi.data_goods_id = #{goodsId}
+			AND dgi.data_type = 2
+	</select>
+	
+</mapper>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ICouponsSourceRtDao">
+
+	<resultMap type="com.h2y.bmg.entity.CouponsSourceRt" id="couponssourcertDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="sourceId" column="source_id" javaType="long" jdbcType="BIGINT" />
+		<result property="couponsId" column="coupons_id" javaType="long" jdbcType="BIGINT" />
+		<result property="couponsCode" column="coupons_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+
+		
+	<insert id="add" parameterType="com.h2y.bmg.entity.CouponsSourceRt">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_coupons_source_rt 
+		</selectKey>  
+		insert into tb_coupons_source_rt
+		(
+		source_id,
+		coupons_id,
+		coupons_code,
+		create_date,
+		status
+		)
+		values (
+		#{sourceId,jdbcType=BIGINT},
+		#{couponsId,jdbcType=BIGINT},
+		#{couponsCode,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{status,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.CouponsSourceRt">
+		update tb_coupons_source_rt
+		set
+		source_id = #{sourceId,jdbcType=BIGINT},
+		coupons_id = #{couponsId,jdbcType=BIGINT},
+		coupons_code = #{couponsCode,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		status = #{status,jdbcType=INTEGER}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.CouponsSourceRt">
+		delete from
+		tb_coupons_source_rt
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_coupons_source_rt
+		where
+		id = #{id} 
+	</delete>
+
+	<select id="get" parameterType="long"
+		resultMap="couponssourcertDaoMap">
+		select * from tb_coupons_source_rt where id = #{id}
+	</select>
+
+	<insert id="addBatch" parameterType="com.h2y.bmg.entity.CouponsSourceRt">
+		insert into tb_coupons_source_rt
+		(
+		source_id,
+		coupons_id,
+		coupons_code,
+		create_date,
+		status
+		)
+		values 
+		<foreach collection="list" item="item" separator=",">
+		(
+		#{item.sourceId,jdbcType=BIGINT},
+		#{item.couponsId,jdbcType=BIGINT},
+		#{item.couponsCode,jdbcType=VARCHAR},
+		#{item.createDate,jdbcType=TIMESTAMP},
+		#{item.status,jdbcType=INTEGER}
+		)
+        </foreach>
+	</insert>
+	
+	<update id="updateStatusBySourceId" parameterType="hashmap">
+		update tb_coupons_source_rt
+		set
+		status = #{status}
+		where source_id = #{sourceId} and coupons_code in 
+		<foreach collection="couponsCodeList" item="couponsCode" open="(" separator=","
+			close=")"> #{couponsCode} 
+		</foreach>
+	</update>
+	
+	<update id="updateStatusByIds" parameterType="hashmap">
+		update tb_coupons_source_rt
+		set
+		status = #{status}
+		where id in 
+		<foreach collection="ids" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</update>
+	
+	<select id="getCouponsCodeListBySourceId" parameterType="long" resultType="string">
+		select 
+			coupons_code 
+		from tb_coupons_source_rt 
+		where source_id = #{sourceId} and status &lt;&gt; -1
+	</select>
+	
+</mapper>

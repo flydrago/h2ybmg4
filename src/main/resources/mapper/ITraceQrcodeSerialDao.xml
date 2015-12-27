@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ITraceQrcodeSerialDao">
+
+	<resultMap type="com.h2y.bmg.entity.TraceQrcodeSerial" id="traceqrcodeserialDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="parentId" column="parent_id" javaType="long" jdbcType="BIGINT" />
+		<result property="boxQrcodeNo" column="box_qrcode_no" javaType="long" jdbcType="BIGINT" />
+		<result property="bottleQrcodeNo" column="bottle_qrcode_no" javaType="long" jdbcType="BIGINT" />
+		<result property="provinceId" column="province_id" javaType="long" jdbcType="BIGINT" />
+		<result property="privideId" column="privide_id" javaType="long" jdbcType="BIGINT" />
+		<result property="privideName" column="privide_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="ifReceive" column="if_receive" javaType="int" jdbcType="INTEGER" />
+		<result property="ifEnable" column="if_enable" javaType="int" jdbcType="INTEGER" />
+		<result property="relateFlag" column="relate_flag" javaType="int" jdbcType="INTEGER" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="optUserId" column="opt_user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="optUserAccount" column="opt_user_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="optUserName" column="opt_user_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="data1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="data2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="traceqrcodeserialDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="PARENT_ID" column="parent_id" javaType="long" jdbcType="BIGINT" />
+		<result property="BOX_QRCODE_NO" column="box_qrcode_no" javaType="long" jdbcType="BIGINT" />
+		<result property="BOTTLE_QRCODE_NO" column="bottle_qrcode_no" javaType="long" jdbcType="BIGINT" />
+		<result property="PROVINCE_ID" column="province_id" javaType="long" jdbcType="BIGINT" />
+		<result property="PRIVIDE_ID" column="privide_id" javaType="long" jdbcType="BIGINT" />
+		<result property="PRIVIDE_NAME" column="privide_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="IF_RECEIVE" column="if_receive" javaType="int" jdbcType="INTEGER" />
+		<result property="IF_ENABLE" column="if_enable" javaType="int" jdbcType="INTEGER" />
+		<result property="RELATE_FLAG" column="relate_flag" javaType="int" jdbcType="INTEGER" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="UPDATE_DATE" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="OPT_USER_ID" column="opt_user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="OPT_USER_ACCOUNT" column="opt_user_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="OPT_USER_NAME" column="opt_user_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+		<result property="PROVINCE_NAME" column="unit_name" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.TraceQrcodeSerial">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_trace_qrcode_serial 
+		</selectKey>  
+		insert into tb_trace_qrcode_serial
+		(
+		parent_id,
+		box_qrcode_no,
+		bottle_qrcode_no,
+		province_id,
+		privide_id,
+		privide_name,
+		if_receive,
+		if_enable,
+		relate_flag,
+		create_date,
+		update_date,
+		opt_user_id,
+		opt_user_account,
+		opt_user_name,
+		data_1,
+		data_2,
+		data_3
+		)
+		values (
+		#{parentId,jdbcType=BIGINT},
+		#{boxQrcodeNo,jdbcType=BIGINT},
+		#{bottleQrcodeNo,jdbcType=BIGINT},
+		#{provinceId,jdbcType=BIGINT},
+		#{privideId,jdbcType=BIGINT},
+		#{privideName,jdbcType=VARCHAR},
+		#{ifReceive,jdbcType=INTEGER},
+		#{ifEnable,jdbcType=INTEGER},
+		#{relateFlag,jdbcType=INTEGER},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{optUserId,jdbcType=BIGINT},
+		#{optUserAccount,jdbcType=VARCHAR},
+		#{optUserName,jdbcType=VARCHAR},
+		#{data1,jdbcType=VARCHAR},
+		#{data2,jdbcType=VARCHAR},
+		#{data3,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<insert id="patchAdd" parameterType="java.util.List">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_trace_qrcode_serial 
+		</selectKey>  
+		insert into tb_trace_qrcode_serial
+		(
+		parent_id,
+		box_qrcode_no,
+		bottle_qrcode_no,
+		province_id,
+		privide_id,
+		privide_name,
+		if_receive,
+		if_enable,
+		relate_flag,
+		create_date,
+		update_date,
+		opt_user_id,
+		opt_user_account,
+		opt_user_name,
+		data_1,
+		data_2,
+		data_3
+		)
+		values 
+		<foreach collection="list" item="item" index="index" separator="," >  
+        (
+		#{item.parentId,jdbcType=BIGINT},
+		#{item.boxQrcodeNo,jdbcType=BIGINT},
+		#{item.bottleQrcodeNo,jdbcType=BIGINT},
+		#{item.provinceId,jdbcType=BIGINT},
+		#{item.privideId,jdbcType=BIGINT},
+		#{item.privideName,jdbcType=VARCHAR},
+		#{item.ifReceive,jdbcType=INTEGER},
+		#{item.ifEnable,jdbcType=INTEGER},
+		#{item.relateFlag,jdbcType=INTEGER},
+		#{item.createDate,jdbcType=TIMESTAMP},
+		#{item.updateDate,jdbcType=TIMESTAMP},
+		#{item.optUserId,jdbcType=BIGINT},
+		#{item.optUserAccount,jdbcType=VARCHAR},
+		#{item.optUserName,jdbcType=VARCHAR},
+		#{item.data1,jdbcType=VARCHAR},
+		#{item.data2,jdbcType=VARCHAR},
+		#{item.data3,jdbcType=VARCHAR}
+		)
+    	</foreach>  
+		
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.TraceQrcodeSerial">
+		update tb_trace_qrcode_serial
+		set
+		parent_id = #{parentId,jdbcType=BIGINT},
+		box_qrcode_no = #{boxQrcodeNo,jdbcType=BIGINT},
+		bottle_qrcode_no = #{bottleQrcodeNo,jdbcType=BIGINT},
+		province_id = #{provinceId,jdbcType=BIGINT},
+		privide_id = #{privideId,jdbcType=BIGINT},
+		privide_name = #{privideName,jdbcType=VARCHAR},
+		if_receive = #{ifReceive,jdbcType=INTEGER},
+		if_enable = #{ifEnable,jdbcType=INTEGER},
+		relate_flag = #{relateFlag,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		opt_user_id = #{optUserId,jdbcType=BIGINT},
+		opt_user_account = #{optUserAccount,jdbcType=VARCHAR},
+		opt_user_name = #{optUserName,jdbcType=VARCHAR},
+		data_1 = #{data1,jdbcType=VARCHAR},
+		data_2 = #{data2,jdbcType=VARCHAR},
+		data_3 = #{data3,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.TraceQrcodeSerial">
+		delete from
+		tb_trace_qrcode_serial
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_trace_qrcode_serial
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_trace_qrcode_serial
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="traceqrcodeserialDaoMap">
+		select * from tb_trace_qrcode_serial where id = #{id}
+	</select>
+	
+	<select id="getListData" parameterType="hashmap" resultMap="traceqrcodeserialDaoMap">
+		select * from tb_trace_qrcode_serial
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="boxQrcodeNo != null">
+				and box_qrcode_no = #{boxQrcodeNo}
+			</if>
+			<if test="bottleQrcodeNo != null">
+				and bottle_qrcode_no = #{bottleQrcodeNo}
+			</if>
+		</trim>
+	</select>
+
+	<select id="getList" parameterType="com.h2y.bmg.entity.TraceQrcodeSerial"
+		resultMap="traceqrcodeserialDaoMap">
+		
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="parentId!= null">
+			and parent_id = #{parentId}
+			</if>
+			<if test="boxQrcodeNo!= null">
+			and box_qrcode_no = #{boxQrcodeNo}
+			</if>
+			<if test="bottleQrcodeNo!= null">
+			and bottle_qrcode_no = #{bottleQrcodeNo}
+			</if>
+			<if test="provinceId!= null">
+			and province_id = #{provinceId}
+			</if>
+			<if test="privideId!= null">
+			and privide_id = #{privideId}
+			</if>
+			<if test="privideName!= null and privideName!=''">
+			and privide_name = #{privideName}
+			</if>
+			<if test="ifReceive!= null">
+			and if_receive = #{ifReceive}
+			</if>
+			<if test="ifEnable!= null">
+			and if_enable = #{ifEnable}
+			</if>
+			<if test="relateFlag!= null">
+			and relate_flag = #{relateFlag}
+			</if>
+			<if test="createDate!= null and createDate!=''">
+			and create_date = #{createDate}
+			</if>
+			<if test="updateDate!= null and updateDate!=''">
+			and update_date = #{updateDate}
+			</if>
+			<if test="optUserId!= null">
+			and opt_user_id = #{optUserId}
+			</if>
+			<if test="optUserAccount!= null and optUserAccount!=''">
+			and opt_user_account = #{optUserAccount}
+			</if>
+			<if test="optUserName!= null and optUserName!=''">
+			and opt_user_name = #{optUserName}
+			</if>
+			<if test="data1!= null and data1!=''">
+			and data_1 = #{data1}
+			</if>
+			<if test="data2!= null and data2!=''">
+			and data_2 = #{data2}
+			</if>
+			<if test="data3!= null and data3!=''">
+			and data_3 = #{data3}
+			</if>
+		</trim>
+
+	</select>
+
+	<select id="getListPage" parameterType="hashmap" resultMap="traceqrcodeserialDaoMap">
+		select
+		*
+		from
+		tb_trace_qrcode_serial
+		<if test="keyTraceQrcodeSerial!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keyTraceQrcodeSerial.id!= null">
+				and id = #{keyTraceQrcodeSerial.id}
+				</if>
+				<if test="keyTraceQrcodeSerial.parentId!= null">
+				and parent_id = #{keyTraceQrcodeSerial.parentId}
+				</if>
+				<if test="keyTraceQrcodeSerial.boxQrcodeNo!= null">
+				and box_qrcode_no = #{keyTraceQrcodeSerial.boxQrcodeNo}
+				</if>
+				<if test="keyTraceQrcodeSerial.bottleQrcodeNo!= null">
+				and bottle_qrcode_no = #{keyTraceQrcodeSerial.bottleQrcodeNo}
+				</if>
+				<if test="keyTraceQrcodeSerial.provinceId!= null">
+				and province_id = #{keyTraceQrcodeSerial.provinceId}
+				</if>
+				<if test="keyTraceQrcodeSerial.privideId!= null">
+				and privide_id = #{keyTraceQrcodeSerial.privideId}
+				</if>
+				<if test="keyTraceQrcodeSerial.privideName!= null and keyTraceQrcodeSerial.privideName!=''">
+				and privide_name = #{keyTraceQrcodeSerial.privideName}
+				</if>
+				<if test="keyTraceQrcodeSerial.ifReceive!= null">
+				and if_receive = #{keyTraceQrcodeSerial.ifReceive}
+				</if>
+				<if test="keyTraceQrcodeSerial.ifEnable!= null">
+				and if_enable = #{keyTraceQrcodeSerial.ifEnable}
+				</if>
+				<if test="keyTraceQrcodeSerial.relateFlag!= null">
+				and relate_flag = #{keyTraceQrcodeSerial.relateFlag}
+				</if>
+				<if test="keyTraceQrcodeSerial.createDate!= null and keyTraceQrcodeSerial.createDate!=''">
+				and create_date = #{keyTraceQrcodeSerial.createDate}
+				</if>
+				<if test="keyTraceQrcodeSerial.updateDate!= null and keyTraceQrcodeSerial.updateDate!=''">
+				and update_date = #{keyTraceQrcodeSerial.updateDate}
+				</if>
+				<if test="keyTraceQrcodeSerial.optUserId!= null">
+				and opt_user_id = #{keyTraceQrcodeSerial.optUserId}
+				</if>
+				<if test="keyTraceQrcodeSerial.optUserAccount!= null and keyTraceQrcodeSerial.optUserAccount!=''">
+				and opt_user_account = #{keyTraceQrcodeSerial.optUserAccount}
+				</if>
+				<if test="keyTraceQrcodeSerial.optUserName!= null and keyTraceQrcodeSerial.optUserName!=''">
+				and opt_user_name = #{keyTraceQrcodeSerial.optUserName}
+				</if>
+				<if test="keyTraceQrcodeSerial.data1!= null and keyTraceQrcodeSerial.data1!=''">
+				and data_1 = #{keyTraceQrcodeSerial.data1}
+				</if>
+				<if test="keyTraceQrcodeSerial.data2!= null and keyTraceQrcodeSerial.data2!=''">
+				and data_2 = #{keyTraceQrcodeSerial.data2}
+				</if>
+				<if test="keyTraceQrcodeSerial.data3!= null and keyTraceQrcodeSerial.data3!=''">
+				and data_3 = #{keyTraceQrcodeSerial.data3}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getListByPage" parameterType="hashmap" resultMap="traceqrcodeserialDaoListMap">
+		select qs.*,su.unit_name from tb_trace_qrcode_serial qs left join tb_sys_units su
+		on qs.province_id = su.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="parentId != null">
+			and qs.parent_id = #{parentId}
+			</if>
+			<if test="ifReceive != null">
+			and qs.if_receive = #{ifReceive}
+			</if>
+			<if test="ifEnable != null">
+			and qs.if_enable = #{ifEnable}
+			</if>
+			<if test="ifQuery !=null and ifQuery !=''">
+				and ${ifQuery}
+			</if>
+			
+		</trim>
+		
+		limit ${(page-1)*pagesize},${pagesize}
+		
+	</select>
+	
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(id) from
+		tb_trace_qrcode_serial qs
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="parentId != null">
+			and parent_id = #{parentId}
+			</if>
+			<if test="ifReceive != null">
+			and if_receive = #{ifReceive}
+			</if>
+			<if test="ifEnable != null">
+			and if_enable = #{ifEnable}
+			</if>
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	
+</mapper>

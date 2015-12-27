@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ISysShopFileDao">
+
+	<resultMap type="com.h2y.bmg.entity.SysShopFile" id="sysshopfileDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="shopId" column="shop_id" javaType="long" jdbcType="BIGINT" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="fileName" column="file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="diskFileName" column="disk_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="rootPath" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="relativePath" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="fileSize" column="file_size" javaType="long" jdbcType="BIGINT" />
+		<result property="fileSuffix" column="file_suffix" javaType="string" jdbcType="VARCHAR" />
+		<result property="fileType" column="file_type" javaType="int" jdbcType="INTEGER" />
+		<result property="ord" column="ord" javaType="int" jdbcType="INTEGER" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<insert id="add" parameterType="com.h2y.bmg.entity.SysShopFile">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_sys_shop_file 
+		</selectKey>  
+		insert into tb_sys_shop_file
+		(
+		shop_id,
+		status,
+		file_name,
+		disk_file_name,
+		root_path,
+		relative_path,
+		file_size,
+		file_suffix,
+		file_type,
+		ord,
+		create_date,
+		update_date
+		)
+		values (
+		#{shopId,jdbcType=BIGINT},
+		#{status,jdbcType=INTEGER},
+		#{fileName,jdbcType=VARCHAR},
+		#{diskFileName,jdbcType=VARCHAR},
+		#{rootPath,jdbcType=VARCHAR},
+		#{relativePath,jdbcType=VARCHAR},
+		#{fileSize,jdbcType=BIGINT},
+		#{fileSuffix,jdbcType=VARCHAR},
+		#{fileType,jdbcType=INTEGER},
+		#{ord,jdbcType=INTEGER},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{updateDate,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	
+	<!-- 批量添加图片 -->
+	<insert id="addBatch" parameterType="com.h2y.bmg.entity.SysShopFile">
+		insert into tb_sys_shop_file
+		(
+		shop_id,
+		status,
+		file_name,
+		disk_file_name,
+		root_path,
+		relative_path,
+		file_size,
+		file_suffix,
+		file_type,
+		ord,
+		create_date
+		)
+		values 
+		<foreach collection="list" item="item" separator=",">
+        (
+		#{item.shopId,jdbcType=BIGINT},
+		#{item.status,jdbcType=INTEGER},
+		#{item.fileName,jdbcType=VARCHAR},
+		#{item.diskFileName,jdbcType=VARCHAR},
+		#{item.rootPath,jdbcType=VARCHAR},
+		#{item.relativePath,jdbcType=VARCHAR},
+		#{item.fileSize,jdbcType=BIGINT},
+		#{item.fileSuffix,jdbcType=VARCHAR},
+		#{item.fileType,jdbcType=INTEGER},
+		#{item.ord,jdbcType=INTEGER},
+		#{item.createDate,jdbcType=TIMESTAMP}
+		)
+        </foreach>
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.SysShopFile">
+		update tb_sys_shop_file
+		set
+		shop_id = #{shopId,jdbcType=BIGINT},
+		status = #{status,jdbcType=INTEGER},
+		file_name = #{fileName,jdbcType=VARCHAR},
+		disk_file_name = #{diskFileName,jdbcType=VARCHAR},
+		root_path = #{rootPath,jdbcType=VARCHAR},
+		relative_path = #{relativePath,jdbcType=VARCHAR},
+		file_size = #{fileSize,jdbcType=BIGINT},
+		file_suffix = #{fileSuffix,jdbcType=VARCHAR},
+		file_type = #{fileType,jdbcType=INTEGER},
+		ord = #{ord,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		update_date = #{updateDate,jdbcType=TIMESTAMP}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.SysShopFile">
+		delete from
+		tb_sys_shop_file
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_sys_shop_file
+		where
+		id = #{id} 
+	</delete>
+	
+	
+	<update id="updateByShopId" parameterType="long">
+		update tb_sys_shop_file
+		set
+		status = -1,
+		update_date = now()
+		where shop_id = #{shopId}
+	</update>
+	
+	
+	<select id="getListByShopId" parameterType="long" resultMap="sysshopfileDaoMap">
+		select * from
+		tb_sys_shop_file
+		where shop_id = #{shopId} and status = 0
+	</select>
+	
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_sys_shop_file
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="sysshopfileDaoMap">
+		select * from tb_sys_shop_file where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.bmg.entity.SysShopFile"
+		resultMap="sysshopfileDaoMap">
+		select * from
+		tb_sys_shop_file
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="shopId!= null">
+			and shop_id = #{shopId}
+			</if>
+			<if test="status!= null">
+			and status = #{status}
+			</if>
+			<if test="fileName!= null and fileName!=''">
+			and file_name = #{fileName}
+			</if>
+			<if test="diskFileName!= null and diskFileName!=''">
+			and disk_file_name = #{diskFileName}
+			</if>
+			<if test="rootPath!= null and rootPath!=''">
+			and root_path = #{rootPath}
+			</if>
+			<if test="relativePath!= null and relativePath!=''">
+			and relative_path = #{relativePath}
+			</if>
+			<if test="fileSize!= null">
+			and file_size = #{fileSize}
+			</if>
+			<if test="fileSuffix!= null and fileSuffix!=''">
+			and file_suffix = #{fileSuffix}
+			</if>
+			<if test="fileType!= null">
+			and file_type = #{fileType}
+			</if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="sysshopfileDaoMap">
+		select
+		*
+		from
+		tb_sys_shop_file
+		<if test="keySysShopFile!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keySysShopFile.id!= null">
+				and id = #{keySysShopFile.id}
+				</if>
+				<if test="keySysShopFile.shopId!= null">
+				and shop_id = #{keySysShopFile.shopId}
+				</if>
+				<if test="keySysShopFile.status!= null">
+				and status = #{keySysShopFile.status}
+				</if>
+				<if test="keySysShopFile.fileName!= null and keySysShopFile.fileName!=''">
+				and file_name = #{keySysShopFile.fileName}
+				</if>
+				<if test="keySysShopFile.diskFileName!= null and keySysShopFile.diskFileName!=''">
+				and disk_file_name = #{keySysShopFile.diskFileName}
+				</if>
+				<if test="keySysShopFile.rootPath!= null and keySysShopFile.rootPath!=''">
+				and root_path = #{keySysShopFile.rootPath}
+				</if>
+				<if test="keySysShopFile.relativePath!= null and keySysShopFile.relativePath!=''">
+				and relative_path = #{keySysShopFile.relativePath}
+				</if>
+				<if test="keySysShopFile.fileSize!= null">
+				and file_size = #{keySysShopFile.fileSize}
+				</if>
+				<if test="keySysShopFile.fileSuffix!= null and keySysShopFile.fileSuffix!=''">
+				and file_suffix = #{keySysShopFile.fileSuffix}
+				</if>
+				<if test="keySysShopFile.fileType!= null">
+				and file_type = #{keySysShopFile.fileType}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_sys_shop_file
+		<if test="keySysShopFile!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keySysShopFile.id!= null">
+				and id = #{keySysShopFile.id}
+				</if>
+				<if test="keySysShopFile.shopId!= null">
+				and shop_id = #{keySysShopFile.shopId}
+				</if>
+				<if test="keySysShopFile.status!= null">
+				and status = #{keySysShopFile.status}
+				</if>
+				<if test="keySysShopFile.fileName!= null and keySysShopFile.fileName!=''">
+				and file_name = #{keySysShopFile.fileName}
+				</if>
+				<if test="keySysShopFile.diskFileName!= null and keySysShopFile.diskFileName!=''">
+				and disk_file_name = #{keySysShopFile.diskFileName}
+				</if>
+				<if test="keySysShopFile.rootPath!= null and keySysShopFile.rootPath!=''">
+				and root_path = #{keySysShopFile.rootPath}
+				</if>
+				<if test="keySysShopFile.relativePath!= null and keySysShopFile.relativePath!=''">
+				and relative_path = #{keySysShopFile.relativePath}
+				</if>
+				<if test="keySysShopFile.fileSize!= null">
+				and file_size = #{keySysShopFile.fileSize}
+				</if>
+				<if test="keySysShopFile.fileSuffix!= null and keySysShopFile.fileSuffix!=''">
+				and file_suffix = #{keySysShopFile.fileSuffix}
+				</if>
+				<if test="keySysShopFile.fileType!= null">
+				and file_type = #{keySysShopFile.fileType}
+				</if>
+			</trim>
+		</if>
+	</select>
+</mapper>

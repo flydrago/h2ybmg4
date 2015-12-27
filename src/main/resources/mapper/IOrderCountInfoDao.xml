@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IOrderCountInfoDao">
+
+	<resultMap type="com.h2y.bmg.entity.OrderCountInfo" id="ordercountinfoDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="countId" column="count_id" javaType="long" jdbcType="BIGINT" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="orderCount" column="order_count" javaType="int" jdbcType="INTEGER" />
+		<result property="realAmount" column="real_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="goodsAmount" column="goods_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="coinAmount" column="coin_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="goodsTransportAmount" column="goods_transport_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="couponsAmount" column="coupons_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="double1" column="double1" javaType="double" jdbcType="DOUBLE" />
+		<result property="double2" column="double2" javaType="double" jdbcType="DOUBLE" />
+		<result property="str1" column="str1" javaType="string" jdbcType="VARCHAR" />
+		<result property="str2" column="str2" javaType="string" jdbcType="VARCHAR" />
+		<result property="infoType" column="info_type" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+
+
+	<select id="get" parameterType="long"
+		resultMap="ordercountinfoDaoMap">
+		select * from tb_order_count_info where id = #{id}
+	</select>
+	
+	<select id="getListByCountId" parameterType="long" resultMap="ordercountinfoDaoMap">
+		select * from tb_order_count_info where count_id = #{countId}
+	</select>
+
+</mapper>

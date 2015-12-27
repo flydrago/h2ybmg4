@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.jxc.dao.IJxcCheckbillDetailDao">
+
+	<resultMap type="com.h2y.jxc.entity.JxcCheckbillDetail" id="jxccheckbilldetailDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="billNo" column="bill_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="billId" column="bill_id" javaType="long" jdbcType="BIGINT" />
+		<result property="storageId" column="storage_id" javaType="long" jdbcType="BIGINT" />
+		<result property="storage" column="storage" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsId" column="goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsNickname" column="goods_nickname" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsNumber" column="goods_number" javaType="string" jdbcType="VARCHAR" />
+		<result property="inventoryCount" column="inventory_count" javaType="int" jdbcType="INTEGER" />
+		<result property="checkCount" column="check_count" javaType="int" jdbcType="INTEGER" />
+		<result property="breakevenCount" column="breakeven_count" javaType="int" jdbcType="INTEGER" />
+		<result property="costSinglePrice" column="cost_single_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="breakevenAmount" column="breakeven_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="notes" column="notes" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="data1" column="data1" javaType="string" jdbcType="VARCHAR" />
+		<result property="data2" column="data2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data3" javaType="string" jdbcType="VARCHAR" />
+		<result property="data4" column="data4" javaType="int" jdbcType="INTEGER" />
+		<result property="data5" column="data5" javaType="int" jdbcType="INTEGER" />
+		<result property="data6" column="data6" javaType="long" jdbcType="BIGINT" />
+		<result property="data7" column="data7" javaType="long" jdbcType="BIGINT" />
+		<result property="data8" column="data8" javaType="double" jdbcType="DOUBLE" />
+		<result property="data9" column="data9" javaType="double" jdbcType="DOUBLE" />
+		<result property="data10" column="data10" javaType="double" jdbcType="DOUBLE" />
+	</resultMap>
+	
+	
+	<select id="getBillGoodsList" parameterType="hashmap" resultMap="jxccheckbilldetailDaoMap">
+		select * 
+		from tb_jxc_checkbill_detail
+		where bill_no = #{billNo,jdbcType=VARCHAR}
+	</select>
+	
+	
+	<insert id="add" parameterType="com.h2y.jxc.entity.JxcCheckbillDetail">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_jxc_checkbill_detail 
+		</selectKey>  
+		insert into tb_jxc_checkbill_detail
+		(
+		bill_no,
+		bill_id,
+		storage_id,
+		storage,
+		goods_id,
+		goods_nickname,
+		goods_number,
+		inventory_count,
+		check_count,
+		breakeven_count,
+		cost_single_price,
+		breakeven_amount,
+		notes,
+		create_date,
+		data1,
+		data2,
+		data3,
+		data4,
+		data5,
+		data6,
+		data7,
+		data8,
+		data9,
+		data10
+		)
+		values (
+		#{billNo,jdbcType=VARCHAR},
+		#{billId,jdbcType=BIGINT},
+		#{storageId,jdbcType=BIGINT},
+		#{storage,jdbcType=VARCHAR},
+		#{goodsId,jdbcType=BIGINT},
+		#{goodsNickname,jdbcType=VARCHAR},
+		#{goodsNumber,jdbcType=VARCHAR},
+		#{inventoryCount,jdbcType=INTEGER},
+		#{checkCount,jdbcType=INTEGER},
+		#{breakevenCount,jdbcType=INTEGER},
+		#{costSinglePrice,jdbcType=DOUBLE},
+		#{breakevenAmount,jdbcType=DOUBLE},
+		#{notes,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{data1,jdbcType=VARCHAR},
+		#{data2,jdbcType=VARCHAR},
+		#{data3,jdbcType=VARCHAR},
+		#{data4,jdbcType=INTEGER},
+		#{data5,jdbcType=INTEGER},
+		#{data6,jdbcType=BIGINT},
+		#{data7,jdbcType=BIGINT},
+		#{data8,jdbcType=DOUBLE},
+		#{data9,jdbcType=DOUBLE},
+		#{data10,jdbcType=DOUBLE}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.jxc.entity.JxcCheckbillDetail">
+		update tb_jxc_checkbill_detail
+		set
+		bill_no = #{billNo,jdbcType=VARCHAR},
+		bill_id = #{billId,jdbcType=BIGINT},
+		storage_id = #{storageId,jdbcType=BIGINT},
+		storage = #{storage,jdbcType=VARCHAR},
+		goods_id = #{goodsId,jdbcType=BIGINT},
+		goods_nickname = #{goodsNickname,jdbcType=VARCHAR},
+		goods_number = #{goodsNumber,jdbcType=VARCHAR},
+		inventory_count = #{inventoryCount,jdbcType=INTEGER},
+		check_count = #{checkCount,jdbcType=INTEGER},
+		breakeven_count = #{breakevenCount,jdbcType=INTEGER},
+		cost_single_price = #{costSinglePrice,jdbcType=DOUBLE},
+		breakeven_amount = #{breakevenAmount,jdbcType=DOUBLE},
+		notes = #{notes,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		data1 = #{data1,jdbcType=VARCHAR},
+		data2 = #{data2,jdbcType=VARCHAR},
+		data3 = #{data3,jdbcType=VARCHAR},
+		data4 = #{data4,jdbcType=INTEGER},
+		data5 = #{data5,jdbcType=INTEGER},
+		data6 = #{data6,jdbcType=BIGINT},
+		data7 = #{data7,jdbcType=BIGINT},
+		data8 = #{data8,jdbcType=DOUBLE},
+		data9 = #{data9,jdbcType=DOUBLE},
+		data10 = #{data10,jdbcType=DOUBLE}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.jxc.entity.JxcCheckbillDetail">
+		delete from
+		tb_jxc_checkbill_detail
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_jxc_checkbill_detail
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_jxc_checkbill_detail
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="jxccheckbilldetailDaoMap">
+		select * from tb_jxc_checkbill_detail where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.jxc.entity.JxcCheckbillDetail"
+		resultMap="jxccheckbilldetailDaoMap">
+		select * from
+		tb_jxc_checkbill_detail
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="billNo!= null and billNo!=''">
+			and bill_no = #{billNo}
+			</if>
+			<if test="billId!= null">
+			and bill_id = #{billId}
+			</if>
+			<if test="storageId!= null">
+			and storage_id = #{storageId}
+			</if>
+			<if test="storage!= null and storage!=''">
+			and storage = #{storage}
+			</if>
+			<if test="goodsId!= null">
+			and goods_id = #{goodsId}
+			</if>
+			<if test="goodsNickname!= null and goodsNickname!=''">
+			and goods_nickname = #{goodsNickname}
+			</if>
+			<if test="goodsNumber!= null and goodsNumber!=''">
+			and goods_number = #{goodsNumber}
+			</if>
+			<if test="inventoryCount!= null">
+			and inventory_count = #{inventoryCount}
+			</if>
+			<if test="checkCount!= null">
+			and check_count = #{checkCount}
+			</if>
+			<if test="breakevenCount!= null">
+			and breakeven_count = #{breakevenCount}
+			</if>
+			<if test="costSinglePrice!= null and costSinglePrice!=''">
+			and cost_single_price = #{costSinglePrice}
+			</if>
+			<if test="breakevenAmount!= null and breakevenAmount!=''">
+			and breakeven_amount = #{breakevenAmount}
+			</if>
+			<if test="notes!= null and notes!=''">
+			and notes = #{notes}
+			</if>
+			<if test="createDate!= null and createDate!=''">
+			and create_date = #{createDate}
+			</if>
+			<if test="data1!= null and data1!=''">
+			and data1 = #{data1}
+			</if>
+			<if test="data2!= null and data2!=''">
+			and data2 = #{data2}
+			</if>
+			<if test="data3!= null and data3!=''">
+			and data3 = #{data3}
+			</if>
+			<if test="data4!= null">
+			and data4 = #{data4}
+			</if>
+			<if test="data5!= null">
+			and data5 = #{data5}
+			</if>
+			<if test="data6!= null">
+			and data6 = #{data6}
+			</if>
+			<if test="data7!= null">
+			and data7 = #{data7}
+			</if>
+			<if test="data8!= null and data8!=''">
+			and data8 = #{data8}
+			</if>
+			<if test="data9!= null and data9!=''">
+			and data9 = #{data9}
+			</if>
+			<if test="data10!= null and data10!=''">
+			and data10 = #{data10}
+			</if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="jxccheckbilldetailDaoMap">
+		select
+		*
+		from
+		tb_jxc_checkbill_detail
+		<if test="keyJxcCheckbillDetail!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keyJxcCheckbillDetail.id!= null">
+				and id = #{keyJxcCheckbillDetail.id}
+				</if>
+				<if test="keyJxcCheckbillDetail.billNo!= null and keyJxcCheckbillDetail.billNo!=''">
+				and bill_no = #{keyJxcCheckbillDetail.billNo}
+				</if>
+				<if test="keyJxcCheckbillDetail.billId!= null">
+				and bill_id = #{keyJxcCheckbillDetail.billId}
+				</if>
+				<if test="keyJxcCheckbillDetail.storageId!= null">
+				and storage_id = #{keyJxcCheckbillDetail.storageId}
+				</if>
+				<if test="keyJxcCheckbillDetail.storage!= null and keyJxcCheckbillDetail.storage!=''">
+				and storage = #{keyJxcCheckbillDetail.storage}
+				</if>
+				<if test="keyJxcCheckbillDetail.goodsId!= null">
+				and goods_id = #{keyJxcCheckbillDetail.goodsId}
+				</if>
+				<if test="keyJxcCheckbillDetail.goodsNickname!= null and keyJxcCheckbillDetail.goodsNickname!=''">
+				and goods_nickname = #{keyJxcCheckbillDetail.goodsNickname}
+				</if>
+				<if test="keyJxcCheckbillDetail.goodsNumber!= null and keyJxcCheckbillDetail.goodsNumber!=''">
+				and goods_number = #{keyJxcCheckbillDetail.goodsNumber}
+				</if>
+				<if test="keyJxcCheckbillDetail.inventoryCount!= null">
+				and inventory_count = #{keyJxcCheckbillDetail.inventoryCount}
+				</if>
+				<if test="keyJxcCheckbillDetail.checkCount!= null">
+				and check_count = #{keyJxcCheckbillDetail.checkCount}
+				</if>
+				<if test="keyJxcCheckbillDetail.breakevenCount!= null">
+				and breakeven_count = #{keyJxcCheckbillDetail.breakevenCount}
+				</if>
+				<if test="keyJxcCheckbillDetail.costSinglePrice!= null and keyJxcCheckbillDetail.costSinglePrice!=''">
+				and cost_single_price = #{keyJxcCheckbillDetail.costSinglePrice}
+				</if>
+				<if test="keyJxcCheckbillDetail.breakevenAmount!= null and keyJxcCheckbillDetail.breakevenAmount!=''">
+				and breakeven_amount = #{keyJxcCheckbillDetail.breakevenAmount}
+				</if>
+				<if test="keyJxcCheckbillDetail.notes!= null and keyJxcCheckbillDetail.notes!=''">
+				and notes = #{keyJxcCheckbillDetail.notes}
+				</if>
+				<if test="keyJxcCheckbillDetail.createDate!= null and keyJxcCheckbillDetail.createDate!=''">
+				and create_date = #{keyJxcCheckbillDetail.createDate}
+				</if>
+				<if test="keyJxcCheckbillDetail.data1!= null and keyJxcCheckbillDetail.data1!=''">
+				and data1 = #{keyJxcCheckbillDetail.data1}
+				</if>
+				<if test="keyJxcCheckbillDetail.data2!= null and keyJxcCheckbillDetail.data2!=''">
+				and data2 = #{keyJxcCheckbillDetail.data2}
+				</if>
+				<if test="keyJxcCheckbillDetail.data3!= null and keyJxcCheckbillDetail.data3!=''">
+				and data3 = #{keyJxcCheckbillDetail.data3}
+				</if>
+				<if test="keyJxcCheckbillDetail.data4!= null">
+				and data4 = #{keyJxcCheckbillDetail.data4}
+				</if>
+				<if test="keyJxcCheckbillDetail.data5!= null">
+				and data5 = #{keyJxcCheckbillDetail.data5}
+				</if>
+				<if test="keyJxcCheckbillDetail.data6!= null">
+				and data6 = #{keyJxcCheckbillDetail.data6}
+				</if>
+				<if test="keyJxcCheckbillDetail.data7!= null">
+				and data7 = #{keyJxcCheckbillDetail.data7}
+				</if>
+				<if test="keyJxcCheckbillDetail.data8!= null and keyJxcCheckbillDetail.data8!=''">
+				and data8 = #{keyJxcCheckbillDetail.data8}
+				</if>
+				<if test="keyJxcCheckbillDetail.data9!= null and keyJxcCheckbillDetail.data9!=''">
+				and data9 = #{keyJxcCheckbillDetail.data9}
+				</if>
+				<if test="keyJxcCheckbillDetail.data10!= null and keyJxcCheckbillDetail.data10!=''">
+				and data10 = #{keyJxcCheckbillDetail.data10}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_jxc_checkbill_detail
+		<if test="keyJxcCheckbillDetail!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keyJxcCheckbillDetail.id!= null">
+				and id = #{keyJxcCheckbillDetail.id}
+				</if>
+				<if test="keyJxcCheckbillDetail.billNo!= null and keyJxcCheckbillDetail.billNo!=''">
+				and bill_no = #{keyJxcCheckbillDetail.billNo}
+				</if>
+				<if test="keyJxcCheckbillDetail.billId!= null">
+				and bill_id = #{keyJxcCheckbillDetail.billId}
+				</if>
+				<if test="keyJxcCheckbillDetail.storageId!= null">
+				and storage_id = #{keyJxcCheckbillDetail.storageId}
+				</if>
+				<if test="keyJxcCheckbillDetail.storage!= null and keyJxcCheckbillDetail.storage!=''">
+				and storage = #{keyJxcCheckbillDetail.storage}
+				</if>
+				<if test="keyJxcCheckbillDetail.goodsId!= null">
+				and goods_id = #{keyJxcCheckbillDetail.goodsId}
+				</if>
+				<if test="keyJxcCheckbillDetail.goodsNickname!= null and keyJxcCheckbillDetail.goodsNickname!=''">
+				and goods_nickname = #{keyJxcCheckbillDetail.goodsNickname}
+				</if>
+				<if test="keyJxcCheckbillDetail.goodsNumber!= null and keyJxcCheckbillDetail.goodsNumber!=''">
+				and goods_number = #{keyJxcCheckbillDetail.goodsNumber}
+				</if>
+				<if test="keyJxcCheckbillDetail.inventoryCount!= null">
+				and inventory_count = #{keyJxcCheckbillDetail.inventoryCount}
+				</if>
+				<if test="keyJxcCheckbillDetail.checkCount!= null">
+				and check_count = #{keyJxcCheckbillDetail.checkCount}
+				</if>
+				<if test="keyJxcCheckbillDetail.breakevenCount!= null">
+				and breakeven_count = #{keyJxcCheckbillDetail.breakevenCount}
+				</if>
+				<if test="keyJxcCheckbillDetail.costSinglePrice!= null and keyJxcCheckbillDetail.costSinglePrice!=''">
+				and cost_single_price = #{keyJxcCheckbillDetail.costSinglePrice}
+				</if>
+				<if test="keyJxcCheckbillDetail.breakevenAmount!= null and keyJxcCheckbillDetail.breakevenAmount!=''">
+				and breakeven_amount = #{keyJxcCheckbillDetail.breakevenAmount}
+				</if>
+				<if test="keyJxcCheckbillDetail.notes!= null and keyJxcCheckbillDetail.notes!=''">
+				and notes = #{keyJxcCheckbillDetail.notes}
+				</if>
+				<if test="keyJxcCheckbillDetail.createDate!= null and keyJxcCheckbillDetail.createDate!=''">
+				and create_date = #{keyJxcCheckbillDetail.createDate}
+				</if>
+				<if test="keyJxcCheckbillDetail.data1!= null and keyJxcCheckbillDetail.data1!=''">
+				and data1 = #{keyJxcCheckbillDetail.data1}
+				</if>
+				<if test="keyJxcCheckbillDetail.data2!= null and keyJxcCheckbillDetail.data2!=''">
+				and data2 = #{keyJxcCheckbillDetail.data2}
+				</if>
+				<if test="keyJxcCheckbillDetail.data3!= null and keyJxcCheckbillDetail.data3!=''">
+				and data3 = #{keyJxcCheckbillDetail.data3}
+				</if>
+				<if test="keyJxcCheckbillDetail.data4!= null">
+				and data4 = #{keyJxcCheckbillDetail.data4}
+				</if>
+				<if test="keyJxcCheckbillDetail.data5!= null">
+				and data5 = #{keyJxcCheckbillDetail.data5}
+				</if>
+				<if test="keyJxcCheckbillDetail.data6!= null">
+				and data6 = #{keyJxcCheckbillDetail.data6}
+				</if>
+				<if test="keyJxcCheckbillDetail.data7!= null">
+				and data7 = #{keyJxcCheckbillDetail.data7}
+				</if>
+				<if test="keyJxcCheckbillDetail.data8!= null and keyJxcCheckbillDetail.data8!=''">
+				and data8 = #{keyJxcCheckbillDetail.data8}
+				</if>
+				<if test="keyJxcCheckbillDetail.data9!= null and keyJxcCheckbillDetail.data9!=''">
+				and data9 = #{keyJxcCheckbillDetail.data9}
+				</if>
+				<if test="keyJxcCheckbillDetail.data10!= null and keyJxcCheckbillDetail.data10!=''">
+				and data10 = #{keyJxcCheckbillDetail.data10}
+				</if>
+			</trim>
+		</if>
+	</select>
+</mapper>

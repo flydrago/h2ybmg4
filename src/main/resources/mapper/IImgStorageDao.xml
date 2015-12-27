@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.img.dao.IImgStorageDao">
+
+	<resultMap type="com.h2y.img.model.ImgStorage" id="imgstorageDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="moduleId" column="module_id" javaType="long" jdbcType="BIGINT" />
+		<result property="moduleCode" column="module_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="usageId" column="usage_id" javaType="long" jdbcType="BIGINT" />
+		<result property="usageCode" column="usage_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="imgDes" column="img_des" javaType="string" jdbcType="VARCHAR" />
+		<result property="rootPath" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="relativePath" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="fileName" column="file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="saveName" column="save_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="ord" column="ord" javaType="int" jdbcType="INTEGER" />
+		<result property="data1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="data2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+		<result property="data4" column="data_4" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="imgstorageDaoSelectListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="MODULE_ID" column="module_id" javaType="long" jdbcType="BIGINT" />
+		<result property="MODULE_CODE" column="module_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="USAGE_ID" column="usage_id" javaType="long" jdbcType="BIGINT" />
+		<result property="USAGE_CODE" column="usage_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="IMG_DES" column="img_des" javaType="string" jdbcType="VARCHAR" />
+		<result property="ROOT_PATH" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="RELATIVE_PATH" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="FILE_NAME" column="file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="SAVE_NAME" column="save_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="ORD" column="ord" javaType="int" jdbcType="INTEGER" />
+		<result property="DATA_1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_4" column="data_4" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.img.model.ImgStorage">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_img_storage 
+		</selectKey>  
+		insert into tb_img_storage
+		(
+		unit_id,
+		module_id,
+		module_code,
+		usage_id,
+		usage_code,
+		img_des,
+		root_path,
+		relative_path,
+		file_name,
+		save_name,
+		create_date,
+		status,
+		memo,
+		ord,
+		data_1,
+		data_2,
+		data_3,
+		data_4
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{moduleId,jdbcType=BIGINT},
+		#{moduleCode,jdbcType=VARCHAR},
+		#{usageId,jdbcType=BIGINT},
+		#{usageCode,jdbcType=VARCHAR},
+		#{imgDes,jdbcType=VARCHAR},
+		#{rootPath,jdbcType=VARCHAR},
+		#{relativePath,jdbcType=VARCHAR},
+		#{fileName,jdbcType=VARCHAR},
+		#{saveName,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{status,jdbcType=INTEGER},
+		#{memo,jdbcType=VARCHAR},
+		#{ord,jdbcType=INTEGER},
+		#{data1,jdbcType=VARCHAR},
+		#{data2,jdbcType=VARCHAR},
+		#{data3,jdbcType=VARCHAR},
+		#{data4,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.img.model.ImgStorage">
+		update tb_img_storage
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		module_id = #{moduleId,jdbcType=BIGINT},
+		module_code = #{moduleCode,jdbcType=VARCHAR},
+		usage_id = #{usageId,jdbcType=BIGINT},
+		usage_code = #{usageCode,jdbcType=VARCHAR},
+		img_des = #{imgDes,jdbcType=VARCHAR},
+		root_path = #{rootPath,jdbcType=VARCHAR},
+		relative_path = #{relativePath,jdbcType=VARCHAR},
+		file_name = #{fileName,jdbcType=VARCHAR},
+		save_name = #{saveName,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		status = #{status,jdbcType=INTEGER},
+		memo = #{memo,jdbcType=VARCHAR},
+		ord = #{ord,jdbcType=INTEGER},
+		data_1 = #{data1,jdbcType=VARCHAR},
+		data_2 = #{data2,jdbcType=VARCHAR},
+		data_3 = #{data3,jdbcType=VARCHAR},
+		data_4 = #{data4,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.img.model.ImgStorage">
+		delete from
+		tb_img_storage
+		where
+		id = #{id} 
+	</delete>
+
+	<update id="deleteById" parameterType="long">
+		update tb_img_storage
+		set status = -1
+		where id = #{id} 
+	</update>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_img_storage
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="imgstorageDaoMap">
+		select * from tb_img_storage where id = #{id}
+	</select>
+
+	<select id="getSelectListMap" parameterType="hashmap"
+		resultMap="imgstorageDaoSelectListMap">
+		select * from
+		tb_img_storage 
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			unit_id = #{unitId}
+			and status &lt;&gt; -1
+			and module_code = #{moduleCode}
+			and usage_code = #{usageCode}
+			<if test="imgIdList!=null">
+				and id not in 
+				<foreach collection="imgIdList" item="imgId" open="(" separator=","
+					close=")"> #{imgId} 
+				</foreach>
+			</if>
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by id desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	<select id="getSelectListRows" parameterType="hashmap"
+		resultType="long">
+		select count(id) from
+		tb_img_storage 
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			unit_id = #{unitId}
+			and status &lt;&gt; -1
+			and module_code = #{moduleCode}
+			and usage_code = #{usageCode}
+			<if test="imgIdList!=null">
+				and id not in 
+				<foreach collection="imgIdList" item="imgId" open="(" separator=","
+					close=")"> #{imgId} 
+				</foreach>
+			</if>
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="getListMap" parameterType="hashmap" resultMap="imgstorageDaoMap">
+		select * from
+		tb_img_storage
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+     		unit_id = #{unitId}
+			and status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by create_date desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select count(id) from
+		tb_img_storage
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+     		unit_id = #{unitId}
+			and status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+</mapper>

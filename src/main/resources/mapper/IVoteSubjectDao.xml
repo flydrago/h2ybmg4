@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IVoteSubjectDao">
+	<resultMap type="com.h2y.bmg.entity.VoteSubject" id="votesubjectDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitType" column="unit_type" javaType="int" jdbcType="INTEGER" />
+		<result property="zoneCode" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="subjectName" column="subject_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="subjectType" column="subject_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="promoteId" column="promote_id" javaType="long" jdbcType="BIGINT" />
+		<result property="limitTimes" column="limit_times" javaType="int" jdbcType="INTEGER" />
+		<result property="totalTimes" column="total_times" javaType="int" jdbcType="INTEGER" />
+		<result property="startDate" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="endDate" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="fileName" column="file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="diskFileName" column="disk_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="rootPath" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="relativePath" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="fileSize" column="file_size" javaType="long" jdbcType="BIGINT" />
+		<result property="fileSuffix" column="file_suffix" javaType="string" jdbcType="VARCHAR" />
+		<result property="description" column="description" javaType="string" jdbcType="VARCHAR" />
+		<result property="subjectStatus" column="subject_status" javaType="int" jdbcType="INTEGER" />
+		<result property="reserve1" column="reserve_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="reserve2" column="reserve_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="reserve3" column="reserve_3" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<resultMap type="java.util.Map" id="votesubjectDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_TYPE" column="unit_type" javaType="int" jdbcType="INTEGER" />
+		<result property="ZONE_CODE" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="SUBJECT_NAME" column="subject_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="SUBJECT_TYPE" column="subject_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="PROMOTE_ID" column="promote_id" javaType="long" jdbcType="BIGINT" />
+		<result property="LIMIT_TIMES" column="limit_times" javaType="int" jdbcType="INTEGER" />
+		<result property="TOTAL_TIMES" column="total_times" javaType="int" jdbcType="INTEGER" />
+		<result property="START_DATE" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="END_DATE" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="UPDATE_DATE" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="FILE_NAME" column="file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="DISK_FILENAME" column="disk_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="ROOT_PATH" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="RELATIVE_PATH" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="FILE_SIZE" column="file_size" javaType="long" jdbcType="BIGINT" />
+		<result property="FILE_SUFFIX" column="file_suffix" javaType="string" jdbcType="VARCHAR" />
+		<result property="DESCRIPTION" column="description" javaType="string" jdbcType="VARCHAR" />
+		<result property="SUBJECT_STATUS" column="subject_status" javaType="int" jdbcType="INTEGER" />
+		<result property="RESERVE_1" column="reserve_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="RESERVE_2" column="reserve_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="RESERVE_3" column="reserve_3" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<insert id="add" parameterType="com.h2y.bmg.entity.VoteSubject">
+		<selectKey keyProperty="id" resultType="long" order="AFTER">
+			SELECT
+			max(id) AS value from tb_vote_subject
+		</selectKey>
+		insert into tb_vote_subject
+		(
+		unit_id, unit_type, zone_code, subject_name, subject_type, promote_id, limit_times, total_times, start_date,
+		end_date, create_date, update_date, file_name, disk_file_name, root_path, relative_path, file_size, file_suffix,
+		description, subject_status, reserve_1, reserve_2, reserve_3 )
+		values ( #{unitId,jdbcType=BIGINT}, #{unitType,jdbcType=INTEGER}, #{zoneCode,jdbcType=VARCHAR}, #{subjectName,jdbcType=VARCHAR},
+		#{subjectType,jdbcType=VARCHAR}, #{promoteId,jdbcType=BIGINT}, #{limitTimes,jdbcType=INTEGER}, #{totalTimes,jdbcType=INTEGER},
+		#{startDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP},
+		#{fileName,jdbcType=VARCHAR}, #{diskFileName,jdbcType=VARCHAR}, #{rootPath,jdbcType=VARCHAR}, #{relativePath,jdbcType=VARCHAR},
+		#{fileSize,jdbcType=BIGINT}, #{fileSuffix,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{subjectStatus,jdbcType=INTEGER},
+		#{reserve1,jdbcType=VARCHAR}, #{reserve2,jdbcType=VARCHAR}, #{reserve3,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.VoteSubject">
+		update tb_vote_subject
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		unit_type =
+		#{unitType,jdbcType=INTEGER},
+		zone_code = #{zoneCode,jdbcType=VARCHAR},
+		subject_name = #{subjectName,jdbcType=VARCHAR},
+		subject_type =
+		#{subjectType,jdbcType=VARCHAR},
+		promote_id =
+		#{promoteId,jdbcType=BIGINT},
+		limit_times =
+		#{limitTimes,jdbcType=INTEGER},
+		total_times =
+		#{totalTimes,jdbcType=INTEGER},
+		start_date =
+		#{startDate,jdbcType=TIMESTAMP},
+		end_date =
+		#{endDate,jdbcType=TIMESTAMP},
+		create_date =
+		#{createDate,jdbcType=TIMESTAMP},
+		update_date =
+		#{updateDate,jdbcType=TIMESTAMP},
+		file_name =
+		#{fileName,jdbcType=VARCHAR},
+		disk_file_name =
+		#{diskFileName,jdbcType=VARCHAR},
+		root_path =
+		#{rootPath,jdbcType=VARCHAR},
+		relative_path =
+		#{relativePath,jdbcType=VARCHAR},
+		file_size =
+		#{fileSize,jdbcType=BIGINT},
+		file_suffix =
+		#{fileSuffix,jdbcType=VARCHAR},
+		description =
+		#{description,jdbcType=VARCHAR},
+		subject_status =
+		#{subjectStatus,jdbcType=INTEGER},
+		reserve_1 =
+		#{reserve1,jdbcType=VARCHAR},
+		reserve_2 = #{reserve2,jdbcType=VARCHAR},
+		reserve_3 = #{reserve3,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.VoteSubject">
+		delete from
+		tb_vote_subject
+		where
+		id = #{id}
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_vote_subject
+		where
+		id = #{id}
+	</delete>
+
+	<!-- <delete id="deleteByIds"> delete from tb_vote_subject where id in <foreach 
+		collection="list" item="id" open="(" separator="," close=")"> #{id} </foreach> 
+		</delete> -->
+
+	<select id="selectBySubjectName" parameterType="String" resultMap="votesubjectDaoMap">
+		select * from
+		tb_vote_subject where subject_name= #{subjectName}
+	</select>
+
+
+	<select id="get" parameterType="long"
+		resultMap="votesubjectDaoMap">
+		select * from tb_vote_subject where id = #{id}
+	</select>
+
+	<select id="getListMap" parameterType="hashmap" resultMap="votesubjectDaoListMap">
+		select * from tb_vote_subject
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+		   unit_id = #{unitId} and subject_status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder}
+				</if>
+			</when>
+			<otherwise>
+				order by create_date desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select count(id) from tb_vote_subject
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+		unit_id = #{unitId} and subject_status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+
+</mapper>

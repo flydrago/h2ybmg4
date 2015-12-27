@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.jxc.dao.IJxcProfitandlossDetailDao">
+
+	<resultMap type="com.h2y.jxc.entity.JxcProfitandlossDetail" id="jxcprofitandlossdetailDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="billNo" column="bill_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="billId" column="bill_id" javaType="long" jdbcType="BIGINT" />
+		<result property="storageId" column="storage_id" javaType="long" jdbcType="BIGINT" />
+		<result property="storage" column="storage" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsId" column="goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsNickname" column="goods_nickname" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsNumber" column="goods_number" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsUnit" column="goods_unit" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsCostPrice" column="goods_cost_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="plCount" column="pl_count" javaType="int" jdbcType="INTEGER" />
+		<result property="plAmount" column="pl_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="goodsRetailPrice" column="goods_retail_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="retailAmount" column="retail_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="giftMark" column="gift_mark" javaType="int" jdbcType="INTEGER" />
+		<result property="notes" column="notes" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="data1" column="data1" javaType="string" jdbcType="VARCHAR" />
+		<result property="data2" column="data2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data3" javaType="string" jdbcType="VARCHAR" />
+		<result property="data4" column="data4" javaType="long" jdbcType="BIGINT" />
+		<result property="data5" column="data5" javaType="long" jdbcType="BIGINT" />
+		<result property="data6" column="data6" javaType="int" jdbcType="INTEGER" />
+		<result property="data7" column="data7" javaType="int" jdbcType="INTEGER" />
+		<result property="data8" column="data8" javaType="int" jdbcType="INTEGER" />
+		<result property="data9" column="data9" javaType="double" jdbcType="DOUBLE" />
+		<result property="data10" column="data10" javaType="double" jdbcType="DOUBLE" />
+		<result property="data11" column="data11" javaType="double" jdbcType="DOUBLE" />
+		<result property="data12" column="data12" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	<select id="getBillGoodsDetailList" parameterType="hashmap" resultMap="jxcprofitandlossdetailDaoMap">
+		select * 
+		from tb_jxc_profitandloss_detail
+		where bill_no = #{billNo,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getBillGoodsList" parameterType="hashmap" resultMap="jxcprofitandlossdetailDaoMap">
+		select * 
+		from tb_jxc_profitandloss_detail
+		where bill_no = #{billNo,jdbcType=VARCHAR}
+	</select>
+	
+	<insert id="add" parameterType="com.h2y.jxc.entity.JxcProfitandlossDetail">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_jxc_profitandloss_detail 
+		</selectKey>  
+		insert into tb_jxc_profitandloss_detail
+		(
+		bill_no,
+		bill_id,
+		storage_id,
+		storage,
+		goods_id,
+		goods_nickname,
+		goods_number,
+		goods_unit,
+		goods_cost_price,
+		pl_count,
+		pl_amount,
+		goods_retail_price,
+		retail_amount,
+		gift_mark,
+		notes,
+		create_date,
+		data1,
+		data2,
+		data3,
+		data4,
+		data5,
+		data6,
+		data7,
+		data8,
+		data9,
+		data10,
+		data11,
+		data12
+		)
+		values (
+		#{billNo,jdbcType=VARCHAR},
+		#{billId,jdbcType=BIGINT},
+		#{storageId,jdbcType=BIGINT},
+		#{storage,jdbcType=VARCHAR},
+		#{goodsId,jdbcType=BIGINT},
+		#{goodsNickname,jdbcType=VARCHAR},
+		#{goodsNumber,jdbcType=VARCHAR},
+		#{goodsUnit,jdbcType=VARCHAR},
+		#{goodsCostPrice,jdbcType=DOUBLE},
+		#{plCount,jdbcType=INTEGER},
+		#{plAmount,jdbcType=DOUBLE},
+		#{goodsRetailPrice,jdbcType=DOUBLE},
+		#{retailAmount,jdbcType=DOUBLE},
+		#{giftMark,jdbcType=INTEGER},
+		#{notes,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{data1,jdbcType=VARCHAR},
+		#{data2,jdbcType=VARCHAR},
+		#{data3,jdbcType=VARCHAR},
+		#{data4,jdbcType=BIGINT},
+		#{data5,jdbcType=BIGINT},
+		#{data6,jdbcType=INTEGER},
+		#{data7,jdbcType=INTEGER},
+		#{data8,jdbcType=INTEGER},
+		#{data9,jdbcType=DOUBLE},
+		#{data10,jdbcType=DOUBLE},
+		#{data11,jdbcType=DOUBLE},
+		#{data12,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.jxc.entity.JxcProfitandlossDetail">
+		update tb_jxc_profitandloss_detail
+		set
+		bill_no = #{billNo,jdbcType=VARCHAR},
+		bill_id = #{billId,jdbcType=BIGINT},
+		storage_id = #{storageId,jdbcType=BIGINT},
+		storage = #{storage,jdbcType=VARCHAR},
+		goods_id = #{goodsId,jdbcType=BIGINT},
+		goods_nickname = #{goodsNickname,jdbcType=VARCHAR},
+		goods_number = #{goodsNumber,jdbcType=VARCHAR},
+		goods_unit = #{goodsUnit,jdbcType=VARCHAR},
+		goods_cost_price = #{goodsCostPrice,jdbcType=DOUBLE},
+		pl_count = #{plCount,jdbcType=INTEGER},
+		pl_amount = #{plAmount,jdbcType=DOUBLE},
+		goods_retail_price = #{goodsRetailPrice,jdbcType=DOUBLE},
+		retail_amount = #{retailAmount,jdbcType=DOUBLE},
+		gift_mark = #{giftMark,jdbcType=INTEGER},
+		notes = #{notes,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		data1 = #{data1,jdbcType=VARCHAR},
+		data2 = #{data2,jdbcType=VARCHAR},
+		data3 = #{data3,jdbcType=VARCHAR},
+		data4 = #{data4,jdbcType=BIGINT},
+		data5 = #{data5,jdbcType=BIGINT},
+		data6 = #{data6,jdbcType=INTEGER},
+		data7 = #{data7,jdbcType=INTEGER},
+		data8 = #{data8,jdbcType=INTEGER},
+		data9 = #{data9,jdbcType=DOUBLE},
+		data10 = #{data10,jdbcType=DOUBLE},
+		data11 = #{data11,jdbcType=DOUBLE},
+		data12 = #{data12,jdbcType=BIGINT}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.jxc.entity.JxcProfitandlossDetail">
+		delete from
+		tb_jxc_profitandloss_detail
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_jxc_profitandloss_detail
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_jxc_profitandloss_detail
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="jxcprofitandlossdetailDaoMap">
+		select * from tb_jxc_profitandloss_detail where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.jxc.entity.JxcProfitandlossDetail"
+		resultMap="jxcprofitandlossdetailDaoMap">
+		select * from
+		tb_jxc_profitandloss_detail
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="billNo!= null and billNo!=''">
+			and bill_no = #{billNo}
+			</if>
+			<if test="billId!= null">
+			and bill_id = #{billId}
+			</if>
+			<if test="storageId!= null">
+			and storage_id = #{storageId}
+			</if>
+			<if test="storage!= null and storage!=''">
+			and storage = #{storage}
+			</if>
+			<if test="goodsId!= null">
+			and goods_id = #{goodsId}
+			</if>
+			<if test="goodsNickname!= null and goodsNickname!=''">
+			and goods_nickname = #{goodsNickname}
+			</if>
+			<if test="goodsNumber!= null and goodsNumber!=''">
+			and goods_number = #{goodsNumber}
+			</if>
+			<if test="goodsUnit!= null and goodsUnit!=''">
+			and goods_unit = #{goodsUnit}
+			</if>
+			<if test="goodsCostPrice!= null and goodsCostPrice!=''">
+			and goods_cost_price = #{goodsCostPrice}
+			</if>
+			<if test="plCount!= null">
+			and pl_count = #{plCount}
+			</if>
+			<if test="plAmount!= null and plAmount!=''">
+			and pl_amount = #{plAmount}
+			</if>
+			<if test="goodsRetailPrice!= null and goodsRetailPrice!=''">
+			and goods_retail_price = #{goodsRetailPrice}
+			</if>
+			<if test="retailAmount!= null and retailAmount!=''">
+			and retail_amount = #{retailAmount}
+			</if>
+			<if test="giftMark!= null">
+			and gift_mark = #{giftMark}
+			</if>
+			<if test="notes!= null and notes!=''">
+			and notes = #{notes}
+			</if>
+			<if test="createDate!= null and createDate!=''">
+			and create_date = #{createDate}
+			</if>
+			<if test="data1!= null and data1!=''">
+			and data1 = #{data1}
+			</if>
+			<if test="data2!= null and data2!=''">
+			and data2 = #{data2}
+			</if>
+			<if test="data3!= null and data3!=''">
+			and data3 = #{data3}
+			</if>
+			<if test="data4!= null">
+			and data4 = #{data4}
+			</if>
+			<if test="data5!= null">
+			and data5 = #{data5}
+			</if>
+			<if test="data6!= null">
+			and data6 = #{data6}
+			</if>
+			<if test="data7!= null">
+			and data7 = #{data7}
+			</if>
+			<if test="data8!= null">
+			and data8 = #{data8}
+			</if>
+			<if test="data9!= null and data9!=''">
+			and data9 = #{data9}
+			</if>
+			<if test="data10!= null and data10!=''">
+			and data10 = #{data10}
+			</if>
+			<if test="data11!= null and data11!=''">
+			and data11 = #{data11}
+			</if>
+			<if test="data12!= null">
+			and data12 = #{data12}
+			</if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="jxcprofitandlossdetailDaoMap">
+		select
+		*
+		from
+		tb_jxc_profitandloss_detail
+		<if test="keyJxcProfitandlossDetail!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keyJxcProfitandlossDetail.id!= null">
+				and id = #{keyJxcProfitandlossDetail.id}
+				</if>
+				<if test="keyJxcProfitandlossDetail.billNo!= null and keyJxcProfitandlossDetail.billNo!=''">
+				and bill_no = #{keyJxcProfitandlossDetail.billNo}
+				</if>
+				<if test="keyJxcProfitandlossDetail.billId!= null">
+				and bill_id = #{keyJxcProfitandlossDetail.billId}
+				</if>
+				<if test="keyJxcProfitandlossDetail.storageId!= null">
+				and storage_id = #{keyJxcProfitandlossDetail.storageId}
+				</if>
+				<if test="keyJxcProfitandlossDetail.storage!= null and keyJxcProfitandlossDetail.storage!=''">
+				and storage = #{keyJxcProfitandlossDetail.storage}
+				</if>
+				<if test="keyJxcProfitandlossDetail.goodsId!= null">
+				and goods_id = #{keyJxcProfitandlossDetail.goodsId}
+				</if>
+				<if test="keyJxcProfitandlossDetail.goodsNickname!= null and keyJxcProfitandlossDetail.goodsNickname!=''">
+				and goods_nickname = #{keyJxcProfitandlossDetail.goodsNickname}
+				</if>
+				<if test="keyJxcProfitandlossDetail.goodsNumber!= null and keyJxcProfitandlossDetail.goodsNumber!=''">
+				and goods_number = #{keyJxcProfitandlossDetail.goodsNumber}
+				</if>
+				<if test="keyJxcProfitandlossDetail.goodsUnit!= null and keyJxcProfitandlossDetail.goodsUnit!=''">
+				and goods_unit = #{keyJxcProfitandlossDetail.goodsUnit}
+				</if>
+				<if test="keyJxcProfitandlossDetail.goodsCostPrice!= null and keyJxcProfitandlossDetail.goodsCostPrice!=''">
+				and goods_cost_price = #{keyJxcProfitandlossDetail.goodsCostPrice}
+				</if>
+				<if test="keyJxcProfitandlossDetail.plCount!= null">
+				and pl_count = #{keyJxcProfitandlossDetail.plCount}
+				</if>
+				<if test="keyJxcProfitandlossDetail.plAmount!= null and keyJxcProfitandlossDetail.plAmount!=''">
+				and pl_amount = #{keyJxcProfitandlossDetail.plAmount}
+				</if>
+				<if test="keyJxcProfitandlossDetail.goodsRetailPrice!= null and keyJxcProfitandlossDetail.goodsRetailPrice!=''">
+				and goods_retail_price = #{keyJxcProfitandlossDetail.goodsRetailPrice}
+				</if>
+				<if test="keyJxcProfitandlossDetail.retailAmount!= null and keyJxcProfitandlossDetail.retailAmount!=''">
+				and retail_amount = #{keyJxcProfitandlossDetail.retailAmount}
+				</if>
+				<if test="keyJxcProfitandlossDetail.giftMark!= null">
+				and gift_mark = #{keyJxcProfitandlossDetail.giftMark}
+				</if>
+				<if test="keyJxcProfitandlossDetail.notes!= null and keyJxcProfitandlossDetail.notes!=''">
+				and notes = #{keyJxcProfitandlossDetail.notes}
+				</if>
+				<if test="keyJxcProfitandlossDetail.createDate!= null and keyJxcProfitandlossDetail.createDate!=''">
+				and create_date = #{keyJxcProfitandlossDetail.createDate}
+				</if>
+				<if test="keyJxcProfitandlossDetail.data1!= null and keyJxcProfitandlossDetail.data1!=''">
+				and data1 = #{keyJxcProfitandlossDetail.data1}
+				</if>
+				<if test="keyJxcProfitandlossDetail.data2!= null and keyJxcProfitandlossDetail.data2!=''">
+				and data2 = #{keyJxcProfitandlossDetail.data2}
+				</if>
+				<if test="keyJxcProfitandlossDetail.data3!= null and keyJxcProfitandlossDetail.data3!=''">
+				and data3 = #{keyJxcProfitandlossDetail.data3}
+				</if>
+				<if test="keyJxcProfitandlossDetail.data4!= null">
+				and data4 = #{keyJxcProfitandlossDetail.data4}
+				</if>
+				<if test="keyJxcProfitandlossDetail.data5!= null">
+				and data5 = #{keyJxcProfitandlossDetail.data5}
+				</if>
+				<if test="keyJxcProfitandlossDetail.data6!= null">
+				and data6 = #{keyJxcProfitandlossDetail.data6}
+				</if>
+				<if test="keyJxcProfitandlossDetail.data7!= null">
+				and data7 = #{keyJxcProfitandlossDetail.data7}
+				</if>
+				<if test="keyJxcProfitandlossDetail.data8!= null">
+				and data8 = #{keyJxcProfitandlossDetail.data8}
+				</if>
+				<if test="keyJxcProfitandlossDetail.data9!= null and keyJxcProfitandlossDetail.data9!=''">
+				and data9 = #{keyJxcProfitandlossDetail.data9}
+				</if>
+				<if test="keyJxcProfitandlossDetail.data10!= null and keyJxcProfitandlossDetail.data10!=''">
+				and data10 = #{keyJxcProfitandlossDetail.data10}
+				</if>
+				<if test="keyJxcProfitandlossDetail.data11!= null and keyJxcProfitandlossDetail.data11!=''">
+				and data11 = #{keyJxcProfitandlossDetail.data11}
+				</if>
+				<if test="keyJxcProfitandlossDetail.data12!= null">
+				and data12 = #{keyJxcProfitandlossDetail.data12}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_jxc_profitandloss_detail
+		<if test="keyJxcProfitandlossDetail!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keyJxcProfitandlossDetail.id!= null">
+				and id = #{keyJxcProfitandlossDetail.id}
+				</if>
+				<if test="keyJxcProfitandlossDetail.billNo!= null and keyJxcProfitandlossDetail.billNo!=''">
+				and bill_no = #{keyJxcProfitandlossDetail.billNo}
+				</if>
+				<if test="keyJxcProfitandlossDetail.billId!= null">
+				and bill_id = #{keyJxcProfitandlossDetail.billId}
+				</if>
+				<if test="keyJxcProfitandlossDetail.storageId!= null">
+				and storage_id = #{keyJxcProfitandlossDetail.storageId}
+				</if>
+				<if test="keyJxcProfitandlossDetail.storage!= null and keyJxcProfitandlossDetail.storage!=''">
+				and storage = #{keyJxcProfitandlossDetail.storage}
+				</if>
+				<if test="keyJxcProfitandlossDetail.goodsId!= null">
+				and goods_id = #{keyJxcProfitandlossDetail.goodsId}
+				</if>
+				<if test="keyJxcProfitandlossDetail.goodsNickname!= null and keyJxcProfitandlossDetail.goodsNickname!=''">
+				and goods_nickname = #{keyJxcProfitandlossDetail.goodsNickname}
+				</if>
+				<if test="keyJxcProfitandlossDetail.goodsNumber!= null and keyJxcProfitandlossDetail.goodsNumber!=''">
+				and goods_number = #{keyJxcProfitandlossDetail.goodsNumber}
+				</if>
+				<if test="keyJxcProfitandlossDetail.goodsUnit!= null and keyJxcProfitandlossDetail.goodsUnit!=''">
+				and goods_unit = #{keyJxcProfitandlossDetail.goodsUnit}
+				</if>
+				<if test="keyJxcProfitandlossDetail.goodsCostPrice!= null and keyJxcProfitandlossDetail.goodsCostPrice!=''">
+				and goods_cost_price = #{keyJxcProfitandlossDetail.goodsCostPrice}
+				</if>
+				<if test="keyJxcProfitandlossDetail.plCount!= null">
+				and pl_count = #{keyJxcProfitandlossDetail.plCount}
+				</if>
+				<if test="keyJxcProfitandlossDetail.plAmount!= null and keyJxcProfitandlossDetail.plAmount!=''">
+				and pl_amount = #{keyJxcProfitandlossDetail.plAmount}
+				</if>
+				<if test="keyJxcProfitandlossDetail.goodsRetailPrice!= null and keyJxcProfitandlossDetail.goodsRetailPrice!=''">
+				and goods_retail_price = #{keyJxcProfitandlossDetail.goodsRetailPrice}
+				</if>
+				<if test="keyJxcProfitandlossDetail.retailAmount!= null and keyJxcProfitandlossDetail.retailAmount!=''">
+				and retail_amount = #{keyJxcProfitandlossDetail.retailAmount}
+				</if>
+				<if test="keyJxcProfitandlossDetail.giftMark!= null">
+				and gift_mark = #{keyJxcProfitandlossDetail.giftMark}
+				</if>
+				<if test="keyJxcProfitandlossDetail.notes!= null and keyJxcProfitandlossDetail.notes!=''">
+				and notes = #{keyJxcProfitandlossDetail.notes}
+				</if>
+				<if test="keyJxcProfitandlossDetail.createDate!= null and keyJxcProfitandlossDetail.createDate!=''">
+				and create_date = #{keyJxcProfitandlossDetail.createDate}
+				</if>
+				<if test="keyJxcProfitandlossDetail.data1!= null and keyJxcProfitandlossDetail.data1!=''">
+				and data1 = #{keyJxcProfitandlossDetail.data1}
+				</if>
+				<if test="keyJxcProfitandlossDetail.data2!= null and keyJxcProfitandlossDetail.data2!=''">
+				and data2 = #{keyJxcProfitandlossDetail.data2}
+				</if>
+				<if test="keyJxcProfitandlossDetail.data3!= null and keyJxcProfitandlossDetail.data3!=''">
+				and data3 = #{keyJxcProfitandlossDetail.data3}
+				</if>
+				<if test="keyJxcProfitandlossDetail.data4!= null">
+				and data4 = #{keyJxcProfitandlossDetail.data4}
+				</if>
+				<if test="keyJxcProfitandlossDetail.data5!= null">
+				and data5 = #{keyJxcProfitandlossDetail.data5}
+				</if>
+				<if test="keyJxcProfitandlossDetail.data6!= null">
+				and data6 = #{keyJxcProfitandlossDetail.data6}
+				</if>
+				<if test="keyJxcProfitandlossDetail.data7!= null">
+				and data7 = #{keyJxcProfitandlossDetail.data7}
+				</if>
+				<if test="keyJxcProfitandlossDetail.data8!= null">
+				and data8 = #{keyJxcProfitandlossDetail.data8}
+				</if>
+				<if test="keyJxcProfitandlossDetail.data9!= null and keyJxcProfitandlossDetail.data9!=''">
+				and data9 = #{keyJxcProfitandlossDetail.data9}
+				</if>
+				<if test="keyJxcProfitandlossDetail.data10!= null and keyJxcProfitandlossDetail.data10!=''">
+				and data10 = #{keyJxcProfitandlossDetail.data10}
+				</if>
+				<if test="keyJxcProfitandlossDetail.data11!= null and keyJxcProfitandlossDetail.data11!=''">
+				and data11 = #{keyJxcProfitandlossDetail.data11}
+				</if>
+				<if test="keyJxcProfitandlossDetail.data12!= null">
+				and data12 = #{keyJxcProfitandlossDetail.data12}
+				</if>
+			</trim>
+		</if>
+	</select>
+</mapper>

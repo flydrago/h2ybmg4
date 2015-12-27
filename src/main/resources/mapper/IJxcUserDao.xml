@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.jxc.dao.IJxcUserDao">
+
+	<resultMap type="com.h2y.jxc.entity.JxcUser" id="jxcuserDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="userName" column="user_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="account" column="account" javaType="string" jdbcType="VARCHAR" />
+		<result property="password" column="password" javaType="string" jdbcType="VARCHAR" />
+		<result property="mobile" column="mobile" javaType="string" jdbcType="VARCHAR" />
+		<result property="email" column="email" javaType="string" jdbcType="VARCHAR" />
+		<result property="idNumber" column="id_number" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="lockFlag" column="lock_flag" javaType="int" jdbcType="INTEGER" />
+		<result property="sysFlag" column="sys_flag" javaType="int" jdbcType="INTEGER" />
+		<result property="deleteFlag" column="delete_flag" javaType="int" jdbcType="INTEGER" />
+		<result property="data1" column="data1" javaType="long" jdbcType="BIGINT" />
+		<result property="data2" column="data2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data3" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<insert id="add" parameterType="com.h2y.jxc.entity.JxcUser">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_jxc_user 
+		</selectKey>  
+		insert into tb_jxc_user
+		(
+		unit_id,
+		user_name,
+		account,
+		password,
+		mobile,
+		email,
+		id_number,
+		create_date,
+		update_date,
+		lock_flag,
+		sys_flag,
+		delete_flag,
+		data1,
+		data2,
+		data3
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{userName,jdbcType=VARCHAR},
+		#{account,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR},
+		#{mobile,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR},
+		#{idNumber,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{lockFlag,jdbcType=INTEGER},
+		#{sysFlag,jdbcType=INTEGER},
+		#{deleteFlag,jdbcType=INTEGER},
+		#{data1,jdbcType=BIGINT},
+		#{data2,jdbcType=VARCHAR},
+		#{data3,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.jxc.entity.JxcUser">
+		update tb_jxc_user
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		user_name = #{userName,jdbcType=VARCHAR},
+		account = #{account,jdbcType=VARCHAR},
+		password = #{password,jdbcType=VARCHAR},
+		mobile = #{mobile,jdbcType=VARCHAR},
+		email = #{email,jdbcType=VARCHAR},
+		id_number = #{idNumber,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		lock_flag = #{lockFlag,jdbcType=INTEGER},
+		sys_flag = #{sysFlag,jdbcType=INTEGER},
+		delete_flag = #{deleteFlag,jdbcType=INTEGER},
+		data1 = #{data1,jdbcType=BIGINT},
+		data2 = #{data2,jdbcType=VARCHAR},
+		data3 = #{data3,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.jxc.entity.JxcUser">
+		delete from
+		tb_jxc_user
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_jxc_user
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_jxc_user
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="jxcuserDaoMap">
+		select * from tb_jxc_user where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.jxc.entity.JxcUser"
+		resultMap="jxcuserDaoMap">
+		select * from
+		tb_jxc_user
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="unitId!= null">
+			and unit_id = #{unitId}
+			</if>
+			<if test="userName!= null and userName!=''">
+			and user_name = #{userName}
+			</if>
+			<if test="account!= null and account!=''">
+			and account = #{account}
+			</if>
+			<if test="password!= null and password!=''">
+			and password = #{password}
+			</if>
+			<if test="mobile!= null and mobile!=''">
+			and mobile = #{mobile}
+			</if>
+			<if test="email!= null and email!=''">
+			and email = #{email}
+			</if>
+			<if test="idNumber!= null and idNumber!=''">
+			and id_number = #{idNumber}
+			</if>
+			<if test="createDate!= null and createDate!=''">
+			and create_date = #{createDate}
+			</if>
+			<if test="updateDate!= null and updateDate!=''">
+			and update_date = #{updateDate}
+			</if>
+			<if test="lockFlag!= null">
+			and lock_flag = #{lockFlag}
+			</if>
+			<if test="sysFlag!= null">
+			and sys_flag = #{sysFlag}
+			</if>
+			<if test="deleteFlag!= null">
+			and delete_flag = #{deleteFlag}
+			</if>
+			<if test="data1!= null">
+			and data1 = #{data1}
+			</if>
+			<if test="data2!= null and data2!=''">
+			and data2 = #{data2}
+			</if>
+			<if test="data3!= null and data3!=''">
+			and data3 = #{data3}
+			</if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="jxcuserDaoMap">
+		select
+		*
+		from
+		tb_jxc_user
+		<if test="keyJxcUser!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keyJxcUser.id!= null">
+				and id = #{keyJxcUser.id}
+				</if>
+				<if test="keyJxcUser.unitId!= null">
+				and unit_id = #{keyJxcUser.unitId}
+				</if>
+				<if test="keyJxcUser.userName!= null and keyJxcUser.userName!=''">
+				and user_name = #{keyJxcUser.userName}
+				</if>
+				<if test="keyJxcUser.account!= null and keyJxcUser.account!=''">
+				and account = #{keyJxcUser.account}
+				</if>
+				<if test="keyJxcUser.password!= null and keyJxcUser.password!=''">
+				and password = #{keyJxcUser.password}
+				</if>
+				<if test="keyJxcUser.mobile!= null and keyJxcUser.mobile!=''">
+				and mobile = #{keyJxcUser.mobile}
+				</if>
+				<if test="keyJxcUser.email!= null and keyJxcUser.email!=''">
+				and email = #{keyJxcUser.email}
+				</if>
+				<if test="keyJxcUser.idNumber!= null and keyJxcUser.idNumber!=''">
+				and id_number = #{keyJxcUser.idNumber}
+				</if>
+				<if test="keyJxcUser.createDate!= null and keyJxcUser.createDate!=''">
+				and create_date = #{keyJxcUser.createDate}
+				</if>
+				<if test="keyJxcUser.updateDate!= null and keyJxcUser.updateDate!=''">
+				and update_date = #{keyJxcUser.updateDate}
+				</if>
+				<if test="keyJxcUser.lockFlag!= null">
+				and lock_flag = #{keyJxcUser.lockFlag}
+				</if>
+				<if test="keyJxcUser.sysFlag!= null">
+				and sys_flag = #{keyJxcUser.sysFlag}
+				</if>
+				<if test="keyJxcUser.deleteFlag!= null">
+				and delete_flag = #{keyJxcUser.deleteFlag}
+				</if>
+				<if test="keyJxcUser.data1!= null">
+				and data1 = #{keyJxcUser.data1}
+				</if>
+				<if test="keyJxcUser.data2!= null and keyJxcUser.data2!=''">
+				and data2 = #{keyJxcUser.data2}
+				</if>
+				<if test="keyJxcUser.data3!= null and keyJxcUser.data3!=''">
+				and data3 = #{keyJxcUser.data3}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_jxc_user
+		<if test="keyJxcUser!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keyJxcUser.id!= null">
+				and id = #{keyJxcUser.id}
+				</if>
+				<if test="keyJxcUser.unitId!= null">
+				and unit_id = #{keyJxcUser.unitId}
+				</if>
+				<if test="keyJxcUser.userName!= null and keyJxcUser.userName!=''">
+				and user_name = #{keyJxcUser.userName}
+				</if>
+				<if test="keyJxcUser.account!= null and keyJxcUser.account!=''">
+				and account = #{keyJxcUser.account}
+				</if>
+				<if test="keyJxcUser.password!= null and keyJxcUser.password!=''">
+				and password = #{keyJxcUser.password}
+				</if>
+				<if test="keyJxcUser.mobile!= null and keyJxcUser.mobile!=''">
+				and mobile = #{keyJxcUser.mobile}
+				</if>
+				<if test="keyJxcUser.email!= null and keyJxcUser.email!=''">
+				and email = #{keyJxcUser.email}
+				</if>
+				<if test="keyJxcUser.idNumber!= null and keyJxcUser.idNumber!=''">
+				and id_number = #{keyJxcUser.idNumber}
+				</if>
+				<if test="keyJxcUser.createDate!= null and keyJxcUser.createDate!=''">
+				and create_date = #{keyJxcUser.createDate}
+				</if>
+				<if test="keyJxcUser.updateDate!= null and keyJxcUser.updateDate!=''">
+				and update_date = #{keyJxcUser.updateDate}
+				</if>
+				<if test="keyJxcUser.lockFlag!= null">
+				and lock_flag = #{keyJxcUser.lockFlag}
+				</if>
+				<if test="keyJxcUser.sysFlag!= null">
+				and sys_flag = #{keyJxcUser.sysFlag}
+				</if>
+				<if test="keyJxcUser.deleteFlag!= null">
+				and delete_flag = #{keyJxcUser.deleteFlag}
+				</if>
+				<if test="keyJxcUser.data1!= null">
+				and data1 = #{keyJxcUser.data1}
+				</if>
+				<if test="keyJxcUser.data2!= null and keyJxcUser.data2!=''">
+				and data2 = #{keyJxcUser.data2}
+				</if>
+				<if test="keyJxcUser.data3!= null and keyJxcUser.data3!=''">
+				and data3 = #{keyJxcUser.data3}
+				</if>
+			</trim>
+		</if>
+	</select>
+</mapper>

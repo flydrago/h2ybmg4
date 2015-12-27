@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IWechatActivityDao">
+
+	<resultMap type="com.h2y.bmg.entity.WechatActivity" id="wechatactivityDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="userId" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="name" column="name" javaType="string" jdbcType="VARCHAR" />
+		<result property="description" column="description" javaType="string" jdbcType="VARCHAR" />
+		<result property="keyword" column="keyword" javaType="string" jdbcType="VARCHAR" />
+		<result property="fileName" column="file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="diskFileName" column="disk_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="rootPath" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="relativePath" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="fileSize" column="file_size" javaType="long" jdbcType="BIGINT" />
+		<result property="fileSuffix" column="file_suffix" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="startDate" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="endDate" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="prizeInfo" column="prize_info" javaType="int" jdbcType="INTEGER" />
+		<result property="limitNumber" column="limit_number" javaType="int" jdbcType="INTEGER" />
+		<result property="limitFlag" column="limit_flag" javaType="int" jdbcType="INTEGER" />
+		<result property="ifShareReward" column="if_share_reward" javaType="int" jdbcType="INTEGER" />
+		<result property="rewardNumber" column="reward_number" javaType="int" jdbcType="INTEGER" />
+		<result property="activityStatus" column="activity_status" javaType="int" jdbcType="INTEGER" />
+		<result property="ifSetDate" column="if_set_date" javaType="int" jdbcType="INTEGER" />
+		<result property="activityType" column="activity_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="reverse1" column="reverse_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="reverse2" column="reverse_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="useVal" column="use_val" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	
+	<resultMap type="java.util.Map" id="wechatactivityDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="USER_ID" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="NAME" column="name" javaType="string" jdbcType="VARCHAR" />
+		<result property="DESCRIPTION" column="description" javaType="string" jdbcType="VARCHAR" />
+		<result property="KEYWORD" column="keyword" javaType="string" jdbcType="VARCHAR" />
+		<result property="FILE_NAME" column="file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="DISK_FILE_NAME" column="disk_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="ROOT_PATH" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="RELATIVE_PATH" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="FILE_SIZE" column="file_size" javaType="long" jdbcType="BIGINT" />
+		<result property="FILE_SUFFIX" column="file_suffix" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="START_DATE" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="END_DATE" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="PRIZE_INFO" column="prize_info" javaType="int" jdbcType="INTEGER" />
+		<result property="LIMIT_NUMBER" column="limit_number" javaType="int" jdbcType="INTEGER" />
+		<result property="LIMIT_FLAG" column="limit_flag" javaType="int" jdbcType="INTEGER" />
+		<result property="IF_SHARE_REWARD" column="if_share_reward" javaType="int" jdbcType="INTEGER" />
+		<result property="REWARD_NUMBER" column="reward_number" javaType="int" jdbcType="INTEGER" />
+		<result property="ACTIVITY_STATUS" column="activity_status" javaType="int" jdbcType="INTEGER" />
+		<result property="IF_SET_DATE" column="if_set_date" javaType="int" jdbcType="INTEGER" />
+		<result property="ACTIVITY_TYPE" column="activity_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="REVERSE_1" column="reverse_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="REVERSE_2" column="reverse_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="USE_VAL" column="use_val" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.WechatActivity">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_wechat_activity 
+		</selectKey>  
+		insert into tb_wechat_activity
+		(
+		unit_id,
+		user_id,
+		name,
+		description,
+		keyword,
+		file_name,
+		disk_file_name,
+		root_path,
+		relative_path,
+		file_size,
+		file_suffix,
+		create_date,
+		start_date,
+		end_date,
+		prize_info,
+		limit_number,
+		limit_flag,
+		if_share_reward,
+		reward_number,
+		activity_status,
+		if_set_date,
+		activity_type,
+		reverse_1,
+		reverse_2,
+		use_val
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{userId,jdbcType=BIGINT},
+		#{name,jdbcType=VARCHAR},
+		#{description,jdbcType=VARCHAR},
+		#{keyword,jdbcType=VARCHAR},
+		#{fileName,jdbcType=VARCHAR},
+		#{diskFileName,jdbcType=VARCHAR},
+		#{rootPath,jdbcType=VARCHAR},
+		#{relativePath,jdbcType=VARCHAR},
+		#{fileSize,jdbcType=BIGINT},
+		#{fileSuffix,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{startDate,jdbcType=TIMESTAMP},
+		#{endDate,jdbcType=TIMESTAMP},
+		#{prizeInfo,jdbcType=INTEGER},
+		#{limitNumber,jdbcType=INTEGER},
+		#{limitFlag,jdbcType=INTEGER},
+		#{ifShareReward,jdbcType=INTEGER},
+		#{rewardNumber,jdbcType=INTEGER},
+		#{activityStatus,jdbcType=INTEGER},
+		#{ifSetDate,jdbcType=INTEGER},
+		#{activityType,jdbcType=VARCHAR},
+		#{reverse1,jdbcType=VARCHAR},
+		#{reverse2,jdbcType=VARCHAR},
+		#{useVal,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.WechatActivity">
+		update tb_wechat_activity
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		user_id = #{userId,jdbcType=BIGINT},
+		name = #{name,jdbcType=VARCHAR},
+		description = #{description,jdbcType=VARCHAR},
+		keyword = #{keyword,jdbcType=VARCHAR},
+		file_name = #{fileName,jdbcType=VARCHAR},
+		disk_file_name = #{diskFileName,jdbcType=VARCHAR},
+		root_path = #{rootPath,jdbcType=VARCHAR},
+		relative_path = #{relativePath,jdbcType=VARCHAR},
+		file_size = #{fileSize,jdbcType=BIGINT},
+		file_suffix = #{fileSuffix,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		start_date = #{startDate,jdbcType=TIMESTAMP},
+		end_date = #{endDate,jdbcType=TIMESTAMP},
+		prize_info = #{prizeInfo,jdbcType=INTEGER},
+		limit_number = #{limitNumber,jdbcType=INTEGER},
+		limit_flag = #{limitFlag,jdbcType=INTEGER},
+		if_share_reward = #{ifShareReward,jdbcType=INTEGER},
+		reward_number = #{rewardNumber,jdbcType=INTEGER},
+		activity_status = #{activityStatus,jdbcType=INTEGER},
+		if_set_date = #{ifSetDate,jdbcType=INTEGER},
+		activity_type = #{activityType,jdbcType=VARCHAR},
+		reverse_1 = #{reverse1,jdbcType=VARCHAR},
+		reverse_2 = #{reverse2,jdbcType=VARCHAR},
+		use_val = #{useVal,jdbcType=INTEGER}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.WechatActivity">
+		delete from
+		tb_wechat_activity
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_wechat_activity
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_wechat_activity
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="wechatactivityDaoMap">
+		select * from tb_wechat_activity where id = #{id}
+	</select>
+
+	<select id="getListMap" parameterType="hashmap" resultMap="wechatactivityDaoListMap">
+		select * from
+		tb_wechat_activity
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			unit_id = #{unitId}
+			and activity_status &lt;&gt; -1
+			and activity_type = #{activityType}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<if test="sortname !=null and sortname !='' ">
+			order by ${sortname}
+			<if test="sortorder !=null and sortorder !='' ">
+				${sortorder} 
+			</if>
+		</if>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select count(id) from
+		tb_wechat_activity
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			unit_id = #{unitId}
+			and activity_status &lt;&gt; -1
+			and activity_type = #{activityType}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="getDateCrossListRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(id)
+		FROM
+			tb_wechat_activity
+		WHERE
+			activity_type = #{activityType}
+		AND unit_id = #{unitId}
+		and activity_status &lt;&gt; -1
+		and ((if_set_date = 1 and start_date &lt; NOW()) or if_set_date = 0)
+		and end_date &gt; NOW()
+		<if test="op=='modify'">
+			and id &lt;&gt; #{id}
+		</if>
+	</select>
+	
+</mapper>

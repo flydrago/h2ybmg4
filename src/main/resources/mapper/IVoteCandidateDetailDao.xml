@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IVoteCandidateDetailDao">
+
+	<resultMap type="com.h2y.bmg.entity.VoteCandidateDetail" id="votecandidatedetailDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="candidateId" column="candidate_id" javaType="long" jdbcType="BIGINT" />
+		<result property="candidaterDesc" column="candidater_desc" javaType="string" jdbcType="VARCHAR" />
+		<result property="reserve1" column="reserve_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="reserve2" column="reserve_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="reserve3" column="reserve_3" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+		<resultMap type="java.util.Map" id="votecandidatedetailDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="CANDIDATEID" column="candidate_id" javaType="long" jdbcType="BIGINT" />
+		<result property="CANDIDATERDESC" column="candidater_desc" javaType="string" jdbcType="VARCHAR" />
+		<result property="RESERVE1" column="reserve_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="RESERVE2" column="reserve_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="RESERVE3" column="reserve_3" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<insert id="add" parameterType="com.h2y.bmg.entity.VoteCandidateDetail">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_vote_candidate_detail 
+		</selectKey>  
+		insert into tb_vote_candidate_detail
+		(
+		candidate_id,
+		candidater_desc,
+		reserve_1,
+		reserve_2,
+		reserve_3
+		)
+		values (
+		#{candidateId,jdbcType=BIGINT},
+		#{candidaterDesc,jdbcType=VARCHAR},
+		#{reserve1,jdbcType=VARCHAR},
+		#{reserve2,jdbcType=VARCHAR},
+		#{reserve3,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.VoteCandidateDetail">
+		update tb_vote_candidate_detail
+		set
+		candidate_id = #{candidateId,jdbcType=BIGINT},
+		candidater_desc = #{candidaterDesc,jdbcType=VARCHAR},
+		reserve_1 = #{reserve1,jdbcType=VARCHAR},
+		reserve_2 = #{reserve2,jdbcType=VARCHAR},
+		reserve_3 = #{reserve3,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.VoteCandidateDetail">
+		delete from
+		tb_vote_candidate_detail
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_vote_candidate_detail
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_vote_candidate_detail
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="votecandidatedetailDaoMap">
+		select * from tb_vote_candidate_detail where id = #{id}
+	</select>
+			<select id="getByUserId" parameterType="long"
+		resultMap="votecandidatedetailDaoMap">
+		select * from tb_vote_candidate_detail where candidate_id = #{candidateId}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.bmg.entity.VoteCandidateDetail"
+		resultMap="votecandidatedetailDaoMap">
+		select * from
+		tb_vote_candidate_detail
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="candidateId!= null">
+			and candidate_id = #{candidateId}
+			</if>
+			<if test="candidaterDesc!= null and candidaterDesc!=''">
+			and candidater_desc = #{candidaterDesc}
+			</if>
+			<if test="reserve1!= null and reserve1!=''">
+			and reserve_1 = #{reserve1}
+			</if>
+			<if test="reserve2!= null and reserve2!=''">
+			and reserve_2 = #{reserve2}
+			</if>
+			<if test="reserve3!= null and reserve3!=''">
+			and reserve_3 = #{reserve3}
+			</if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="votecandidatedetailDaoMap">
+		select
+		*
+		from
+		tb_vote_candidate_detail
+		<if test="keyVoteCandidateDetail!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keyVoteCandidateDetail.id!= null">
+				and id = #{keyVoteCandidateDetail.id}
+				</if>
+				<if test="keyVoteCandidateDetail.candidateId!= null">
+				and candidate_id = #{keyVoteCandidateDetail.candidateId}
+				</if>
+				<if test="keyVoteCandidateDetail.candidaterDesc!= null and keyVoteCandidateDetail.candidaterDesc!=''">
+				and candidater_desc = #{keyVoteCandidateDetail.candidaterDesc}
+				</if>
+				<if test="keyVoteCandidateDetail.reserve1!= null and keyVoteCandidateDetail.reserve1!=''">
+				and reserve_1 = #{keyVoteCandidateDetail.reserve1}
+				</if>
+				<if test="keyVoteCandidateDetail.reserve2!= null and keyVoteCandidateDetail.reserve2!=''">
+				and reserve_2 = #{keyVoteCandidateDetail.reserve2}
+				</if>
+				<if test="keyVoteCandidateDetail.reserve3!= null and keyVoteCandidateDetail.reserve3!=''">
+				and reserve_3 = #{keyVoteCandidateDetail.reserve3}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_vote_candidate_detail
+		<if test="keyVoteCandidateDetail!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keyVoteCandidateDetail.id!= null">
+				and id = #{keyVoteCandidateDetail.id}
+				</if>
+				<if test="keyVoteCandidateDetail.candidateId!= null">
+				and candidate_id = #{keyVoteCandidateDetail.candidateId}
+				</if>
+				<if test="keyVoteCandidateDetail.candidaterDesc!= null and keyVoteCandidateDetail.candidaterDesc!=''">
+				and candidater_desc = #{keyVoteCandidateDetail.candidaterDesc}
+				</if>
+				<if test="keyVoteCandidateDetail.reserve1!= null and keyVoteCandidateDetail.reserve1!=''">
+				and reserve_1 = #{keyVoteCandidateDetail.reserve1}
+				</if>
+				<if test="keyVoteCandidateDetail.reserve2!= null and keyVoteCandidateDetail.reserve2!=''">
+				and reserve_2 = #{keyVoteCandidateDetail.reserve2}
+				</if>
+				<if test="keyVoteCandidateDetail.reserve3!= null and keyVoteCandidateDetail.reserve3!=''">
+				and reserve_3 = #{keyVoteCandidateDetail.reserve3}
+				</if>
+			</trim>
+		</if>
+	</select>
+</mapper>

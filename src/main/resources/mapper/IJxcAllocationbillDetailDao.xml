@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.jxc.dao.IJxcAllocationbillDetailDao">
+
+	<resultMap type="com.h2y.jxc.entity.JxcAllocationbillDetail" id="jxcallocationbilldetailDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="billNo" column="bill_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="billId" column="bill_id" javaType="long" jdbcType="BIGINT" />
+		<result property="exportStorageId" column="export_storage_id" javaType="long" jdbcType="BIGINT" />
+		<result property="exportStorage" column="export_storage" javaType="string" jdbcType="VARCHAR" />
+		<result property="importStorageId" column="import_storage_id" javaType="long" jdbcType="BIGINT" />
+		<result property="importStorage" column="import_storage" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsId" column="goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsNickname" column="goods_nickname" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsNumber" column="goods_number" javaType="string" jdbcType="VARCHAR" />
+		<result property="costSinglePrice" column="cost_single_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="allocateSinglePrice" column="allocate_single_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="goodsCount" column="goods_count" javaType="int" jdbcType="INTEGER" />
+		<result property="totalAmount" column="total_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="totalDifference" column="total_difference" javaType="double" jdbcType="DOUBLE" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="notes" column="notes" javaType="string" jdbcType="VARCHAR" />
+		<result property="data1" column="data1" javaType="string" jdbcType="VARCHAR" />
+		<result property="data2" column="data2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data3" javaType="string" jdbcType="VARCHAR" />
+		<result property="data4" column="data4" javaType="double" jdbcType="DOUBLE" />
+		<result property="data5" column="data5" javaType="double" jdbcType="DOUBLE" />
+		<result property="data6" column="data6" javaType="double" jdbcType="DOUBLE" />
+		<result property="data7" column="data7" javaType="long" jdbcType="BIGINT" />
+		<result property="data8" column="data8" javaType="long" jdbcType="BIGINT" />
+		<result property="data9" column="data9" javaType="long" jdbcType="BIGINT" />
+		<result property="data10" column="data10" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="jxcallocationbilldetailListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="BILL_NO" column="bill_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="BILL_ID" column="bill_id" javaType="long" jdbcType="BIGINT" />
+		<result property="EXPORT_STORAGE_ID" column="export_storage_id" javaType="long" jdbcType="BIGINT" />
+		<result property="EXPORT_STORAGE" column="export_storage" javaType="string" jdbcType="VARCHAR" />
+		<result property="IMPORT_STORAGE_ID" column="import_storage_id" javaType="long" jdbcType="BIGINT" />
+		<result property="IMPORT_STORAGE" column="import_storage" javaType="string" jdbcType="VARCHAR" />
+		<result property="GOODS_ID" column="goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="GOODS_NICKNAME" column="goods_nickname" javaType="string" jdbcType="VARCHAR" />
+		<result property="GOODS_NUMBER" column="goods_number" javaType="string" jdbcType="VARCHAR" />
+		<result property="COST_SINGLE_PRICE" column="cost_single_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="ALLOCATE_SINGLE_PRICE" column="allocate_single_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="GOODS_COUNT" column="goods_count" javaType="int" jdbcType="INTEGER" />
+		<result property="TOTAL_AMOUNT" column="total_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="TOTAL_DIFFERENCE" column="total_difference" javaType="double" jdbcType="DOUBLE" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="NOTES" column="notes" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="getBillGoodsList" parameterType="hashmap" resultMap="jxcallocationbilldetailListMap">
+		select * 
+		from tb_jxc_allocationbill_detail 
+		where bill_no = #{billNo,jdbcType=VARCHAR}; 
+	</select>
+	
+	<select id="getBillGoodsDetailList" parameterType="hashmap" resultMap="jxcallocationbilldetailDaoMap">
+		select * 
+		from tb_jxc_allocationbill_detail 
+		where bill_no = #{billNo,jdbcType=VARCHAR};
+	</select>
+	
+	<insert id="add" parameterType="com.h2y.jxc.entity.JxcAllocationbillDetail">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_jxc_allocationbill_detail 
+		</selectKey>  
+		insert into tb_jxc_allocationbill_detail
+		(
+		bill_no,
+		bill_id,
+		export_storage_id,
+		export_storage,
+		import_storage_id,
+		import_storage,
+		goods_id,
+		goods_nickname,
+		goods_number,
+		cost_single_price,
+		allocate_single_price,
+		goods_count,
+		total_amount,
+		total_difference,
+		create_date,
+		notes,
+		data1,
+		data2,
+		data3,
+		data4,
+		data5,
+		data6,
+		data7,
+		data8,
+		data9,
+		data10
+		)
+		values (
+		#{billNo,jdbcType=VARCHAR},
+		#{billId,jdbcType=BIGINT},
+		#{exportStorageId,jdbcType=BIGINT},
+		#{exportStorage,jdbcType=VARCHAR},
+		#{importStorageId,jdbcType=BIGINT},
+		#{importStorage,jdbcType=VARCHAR},
+		#{goodsId,jdbcType=BIGINT},
+		#{goodsNickname,jdbcType=VARCHAR},
+		#{goodsNumber,jdbcType=VARCHAR},
+		#{costSinglePrice,jdbcType=DOUBLE},
+		#{allocateSinglePrice,jdbcType=DOUBLE},
+		#{goodsCount,jdbcType=INTEGER},
+		#{totalAmount,jdbcType=DOUBLE},
+		#{totalDifference,jdbcType=DOUBLE},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{notes,jdbcType=VARCHAR},
+		#{data1,jdbcType=VARCHAR},
+		#{data2,jdbcType=VARCHAR},
+		#{data3,jdbcType=VARCHAR},
+		#{data4,jdbcType=DOUBLE},
+		#{data5,jdbcType=DOUBLE},
+		#{data6,jdbcType=DOUBLE},
+		#{data7,jdbcType=BIGINT},
+		#{data8,jdbcType=BIGINT},
+		#{data9,jdbcType=BIGINT},
+		#{data10,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.jxc.entity.JxcAllocationbillDetail">
+		update tb_jxc_allocationbill_detail
+		set
+		bill_no = #{billNo,jdbcType=VARCHAR},
+		bill_id = #{billId,jdbcType=BIGINT},
+		export_storage_id = #{exportStorageId,jdbcType=BIGINT},
+		export_storage = #{exportStorage,jdbcType=VARCHAR},
+		import_storage_id = #{importStorageId,jdbcType=BIGINT},
+		import_storage = #{importStorage,jdbcType=VARCHAR},
+		goods_id = #{goodsId,jdbcType=BIGINT},
+		goods_nickname = #{goodsNickname,jdbcType=VARCHAR},
+		goods_number = #{goodsNumber,jdbcType=VARCHAR},
+		cost_single_price = #{costSinglePrice,jdbcType=DOUBLE},
+		allocate_single_price = #{allocateSinglePrice,jdbcType=DOUBLE},
+		goods_count = #{goodsCount,jdbcType=INTEGER},
+		total_amount = #{totalAmount,jdbcType=DOUBLE},
+		total_difference = #{totalDifference,jdbcType=DOUBLE},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		notes = #{notes,jdbcType=VARCHAR},
+		data1 = #{data1,jdbcType=VARCHAR},
+		data2 = #{data2,jdbcType=VARCHAR},
+		data3 = #{data3,jdbcType=VARCHAR},
+		data4 = #{data4,jdbcType=DOUBLE},
+		data5 = #{data5,jdbcType=DOUBLE},
+		data6 = #{data6,jdbcType=DOUBLE},
+		data7 = #{data7,jdbcType=BIGINT},
+		data8 = #{data8,jdbcType=BIGINT},
+		data9 = #{data9,jdbcType=BIGINT},
+		data10 = #{data10,jdbcType=INTEGER}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.jxc.entity.JxcAllocationbillDetail">
+		delete from
+		tb_jxc_allocationbill_detail
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_jxc_allocationbill_detail
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_jxc_allocationbill_detail
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="jxcallocationbilldetailDaoMap">
+		select * from tb_jxc_allocationbill_detail where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.jxc.entity.JxcAllocationbillDetail"
+		resultMap="jxcallocationbilldetailDaoMap">
+		select * from
+		tb_jxc_allocationbill_detail
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="billNo!= null and billNo!=''">
+			and bill_no = #{billNo}
+			</if>
+			<if test="billId!= null">
+			and bill_id = #{billId}
+			</if>
+			<if test="exportStorageId!= null">
+			and export_storage_id = #{exportStorageId}
+			</if>
+			<if test="exportStorage!= null and exportStorage!=''">
+			and export_storage = #{exportStorage}
+			</if>
+			<if test="importStorageId!= null">
+			and import_storage_id = #{importStorageId}
+			</if>
+			<if test="importStorage!= null and importStorage!=''">
+			and import_storage = #{importStorage}
+			</if>
+			<if test="goodsId!= null">
+			and goods_id = #{goodsId}
+			</if>
+			<if test="goodsNickname!= null and goodsNickname!=''">
+			and goods_nickname = #{goodsNickname}
+			</if>
+			<if test="goodsNumber!= null and goodsNumber!=''">
+			and goods_number = #{goodsNumber}
+			</if>
+			<if test="costSinglePrice!= null and costSinglePrice!=''">
+			and cost_single_price = #{costSinglePrice}
+			</if>
+			<if test="allocateSinglePrice!= null and allocateSinglePrice!=''">
+			and allocate_single_price = #{allocateSinglePrice}
+			</if>
+			<if test="goodsCount!= null">
+			and goods_count = #{goodsCount}
+			</if>
+			<if test="totalAmount!= null and totalAmount!=''">
+			and total_amount = #{totalAmount}
+			</if>
+			<if test="totalDifference!= null and totalDifference!=''">
+			and total_difference = #{totalDifference}
+			</if>
+			<if test="createDate!= null and createDate!=''">
+			and create_date = #{createDate}
+			</if>
+			<if test="notes!= null and notes!=''">
+			and notes = #{notes}
+			</if>
+			<if test="data1!= null and data1!=''">
+			and data1 = #{data1}
+			</if>
+			<if test="data2!= null and data2!=''">
+			and data2 = #{data2}
+			</if>
+			<if test="data3!= null and data3!=''">
+			and data3 = #{data3}
+			</if>
+			<if test="data4!= null and data4!=''">
+			and data4 = #{data4}
+			</if>
+			<if test="data5!= null and data5!=''">
+			and data5 = #{data5}
+			</if>
+			<if test="data6!= null and data6!=''">
+			and data6 = #{data6}
+			</if>
+			<if test="data7!= null">
+			and data7 = #{data7}
+			</if>
+			<if test="data8!= null">
+			and data8 = #{data8}
+			</if>
+			<if test="data9!= null">
+			and data9 = #{data9}
+			</if>
+			<if test="data10!= null">
+			and data10 = #{data10}
+			</if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="jxcallocationbilldetailDaoMap">
+		select
+		*
+		from
+		tb_jxc_allocationbill_detail
+		<if test="keyJxcAllocationbillDetail!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keyJxcAllocationbillDetail.id!= null">
+				and id = #{keyJxcAllocationbillDetail.id}
+				</if>
+				<if test="keyJxcAllocationbillDetail.billNo!= null and keyJxcAllocationbillDetail.billNo!=''">
+				and bill_no = #{keyJxcAllocationbillDetail.billNo}
+				</if>
+				<if test="keyJxcAllocationbillDetail.billId!= null">
+				and bill_id = #{keyJxcAllocationbillDetail.billId}
+				</if>
+				<if test="keyJxcAllocationbillDetail.exportStorageId!= null">
+				and export_storage_id = #{keyJxcAllocationbillDetail.exportStorageId}
+				</if>
+				<if test="keyJxcAllocationbillDetail.exportStorage!= null and keyJxcAllocationbillDetail.exportStorage!=''">
+				and export_storage = #{keyJxcAllocationbillDetail.exportStorage}
+				</if>
+				<if test="keyJxcAllocationbillDetail.importStorageId!= null">
+				and import_storage_id = #{keyJxcAllocationbillDetail.importStorageId}
+				</if>
+				<if test="keyJxcAllocationbillDetail.importStorage!= null and keyJxcAllocationbillDetail.importStorage!=''">
+				and import_storage = #{keyJxcAllocationbillDetail.importStorage}
+				</if>
+				<if test="keyJxcAllocationbillDetail.goodsId!= null">
+				and goods_id = #{keyJxcAllocationbillDetail.goodsId}
+				</if>
+				<if test="keyJxcAllocationbillDetail.goodsNickname!= null and keyJxcAllocationbillDetail.goodsNickname!=''">
+				and goods_nickname = #{keyJxcAllocationbillDetail.goodsNickname}
+				</if>
+				<if test="keyJxcAllocationbillDetail.goodsNumber!= null and keyJxcAllocationbillDetail.goodsNumber!=''">
+				and goods_number = #{keyJxcAllocationbillDetail.goodsNumber}
+				</if>
+				<if test="keyJxcAllocationbillDetail.costSinglePrice!= null and keyJxcAllocationbillDetail.costSinglePrice!=''">
+				and cost_single_price = #{keyJxcAllocationbillDetail.costSinglePrice}
+				</if>
+				<if test="keyJxcAllocationbillDetail.allocateSinglePrice!= null and keyJxcAllocationbillDetail.allocateSinglePrice!=''">
+				and allocate_single_price = #{keyJxcAllocationbillDetail.allocateSinglePrice}
+				</if>
+				<if test="keyJxcAllocationbillDetail.goodsCount!= null">
+				and goods_count = #{keyJxcAllocationbillDetail.goodsCount}
+				</if>
+				<if test="keyJxcAllocationbillDetail.totalAmount!= null and keyJxcAllocationbillDetail.totalAmount!=''">
+				and total_amount = #{keyJxcAllocationbillDetail.totalAmount}
+				</if>
+				<if test="keyJxcAllocationbillDetail.totalDifference!= null and keyJxcAllocationbillDetail.totalDifference!=''">
+				and total_difference = #{keyJxcAllocationbillDetail.totalDifference}
+				</if>
+				<if test="keyJxcAllocationbillDetail.createDate!= null and keyJxcAllocationbillDetail.createDate!=''">
+				and create_date = #{keyJxcAllocationbillDetail.createDate}
+				</if>
+				<if test="keyJxcAllocationbillDetail.notes!= null and keyJxcAllocationbillDetail.notes!=''">
+				and notes = #{keyJxcAllocationbillDetail.notes}
+				</if>
+				<if test="keyJxcAllocationbillDetail.data1!= null and keyJxcAllocationbillDetail.data1!=''">
+				and data1 = #{keyJxcAllocationbillDetail.data1}
+				</if>
+				<if test="keyJxcAllocationbillDetail.data2!= null and keyJxcAllocationbillDetail.data2!=''">
+				and data2 = #{keyJxcAllocationbillDetail.data2}
+				</if>
+				<if test="keyJxcAllocationbillDetail.data3!= null and keyJxcAllocationbillDetail.data3!=''">
+				and data3 = #{keyJxcAllocationbillDetail.data3}
+				</if>
+				<if test="keyJxcAllocationbillDetail.data4!= null and keyJxcAllocationbillDetail.data4!=''">
+				and data4 = #{keyJxcAllocationbillDetail.data4}
+				</if>
+				<if test="keyJxcAllocationbillDetail.data5!= null and keyJxcAllocationbillDetail.data5!=''">
+				and data5 = #{keyJxcAllocationbillDetail.data5}
+				</if>
+				<if test="keyJxcAllocationbillDetail.data6!= null and keyJxcAllocationbillDetail.data6!=''">
+				and data6 = #{keyJxcAllocationbillDetail.data6}
+				</if>
+				<if test="keyJxcAllocationbillDetail.data7!= null">
+				and data7 = #{keyJxcAllocationbillDetail.data7}
+				</if>
+				<if test="keyJxcAllocationbillDetail.data8!= null">
+				and data8 = #{keyJxcAllocationbillDetail.data8}
+				</if>
+				<if test="keyJxcAllocationbillDetail.data9!= null">
+				and data9 = #{keyJxcAllocationbillDetail.data9}
+				</if>
+				<if test="keyJxcAllocationbillDetail.data10!= null">
+				and data10 = #{keyJxcAllocationbillDetail.data10}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_jxc_allocationbill_detail
+		<if test="keyJxcAllocationbillDetail!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keyJxcAllocationbillDetail.id!= null">
+				and id = #{keyJxcAllocationbillDetail.id}
+				</if>
+				<if test="keyJxcAllocationbillDetail.billNo!= null and keyJxcAllocationbillDetail.billNo!=''">
+				and bill_no = #{keyJxcAllocationbillDetail.billNo}
+				</if>
+				<if test="keyJxcAllocationbillDetail.billId!= null">
+				and bill_id = #{keyJxcAllocationbillDetail.billId}
+				</if>
+				<if test="keyJxcAllocationbillDetail.exportStorageId!= null">
+				and export_storage_id = #{keyJxcAllocationbillDetail.exportStorageId}
+				</if>
+				<if test="keyJxcAllocationbillDetail.exportStorage!= null and keyJxcAllocationbillDetail.exportStorage!=''">
+				and export_storage = #{keyJxcAllocationbillDetail.exportStorage}
+				</if>
+				<if test="keyJxcAllocationbillDetail.importStorageId!= null">
+				and import_storage_id = #{keyJxcAllocationbillDetail.importStorageId}
+				</if>
+				<if test="keyJxcAllocationbillDetail.importStorage!= null and keyJxcAllocationbillDetail.importStorage!=''">
+				and import_storage = #{keyJxcAllocationbillDetail.importStorage}
+				</if>
+				<if test="keyJxcAllocationbillDetail.goodsId!= null">
+				and goods_id = #{keyJxcAllocationbillDetail.goodsId}
+				</if>
+				<if test="keyJxcAllocationbillDetail.goodsNickname!= null and keyJxcAllocationbillDetail.goodsNickname!=''">
+				and goods_nickname = #{keyJxcAllocationbillDetail.goodsNickname}
+				</if>
+				<if test="keyJxcAllocationbillDetail.goodsNumber!= null and keyJxcAllocationbillDetail.goodsNumber!=''">
+				and goods_number = #{keyJxcAllocationbillDetail.goodsNumber}
+				</if>
+				<if test="keyJxcAllocationbillDetail.costSinglePrice!= null and keyJxcAllocationbillDetail.costSinglePrice!=''">
+				and cost_single_price = #{keyJxcAllocationbillDetail.costSinglePrice}
+				</if>
+				<if test="keyJxcAllocationbillDetail.allocateSinglePrice!= null and keyJxcAllocationbillDetail.allocateSinglePrice!=''">
+				and allocate_single_price = #{keyJxcAllocationbillDetail.allocateSinglePrice}
+				</if>
+				<if test="keyJxcAllocationbillDetail.goodsCount!= null">
+				and goods_count = #{keyJxcAllocationbillDetail.goodsCount}
+				</if>
+				<if test="keyJxcAllocationbillDetail.totalAmount!= null and keyJxcAllocationbillDetail.totalAmount!=''">
+				and total_amount = #{keyJxcAllocationbillDetail.totalAmount}
+				</if>
+				<if test="keyJxcAllocationbillDetail.totalDifference!= null and keyJxcAllocationbillDetail.totalDifference!=''">
+				and total_difference = #{keyJxcAllocationbillDetail.totalDifference}
+				</if>
+				<if test="keyJxcAllocationbillDetail.createDate!= null and keyJxcAllocationbillDetail.createDate!=''">
+				and create_date = #{keyJxcAllocationbillDetail.createDate}
+				</if>
+				<if test="keyJxcAllocationbillDetail.notes!= null and keyJxcAllocationbillDetail.notes!=''">
+				and notes = #{keyJxcAllocationbillDetail.notes}
+				</if>
+				<if test="keyJxcAllocationbillDetail.data1!= null and keyJxcAllocationbillDetail.data1!=''">
+				and data1 = #{keyJxcAllocationbillDetail.data1}
+				</if>
+				<if test="keyJxcAllocationbillDetail.data2!= null and keyJxcAllocationbillDetail.data2!=''">
+				and data2 = #{keyJxcAllocationbillDetail.data2}
+				</if>
+				<if test="keyJxcAllocationbillDetail.data3!= null and keyJxcAllocationbillDetail.data3!=''">
+				and data3 = #{keyJxcAllocationbillDetail.data3}
+				</if>
+				<if test="keyJxcAllocationbillDetail.data4!= null and keyJxcAllocationbillDetail.data4!=''">
+				and data4 = #{keyJxcAllocationbillDetail.data4}
+				</if>
+				<if test="keyJxcAllocationbillDetail.data5!= null and keyJxcAllocationbillDetail.data5!=''">
+				and data5 = #{keyJxcAllocationbillDetail.data5}
+				</if>
+				<if test="keyJxcAllocationbillDetail.data6!= null and keyJxcAllocationbillDetail.data6!=''">
+				and data6 = #{keyJxcAllocationbillDetail.data6}
+				</if>
+				<if test="keyJxcAllocationbillDetail.data7!= null">
+				and data7 = #{keyJxcAllocationbillDetail.data7}
+				</if>
+				<if test="keyJxcAllocationbillDetail.data8!= null">
+				and data8 = #{keyJxcAllocationbillDetail.data8}
+				</if>
+				<if test="keyJxcAllocationbillDetail.data9!= null">
+				and data9 = #{keyJxcAllocationbillDetail.data9}
+				</if>
+				<if test="keyJxcAllocationbillDetail.data10!= null">
+				and data10 = #{keyJxcAllocationbillDetail.data10}
+				</if>
+			</trim>
+		</if>
+	</select>
+</mapper>

@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.jxc.dao.IJxcSalesReturnsDao">
+
+	<resultMap type="com.h2y.jxc.entity.JxcSalesReturns" id="jxcsalesreturnsDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="billNo" column="bill_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="billCustomNo" column="bill_custom_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="returnsDate" column="returns_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="refundDate" column="refund_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="customerId" column="customer_id" javaType="long" jdbcType="BIGINT" />
+		<result property="customer" column="customer" javaType="string" jdbcType="VARCHAR" />
+		<result property="storageId" column="storage_id" javaType="long" jdbcType="BIGINT" />
+		<result property="storage" column="storage" javaType="string" jdbcType="VARCHAR" />
+		<result property="storageAreaId" column="storage_area_id" javaType="long" jdbcType="BIGINT" />
+		<result property="storageArea" column="storage_area" javaType="string" jdbcType="VARCHAR" />
+		<result property="brokerId" column="broker_id" javaType="long" jdbcType="BIGINT" />
+		<result property="broker" column="broker" javaType="string" jdbcType="VARCHAR" />
+		<result property="refundAccountId" column="refund_account_id" javaType="long" jdbcType="BIGINT" />
+		<result property="refundAccount" column="refund_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="currentRefund" column="current_refund" javaType="double" jdbcType="DOUBLE" />
+		<result property="notes" column="notes" javaType="string" jdbcType="VARCHAR" />
+		<result property="reviseMark" column="revise_mark" javaType="int" jdbcType="INTEGER" />
+		<result property="checkStatus" column="check_status" javaType="int" jdbcType="INTEGER" />
+		<result property="billStatus" column="bill_status" javaType="int" jdbcType="INTEGER" />
+		<result property="totalAmount" column="total_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="discount" column="discount" javaType="double" jdbcType="DOUBLE" />
+		<result property="discountAmount" column="discount_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="refundableAmount" column="refundable_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="billMaker" column="bill_maker" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="zoneCode" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		
+		<result property="data1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="data2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+		<result property="data4" column="data_4" javaType="string" jdbcType="VARCHAR" />
+		<result property="data5" column="data_5" javaType="int" jdbcType="INTEGER" />
+		<result property="data6" column="data_6" javaType="int" jdbcType="INTEGER" />
+		<result property="data7" column="data_7" javaType="long" jdbcType="BIGINT" />
+		<result property="data8" column="data_8" javaType="long" jdbcType="BIGINT" />
+		<result property="data9" column="data_9" javaType="double" jdbcType="DOUBLE" />
+		<result property="data10" column="data_10" javaType="double" jdbcType="DOUBLE" />
+		<result property="data11" column="data_11" javaType="double" jdbcType="DOUBLE" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="jxcsalesreturnsMapList">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="BILL_NO" column="bill_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="BILL_CUSTOM_NO" column="bill_custom_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="RETURNS_DATE" column="returns_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="REFUND_DATE" column="refund_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="CUSTOMER_ID" column="customer_id" javaType="long" jdbcType="BIGINT" />
+		<result property="CUSTOMER" column="customer" javaType="string" jdbcType="VARCHAR" />
+		<result property="STORAGE_ID" column="storage_id" javaType="long" jdbcType="BIGINT" />
+		<result property="STORAGE" column="storage" javaType="string" jdbcType="VARCHAR" />
+		<result property="STORAGE_AREA_ID" column="storage_area_id" javaType="long" jdbcType="BIGINT" />
+		<result property="STORAGE_AREA" column="storage_area" javaType="string" jdbcType="VARCHAR" />
+		<result property="BROKER_ID" column="broker_id" javaType="long" jdbcType="BIGINT" />
+		<result property="BROKER" column="broker" javaType="string" jdbcType="VARCHAR" />
+		<result property="REFUND_ACCOUNT_ID" column="refund_account_id" javaType="long" jdbcType="BIGINT" />
+		<result property="REFUND_ACCOUNT" column="refund_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="CURRENT_REFUND" column="current_refund" javaType="double" jdbcType="DOUBLE" />
+		<result property="NOTES" column="notes" javaType="string" jdbcType="VARCHAR" />
+		<result property="REVISE_MARK" column="revise_mark" javaType="int" jdbcType="INTEGER" />
+		<result property="CHECK_STATUS" column="check_status" javaType="int" jdbcType="INTEGER" />
+		<result property="BILL_STATUS" column="bill_status" javaType="int" jdbcType="INTEGER" />
+		<result property="TOTAL_AMOUNT" column="total_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="DISCOUNT" column="discount" javaType="double" jdbcType="DOUBLE" />
+		<result property="DISCOUNT_AMOUNT" column="discount_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="REFUNDABLE_AMOUNT" column="refundable_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="BILL_MAKER" column="bill_maker" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		
+		<result property="ZONE_CODE" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		
+		<result property="DATA_1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_4" column="data_4" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_5" column="data_5" javaType="int" jdbcType="INTEGER" />
+		<result property="DATA_6" column="data_6" javaType="int" jdbcType="INTEGER" />
+		<result property="DATA_7" column="data_7" javaType="long" jdbcType="BIGINT" />
+		<result property="DATA_8" column="data_8" javaType="long" jdbcType="BIGINT" />
+		<result property="DATA_9" column="data_9" javaType="double" jdbcType="DOUBLE" />
+		<result property="DATA_10" column="data_10" javaType="double" jdbcType="DOUBLE" />
+		<result property="DATA_11" column="data_11" javaType="double" jdbcType="DOUBLE" />
+	</resultMap>
+
+	<select id="getListMap" parameterType="hashmap" resultMap="jxcsalesreturnsMapList">
+		select * 
+		from tb_jxc_sales_returns
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			1=1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			<choose>
+				<when test="sortname !=null and sortname !=''">
+					order by ${sortname}
+					<if test="sortorder !=null and sortorder !='' ">
+						${sortorder} 
+					</if> 
+				</when>
+				<otherwise>
+						order by create_date desc
+				</otherwise>
+			</choose>
+		</trim>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select count(*) 
+		from tb_jxc_sales_returns 
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			1=1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	<insert id="add" parameterType="com.h2y.jxc.entity.JxcSalesReturns">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_jxc_sales_returns 
+		</selectKey>  
+		insert into tb_jxc_sales_returns
+		(
+		bill_no,
+		bill_custom_no,
+		returns_date,
+		refund_date,
+		customer_id,
+		customer,
+		storage_id,
+		storage,
+		storage_area_id,
+		storage_area,
+		broker_id,
+		broker,
+		refund_account_id,
+		refund_account,
+		current_refund,
+		notes,
+		revise_mark,
+		check_status,
+		bill_status,
+		total_amount,
+		discount,
+		discount_amount,
+		refundable_amount,
+		bill_maker,
+		create_date,
+		zone_code,
+		data_1,
+		data_2,
+		data_3,
+		data_4,
+		data_5,
+		data_6,
+		data_7,
+		data_8,
+		data_9,
+		data_10,
+		data_11
+		)
+		values (
+		#{billNo,jdbcType=VARCHAR},
+		#{billCustomNo,jdbcType=VARCHAR},
+		#{returnsDate,jdbcType=TIMESTAMP},
+		#{refundDate,jdbcType=TIMESTAMP},
+		#{customerId,jdbcType=BIGINT},
+		#{customer,jdbcType=VARCHAR},
+		#{storageId,jdbcType=BIGINT},
+		#{storage,jdbcType=VARCHAR},
+		#{storageAreaId,jdbcType=BIGINT},
+		#{storageArea,jdbcType=VARCHAR},
+		#{brokerId,jdbcType=BIGINT},
+		#{broker,jdbcType=VARCHAR},
+		#{refundAccountId,jdbcType=BIGINT},
+		#{refundAccount,jdbcType=VARCHAR},
+		#{currentRefund,jdbcType=DOUBLE},
+		#{notes,jdbcType=VARCHAR},
+		#{reviseMark,jdbcType=INTEGER},
+		#{checkStatus,jdbcType=INTEGER},
+		#{billStatus,jdbcType=INTEGER},
+		#{totalAmount,jdbcType=DOUBLE},
+		#{discount,jdbcType=DOUBLE},
+		#{discountAmount,jdbcType=DOUBLE},
+		#{refundableAmount,jdbcType=DOUBLE},
+		#{billMaker,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{zoneCode,jdbcType=VARCHAR},
+		#{data1,jdbcType=VARCHAR},
+		#{data2,jdbcType=VARCHAR},
+		#{data3,jdbcType=VARCHAR},
+		#{data4,jdbcType=VARCHAR},
+		#{data5,jdbcType=INTEGER},
+		#{data6,jdbcType=INTEGER},
+		#{data7,jdbcType=BIGINT},
+		#{data8,jdbcType=BIGINT},
+		#{data9,jdbcType=DOUBLE},
+		#{data10,jdbcType=DOUBLE},
+		#{data11,jdbcType=DOUBLE}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.jxc.entity.JxcSalesReturns">
+		update tb_jxc_sales_returns
+		set
+		bill_no = #{billNo,jdbcType=VARCHAR},
+		bill_custom_no = #{billCustomNo,jdbcType=VARCHAR},
+		returns_date = #{returnsDate,jdbcType=TIMESTAMP},
+		refund_date = #{refundDate,jdbcType=TIMESTAMP},
+		customer_id = #{customerId,jdbcType=BIGINT},
+		customer = #{customer,jdbcType=VARCHAR},
+		storage_id = #{storageId,jdbcType=BIGINT},
+		storage = #{storage,jdbcType=VARCHAR},
+		storage_area_id = #{storageAreaId,jdbcType=BIGINT},
+		storage_area = #{storageArea,jdbcType=VARCHAR},
+		broker_id = #{brokerId,jdbcType=BIGINT},
+		broker = #{broker,jdbcType=VARCHAR},
+		refund_account_id = #{refundAccountId,jdbcType=BIGINT},
+		refund_account = #{refundAccount,jdbcType=VARCHAR},
+		current_refund = #{currentRefund,jdbcType=DOUBLE},
+		notes = #{notes,jdbcType=VARCHAR},
+		revise_mark = #{reviseMark,jdbcType=INTEGER},
+		check_status = #{checkStatus,jdbcType=INTEGER},
+		bill_status = #{billStatus,jdbcType=INTEGER},
+		total_amount = #{totalAmount,jdbcType=DOUBLE},
+		discount = #{discount,jdbcType=DOUBLE},
+		discount_amount = #{discountAmount,jdbcType=DOUBLE},
+		refundable_amount = #{refundableAmount,jdbcType=DOUBLE},
+		bill_maker = #{billMaker,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		zone_code = #{zoneCode,jdbcType=VARCHAR},
+		data_1 = #{data1,jdbcType=VARCHAR},
+		data_2 = #{data2,jdbcType=VARCHAR},
+		data_3 = #{data3,jdbcType=VARCHAR},
+		data_4 = #{data4,jdbcType=VARCHAR},
+		data_5 = #{data5,jdbcType=INTEGER},
+		data_6 = #{data6,jdbcType=INTEGER},
+		data_7 = #{data7,jdbcType=BIGINT},
+		data_8 = #{data8,jdbcType=BIGINT},
+		data_9 = #{data9,jdbcType=DOUBLE},
+		data_10 = #{data10,jdbcType=DOUBLE},
+		data_11 = #{data11,jdbcType=DOUBLE}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.jxc.entity.JxcSalesReturns">
+		delete from
+		tb_jxc_sales_returns
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_jxc_sales_returns
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_jxc_sales_returns
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="jxcsalesreturnsDaoMap">
+		select * from tb_jxc_sales_returns where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.jxc.entity.JxcSalesReturns"
+		resultMap="jxcsalesreturnsDaoMap">
+		select * from
+		tb_jxc_sales_returns
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="billNo!= null and billNo!=''">
+			and bill_no = #{billNo}
+			</if>
+			<if test="billCustomNo!= null and billCustomNo!=''">
+			and bill_custom_no = #{billCustomNo}
+			</if>
+			<if test="returnsDate!= null and returnsDate!=''">
+			and returns_date = #{returnsDate}
+			</if>
+			<if test="refundDate!= null and refundDate!=''">
+			and refund_date = #{refundDate}
+			</if>
+			<if test="customerId!= null">
+			and customer_id = #{customerId}
+			</if>
+			<if test="customer!= null and customer!=''">
+			and customer = #{customer}
+			</if>
+			<if test="storageId!= null">
+			and storage_id = #{storageId}
+			</if>
+			<if test="storage!= null and storage!=''">
+			and storage = #{storage}
+			</if>
+			<if test="storageAreaId!= null">
+			and storage_area_id = #{storageAreaId}
+			</if>
+			<if test="storageArea!= null and storageArea!=''">
+			and storage_area = #{storageArea}
+			</if>
+			<if test="brokerId!= null">
+			and broker_id = #{brokerId}
+			</if>
+			<if test="broker!= null and broker!=''">
+			and broker = #{broker}
+			</if>
+			<if test="refundAccountId!= null">
+			and refund_account_id = #{refundAccountId}
+			</if>
+			<if test="refundAccount!= null and refundAccount!=''">
+			and refund_account = #{refundAccount}
+			</if>
+			<if test="currentRefund!= null and currentRefund!=''">
+			and current_refund = #{currentRefund}
+			</if>
+			<if test="notes!= null and notes!=''">
+			and notes = #{notes}
+			</if>
+			<if test="reviseMark!= null">
+			and revise_mark = #{reviseMark}
+			</if>
+			<if test="checkStatus!= null">
+			and check_status = #{checkStatus}
+			</if>
+			<if test="billStatus!= null">
+			and bill_status = #{billStatus}
+			</if>
+			<if test="totalAmount!= null and totalAmount!=''">
+			and total_amount = #{totalAmount}
+			</if>
+			<if test="discount!= null and discount!=''">
+			and discount = #{discount}
+			</if>
+			<if test="discountAmount!= null and discountAmount!=''">
+			and discount_amount = #{discountAmount}
+			</if>
+			<if test="refundableAmount!= null and refundableAmount!=''">
+			and refundable_amount = #{refundableAmount}
+			</if>
+			<if test="billMaker!= null and billMaker!=''">
+			and bill_maker = #{billMaker}
+			</if>
+			<if test="createDate!= null and createDate!=''">
+			and create_date = #{createDate}
+			</if>
+			<if test="zoneCode!= null and zoneCode!=''">
+			and zone_code = #{zoneCode}
+			</if>
+			<if test="data1!= null and data1!=''">
+			and data_1 = #{data1}
+			</if>
+			<if test="data2!= null and data2!=''">
+			and data_2 = #{data2}
+			</if>
+			<if test="data3!= null and data3!=''">
+			and data_3 = #{data3}
+			</if>
+			<if test="data4!= null and data4!=''">
+			and data_4 = #{data4}
+			</if>
+			<if test="data5!= null">
+			and data_5 = #{data5}
+			</if>
+			<if test="data6!= null">
+			and data_6 = #{data6}
+			</if>
+			<if test="data7!= null">
+			and data_7 = #{data7}
+			</if>
+			<if test="data8!= null">
+			and data_8 = #{data8}
+			</if>
+			<if test="data9!= null and data9!=''">
+			and data_9 = #{data9}
+			</if>
+			<if test="data10!= null and data10!=''">
+			and data_10 = #{data10}
+			</if>
+			<if test="data11!= null and data11!=''">
+			and data_11 = #{data11}
+			</if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="jxcsalesreturnsDaoMap">
+		select
+		*
+		from
+		tb_jxc_sales_returns
+		<if test="keyJxcSalesReturns!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keyJxcSalesReturns.id!= null">
+				and id = #{keyJxcSalesReturns.id}
+				</if>
+				<if test="keyJxcSalesReturns.billNo!= null and keyJxcSalesReturns.billNo!=''">
+				and bill_no = #{keyJxcSalesReturns.billNo}
+				</if>
+				<if test="keyJxcSalesReturns.billCustomNo!= null and keyJxcSalesReturns.billCustomNo!=''">
+				and bill_custom_no = #{keyJxcSalesReturns.billCustomNo}
+				</if>
+				<if test="keyJxcSalesReturns.returnsDate!= null and keyJxcSalesReturns.returnsDate!=''">
+				and returns_date = #{keyJxcSalesReturns.returnsDate}
+				</if>
+				<if test="keyJxcSalesReturns.refundDate!= null and keyJxcSalesReturns.refundDate!=''">
+				and refund_date = #{keyJxcSalesReturns.refundDate}
+				</if>
+				<if test="keyJxcSalesReturns.customerId!= null">
+				and customer_id = #{keyJxcSalesReturns.customerId}
+				</if>
+				<if test="keyJxcSalesReturns.customer!= null and keyJxcSalesReturns.customer!=''">
+				and customer = #{keyJxcSalesReturns.customer}
+				</if>
+				<if test="keyJxcSalesReturns.storageId!= null">
+				and storage_id = #{keyJxcSalesReturns.storageId}
+				</if>
+				<if test="keyJxcSalesReturns.storage!= null and keyJxcSalesReturns.storage!=''">
+				and storage = #{keyJxcSalesReturns.storage}
+				</if>
+				<if test="keyJxcSalesReturns.storageAreaId!= null">
+				and storage_area_id = #{keyJxcSalesReturns.storageAreaId}
+				</if>
+				<if test="keyJxcSalesReturns.storageArea!= null and keyJxcSalesReturns.storageArea!=''">
+				and storage_area = #{keyJxcSalesReturns.storageArea}
+				</if>
+				<if test="keyJxcSalesReturns.brokerId!= null">
+				and broker_id = #{keyJxcSalesReturns.brokerId}
+				</if>
+				<if test="keyJxcSalesReturns.broker!= null and keyJxcSalesReturns.broker!=''">
+				and broker = #{keyJxcSalesReturns.broker}
+				</if>
+				<if test="keyJxcSalesReturns.refundAccountId!= null">
+				and refund_account_id = #{keyJxcSalesReturns.refundAccountId}
+				</if>
+				<if test="keyJxcSalesReturns.refundAccount!= null and keyJxcSalesReturns.refundAccount!=''">
+				and refund_account = #{keyJxcSalesReturns.refundAccount}
+				</if>
+				<if test="keyJxcSalesReturns.currentRefund!= null and keyJxcSalesReturns.currentRefund!=''">
+				and current_refund = #{keyJxcSalesReturns.currentRefund}
+				</if>
+				<if test="keyJxcSalesReturns.notes!= null and keyJxcSalesReturns.notes!=''">
+				and notes = #{keyJxcSalesReturns.notes}
+				</if>
+				<if test="keyJxcSalesReturns.reviseMark!= null">
+				and revise_mark = #{keyJxcSalesReturns.reviseMark}
+				</if>
+				<if test="keyJxcSalesReturns.checkStatus!= null">
+				and check_status = #{keyJxcSalesReturns.checkStatus}
+				</if>
+				<if test="keyJxcSalesReturns.billStatus!= null">
+				and bill_status = #{keyJxcSalesReturns.billStatus}
+				</if>
+				<if test="keyJxcSalesReturns.totalAmount!= null and keyJxcSalesReturns.totalAmount!=''">
+				and total_amount = #{keyJxcSalesReturns.totalAmount}
+				</if>
+				<if test="keyJxcSalesReturns.discount!= null and keyJxcSalesReturns.discount!=''">
+				and discount = #{keyJxcSalesReturns.discount}
+				</if>
+				<if test="keyJxcSalesReturns.discountAmount!= null and keyJxcSalesReturns.discountAmount!=''">
+				and discount_amount = #{keyJxcSalesReturns.discountAmount}
+				</if>
+				<if test="keyJxcSalesReturns.refundableAmount!= null and keyJxcSalesReturns.refundableAmount!=''">
+				and refundable_amount = #{keyJxcSalesReturns.refundableAmount}
+				</if>
+				<if test="keyJxcSalesReturns.billMaker!= null and keyJxcSalesReturns.billMaker!=''">
+				and bill_maker = #{keyJxcSalesReturns.billMaker}
+				</if>
+				<if test="keyJxcSalesReturns.createDate!= null and keyJxcSalesReturns.createDate!=''">
+				and create_date = #{keyJxcSalesReturns.createDate}
+				</if>
+				<if test="keyJxcSalesReturns.zoneCode!= null and keyJxcSalesReturns.zoneCode!=''">
+				and zone_code = #{keyJxcSalesReturns.zoneCode}
+				</if>
+				<if test="keyJxcSalesReturns.data1!= null and keyJxcSalesReturns.data1!=''">
+				and data_1 = #{keyJxcSalesReturns.data1}
+				</if>
+				<if test="keyJxcSalesReturns.data2!= null and keyJxcSalesReturns.data2!=''">
+				and data_2 = #{keyJxcSalesReturns.data2}
+				</if>
+				<if test="keyJxcSalesReturns.data3!= null and keyJxcSalesReturns.data3!=''">
+				and data_3 = #{keyJxcSalesReturns.data3}
+				</if>
+				<if test="keyJxcSalesReturns.data4!= null and keyJxcSalesReturns.data4!=''">
+				and data_4 = #{keyJxcSalesReturns.data4}
+				</if>
+				<if test="keyJxcSalesReturns.data5!= null">
+				and data_5 = #{keyJxcSalesReturns.data5}
+				</if>
+				<if test="keyJxcSalesReturns.data6!= null">
+				and data_6 = #{keyJxcSalesReturns.data6}
+				</if>
+				<if test="keyJxcSalesReturns.data7!= null">
+				and data_7 = #{keyJxcSalesReturns.data7}
+				</if>
+				<if test="keyJxcSalesReturns.data8!= null">
+				and data_8 = #{keyJxcSalesReturns.data8}
+				</if>
+				<if test="keyJxcSalesReturns.data9!= null and keyJxcSalesReturns.data9!=''">
+				and data_9 = #{keyJxcSalesReturns.data9}
+				</if>
+				<if test="keyJxcSalesReturns.data10!= null and keyJxcSalesReturns.data10!=''">
+				and data_10 = #{keyJxcSalesReturns.data10}
+				</if>
+				<if test="keyJxcSalesReturns.data11!= null and keyJxcSalesReturns.data11!=''">
+				and data_11 = #{keyJxcSalesReturns.data11}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_jxc_sales_returns
+		<if test="keyJxcSalesReturns!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keyJxcSalesReturns.id!= null">
+				and id = #{keyJxcSalesReturns.id}
+				</if>
+				<if test="keyJxcSalesReturns.billNo!= null and keyJxcSalesReturns.billNo!=''">
+				and bill_no = #{keyJxcSalesReturns.billNo}
+				</if>
+				<if test="keyJxcSalesReturns.billCustomNo!= null and keyJxcSalesReturns.billCustomNo!=''">
+				and bill_custom_no = #{keyJxcSalesReturns.billCustomNo}
+				</if>
+				<if test="keyJxcSalesReturns.returnsDate!= null and keyJxcSalesReturns.returnsDate!=''">
+				and returns_date = #{keyJxcSalesReturns.returnsDate}
+				</if>
+				<if test="keyJxcSalesReturns.refundDate!= null and keyJxcSalesReturns.refundDate!=''">
+				and refund_date = #{keyJxcSalesReturns.refundDate}
+				</if>
+				<if test="keyJxcSalesReturns.customerId!= null">
+				and customer_id = #{keyJxcSalesReturns.customerId}
+				</if>
+				<if test="keyJxcSalesReturns.customer!= null and keyJxcSalesReturns.customer!=''">
+				and customer = #{keyJxcSalesReturns.customer}
+				</if>
+				<if test="keyJxcSalesReturns.storageId!= null">
+				and storage_id = #{keyJxcSalesReturns.storageId}
+				</if>
+				<if test="keyJxcSalesReturns.storage!= null and keyJxcSalesReturns.storage!=''">
+				and storage = #{keyJxcSalesReturns.storage}
+				</if>
+				<if test="keyJxcSalesReturns.storageAreaId!= null">
+				and storage_area_id = #{keyJxcSalesReturns.storageAreaId}
+				</if>
+				<if test="keyJxcSalesReturns.storageArea!= null and keyJxcSalesReturns.storageArea!=''">
+				and storage_area = #{keyJxcSalesReturns.storageArea}
+				</if>
+				<if test="keyJxcSalesReturns.brokerId!= null">
+				and broker_id = #{keyJxcSalesReturns.brokerId}
+				</if>
+				<if test="keyJxcSalesReturns.broker!= null and keyJxcSalesReturns.broker!=''">
+				and broker = #{keyJxcSalesReturns.broker}
+				</if>
+				<if test="keyJxcSalesReturns.refundAccountId!= null">
+				and refund_account_id = #{keyJxcSalesReturns.refundAccountId}
+				</if>
+				<if test="keyJxcSalesReturns.refundAccount!= null and keyJxcSalesReturns.refundAccount!=''">
+				and refund_account = #{keyJxcSalesReturns.refundAccount}
+				</if>
+				<if test="keyJxcSalesReturns.currentRefund!= null and keyJxcSalesReturns.currentRefund!=''">
+				and current_refund = #{keyJxcSalesReturns.currentRefund}
+				</if>
+				<if test="keyJxcSalesReturns.notes!= null and keyJxcSalesReturns.notes!=''">
+				and notes = #{keyJxcSalesReturns.notes}
+				</if>
+				<if test="keyJxcSalesReturns.reviseMark!= null">
+				and revise_mark = #{keyJxcSalesReturns.reviseMark}
+				</if>
+				<if test="keyJxcSalesReturns.checkStatus!= null">
+				and check_status = #{keyJxcSalesReturns.checkStatus}
+				</if>
+				<if test="keyJxcSalesReturns.billStatus!= null">
+				and bill_status = #{keyJxcSalesReturns.billStatus}
+				</if>
+				<if test="keyJxcSalesReturns.totalAmount!= null and keyJxcSalesReturns.totalAmount!=''">
+				and total_amount = #{keyJxcSalesReturns.totalAmount}
+				</if>
+				<if test="keyJxcSalesReturns.discount!= null and keyJxcSalesReturns.discount!=''">
+				and discount = #{keyJxcSalesReturns.discount}
+				</if>
+				<if test="keyJxcSalesReturns.discountAmount!= null and keyJxcSalesReturns.discountAmount!=''">
+				and discount_amount = #{keyJxcSalesReturns.discountAmount}
+				</if>
+				<if test="keyJxcSalesReturns.refundableAmount!= null and keyJxcSalesReturns.refundableAmount!=''">
+				and refundable_amount = #{keyJxcSalesReturns.refundableAmount}
+				</if>
+				<if test="keyJxcSalesReturns.billMaker!= null and keyJxcSalesReturns.billMaker!=''">
+				and bill_maker = #{keyJxcSalesReturns.billMaker}
+				</if>
+				<if test="keyJxcSalesReturns.createDate!= null and keyJxcSalesReturns.createDate!=''">
+				and create_date = #{keyJxcSalesReturns.createDate}
+				</if>
+				<if test="keyJxcSalesReturns.zoneCode!= null and keyJxcSalesReturns.zoneCode!=''">
+				and zone_code = #{keyJxcSalesReturns.zoneCode}
+				</if>
+				<if test="keyJxcSalesReturns.data1!= null and keyJxcSalesReturns.data1!=''">
+				and data_1 = #{keyJxcSalesReturns.data1}
+				</if>
+				<if test="keyJxcSalesReturns.data2!= null and keyJxcSalesReturns.data2!=''">
+				and data_2 = #{keyJxcSalesReturns.data2}
+				</if>
+				<if test="keyJxcSalesReturns.data3!= null and keyJxcSalesReturns.data3!=''">
+				and data_3 = #{keyJxcSalesReturns.data3}
+				</if>
+				<if test="keyJxcSalesReturns.data4!= null and keyJxcSalesReturns.data4!=''">
+				and data_4 = #{keyJxcSalesReturns.data4}
+				</if>
+				<if test="keyJxcSalesReturns.data5!= null">
+				and data_5 = #{keyJxcSalesReturns.data5}
+				</if>
+				<if test="keyJxcSalesReturns.data6!= null">
+				and data_6 = #{keyJxcSalesReturns.data6}
+				</if>
+				<if test="keyJxcSalesReturns.data7!= null">
+				and data_7 = #{keyJxcSalesReturns.data7}
+				</if>
+				<if test="keyJxcSalesReturns.data8!= null">
+				and data_8 = #{keyJxcSalesReturns.data8}
+				</if>
+				<if test="keyJxcSalesReturns.data9!= null and keyJxcSalesReturns.data9!=''">
+				and data_9 = #{keyJxcSalesReturns.data9}
+				</if>
+				<if test="keyJxcSalesReturns.data10!= null and keyJxcSalesReturns.data10!=''">
+				and data_10 = #{keyJxcSalesReturns.data10}
+				</if>
+				<if test="keyJxcSalesReturns.data11!= null and keyJxcSalesReturns.data11!=''">
+				and data_11 = #{keyJxcSalesReturns.data11}
+				</if>
+			</trim>
+		</if>
+	</select>
+</mapper>

@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IImportBagDao">
+
+	<resultMap type="com.h2y.bmg.entity.ImportBag" id="importbagDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="userId" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="bagName" column="bag_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="businessUser" column="business_user" javaType="string" jdbcType="VARCHAR" />
+		<result property="businessMobile" column="business_mobile" javaType="string" jdbcType="VARCHAR" />
+		<result property="bagCode" column="bag_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="account" column="account" javaType="string" jdbcType="VARCHAR" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitType" column="unit_type" javaType="int" jdbcType="INTEGER" />
+		<result property="zoneCode" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsNumber" column="goods_number" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsNickName" column="goods_nick_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsPriceId" column="goods_price_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsPriceVersion" column="goods_price_version" javaType="int" jdbcType="INTEGER" />
+		<result property="goodsId" column="goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="singlePrice" column="single_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="currentTask" column="current_task" javaType="string" jdbcType="VARCHAR" />
+		<result property="chkStatus1" column="chk_status1" javaType="int" jdbcType="INTEGER" />
+		<result property="chkStatus2" column="chk_status2" javaType="int" jdbcType="INTEGER" />
+		<result property="chkStatus3" column="chk_status3" javaType="int" jdbcType="INTEGER" />
+		<result property="chkStatus4" column="chk_status4" javaType="int" jdbcType="INTEGER" />
+		<result property="chkStatus5" column="chk_status5" javaType="int" jdbcType="INTEGER" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="startDate" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="endDate" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="data1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="data2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data_3" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="data4" column="data_4" javaType="int" jdbcType="INTEGER" />
+		<result property="data5" column="data_5" javaType="double" jdbcType="DOUBLE" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+	<resultMap type="java.util.Map" id="importbagDaoListMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="userId" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="bagName" column="bag_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="businessUser" column="business_user" javaType="string" jdbcType="VARCHAR" />
+		<result property="businessMobile" column="business_mobile" javaType="string" jdbcType="VARCHAR" />
+		<result property="bagCode" column="bag_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="account" column="account" javaType="string" jdbcType="VARCHAR" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitType" column="unit_type" javaType="int" jdbcType="INTEGER" />
+		<result property="zoneCode" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsNumber" column="goods_number" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsNickName" column="goods_nick_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsPriceId" column="goods_price_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsPriceVersion" column="goods_price_version" javaType="int" jdbcType="INTEGER" />
+		<result property="goodsId" column="goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="singlePrice" column="single_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="currentTask" column="current_task" javaType="string" jdbcType="VARCHAR" />
+		<result property="chkStatus1" column="chk_status1" javaType="int" jdbcType="INTEGER" />
+		<result property="chkStatus2" column="chk_status2" javaType="int" jdbcType="INTEGER" />
+		<result property="chkStatus3" column="chk_status3" javaType="int" jdbcType="INTEGER" />
+		<result property="chkStatus4" column="chk_status4" javaType="int" jdbcType="INTEGER" />
+		<result property="chkStatus5" column="chk_status5" javaType="int" jdbcType="INTEGER" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="startDate" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="endDate" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="data1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="data2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data_3" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="data4" column="data_4" javaType="int" jdbcType="INTEGER" />
+		<result property="data5" column="data_5" javaType="double" jdbcType="DOUBLE" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.ImportBag">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_import_bag 
+		</selectKey>  
+		insert into tb_import_bag
+		(
+		user_id,
+		bag_name,
+		business_user,
+		business_mobile,
+		bag_code,
+		account,
+		unit_id,
+		unit_type,
+		zone_code,
+		goods_number,
+		goods_nick_name,
+		goods_price_id,
+		goods_price_version,
+		goods_id,
+		single_price,
+		status,
+		current_task,
+		chk_status1,
+		chk_status2,
+		chk_status3,
+		chk_status4,
+		chk_status5,
+		create_date,
+		start_date,
+		end_date,
+		data_1,
+		data_2,
+		data_3,
+		data_4,
+		data_5,
+		memo
+		)
+		values (
+		#{userId,jdbcType=BIGINT},
+		#{bagName,jdbcType=VARCHAR},
+		#{businessUser,jdbcType=VARCHAR},
+		#{businessMobile,jdbcType=VARCHAR},
+		#{bagCode,jdbcType=VARCHAR},
+		#{account,jdbcType=VARCHAR},
+		#{unitId,jdbcType=BIGINT},
+		#{unitType,jdbcType=INTEGER},
+		#{zoneCode,jdbcType=VARCHAR},
+		#{goodsNumber,jdbcType=VARCHAR},
+		#{goodsNickName,jdbcType=VARCHAR},
+		#{goodsPriceId,jdbcType=BIGINT},
+		#{goodsPriceVersion,jdbcType=INTEGER},
+		#{goodsId,jdbcType=BIGINT},
+		#{singlePrice,jdbcType=DOUBLE},
+		#{status,jdbcType=INTEGER},
+		#{currentTask,jdbcType=VARCHAR},
+		#{chkStatus1,jdbcType=INTEGER},
+		#{chkStatus2,jdbcType=INTEGER},
+		#{chkStatus3,jdbcType=INTEGER},
+		#{chkStatus4,jdbcType=INTEGER},
+		#{chkStatus5,jdbcType=INTEGER},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{startDate,jdbcType=TIMESTAMP},
+		#{endDate,jdbcType=TIMESTAMP},
+		#{data1,jdbcType=VARCHAR},
+		#{data2,jdbcType=VARCHAR},
+		#{data3,jdbcType=TIMESTAMP},
+		#{data4,jdbcType=INTEGER},
+		#{data5,jdbcType=DOUBLE},
+		#{memo,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.ImportBag">
+		update tb_import_bag
+		set
+		user_id = #{userId,jdbcType=BIGINT},
+		bag_name = #{bagName,jdbcType=VARCHAR},
+		business_user = #{businessUser,jdbcType=VARCHAR},
+		business_mobile = #{businessMobile,jdbcType=VARCHAR},
+		bag_code = #{bagCode,jdbcType=VARCHAR},
+		account = #{account,jdbcType=VARCHAR},
+		unit_id = #{unitId,jdbcType=BIGINT},
+		unit_type = #{unitType,jdbcType=INTEGER},
+		zone_code = #{zoneCode,jdbcType=VARCHAR},
+		goods_number = #{goodsNumber,jdbcType=VARCHAR},
+		goods_nick_name = #{goodsNickName,jdbcType=VARCHAR},
+		goods_price_id = #{goodsPriceId,jdbcType=BIGINT},
+		goods_price_version = #{goodsPriceVersion,jdbcType=INTEGER},
+		goods_id = #{goodsId,jdbcType=BIGINT},
+		single_price = #{singlePrice,jdbcType=DOUBLE},
+		status = #{status,jdbcType=INTEGER},
+		current_task = #{currentTask,jdbcType=VARCHAR},
+		chk_status1 = #{chkStatus1,jdbcType=INTEGER},
+		chk_status2 = #{chkStatus2,jdbcType=INTEGER},
+		chk_status3 = #{chkStatus3,jdbcType=INTEGER},
+		chk_status4 = #{chkStatus4,jdbcType=INTEGER},
+		chk_status5 = #{chkStatus5,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		start_date = #{startDate,jdbcType=TIMESTAMP},
+		end_date = #{endDate,jdbcType=TIMESTAMP},
+		data_1 = #{data1,jdbcType=VARCHAR},
+		data_2 = #{data2,jdbcType=VARCHAR},
+		data_3 = #{data3,jdbcType=TIMESTAMP},
+		data_4 = #{data4,jdbcType=INTEGER},
+		data_5 = #{data5,jdbcType=DOUBLE},
+		memo = #{memo,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<select id="get" parameterType="long"
+		resultMap="importbagDaoMap">
+		select * from tb_import_bag where id = #{id}
+	</select>
+	
+	<select id="getByBagCode" parameterType="string"
+		resultMap="importbagDaoMap">
+		select * from tb_import_bag where bag_code = #{bagCode}
+	</select>
+	
+	
+	<select id="getListMap" parameterType="hashmap" resultMap="importbagDaoListMap">
+		select * from tb_import_bag 
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			and unit_id = #{unitId}
+			and `status` &lt;&gt; -1
+			and current_task in 
+			<foreach collection="taskList" item="taskCode" open="(" separator=","
+				close=")"> #{taskCode} 
+			</foreach>
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if>
+			</when>
+			<otherwise>
+				order by create_date desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select count(id) from tb_import_bag 
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			and unit_id = #{unitId}
+			and `status` &lt;&gt; -1
+			and current_task  in 
+			<foreach collection="taskList" item="taskCode" open="(" separator=","
+				close=")"> #{taskCode} 
+			</foreach>
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+</mapper>

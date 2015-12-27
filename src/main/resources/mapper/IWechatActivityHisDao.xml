@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IWechatActivityHisDao">
+
+	<resultMap type="com.h2y.bmg.entity.WechatActivityHis" id="wechatactivityhisDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="activityId" column="activity_id" javaType="long" jdbcType="BIGINT" />
+		<result property="prizeId" column="prize_id" javaType="long" jdbcType="BIGINT" />
+		<result property="memberId" column="member_id" javaType="long" jdbcType="BIGINT" />
+		<result property="openId" column="open_id" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="exchangeDate" column="exchange_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="prizerMobile" column="prizer_mobile" javaType="string" jdbcType="VARCHAR" />
+		<result property="prizerName" column="prizer_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="prizerAddress" column="prizer_address" javaType="string" jdbcType="VARCHAR" />
+		<result property="ifExchange" column="if_exchange" javaType="int" jdbcType="INTEGER" />
+		<result property="reverse1" column="reverse_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="reverse2" column="reverse_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="prizeName" column="prize_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="prizeNumber" column="prize_number" javaType="long" jdbcType="BIGINT" />
+		<result property="prizeRate" column="prize_rate" javaType="double" jdbcType="DOUBLE" />
+		<result property="prizeLevel" column="prize_level" javaType="string" jdbcType="VARCHAR" />
+		<result property="prizeType" column="prize_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsPriceId" column="goods_price_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsPriceVersion" column="goods_price_version" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="wechatactivityHitUserListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="ACTIVITY_ID" column="activity_id" javaType="long" jdbcType="BIGINT" />
+		<result property="PRIZE_ID" column="prize_id" javaType="long" jdbcType="BIGINT" />
+		<result property="MEMBER_ID" column="member_id" javaType="long" jdbcType="BIGINT" />
+		<result property="OPEN_ID" column="open_id" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="EXCHANGE_DATE" column="exchange_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="PRIZER_MOBILE" column="prizer_mobile" javaType="string" jdbcType="VARCHAR" />
+		<result property="PRIZER_NAME" column="prizer_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="PRIZER_ADDRESS" column="prizer_address" javaType="string" jdbcType="VARCHAR" />
+		<result property="IF_EXCHANGE" column="if_exchange" javaType="int" jdbcType="INTEGER" />
+		<result property="REVERSE_1" column="reverse_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="REVERSE_2" column="reverse_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="ACCOUNT" column="account" javaType="string" jdbcType="VARCHAR" />
+		<result property="REAL_NAME" column="real_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="PRIZE_NAME" column="prize_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="PRIZE_LEVEL" column="prize_level" javaType="string" jdbcType="VARCHAR" />
+		<result property="PRIZE_NUMBER" column="prize_number" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.WechatActivityHis">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_wechat_activity_his 
+		</selectKey>  
+		insert into tb_wechat_activity_his
+		(
+		unit_id,
+		activity_id,
+		prize_id,
+		member_id,
+		open_id,
+		create_date,
+		exchange_date,
+		prizer_mobile,
+		prizer_name,
+		prizer_address,
+		if_exchange,
+		reverse_1,
+		reverse_2,
+		prize_name,
+		prize_number,
+		prize_rate,
+		prize_level,
+		prize_type,
+		goods_price_id,
+		goods_price_version
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{activityId,jdbcType=BIGINT},
+		#{prizeId,jdbcType=BIGINT},
+		#{memberId,jdbcType=BIGINT},
+		#{openId,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{exchangeDate,jdbcType=TIMESTAMP},
+		#{prizerMobile,jdbcType=VARCHAR},
+		#{prizerName,jdbcType=VARCHAR},
+		#{prizerAddress,jdbcType=VARCHAR},
+		#{ifExchange,jdbcType=INTEGER},
+		#{reverse1,jdbcType=VARCHAR},
+		#{reverse2,jdbcType=VARCHAR},
+		#{prizeName,jdbcType=VARCHAR},
+		#{prizeNumber,jdbcType=BIGINT},
+		#{prizeRate,jdbcType=DOUBLE},
+		#{prizeLevel,jdbcType=VARCHAR},
+		#{prizeType,jdbcType=VARCHAR},
+		#{goodsPriceId,jdbcType=BIGINT},
+		#{goodsPriceVersion,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.WechatActivityHis">
+		update tb_wechat_activity_his
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		activity_id = #{activityId,jdbcType=BIGINT},
+		prize_id = #{prizeId,jdbcType=BIGINT},
+		member_id = #{memberId,jdbcType=BIGINT},
+		open_id = #{openId,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		exchange_date = #{exchangeDate,jdbcType=TIMESTAMP},
+		prizer_mobile = #{prizerMobile,jdbcType=VARCHAR},
+		prizer_name = #{prizerName,jdbcType=VARCHAR},
+		prizer_address = #{prizerAddress,jdbcType=VARCHAR},
+		if_exchange = #{ifExchange,jdbcType=INTEGER},
+		reverse_1 = #{reverse1,jdbcType=VARCHAR},
+		reverse_2 = #{reverse2,jdbcType=VARCHAR},
+		prize_name = #{prizeName,jdbcType=VARCHAR},
+		prize_number = #{prizeNumber,jdbcType=BIGINT},
+		prize_rate = #{prizeRate,jdbcType=DOUBLE},
+		prize_level = #{prizeLevel,jdbcType=VARCHAR},
+		prize_type = #{prizeType,jdbcType=VARCHAR},
+		goods_price_id = #{goodsPriceId,jdbcType=BIGINT},
+		goods_price_version = #{goodsPriceVersion,jdbcType=INTEGER}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.WechatActivityHis">
+		delete from
+		tb_wechat_activity_his
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_wechat_activity_his
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_wechat_activity_his
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="wechatactivityhisDaoMap">
+		select * from tb_wechat_activity_his where id = #{id}
+	</select>
+
+	<select id="getHitUserListMap" parameterType="hashmap" resultMap="wechatactivityHitUserListMap">
+		SELECT
+			ah.*, mu.account,
+			mu.real_name,
+			ah.prize_name,
+			ah.prize_level,
+			ah.prize_number
+		FROM
+			tb_wechat_activity_his ah
+		JOIN tb_member_user mu ON ah.member_id = mu.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			ah.prize_id &lt;&gt; 0
+			and ah.activity_id = #{activityId}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<if test="sortname !=null and sortname !='' ">
+			order by ${sortname}
+			<if test="sortorder !=null and sortorder !='' ">
+				${sortorder} 
+			</if>
+		</if>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	<select id="getHitUserListRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(ah.id)
+		FROM
+			tb_wechat_activity_his ah
+		JOIN tb_member_user mu ON ah.member_id = mu.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			ah.prize_id &lt;&gt; 0
+			and ah.activity_id = #{activityId}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+</mapper>

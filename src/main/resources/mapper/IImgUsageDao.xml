@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.img.dao.IImgUsageDao">
+
+	<resultMap type="com.h2y.img.model.ImgUsage" id="imgusageDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="usageCode" column="usage_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="usageName" column="usage_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="moduleId" column="module_id" javaType="long" jdbcType="BIGINT" />
+		<result property="moduleCode" column="module_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="width" column="width" javaType="int" jdbcType="INTEGER" />
+		<result property="height" column="height" javaType="int" jdbcType="INTEGER" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="ord" column="ord" javaType="int" jdbcType="INTEGER" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="data1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="data2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+		<result property="data4" column="data_4" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<insert id="add" parameterType="com.h2y.img.model.ImgUsage">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_img_usage 
+		</selectKey>  
+		insert into tb_img_usage
+		(
+		usage_code,
+		usage_name,
+		module_id,
+		module_code,
+		width,
+		height,
+		status,
+		memo,
+		ord,
+		create_date,
+		update_date,
+		data_1,
+		data_2,
+		data_3,
+		data_4
+		)
+		values (
+		#{usageCode,jdbcType=VARCHAR},
+		#{usageName,jdbcType=VARCHAR},
+		#{moduleId,jdbcType=BIGINT},
+		#{moduleCode,jdbcType=VARCHAR},
+		#{width,jdbcType=INTEGER},
+		#{height,jdbcType=INTEGER},
+		#{status,jdbcType=INTEGER},
+		#{memo,jdbcType=VARCHAR},
+		#{ord,jdbcType=INTEGER},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{data1,jdbcType=VARCHAR},
+		#{data2,jdbcType=VARCHAR},
+		#{data3,jdbcType=VARCHAR},
+		#{data4,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.img.model.ImgUsage">
+		update tb_img_usage
+		set
+		usage_code = #{usageCode,jdbcType=VARCHAR},
+		usage_name = #{usageName,jdbcType=VARCHAR},
+		module_id = #{moduleId,jdbcType=BIGINT},
+		module_code = #{moduleCode,jdbcType=VARCHAR},
+		width = #{width,jdbcType=INTEGER},
+		height = #{height,jdbcType=INTEGER},
+		status = #{status,jdbcType=INTEGER},
+		memo = #{memo,jdbcType=VARCHAR},
+		ord = #{ord,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		data_1 = #{data1,jdbcType=VARCHAR},
+		data_2 = #{data2,jdbcType=VARCHAR},
+		data_3 = #{data3,jdbcType=VARCHAR},
+		data_4 = #{data4,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.img.model.ImgUsage">
+		delete from
+		tb_img_usage
+		where
+		id = #{id} 
+	</delete>
+
+	<update id="deleteById" parameterType="long">
+		update tb_img_usage
+		set status = -1
+		where id = #{id} 
+	</update>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_img_usage
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="imgusageDaoMap">
+		select * from tb_img_usage where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.img.model.ImgUsage"
+		resultMap="imgusageDaoMap">
+		select * from
+		tb_img_usage
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="usageCode!= null and usageCode!=''">
+			and usage_code = #{usageCode}
+			</if>
+			<if test="usageName!= null and usageName!=''">
+			and usage_name = #{usageName}
+			</if>
+			<if test="moduleId!= null">
+			and module_id = #{moduleId}
+			</if>
+			<if test="moduleCode!= null and moduleCode!=''">
+			and module_code = #{moduleCode}
+			</if>
+			<if test="width!= null">
+			and width = #{width}
+			</if>
+			<if test="height!= null">
+			and height = #{height}
+			</if>
+			<if test="status!= null">
+			and status = #{status}
+			</if>
+			<if test="memo!= null and memo!=''">
+			and memo = #{memo}
+			</if>
+			<if test="ord!= null">
+			and ord = #{ord}
+			</if>
+			<if test="createDate!= null and createDate!=''">
+			and create_date = #{createDate}
+			</if>
+			<if test="updateDate!= null and updateDate!=''">
+			and update_date = #{updateDate}
+			</if>
+			<if test="data1!= null and data1!=''">
+			and data_1 = #{data1}
+			</if>
+			<if test="data2!= null and data2!=''">
+			and data_2 = #{data2}
+			</if>
+			<if test="data3!= null and data3!=''">
+			and data_3 = #{data3}
+			</if>
+			<if test="data4!= null and data4!=''">
+			and data_4 = #{data4}
+			</if>
+		</trim>
+
+	</select>
+
+	<select id="getListPage" parameterType="hashmap" resultMap="imgusageDaoMap">
+		select
+		*
+		from
+		tb_img_usage
+		<if test="keyImgUsage!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keyImgUsage.id!= null">
+				and id = #{keyImgUsage.id}
+				</if>
+				<if test="keyImgUsage.usageCode!= null and keyImgUsage.usageCode!=''">
+				and usage_code = #{keyImgUsage.usageCode}
+				</if>
+				<if test="keyImgUsage.usageName!= null and keyImgUsage.usageName!=''">
+				and usage_name = #{keyImgUsage.usageName}
+				</if>
+				<if test="keyImgUsage.moduleId!= null">
+				and module_id = #{keyImgUsage.moduleId}
+				</if>
+				<if test="keyImgUsage.moduleCode!= null and keyImgUsage.moduleCode!=''">
+				and module_code = #{keyImgUsage.moduleCode}
+				</if>
+				<if test="keyImgUsage.width!= null">
+				and width = #{keyImgUsage.width}
+				</if>
+				<if test="keyImgUsage.height!= null">
+				and height = #{keyImgUsage.height}
+				</if>
+				<if test="keyImgUsage.status!= null">
+				and status = #{keyImgUsage.status}
+				</if>
+				<if test="keyImgUsage.memo!= null and keyImgUsage.memo!=''">
+				and memo = #{keyImgUsage.memo}
+				</if>
+				<if test="keyImgUsage.ord!= null">
+				and ord = #{keyImgUsage.ord}
+				</if>
+				<if test="keyImgUsage.createDate!= null and keyImgUsage.createDate!=''">
+				and create_date = #{keyImgUsage.createDate}
+				</if>
+				<if test="keyImgUsage.updateDate!= null and keyImgUsage.updateDate!=''">
+				and update_date = #{keyImgUsage.updateDate}
+				</if>
+				<if test="keyImgUsage.data1!= null and keyImgUsage.data1!=''">
+				and data_1 = #{keyImgUsage.data1}
+				</if>
+				<if test="keyImgUsage.data2!= null and keyImgUsage.data2!=''">
+				and data_2 = #{keyImgUsage.data2}
+				</if>
+				<if test="keyImgUsage.data3!= null and keyImgUsage.data3!=''">
+				and data_3 = #{keyImgUsage.data3}
+				</if>
+				<if test="keyImgUsage.data4!= null and keyImgUsage.data4!=''">
+				and data_4 = #{keyImgUsage.data4}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(id) from
+		tb_img_usage
+		<if test="keyImgUsage!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keyImgUsage.id!= null">
+				and id = #{keyImgUsage.id}
+				</if>
+				<if test="keyImgUsage.usageCode!= null and keyImgUsage.usageCode!=''">
+				and usage_code = #{keyImgUsage.usageCode}
+				</if>
+				<if test="keyImgUsage.usageName!= null and keyImgUsage.usageName!=''">
+				and usage_name = #{keyImgUsage.usageName}
+				</if>
+				<if test="keyImgUsage.moduleId!= null">
+				and module_id = #{keyImgUsage.moduleId}
+				</if>
+				<if test="keyImgUsage.moduleCode!= null and keyImgUsage.moduleCode!=''">
+				and module_code = #{keyImgUsage.moduleCode}
+				</if>
+				<if test="keyImgUsage.width!= null">
+				and width = #{keyImgUsage.width}
+				</if>
+				<if test="keyImgUsage.height!= null">
+				and height = #{keyImgUsage.height}
+				</if>
+				<if test="keyImgUsage.status!= null">
+				and status = #{keyImgUsage.status}
+				</if>
+				<if test="keyImgUsage.memo!= null and keyImgUsage.memo!=''">
+				and memo = #{keyImgUsage.memo}
+				</if>
+				<if test="keyImgUsage.ord!= null">
+				and ord = #{keyImgUsage.ord}
+				</if>
+				<if test="keyImgUsage.createDate!= null and keyImgUsage.createDate!=''">
+				and create_date = #{keyImgUsage.createDate}
+				</if>
+				<if test="keyImgUsage.updateDate!= null and keyImgUsage.updateDate!=''">
+				and update_date = #{keyImgUsage.updateDate}
+				</if>
+				<if test="keyImgUsage.data1!= null and keyImgUsage.data1!=''">
+				and data_1 = #{keyImgUsage.data1}
+				</if>
+				<if test="keyImgUsage.data2!= null and keyImgUsage.data2!=''">
+				and data_2 = #{keyImgUsage.data2}
+				</if>
+				<if test="keyImgUsage.data3!= null and keyImgUsage.data3!=''">
+				and data_3 = #{keyImgUsage.data3}
+				</if>
+				<if test="keyImgUsage.data4!= null and keyImgUsage.data4!=''">
+				and data_4 = #{keyImgUsage.data4}
+				</if>
+			</trim>
+		</if>
+	</select>
+	
+	<select id="getListMap" parameterType="hashmap" resultMap="imgusageDaoMap">
+		select * from
+		tb_img_usage
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+     		module_id = #{moduleId}
+			and status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by create_date desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select count(id) from
+		tb_img_usage
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+     		module_id = #{moduleId}
+			and status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+</mapper>

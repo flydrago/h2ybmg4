@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IAdvertSubjectInfoRtDao">
+
+	<resultMap type="com.h2y.bmg.entity.AdvertSubjectInfoRt" id="advertsubjectinfortDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="subjectId" column="subject_id" javaType="long" jdbcType="BIGINT" />
+		<result property="dataType" column="data_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="data1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="data2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="ord" column="ord" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="advertsubjectinfortDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="TITLE" column="title" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	
+	<resultMap type="java.util.Map" id="couponsDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_TYPE" column="unit_type" javaType="int" jdbcType="INTEGER" />
+		<result property="ZONE_CODE" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="COUPONS_CODE" column="coupons_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="COUPONS_NAME" column="coupons_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="COUPONS_BALANCE" column="coupons_balance" javaType="double" jdbcType="DOUBLE" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="START_DATE" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="END_DATE" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="IS_ACTIVITY" column="is_activity" javaType="int" jdbcType="INTEGER" />
+		<result property="IS_MULTI" column="is_multi" javaType="int" jdbcType="INTEGER" />
+		<result property="IS_LIMIT_AMOUNT" column="is_limit_amount" javaType="int" jdbcType="INTEGER" />
+		<result property="LIMIT_AMOUNT" column="limit_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="IS_LIMIT_TYPE" column="is_limit_type" javaType="int" jdbcType="INTEGER" />
+		<result property="LIMIT_TYPE" column="limit_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="IS_LIMIT_MARK" column="is_limit_mark" javaType="int" jdbcType="INTEGER" />
+		<result property="LIMIT_MARK" column="limit_mark" javaType="string" jdbcType="VARCHAR" />
+		<result property="IS_LIMIT_GOODS" column="is_limit_goods" javaType="int" jdbcType="INTEGER" />
+		<result property="LIMIT_GOODS" column="limit_goods" javaType="long" jdbcType="BIGINT" />
+		<result property="IS_LIMIT_PLATFORM" column="is_limit_platform" javaType="int" jdbcType="INTEGER" />
+		<result property="LIMIT_PLATFORM" column="limit_platform" javaType="string" jdbcType="VARCHAR" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="STR_1" column="str_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="STR_2" column="str_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="IS_LIMIT_COUNT" column="is_limit_count" javaType="int" jdbcType="INTEGER" />
+		<result property="LIMIT_COUNT" column="limit_count" javaType="long" jdbcType="BIGINT" />
+		<result property="CLAIMED_COUNT" column="claimed_count" javaType="long" jdbcType="BIGINT" />
+		<result property="SOURCE_CODE" column="source_code" javaType="string" jdbcType="VARCHAR" />		
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.AdvertSubjectInfoRt">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_advert_subject_info_rt 
+		</selectKey>  
+		insert into tb_advert_subject_info_rt
+		(
+		subject_id,
+		data_type,
+		data_1,
+		data_2,
+		data_3,
+		create_date,
+		status,
+		ord
+		)
+		values (
+		#{subjectId,jdbcType=BIGINT},
+		#{dataType,jdbcType=VARCHAR},
+		#{data1,jdbcType=VARCHAR},
+		#{data2,jdbcType=VARCHAR},
+		#{data3,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{status,jdbcType=INTEGER},
+		#{ord,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.AdvertSubjectInfoRt">
+		update tb_advert_subject_info_rt
+		set
+		subject_id = #{subjectId,jdbcType=BIGINT},
+		data_type = #{dataType,jdbcType=VARCHAR},
+		data_1 = #{data1,jdbcType=VARCHAR},
+		data_2 = #{data2,jdbcType=VARCHAR},
+		data_3 = #{data3,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		status = #{status,jdbcType=INTEGER},
+		ord = #{ord,jdbcType=INTEGER}
+		where id = #{id}
+	</update>
+
+	<select id="get" parameterType="long"
+		resultMap="advertsubjectinfortDaoMap">
+		select * from tb_advert_subject_info_rt where id = #{id}
+	</select>
+
+	<select id="getListMap" parameterType="hashmap" resultMap="advertsubjectinfortDaoListMap">
+		SELECT
+			asi.id,
+			ca.title,
+			ca.create_date,
+			asi.ord as ORD
+		FROM
+			tb_advert_subject_info_rt asi
+		JOIN tb_common_activity ca ON asi.data_type = #{dataType}
+		AND ca.id = asi.data_1
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			asi.subject_id = #{subjectId}
+			and ca.status &lt;&gt; -1
+			and asi.status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by asi.ord desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(asi.id)
+		FROM
+			tb_advert_subject_info_rt asi
+		JOIN tb_common_activity ca ON asi.data_type = #{dataType}
+		AND ca.id = asi.data_1
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			asi.subject_id = #{subjectId}
+			and ca.status &lt;&gt; -1
+			and asi.status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="getData1ListBySubjectId" parameterType="hashmap" resultType="string">
+		select
+			data_1
+		from
+			tb_advert_subject_info_rt
+		where 
+			subject_id = #{subjectId}
+		and data_type = #{dataType}
+		and status &lt;&gt; -1
+	</select>
+	
+	<select id="getData2ListBySubjectId" parameterType="hashmap" resultType="string">
+		select
+			data_2
+		from
+			tb_advert_subject_info_rt
+		where 
+			subject_id = #{subjectId}
+		and data_type = #{dataType}
+		and status &lt;&gt; -1
+	</select>
+	
+	<select id="getListRowsBySubjectId" parameterType="hashmap" resultType="long">
+		select
+			count(id)
+		from
+			tb_advert_subject_info_rt
+		where 
+			subject_id = #{subjectId}
+		and data_type = #{dataType}
+		and status &lt;&gt; -1
+		<if test="data1!=null and data1!=''">
+			and data_1 = #{data1}
+		</if>
+		<if test="data2!=null and data2!=''">
+			and data_2 = #{data2}
+		</if>
+		<if test="data3!=null and data3!=''">
+			and data_3 = #{data3}
+		</if>
+	</select>
+	
+	
+	<insert id="addBatch" parameterType="com.h2y.bmg.entity.AdvertSubjectInfoRt">
+	 
+	 	insert into tb_advert_subject_info_rt
+		(
+		subject_id,
+		data_type,
+		data_1,
+		data_2,
+		data_3,
+		create_date,
+		status,
+		ord
+		)
+		values 
+		<foreach collection="list" item="item" separator=",">
+            (
+            #{item.subjectId,jdbcType=BIGINT},
+			#{item.dataType,jdbcType=VARCHAR},
+			#{item.data1,jdbcType=VARCHAR},
+			#{item.data2,jdbcType=VARCHAR},
+			#{item.data3,jdbcType=VARCHAR},
+			#{item.createDate,jdbcType=TIMESTAMP},
+			#{item.status,jdbcType=INTEGER},
+			#{item.ord,jdbcType=INTEGER}
+            )
+        </foreach>
+    </insert>
+    
+    
+    <select id="getCouponsListMap" parameterType="hashmap" resultMap="couponsDaoListMap">
+		SELECT
+			asi.id,
+			c.id as COUPONS_ID,
+			c.coupons_code,
+			c.coupons_name,
+			c.coupons_balance,
+			c.create_date,
+			c.start_date,
+			c.end_date,
+			c.status,
+			c.memo,
+			c.str_1,
+			c.str_2,
+			asi.ord as ORD
+		FROM
+			tb_advert_subject_info_rt asi
+		JOIN tb_coupons c ON asi.data_type = #{dataType}
+		AND asi.data_2 = c.coupons_code
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			asi.subject_id = #{subjectId}
+			and c.status &lt;&gt; -1
+			and asi.status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by #{sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					#{sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by asi.ord desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getCouponsListRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(asi.id)
+		FROM
+			tb_advert_subject_info_rt asi
+		JOIN tb_coupons c ON asi.data_type = #{dataType}
+		AND asi.data_2 = c.coupons_code
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			asi.subject_id = #{subjectId}
+			and c.status &lt;&gt; -1
+			and asi.status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="getImgListMap" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			asi.id as ID,
+			c.id as IMG_ID,
+			c.img_des as IMG_DES,
+			c.create_date as CREATE_DATE,
+			asi.ord as ORD
+		FROM
+			tb_advert_subject_info_rt asi
+		JOIN tb_img_storage c ON asi.data_type = #{dataType}
+		AND asi.data_1 = c.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			asi.subject_id = #{subjectId}
+			and c.status &lt;&gt; -1
+			and asi.status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by #{sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					#{sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by asi.ord desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getImgListRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(asi.id)
+		FROM
+			tb_advert_subject_info_rt asi
+		JOIN tb_img_storage c ON asi.data_type = #{dataType}
+		AND asi.data_1 = c.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			asi.subject_id = #{subjectId}
+			and c.status &lt;&gt; -1
+			and asi.status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+</mapper>

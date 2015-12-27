@@ -1,0 +1,35 @@
+@import url("form.css");
+
+body {
+	font-size: 12px;
+	margin: 0px;
+	padding-right: 2px;
+}
+
+#id-querytable td {
+    padding: 2px 4px;	
+    white-space: nowrap;
+}
+
+#id-querytable input[type='text']{
+	border: 1px solid #aecaf0;
+	height:23px;
+	line-height: 23px;
+}
+
+#id-querytable select{
+	border: 1px solid #aecaf0;
+	height: 23px;
+	line-height: 23px;
+}
+
+
+.img-responsive,
+.thumbnail > img,
+.thumbnail a > img,
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}

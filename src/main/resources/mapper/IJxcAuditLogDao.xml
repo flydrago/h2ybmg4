@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.jxc.dao.IJxcAuditLogDao">
+
+	<resultMap type="com.h2y.jxc.entity.JxcAuditLog" id="jxcauditlogDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="billId" column="bill_id" javaType="long" jdbcType="BIGINT" />
+		<result property="billNo" column="bill_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="auditStage" column="audit_stage" javaType="int" jdbcType="INTEGER" />
+		<result property="auditProcess" column="audit_process" javaType="string" jdbcType="VARCHAR" />
+		<result property="handlerId" column="handler_id" javaType="long" jdbcType="BIGINT" />
+		<result property="handler" column="handler" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="data1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="data2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+		<result property="data4" column="data_4" javaType="int" jdbcType="INTEGER" />
+		<result property="data5" column="data_5" javaType="int" jdbcType="INTEGER" />
+		<result property="data6" column="data_6" javaType="int" jdbcType="INTEGER" />
+		<result property="data7" column="data_7" javaType="long" jdbcType="BIGINT" />
+		<result property="data8" column="data_8" javaType="long" jdbcType="BIGINT" />
+		<result property="data9" column="data_9" javaType="long" jdbcType="BIGINT" />
+		<result property="data10" column="data_10" javaType="date" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<insert id="add" parameterType="com.h2y.jxc.entity.JxcAuditLog">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_jxc_audit_log 
+		</selectKey>  
+		insert into tb_jxc_audit_log
+		(
+		bill_id,
+		bill_no,
+		audit_stage,
+		audit_process,
+		handler_id,
+		handler,
+		create_date,
+		data_1,
+		data_2,
+		data_3,
+		data_4,
+		data_5,
+		data_6,
+		data_7,
+		data_8,
+		data_9,
+		data_10
+		)
+		values (
+		#{billId,jdbcType=BIGINT},
+		#{billNo,jdbcType=VARCHAR},
+		#{auditStage,jdbcType=INTEGER},
+		#{auditProcess,jdbcType=VARCHAR},
+		#{handlerId,jdbcType=BIGINT},
+		#{handler,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{data1,jdbcType=VARCHAR},
+		#{data2,jdbcType=VARCHAR},
+		#{data3,jdbcType=VARCHAR},
+		#{data4,jdbcType=INTEGER},
+		#{data5,jdbcType=INTEGER},
+		#{data6,jdbcType=INTEGER},
+		#{data7,jdbcType=BIGINT},
+		#{data8,jdbcType=BIGINT},
+		#{data9,jdbcType=BIGINT},
+		#{data10,jdbcType=TIMESTAMP}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.jxc.entity.JxcAuditLog">
+		update tb_jxc_audit_log
+		set
+		bill_id = #{billId,jdbcType=BIGINT},
+		bill_no = #{billNo,jdbcType=VARCHAR},
+		audit_stage = #{auditStage,jdbcType=INTEGER},
+		audit_process = #{auditProcess,jdbcType=VARCHAR},
+		handler_id = #{handlerId,jdbcType=BIGINT},
+		handler = #{handler,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		data_1 = #{data1,jdbcType=VARCHAR},
+		data_2 = #{data2,jdbcType=VARCHAR},
+		data_3 = #{data3,jdbcType=VARCHAR},
+		data_4 = #{data4,jdbcType=INTEGER},
+		data_5 = #{data5,jdbcType=INTEGER},
+		data_6 = #{data6,jdbcType=INTEGER},
+		data_7 = #{data7,jdbcType=BIGINT},
+		data_8 = #{data8,jdbcType=BIGINT},
+		data_9 = #{data9,jdbcType=BIGINT},
+		data_10 = #{data10,jdbcType=TIMESTAMP}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.jxc.entity.JxcAuditLog">
+		delete from
+		tb_jxc_audit_log
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_jxc_audit_log
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_jxc_audit_log
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="jxcauditlogDaoMap">
+		select * from tb_jxc_audit_log where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.jxc.entity.JxcAuditLog"
+		resultMap="jxcauditlogDaoMap">
+		select * from
+		tb_jxc_audit_log
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="billId!= null">
+			and bill_id = #{billId}
+			</if>
+			<if test="billNo!= null and billNo!=''">
+			and bill_no = #{billNo}
+			</if>
+			<if test="auditStage!= null">
+			and audit_stage = #{auditStage}
+			</if>
+			<if test="auditProcess!= null and auditProcess!=''">
+			and audit_process = #{auditProcess}
+			</if>
+			<if test="handlerId!= null">
+			and handler_id = #{handlerId}
+			</if>
+			<if test="handler!= null and handler!=''">
+			and handler = #{handler}
+			</if>
+			<if test="createDate!= null and createDate!=''">
+			and create_date = #{createDate}
+			</if>
+			<if test="data1!= null and data1!=''">
+			and data_1 = #{data1}
+			</if>
+			<if test="data2!= null and data2!=''">
+			and data_2 = #{data2}
+			</if>
+			<if test="data3!= null and data3!=''">
+			and data_3 = #{data3}
+			</if>
+			<if test="data4!= null">
+			and data_4 = #{data4}
+			</if>
+			<if test="data5!= null">
+			and data_5 = #{data5}
+			</if>
+			<if test="data6!= null">
+			and data_6 = #{data6}
+			</if>
+			<if test="data7!= null">
+			and data_7 = #{data7}
+			</if>
+			<if test="data8!= null">
+			and data_8 = #{data8}
+			</if>
+			<if test="data9!= null">
+			and data_9 = #{data9}
+			</if>
+			<if test="data10!= null and data10!=''">
+			and data_10 = #{data10}
+			</if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="jxcauditlogDaoMap">
+		select
+		*
+		from
+		tb_jxc_audit_log
+		<if test="keyJxcAuditLog!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keyJxcAuditLog.id!= null">
+				and id = #{keyJxcAuditLog.id}
+				</if>
+				<if test="keyJxcAuditLog.billId!= null">
+				and bill_id = #{keyJxcAuditLog.billId}
+				</if>
+				<if test="keyJxcAuditLog.billNo!= null and keyJxcAuditLog.billNo!=''">
+				and bill_no = #{keyJxcAuditLog.billNo}
+				</if>
+				<if test="keyJxcAuditLog.auditStage!= null">
+				and audit_stage = #{keyJxcAuditLog.auditStage}
+				</if>
+				<if test="keyJxcAuditLog.auditProcess!= null and keyJxcAuditLog.auditProcess!=''">
+				and audit_process = #{keyJxcAuditLog.auditProcess}
+				</if>
+				<if test="keyJxcAuditLog.handlerId!= null">
+				and handler_id = #{keyJxcAuditLog.handlerId}
+				</if>
+				<if test="keyJxcAuditLog.handler!= null and keyJxcAuditLog.handler!=''">
+				and handler = #{keyJxcAuditLog.handler}
+				</if>
+				<if test="keyJxcAuditLog.createDate!= null and keyJxcAuditLog.createDate!=''">
+				and create_date = #{keyJxcAuditLog.createDate}
+				</if>
+				<if test="keyJxcAuditLog.data1!= null and keyJxcAuditLog.data1!=''">
+				and data_1 = #{keyJxcAuditLog.data1}
+				</if>
+				<if test="keyJxcAuditLog.data2!= null and keyJxcAuditLog.data2!=''">
+				and data_2 = #{keyJxcAuditLog.data2}
+				</if>
+				<if test="keyJxcAuditLog.data3!= null and keyJxcAuditLog.data3!=''">
+				and data_3 = #{keyJxcAuditLog.data3}
+				</if>
+				<if test="keyJxcAuditLog.data4!= null">
+				and data_4 = #{keyJxcAuditLog.data4}
+				</if>
+				<if test="keyJxcAuditLog.data5!= null">
+				and data_5 = #{keyJxcAuditLog.data5}
+				</if>
+				<if test="keyJxcAuditLog.data6!= null">
+				and data_6 = #{keyJxcAuditLog.data6}
+				</if>
+				<if test="keyJxcAuditLog.data7!= null">
+				and data_7 = #{keyJxcAuditLog.data7}
+				</if>
+				<if test="keyJxcAuditLog.data8!= null">
+				and data_8 = #{keyJxcAuditLog.data8}
+				</if>
+				<if test="keyJxcAuditLog.data9!= null">
+				and data_9 = #{keyJxcAuditLog.data9}
+				</if>
+				<if test="keyJxcAuditLog.data10!= null and keyJxcAuditLog.data10!=''">
+				and data_10 = #{keyJxcAuditLog.data10}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_jxc_audit_log
+		<if test="keyJxcAuditLog!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keyJxcAuditLog.id!= null">
+				and id = #{keyJxcAuditLog.id}
+				</if>
+				<if test="keyJxcAuditLog.billId!= null">
+				and bill_id = #{keyJxcAuditLog.billId}
+				</if>
+				<if test="keyJxcAuditLog.billNo!= null and keyJxcAuditLog.billNo!=''">
+				and bill_no = #{keyJxcAuditLog.billNo}
+				</if>
+				<if test="keyJxcAuditLog.auditStage!= null">
+				and audit_stage = #{keyJxcAuditLog.auditStage}
+				</if>
+				<if test="keyJxcAuditLog.auditProcess!= null and keyJxcAuditLog.auditProcess!=''">
+				and audit_process = #{keyJxcAuditLog.auditProcess}
+				</if>
+				<if test="keyJxcAuditLog.handlerId!= null">
+				and handler_id = #{keyJxcAuditLog.handlerId}
+				</if>
+				<if test="keyJxcAuditLog.handler!= null and keyJxcAuditLog.handler!=''">
+				and handler = #{keyJxcAuditLog.handler}
+				</if>
+				<if test="keyJxcAuditLog.createDate!= null and keyJxcAuditLog.createDate!=''">
+				and create_date = #{keyJxcAuditLog.createDate}
+				</if>
+				<if test="keyJxcAuditLog.data1!= null and keyJxcAuditLog.data1!=''">
+				and data_1 = #{keyJxcAuditLog.data1}
+				</if>
+				<if test="keyJxcAuditLog.data2!= null and keyJxcAuditLog.data2!=''">
+				and data_2 = #{keyJxcAuditLog.data2}
+				</if>
+				<if test="keyJxcAuditLog.data3!= null and keyJxcAuditLog.data3!=''">
+				and data_3 = #{keyJxcAuditLog.data3}
+				</if>
+				<if test="keyJxcAuditLog.data4!= null">
+				and data_4 = #{keyJxcAuditLog.data4}
+				</if>
+				<if test="keyJxcAuditLog.data5!= null">
+				and data_5 = #{keyJxcAuditLog.data5}
+				</if>
+				<if test="keyJxcAuditLog.data6!= null">
+				and data_6 = #{keyJxcAuditLog.data6}
+				</if>
+				<if test="keyJxcAuditLog.data7!= null">
+				and data_7 = #{keyJxcAuditLog.data7}
+				</if>
+				<if test="keyJxcAuditLog.data8!= null">
+				and data_8 = #{keyJxcAuditLog.data8}
+				</if>
+				<if test="keyJxcAuditLog.data9!= null">
+				and data_9 = #{keyJxcAuditLog.data9}
+				</if>
+				<if test="keyJxcAuditLog.data10!= null and keyJxcAuditLog.data10!=''">
+				and data_10 = #{keyJxcAuditLog.data10}
+				</if>
+			</trim>
+		</if>
+	</select>
+	
+	<select id="getBillAuditLog" parameterType="hashmap" resultMap="jxcauditlogDaoMap">
+		select * 
+		from tb_jxc_audit_log
+		<trim prefix="WHERE" prefixOverrides="AND|OR" >
+			bill_no = #{billNo,jdbcType=VARCHAR}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			<choose>
+				<when test="sortname !=null and sortname !=''">
+					order by ${sortname}
+					<if test="sortorder !=null and sortorder !='' ">
+						${sortorder} 
+					</if>
+				</when>
+				<otherwise>
+					order by audit_stage
+				</otherwise>
+			</choose>
+		</trim>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	<select id="getBillAuditLogRows" parameterType="hashmap" resultType="long">
+		select count(*)
+		from tb_jxc_audit_log
+		<trim prefix="WHERE" prefixOverrides="AND|OR" >
+			bill_no = #{billNo,jdbcType=VARCHAR}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+</mapper>

@@ -1,0 +1,706 @@
+/* default style */
+body {
+	text-align: left;
+	margin: 0px;
+	padding: 0px;
+	font-size:12px;
+	font-family:arial, "宋体";
+	background:white;
+	color:#333;
+	line-height:160%;
+}
+
+
+html {
+	overflow-y:auto!important;
+	*overflow-y:scroll;
+}
+td {
+	font-size:12px;
+	font-family:arial, "宋体";
+	color:#333;
+	line-height:160%;
+	white-space:nowrap;
+}
+BODY {
+	MARGIN: 0px;
+	PADDING: 0px
+}
+DIV {
+	MARGIN: 0px;
+	PADDING: 0px
+}
+DL {
+	MARGIN: 0px;
+	PADDING: 0px
+}
+DT {
+	MARGIN: 0px;
+	PADDING: 0px
+}
+DD {
+	MARGIN: 0px;
+	PADDING: 0px
+}
+UL {
+	MARGIN: 0px;
+	PADDING: 0px;
+	list-style:none;
+}
+OL {
+	MARGIN: 0px;
+	PADDING: 0px;
+	list-style:none;
+}
+LI {
+	MARGIN: 0px;
+	PADDING: 0px;
+	list-style:none;
+}
+H1 {
+	MARGIN: 0px;
+	PADDING: 0px
+}
+H2 {
+	MARGIN: 0px;
+	PADDING: 0px
+}
+H3 {
+	MARGIN: 0px;
+	PADDING: 0px
+}
+H4 {
+	MARGIN: 0px;
+	PADDING: 0px
+}
+H5 {
+	MARGIN: 0px;
+	PADDING: 0px
+}
+H6 {
+	MARGIN: 0px;
+	PADDING: 0px
+}
+PRE {
+	MARGIN: 0px;
+	PADDING: 0px
+}
+CODE {
+	MARGIN: 0px;
+	PADDING: 0px
+}
+FORM {
+	MARGIN: 0px;
+	PADDING: 0px
+}
+FIELDSET {
+	MARGIN: 0px;
+	PADDING: 0px
+}
+LEGEND {
+	MARGIN: 0px;
+	PADDING: 0px;
+	font-size:12px;
+}
+INPUT {
+	MARGIN: 0px;
+	PADDING: 0px;
+	font-size:12px;
+}
+BUTTON {
+	MARGIN: 0px;
+	PADDING: 0px;
+	font-size:12px;
+}
+TEXTAREA {
+	MARGIN: 0px;
+	PADDING: 0px;
+	font-size:12px;
+}
+P {
+	MARGIN: 0px;
+	PADDING: 0px
+}
+BLOCKQUOTE {
+	MARGIN: 0px;
+	PADDING: 0px
+}
+TH {
+	MARGIN: 0px;
+	PADDING: 0px
+}
+IMG {
+	BORDER:  none;
+}
+UL {
+	LIST-STYLE-TYPE: none;
+	LIST-STYLE-IMAGE: none
+}
+OL {
+	LIST-STYLE-TYPE: none;
+	LIST-STYLE-IMAGE: none
+}
+EM {
+	FONT-STYLE: normal
+}
+A {
+	TEXT-DECORATION: underline;
+	outline-style : none;
+}
+A:link {
+	COLOR: #039;
+	outline-style : none; 
+	TEXT-DECORATION: none;
+}
+A:visited {
+	COLOR: #039;
+ outline-style : none;  TEXT-DECORATION: none;
+}
+A:hover {
+	COLOR: blue;
+	TEXT-DECORATION: underline;
+	outline-style : none
+}
+A:active {
+	COLOR: ##039;
+	TEXT-DECORATION: underline;
+	outline-style : none;
+ blr:expression(this.onFocus=this.blur());
+}
+H1 {
+	FONT-SIZE: 16px
+}
+H2 {
+	FONT-SIZE: 14px
+}
+H3 {
+	FONT-SIZE: 14px
+}
+H4 {
+	FONT-SIZE: 14px
+}
+H5 {
+	FONT-SIZE: 12px
+}
+H6 {
+	FONT-SIZE: 12px
+}
+.display_none {
+	display:none;
+}
+.clear {
+	clear:both;
+}
+/*color*/
+.cwhite, a.cwhite:link, a.cwhite:visited {
+	color:white;
+}
+.cred, a.cred:link, a.cred:visited {
+	color:#D6052F;
+}
+.cblue, a.cblue:link, a.cblue:visited {
+	color:blue;
+}
+a.cblue:hover {
+	color:#039;
+}
+.cblue_fs, a.cblue_fs:link, a.cblue_fs:visited {
+	color:#fff;
+	background:#054BA0;
+}
+a.cblue_fs:hover {
+	color:#fff;
+}
+.c8d, a.c8d:link, a.c8d:visited {
+	color:#8d8d8d;
+}
+a.c8d:hover {
+	color:#666;
+}
+.cgray, a.cgray:link, a.cgray:visited {
+	color: #4F544D;
+}
+.cdgray, a.cdgray:link, a.cdgray:visited {
+	color: #666;
+}
+.cwhite, a.cwhite:link, a.cwhite:visited {
+	color:#fff;
+}
+.cblack, a.cblack:link, a.cblack:visited {
+	color:#000;
+}
+a.cblack:hover {
+	color:#bc2931;
+}
+.cyellow, a.cyellow:link, a.cyellow:hover, a.cyellow:visited {
+	color:#FFF46A;
+}
+.cyellow14, a.cyellow14:link, a.cyellow14:hover, a.cyellow14:visited {
+	color:#FFF46A;
+	font-size:14px;
+}
+.cc6, a.cc6:link, a.cc6:visited {
+	color:#ccc;
+}
+a.cc6:hover {
+	color:#8d8d8d;
+}
+.cbluedown, a.cbluedown:link, a.cbluedown:visited {
+	color:#4D7CD4;
+	background:url(../images/rk/icon_ddlown.gif) no-repeat;
+	padding-left:15px;
+	margin-right:5px;
+	margin-left:4px
+}
+a.cbluedown:hover {
+	color:#900;
+}
+.c333, a.c333:link, a.c333:visited {
+	color:#333;
+}
+a.c333:hover {
+	color:#8d8d8d;
+}
+/*button*/
+.btn50 {
+	cursor: hand;
+	width:50px;
+	border:none;
+	background:#000 url(../images/rk/btn50.gif) no-repeat;
+	text-align:center;
+	height:24px;
+	line-height:26px;
+	margin-left:3px;
+	margin-right:3px
+}
+.btn70 {
+	cursor: hand;
+	width:70px;
+	border:none;
+	background:#000 url(../images/rk/btn70.gif) no-repeat;
+	text-align:center;
+	height:24px;
+	line-height:26px;
+	margin-left:3px;
+	margin-right:3px
+}
+.btn100 {
+	cursor: hand;
+	width:100px;
+	border:none;
+	background:#000 url(../images/rk/btn100.gif) no-repeat;
+	text-align:center;
+	height:24px;
+	line-height:26px;
+	margin-left:3px;
+	margin-right:3px
+}
+.btn150 {
+	cursor: hand;
+	width:150px;
+	border:none;
+	background:#000 url(../images/rk/btn150.gif) no-repeat;
+	text-align:center;
+	height:24px;
+	line-height:26px;
+	margin-left:3px;
+	margin-right:3px
+}
+.btnyesno {
+	cursor: hand;
+	letter-spacing: 5px;
+	width:116px;
+	border:none;
+	background:#000 url(../images/rk/btnyesno.jpg) no-repeat;
+	text-align:center;
+	height:32px;
+	line-height:35px;
+	font-size:14px;
+	font-weight:bold;
+	;
+}
+/*header style*/
+
+#header {
+	background:url(../images/rk/header.jpg) no-repeat;
+	min-width: 1000px;
+}
+
+
+.topbtn{
+float:right;
+margin-right:20px;
+}
+.topbtn img{
+margin-left:4px;
+margin-right:4px;
+}
+.topbtntd{
+font-size:0px;
+line-height:0px;
+
+}
+
+
+/*leftnav*/
+.leftmainav {
+	text-align:center;
+	background:url(../images/rk/left_maintitle.jpg) no-repeat;
+	height:38px;
+	line-height:35px;
+	color:#104382;
+	font-weight:bold;
+	letter-spacing :5px;
+	font-size:14px;
+}
+#leftmenu {
+	margin-bottom:20px;
+	background:url(../images/rk/leftmenutablebg.jpg) repeat-y;
+	margin-left:10px;
+}
+
+#leftmenu img{float:left}
+
+#leftmenu a {
+	outline: none;
+}
+.leftmenu_bottom {
+	height:10px;
+	padding-top:20px;
+	background:url(../images/rk/leftmenu_bottom.jpg) no-repeat bottom left;
+}
+.leftmenu_bottom img{display:none;}
+
+/*right*/
+.idxrightop {
+	background:url(../images/rk/righttopbg.jpg) repeat-x;
+	padding-top:6px;
+}
+.path {
+	height:24px;
+	line-height:28px;
+	font-size:14px;
+	margin-top:3px;
+}
+.path_grzm {
+	background:url(../images/rk/icon_user.gif) no-repeat;
+	padding-left:22px;
+	margin-left:10px;
+}
+
+
+.path_changeprofile {
+	background:url(../images/rk/icon_xgqyxx.gif) no-repeat;
+	padding-left:22px;
+	margin-left:16px;
+}
+.path_changeprofile a {
+	color:#104382;
+	text-decoration:none;
+}
+.path_changeprofile a:link {
+	color:#104382;
+	text-decoration:none;
+}
+.path_changeprofile a:visited {
+	color:#104382;
+	text-decoration:none;
+}
+.path_changeprofile a:hover {
+	color:#104382;
+	text-decoration:underline;
+}
+
+.path_changepw {
+	background:url(../images/rk/icon_qyzhxx.gif) no-repeat;
+	padding-left:22px;
+	margin-left:16px;
+}
+.path_changepw a {
+	color:#104382;
+	text-decoration:none;
+}
+.path_changepw a:link {
+	color:#104382;
+	text-decoration:none;
+}
+.path_changepw a:visited {
+	color:#104382;
+	text-decoration:none;
+}
+.path_changepw a:hover {
+	color:#104382;
+	text-decoration:underline;
+}
+
+.path_exit {
+	background:url(../images/rk/icon_exit.gif) no-repeat;
+	padding-left:22px;
+	margin-left:16px;
+}
+.path_exit a {
+	color:#900;
+	text-decoration:none;
+}
+.path_exit a:link {
+	color:#900;
+	text-decoration:none;
+}
+.path_exit a:visited {
+	color:#900;
+	text-decoration:none;
+}
+.path_exit a:hover {
+	color:red;
+	text-decoration:underline;
+}
+
+.mainsearch{
+background:#9AC1E0;
+margin-top:10px;
+margin-bottom:10px;
+}
+
+.mainsearch th{
+background:#E1EFF8;
+padding:4px 6px 3px 6px;
+text-align:right;
+font-weight:normal;
+}
+
+.mainsearch td{
+background:#fff;
+padding:4px 6px 3px 6px;
+}
+
+.width100{
+width:100px;
+}
+
+.width150{
+width:150px;
+}
+
+.width200{
+width:200px;
+}
+
+/*list style*/
+.jc2010mt {
+	background:#9AC1E0;
+	margin-bottom:8px;
+	margin-bottom:10px;
+
+}
+.jc2010mt td {
+	padding: 4px 6px;
+}
+.jc2010mt td  a  img {
+	margin-left:5px;
+	margin-right:5px;
+}
+
+
+.jc2010mt_th {
+	background: url(../images/rk/jc2010mt_thbg.jpg) bottom left repeat-x;
+	text-align:center;
+}
+
+.jc2010mt_th td {
+	color:#003366;
+	font-size:12px;
+	border-top:1px solid white;
+	border-left:1px solid white;
+	white-space : nowrap;
+	font-size:12px;
+	font-weight:bold;
+}
+.jc2010mt_td1 {
+	background:#fff;
+}
+.jc2010mt_td2 {
+	background:#E1EFF8;
+}
+
+.submitbutton2 {
+	BORDER-BOTTOM: 0px; 
+	TEXT-ALIGN: center; 
+	BORDER-LEFT: 0px; 
+	LINE-HEIGHT: 28px; 
+	WIDTH: 79px; 
+	FONT-FAMILY: "宋体"; 
+	HEIGHT: 28px; 
+	COLOR: #1561c2; 
+	FONT-SIZE: 14px; 
+	OVERFLOW: hidden;
+	BORDER-TOP: 0px; 
+	CURSOR: hand; 
+	BORDER-RIGHT: 0px;
+	background:url(../images/rk/cancelbutton_hover.jpg) no-repeat;
+	COLOR: #1561C2;
+	vertical-align: middle;
+}
+.submitbutton2:hover{
+	color:black;
+}
+
+.tjtool{
+margin-bottom:10px;
+}
+
+
+.mxtable{
+background:#9AC1E0;
+margin-top:10px;
+margin-bottom:10px;
+}
+
+.mxtable th{
+background:#E1EFF8;
+padding:4px 6px 4px 6px;
+text-align:right;
+font-weight:normal;
+}
+
+.mxtable td{
+background:#fff;
+padding:4px 6px 4px 6px;
+}
+
+.rkgl_t{
+background:url(../images/rk/t_t_bg.jpg)  right no-repeat;
+font-size:0;
+line-height:0;
+}
+.rkgl_t td{
+font-size:0;
+line-height:0;
+}
+
+.rkgl_b{
+background:url(../images/rk/t_b_bg.jpg)  right no-repeat;
+font-size:0;
+line-height:0;
+margin-bottom:10px;
+}
+.rkgl_b td{
+font-size:0;
+line-height:0;
+}
+
+.rlgl_left{
+background:url(../images/rk/t_left.jpg) repeat-y;
+}
+.rlgl_rgt{
+background:url(../images/rk/t_rgt.jpg) repeat-y;
+}
+
+.rlgl_center{
+background:white;
+text-align:center;
+}
+
+.ryglbutton {
+	BORDER-BOTTOM: 0px; 
+	TEXT-ALIGN: center; 
+	BORDER-LEFT: 0px; 
+	LINE-HEIGHT: 28px; 
+	WIDTH: 120px; 
+	FONT-FAMILY: "宋体"; 
+	HEIGHT: 28px; 
+	COLOR: #1561c2; 
+	FONT-SIZE: 14px; 
+	OVERFLOW: hidden;
+	BORDER-TOP: 0px; 
+	CURSOR: hand; 
+	BORDER-RIGHT: 0px;
+	background:url(../images/rk/ryglbutton.jpg) no-repeat;
+	color:#1561C2;
+}
+.ryglbutton:hover {
+	background:url(../images/rk/ryglbutton_hover.jpg) no-repeat;
+	COLOR: #1561C2
+}
+
+
+.subtitle{
+background:#3A8ED4;
+font-size:14px;
+font-weight:bold;
+color:white;
+}
+
+
+.subtable{
+background:#9AC1E0;
+margin-bottom:5px;
+}
+
+.subtable th{
+background:#E1EFF8;
+padding:4px 6px 4px 6px;
+text-align:right;
+font-weight:normal;
+}
+
+.subtable td{
+background:#fff;
+padding:4px 6px 4px 6px;
+}
+
+
+.submitbutton {
+	BORDER-BOTTOM: 0px; 
+	TEXT-ALIGN: center; 
+	BORDER-LEFT: 0px; 
+	LINE-HEIGHT: 28px; 
+	WIDTH: 79px; 
+	FONT-FAMILY: "宋体"; 
+	HEIGHT: 28px; 
+	COLOR: #1561c2; 
+	FONT-SIZE: 14px; 
+	OVERFLOW: hidden;
+	BORDER-TOP: 0px; 
+	CURSOR: hand; 
+	BORDER-RIGHT: 0px;
+	background:url(../images/rk/submitbutton.jpg) no-repeat;
+	color:white;
+	vertical-align: middle;
+}
+.submitbutton:hover {
+	background:url(../images/rk/submitbutton_hover.jpg) no-repeat;
+	COLOR: white
+}
+
+
+
+.cancelbutton {
+	BORDER-BOTTOM: 0px; 
+	TEXT-ALIGN: center; 
+	BORDER-LEFT: 0px; 
+	LINE-HEIGHT: 28px; 
+	WIDTH: 79px; 
+	FONT-FAMILY: "宋体"; 
+	HEIGHT: 28px; 
+	COLOR: #1561c2; 
+	FONT-SIZE: 14px; 
+	OVERFLOW: hidden;
+	BORDER-TOP: 0px; 
+	CURSOR: hand; 
+	BORDER-RIGHT: 0px;
+	background:url(../images/rk/cancelbutton.jpg) no-repeat;
+	color:#1561C2;
+	vertical-align: middle;
+}
+.cancelbutton:hover {
+	background:url(../images/rk/cancelbutton_hover.jpg) no-repeat;
+	COLOR: #1561C2
+}
+/*附件上传页面的确定按钮*/
+.ok {
+	background: url(../images/base/button_2.jpg) transparent;
+	color: #1561c2;
+	width:62px;
+	height:24px;
+	border:none;
+}

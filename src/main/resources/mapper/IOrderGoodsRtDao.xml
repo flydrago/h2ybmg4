@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IOrderGoodsRtDao">
+
+	<resultMap type="java.util.Map" id="ordergoodsrtDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="orderId" column="order_id" javaType="long" jdbcType="BIGINT" />
+		<result property="orderNo" column="order_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="orderUnique" column="order_unique" javaType="string" jdbcType="VARCHAR" />
+		<result property="storehouseId" column="storehouse_id" javaType="long" jdbcType="BIGINT" />
+		<result property="storehouseName" column="storehouse_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsNickName" column="goods_nick_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsNumber" column="goods_number" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsShortNumber" column="goods_short_number" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsCount" column="goods_count" javaType="int" jdbcType="INTEGER" />
+		<result property="goodsAmount" column="goods_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="singlePrice" column="single_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="goodsPriceId" column="goods_price_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsPriceVersion" column="goods_price_version" javaType="int" jdbcType="INTEGER" />
+		<result property="isGift" column="is_gift" javaType="int" jdbcType="INTEGER" />
+		<result property="dataId" column="data_id" javaType="long" jdbcType="BIGINT" />
+		<result property="buyType" column="buy_type" javaType="int" jdbcType="INTEGER" />
+		<result property="s3stcode" column="s3stcode" javaType="string" jdbcType="VARCHAR" />
+		<result property="s3gdscode" column="s3gdscode" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="getListByOrderNo" parameterType="string" resultMap="ordergoodsrtDaoMap">
+		select * from tb_order_goods_rt where order_no = #{orderNo} order by is_gift
+	</select>
+	
+	<select id="getHisListByOrderNo" parameterType="string" resultMap="ordergoodsrtDaoMap">
+		select * from tb_order_goods_rt_hi where order_no = #{orderNo} order by is_gift
+	</select>
+	
+</mapper>

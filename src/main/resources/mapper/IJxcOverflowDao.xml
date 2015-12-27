@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.jxc.dao.IJxcOverflowDao">
+
+	<resultMap type="com.h2y.jxc.entity.JxcOverflow" id="jxcoverflowDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="billNo" column="bill_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="billCustomNo" column="bill_custom_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="overflowDate" column="overflow_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="storageId" column="storage_id" javaType="long" jdbcType="BIGINT" />
+		<result property="storage" column="storage" javaType="string" jdbcType="VARCHAR" />
+		<result property="brokerId" column="broker_id" javaType="long" jdbcType="BIGINT" />
+		<result property="broker" column="broker" javaType="string" jdbcType="VARCHAR" />
+		<result property="excursus" column="excursus" javaType="string" jdbcType="VARCHAR" />
+		<result property="notes" column="notes" javaType="string" jdbcType="VARCHAR" />
+		<result property="overflowCount" column="overflow_count" javaType="int" jdbcType="INTEGER" />
+		<result property="overflowAmount" column="overflow_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="reviseMark" column="revise_mark" javaType="int" jdbcType="INTEGER" />
+		<result property="checkStatus" column="check_status" javaType="int" jdbcType="INTEGER" />
+		<result property="billStatus" column="bill_status" javaType="int" jdbcType="INTEGER" />
+		<result property="billMaker" column="bill_maker" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="zoneCode" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="data1" column="data1" javaType="string" jdbcType="VARCHAR" />
+		<result property="data2" column="data2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data3" javaType="double" jdbcType="DOUBLE" />
+		<result property="data4" column="data4" javaType="double" jdbcType="DOUBLE" />
+		<result property="data5" column="data5" javaType="long" jdbcType="BIGINT" />
+		<result property="data6" column="data6" javaType="long" jdbcType="BIGINT" />
+		<result property="data7" column="data7" javaType="int" jdbcType="INTEGER" />
+		<result property="data8" column="data8" javaType="int" jdbcType="INTEGER" />
+		<result property="data9" column="data9" javaType="string" jdbcType="VARCHAR" />
+		<result property="data10" column="data10" javaType="double" jdbcType="DOUBLE" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="jxcoverflowMapList">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="BILL_NO" column="bill_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="BILL_CUSTOM_NO" column="bill_custom_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="OVERFLOW_DATE" column="overflow_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="STORAGE_ID" column="storage_id" javaType="long" jdbcType="BIGINT" />
+		<result property="STORAGE" column="storage" javaType="string" jdbcType="VARCHAR" />
+		<result property="BROKER_ID" column="broker_id" javaType="long" jdbcType="BIGINT" />
+		<result property="BROKER" column="broker" javaType="string" jdbcType="VARCHAR" />
+		<result property="EXCURSUS" column="excursus" javaType="string" jdbcType="VARCHAR" />
+		<result property="NOTES" column="notes" javaType="string" jdbcType="VARCHAR" />
+		<result property="OVERFLOW_COUNT" column="overflow_count" javaType="int" jdbcType="INTEGER" />
+		<result property="OVERFLOW_AMOUNT" column="overflow_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="REVISE_MARK" column="revise_mark" javaType="int" jdbcType="INTEGER" />
+		<result property="CHECK_STATUS" column="check_status" javaType="int" jdbcType="INTEGER" />
+		<result property="BILL_STATUS" column="bill_status" javaType="int" jdbcType="INTEGER" />
+		<result property="BILL_MAKER" column="bill_maker" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ZONE_CODE" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA1" column="data1" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA2" column="data2" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA3" column="data3" javaType="double" jdbcType="DOUBLE" />
+		<result property="DATA4" column="data4" javaType="double" jdbcType="DOUBLE" />
+		<result property="DATA5" column="data5" javaType="long" jdbcType="BIGINT" />
+		<result property="DATA6" column="data6" javaType="long" jdbcType="BIGINT" />
+		<result property="DATA7" column="data7" javaType="int" jdbcType="INTEGER" />
+		<result property="DATA8" column="data8" javaType="int" jdbcType="INTEGER" />
+		<result property="DATA9" column="data9" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA10" column="data10" javaType="double" jdbcType="DOUBLE" />
+	</resultMap>
+	
+	<select id="getListMap" parameterType="hashmap" resultMap="jxcoverflowMapList">
+		select * from 
+		tb_jxc_overflow
+		<trim prefix="WHERE" prefixOverrides="AND|OR" >
+			1=1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			<choose>
+				<when test="sortname !=null and sortname !=''">
+					order by ${sortname}
+					<if test="sortorder !=null and sortorder !='' ">
+						${sortorder} 
+					</if>
+				</when>
+				<otherwise>
+					order by create_date desc
+				</otherwise>
+			</choose>
+		</trim>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+	select count(*) 
+	from tb_jxc_overflow
+	<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			1=1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	<insert id="add" parameterType="com.h2y.jxc.entity.JxcOverflow">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_jxc_overflow 
+		</selectKey>  
+		insert into tb_jxc_overflow
+		(
+		bill_no,
+		bill_custom_no,
+		overflow_date,
+		storage_id,
+		storage,
+		broker_id,
+		broker,
+		excursus,
+		notes,
+		overflow_count,
+		overflow_amount,
+		revise_mark,
+		check_status,
+		bill_status,
+		bill_maker,
+		create_date,
+		zone_code,
+		data1,
+		data2,
+		data3,
+		data4,
+		data5,
+		data6,
+		data7,
+		data8,
+		data9,
+		data10,
+		data_11
+		)
+		values (
+		#{billNo,jdbcType=VARCHAR},
+		#{billCustomNo,jdbcType=VARCHAR},
+		#{overflowDate,jdbcType=TIMESTAMP},
+		#{storageId,jdbcType=BIGINT},
+		#{storage,jdbcType=VARCHAR},
+		#{brokerId,jdbcType=BIGINT},
+		#{broker,jdbcType=VARCHAR},
+		#{excursus,jdbcType=VARCHAR},
+		#{notes,jdbcType=VARCHAR},
+		#{overflowCount,jdbcType=INTEGER},
+		#{overflowAmount,jdbcType=DOUBLE},
+		#{reviseMark,jdbcType=INTEGER},
+		#{checkStatus,jdbcType=INTEGER},
+		#{billStatus,jdbcType=INTEGER},
+		#{billMaker,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{zoneCode,jdbcType=VARCHAR},
+		#{data1,jdbcType=VARCHAR},
+		#{data2,jdbcType=VARCHAR},
+		#{data3,jdbcType=DOUBLE},
+		#{data4,jdbcType=DOUBLE},
+		#{data5,jdbcType=BIGINT},
+		#{data6,jdbcType=BIGINT},
+		#{data7,jdbcType=INTEGER},
+		#{data8,jdbcType=INTEGER},
+		#{data9,jdbcType=VARCHAR},
+		#{data10,jdbcType=DOUBLE},
+		#{data11,jdbcType=TIMESTAMP}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.jxc.entity.JxcOverflow">
+		update tb_jxc_overflow
+		set
+		bill_no = #{billNo,jdbcType=VARCHAR},
+		bill_custom_no = #{billCustomNo,jdbcType=VARCHAR},
+		overflow_date = #{overflowDate,jdbcType=TIMESTAMP},
+		storage_id = #{storageId,jdbcType=BIGINT},
+		storage = #{storage,jdbcType=VARCHAR},
+		broker_id = #{brokerId,jdbcType=BIGINT},
+		broker = #{broker,jdbcType=VARCHAR},
+		excursus = #{excursus,jdbcType=VARCHAR},
+		notes = #{notes,jdbcType=VARCHAR},
+		overflow_count = #{overflowCount,jdbcType=INTEGER},
+		overflow_amount = #{overflowAmount,jdbcType=DOUBLE},
+		revise_mark = #{reviseMark,jdbcType=INTEGER},
+		check_status = #{checkStatus,jdbcType=INTEGER},
+		bill_status = #{billStatus,jdbcType=INTEGER},
+		bill_maker = #{billMaker,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		zone_code = #{zoneCode,jdbcType=VARCHAR},
+		data1 = #{data1,jdbcType=VARCHAR},
+		data2 = #{data2,jdbcType=VARCHAR},
+		data3 = #{data3,jdbcType=DOUBLE},
+		data4 = #{data4,jdbcType=DOUBLE},
+		data5 = #{data5,jdbcType=BIGINT},
+		data6 = #{data6,jdbcType=BIGINT},
+		data7 = #{data7,jdbcType=INTEGER},
+		data8 = #{data8,jdbcType=INTEGER},
+		data9 = #{data9,jdbcType=VARCHAR},
+		data10 = #{data10,jdbcType=DOUBLE},
+		data_11 = #{data11,jdbcType=TIMESTAMP}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.jxc.entity.JxcOverflow">
+		delete from
+		tb_jxc_overflow
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_jxc_overflow
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_jxc_overflow
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="jxcoverflowDaoMap">
+		select * from tb_jxc_overflow where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.jxc.entity.JxcOverflow"
+		resultMap="jxcoverflowDaoMap">
+		select * from
+		tb_jxc_overflow
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="billNo!= null and billNo!=''">
+			and bill_no = #{billNo}
+			</if>
+			<if test="billCustomNo!= null and billCustomNo!=''">
+			and bill_custom_no = #{billCustomNo}
+			</if>
+			<if test="overflowDate!= null and overflowDate!=''">
+			and overflow_date = #{overflowDate}
+			</if>
+			<if test="storageId!= null">
+			and storage_id = #{storageId}
+			</if>
+			<if test="storage!= null and storage!=''">
+			and storage = #{storage}
+			</if>
+			<if test="brokerId!= null">
+			and broker_id = #{brokerId}
+			</if>
+			<if test="broker!= null and broker!=''">
+			and broker = #{broker}
+			</if>
+			<if test="excursus!= null and excursus!=''">
+			and excursus = #{excursus}
+			</if>
+			<if test="notes!= null and notes!=''">
+			and notes = #{notes}
+			</if>
+			<if test="overflowCount!= null">
+			and overflow_count = #{overflowCount}
+			</if>
+			<if test="overflowAmount!= null and overflowAmount!=''">
+			and overflow_amount = #{overflowAmount}
+			</if>
+			<if test="reviseMark!= null">
+			and revise_mark = #{reviseMark}
+			</if>
+			<if test="checkStatus!= null">
+			and check_status = #{checkStatus}
+			</if>
+			<if test="billStatus!= null">
+			and bill_status = #{billStatus}
+			</if>
+			<if test="billMaker!= null and billMaker!=''">
+			and bill_maker = #{billMaker}
+			</if>
+			<if test="createDate!= null and createDate!=''">
+			and create_date = #{createDate}
+			</if>
+			<if test="zoneCode!= null and zoneCode!=''">
+			and zone_code = #{zoneCode}
+			</if>
+			<if test="data1!= null and data1!=''">
+			and data1 = #{data1}
+			</if>
+			<if test="data2!= null and data2!=''">
+			and data2 = #{data2}
+			</if>
+			<if test="data3!= null and data3!=''">
+			and data3 = #{data3}
+			</if>
+			<if test="data4!= null and data4!=''">
+			and data4 = #{data4}
+			</if>
+			<if test="data5!= null">
+			and data5 = #{data5}
+			</if>
+			<if test="data6!= null">
+			and data6 = #{data6}
+			</if>
+			<if test="data7!= null">
+			and data7 = #{data7}
+			</if>
+			<if test="data8!= null">
+			and data8 = #{data8}
+			</if>
+			<if test="data9!= null and data9!=''">
+			and data9 = #{data9}
+			</if>
+			<if test="data10!= null and data10!=''">
+			and data10 = #{data10}
+			</if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="jxcoverflowDaoMap">
+		select
+		*
+		from
+		tb_jxc_overflow
+		<if test="keyJxcOverflow!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keyJxcOverflow.id!= null">
+				and id = #{keyJxcOverflow.id}
+				</if>
+				<if test="keyJxcOverflow.billNo!= null and keyJxcOverflow.billNo!=''">
+				and bill_no = #{keyJxcOverflow.billNo}
+				</if>
+				<if test="keyJxcOverflow.billCustomNo!= null and keyJxcOverflow.billCustomNo!=''">
+				and bill_custom_no = #{keyJxcOverflow.billCustomNo}
+				</if>
+				<if test="keyJxcOverflow.overflowDate!= null and keyJxcOverflow.overflowDate!=''">
+				and overflow_date = #{keyJxcOverflow.overflowDate}
+				</if>
+				<if test="keyJxcOverflow.storageId!= null">
+				and storage_id = #{keyJxcOverflow.storageId}
+				</if>
+				<if test="keyJxcOverflow.storage!= null and keyJxcOverflow.storage!=''">
+				and storage = #{keyJxcOverflow.storage}
+				</if>
+				<if test="keyJxcOverflow.brokerId!= null">
+				and broker_id = #{keyJxcOverflow.brokerId}
+				</if>
+				<if test="keyJxcOverflow.broker!= null and keyJxcOverflow.broker!=''">
+				and broker = #{keyJxcOverflow.broker}
+				</if>
+				<if test="keyJxcOverflow.excursus!= null and keyJxcOverflow.excursus!=''">
+				and excursus = #{keyJxcOverflow.excursus}
+				</if>
+				<if test="keyJxcOverflow.notes!= null and keyJxcOverflow.notes!=''">
+				and notes = #{keyJxcOverflow.notes}
+				</if>
+				<if test="keyJxcOverflow.overflowCount!= null">
+				and overflow_count = #{keyJxcOverflow.overflowCount}
+				</if>
+				<if test="keyJxcOverflow.overflowAmount!= null and keyJxcOverflow.overflowAmount!=''">
+				and overflow_amount = #{keyJxcOverflow.overflowAmount}
+				</if>
+				<if test="keyJxcOverflow.reviseMark!= null">
+				and revise_mark = #{keyJxcOverflow.reviseMark}
+				</if>
+				<if test="keyJxcOverflow.checkStatus!= null">
+				and check_status = #{keyJxcOverflow.checkStatus}
+				</if>
+				<if test="keyJxcOverflow.billStatus!= null">
+				and bill_status = #{keyJxcOverflow.billStatus}
+				</if>
+				<if test="keyJxcOverflow.billMaker!= null and keyJxcOverflow.billMaker!=''">
+				and bill_maker = #{keyJxcOverflow.billMaker}
+				</if>
+				<if test="keyJxcOverflow.createDate!= null and keyJxcOverflow.createDate!=''">
+				and create_date = #{keyJxcOverflow.createDate}
+				</if>
+				<if test="keyJxcOverflow.zoneCode!= null and keyJxcOverflow.zoneCode!=''">
+				and zone_code = #{keyJxcOverflow.zoneCode}
+				</if>
+				<if test="keyJxcOverflow.data1!= null and keyJxcOverflow.data1!=''">
+				and data1 = #{keyJxcOverflow.data1}
+				</if>
+				<if test="keyJxcOverflow.data2!= null and keyJxcOverflow.data2!=''">
+				and data2 = #{keyJxcOverflow.data2}
+				</if>
+				<if test="keyJxcOverflow.data3!= null and keyJxcOverflow.data3!=''">
+				and data3 = #{keyJxcOverflow.data3}
+				</if>
+				<if test="keyJxcOverflow.data4!= null and keyJxcOverflow.data4!=''">
+				and data4 = #{keyJxcOverflow.data4}
+				</if>
+				<if test="keyJxcOverflow.data5!= null">
+				and data5 = #{keyJxcOverflow.data5}
+				</if>
+				<if test="keyJxcOverflow.data6!= null">
+				and data6 = #{keyJxcOverflow.data6}
+				</if>
+				<if test="keyJxcOverflow.data7!= null">
+				and data7 = #{keyJxcOverflow.data7}
+				</if>
+				<if test="keyJxcOverflow.data8!= null">
+				and data8 = #{keyJxcOverflow.data8}
+				</if>
+				<if test="keyJxcOverflow.data9!= null and keyJxcOverflow.data9!=''">
+				and data9 = #{keyJxcOverflow.data9}
+				</if>
+				<if test="keyJxcOverflow.data10!= null and keyJxcOverflow.data10!=''">
+				and data10 = #{keyJxcOverflow.data10}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_jxc_overflow
+		<if test="keyJxcOverflow!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keyJxcOverflow.id!= null">
+				and id = #{keyJxcOverflow.id}
+				</if>
+				<if test="keyJxcOverflow.billNo!= null and keyJxcOverflow.billNo!=''">
+				and bill_no = #{keyJxcOverflow.billNo}
+				</if>
+				<if test="keyJxcOverflow.billCustomNo!= null and keyJxcOverflow.billCustomNo!=''">
+				and bill_custom_no = #{keyJxcOverflow.billCustomNo}
+				</if>
+				<if test="keyJxcOverflow.overflowDate!= null and keyJxcOverflow.overflowDate!=''">
+				and overflow_date = #{keyJxcOverflow.overflowDate}
+				</if>
+				<if test="keyJxcOverflow.storageId!= null">
+				and storage_id = #{keyJxcOverflow.storageId}
+				</if>
+				<if test="keyJxcOverflow.storage!= null and keyJxcOverflow.storage!=''">
+				and storage = #{keyJxcOverflow.storage}
+				</if>
+				<if test="keyJxcOverflow.brokerId!= null">
+				and broker_id = #{keyJxcOverflow.brokerId}
+				</if>
+				<if test="keyJxcOverflow.broker!= null and keyJxcOverflow.broker!=''">
+				and broker = #{keyJxcOverflow.broker}
+				</if>
+				<if test="keyJxcOverflow.excursus!= null and keyJxcOverflow.excursus!=''">
+				and excursus = #{keyJxcOverflow.excursus}
+				</if>
+				<if test="keyJxcOverflow.notes!= null and keyJxcOverflow.notes!=''">
+				and notes = #{keyJxcOverflow.notes}
+				</if>
+				<if test="keyJxcOverflow.overflowCount!= null">
+				and overflow_count = #{keyJxcOverflow.overflowCount}
+				</if>
+				<if test="keyJxcOverflow.overflowAmount!= null and keyJxcOverflow.overflowAmount!=''">
+				and overflow_amount = #{keyJxcOverflow.overflowAmount}
+				</if>
+				<if test="keyJxcOverflow.reviseMark!= null">
+				and revise_mark = #{keyJxcOverflow.reviseMark}
+				</if>
+				<if test="keyJxcOverflow.checkStatus!= null">
+				and check_status = #{keyJxcOverflow.checkStatus}
+				</if>
+				<if test="keyJxcOverflow.billStatus!= null">
+				and bill_status = #{keyJxcOverflow.billStatus}
+				</if>
+				<if test="keyJxcOverflow.billMaker!= null and keyJxcOverflow.billMaker!=''">
+				and bill_maker = #{keyJxcOverflow.billMaker}
+				</if>
+				<if test="keyJxcOverflow.createDate!= null and keyJxcOverflow.createDate!=''">
+				and create_date = #{keyJxcOverflow.createDate}
+				</if>
+				<if test="keyJxcOverflow.zoneCode!= null and keyJxcOverflow.zoneCode!=''">
+				and zone_code = #{keyJxcOverflow.zoneCode}
+				</if>
+				<if test="keyJxcOverflow.data1!= null and keyJxcOverflow.data1!=''">
+				and data1 = #{keyJxcOverflow.data1}
+				</if>
+				<if test="keyJxcOverflow.data2!= null and keyJxcOverflow.data2!=''">
+				and data2 = #{keyJxcOverflow.data2}
+				</if>
+				<if test="keyJxcOverflow.data3!= null and keyJxcOverflow.data3!=''">
+				and data3 = #{keyJxcOverflow.data3}
+				</if>
+				<if test="keyJxcOverflow.data4!= null and keyJxcOverflow.data4!=''">
+				and data4 = #{keyJxcOverflow.data4}
+				</if>
+				<if test="keyJxcOverflow.data5!= null">
+				and data5 = #{keyJxcOverflow.data5}
+				</if>
+				<if test="keyJxcOverflow.data6!= null">
+				and data6 = #{keyJxcOverflow.data6}
+				</if>
+				<if test="keyJxcOverflow.data7!= null">
+				and data7 = #{keyJxcOverflow.data7}
+				</if>
+				<if test="keyJxcOverflow.data8!= null">
+				and data8 = #{keyJxcOverflow.data8}
+				</if>
+				<if test="keyJxcOverflow.data9!= null and keyJxcOverflow.data9!=''">
+				and data9 = #{keyJxcOverflow.data9}
+				</if>
+				<if test="keyJxcOverflow.data10!= null and keyJxcOverflow.data10!=''">
+				and data10 = #{keyJxcOverflow.data10}
+				</if>
+			</trim>
+		</if>
+	</select>
+</mapper>

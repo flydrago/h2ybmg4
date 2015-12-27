@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ISysQueryItemDao">
+
+	<resultMap type="com.h2y.bmg.entity.SysQueryItem" id="sysqueryitemDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="joinId" column="join_id" javaType="long" jdbcType="BIGINT" />
+		<result property="joinType" column="join_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="name" column="name" javaType="string" jdbcType="VARCHAR" />
+		<result property="fieldName" column="field_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="formName" column="form_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="inputName" column="input_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="dataType" column="data_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="value" column="value" javaType="string" jdbcType="VARCHAR" />
+		<result property="datasourceType" column="datasource_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="datasourceValue" column="datasource_value" javaType="string" jdbcType="VARCHAR" />
+		<result property="queryType" column="query_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="operator" column="operator" javaType="string" jdbcType="VARCHAR" />
+		<result property="row" column="row" javaType="long" jdbcType="BIGINT" />
+		<result property="rowspan" column="rowspan" javaType="long" jdbcType="BIGINT" />
+		<result property="width" column="width" javaType="long" jdbcType="BIGINT" />
+		<result property="x" column="x" javaType="long" jdbcType="BIGINT" />
+		<result property="ord" column="ord" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="sysqueryitemDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="JOIN_ID" column="join_id" javaType="long" jdbcType="BIGINT" />
+		<result property="JOIN_TYPE" column="join_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="NAME" column="name" javaType="string" jdbcType="VARCHAR" />
+		<result property="FIELD_NAME" column="field_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="FORM_NAME" column="form_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="INPUT_NAME" column="input_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_TYPE" column="data_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="VALUE" column="value" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATASOURCE_TYPE" column="datasource_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATASOURCE_VALUE" column="datasource_value" javaType="string" jdbcType="VARCHAR" />
+		<result property="QUERY_TYPE" column="query_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="OPERATOR" column="operator" javaType="string" jdbcType="VARCHAR" />
+		<result property="ROW" column="row" javaType="long" jdbcType="BIGINT" />
+		<result property="ROWSPAN" column="rowspan" javaType="long" jdbcType="BIGINT" />
+		<result property="WIDTH" column="width" javaType="long" jdbcType="BIGINT" />
+		<result property="X" column="x" javaType="long" jdbcType="BIGINT" />
+		<result property="ORD" column="ord" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.SysQueryItem">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_sys_query_item 
+		</selectKey>  
+		insert into tb_sys_query_item
+		(
+		join_id,
+		join_type,
+		name,
+		field_name,
+		form_name,
+		input_name,
+		data_type,
+		value,
+		datasource_type,
+		datasource_value,
+		query_type,
+		operator,
+		row,
+		rowspan,
+		width,
+		x,
+		ord,
+		unit_id
+		)
+		values (
+		#{joinId,jdbcType=BIGINT},
+		#{joinType,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{fieldName,jdbcType=VARCHAR},
+		#{formName,jdbcType=VARCHAR},
+		#{inputName,jdbcType=VARCHAR},
+		#{dataType,jdbcType=VARCHAR},
+		#{value,jdbcType=VARCHAR},
+		#{datasourceType,jdbcType=VARCHAR},
+		#{datasourceValue,jdbcType=VARCHAR},
+		#{queryType,jdbcType=VARCHAR},
+		#{operator,jdbcType=VARCHAR},
+		#{row,jdbcType=BIGINT},
+		#{rowspan,jdbcType=BIGINT},
+		#{width,jdbcType=BIGINT},
+		#{x,jdbcType=BIGINT},
+		#{ord,jdbcType=BIGINT},
+		#{unitId,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.SysQueryItem">
+		update tb_sys_query_item
+		set
+		join_id = #{joinId,jdbcType=BIGINT},
+		join_type = #{joinType,jdbcType=VARCHAR},
+		name = #{name,jdbcType=VARCHAR},
+		field_name = #{fieldName,jdbcType=VARCHAR},
+		form_name = #{formName,jdbcType=VARCHAR},
+		input_name = #{inputName,jdbcType=VARCHAR},
+		data_type = #{dataType,jdbcType=VARCHAR},
+		value = #{value,jdbcType=VARCHAR},
+		datasource_type = #{datasourceType,jdbcType=VARCHAR},
+		datasource_value = #{datasourceValue,jdbcType=VARCHAR},
+		query_type = #{queryType,jdbcType=VARCHAR},
+		operator = #{operator,jdbcType=VARCHAR},
+		row = #{row,jdbcType=BIGINT},
+		rowspan = #{rowspan,jdbcType=BIGINT},
+		width = #{width,jdbcType=BIGINT},
+		x = #{x,jdbcType=BIGINT},
+		ord = #{ord,jdbcType=BIGINT},
+		unit_id = #{unitId,jdbcType=BIGINT}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.SysQueryItem">
+		delete from
+		tb_sys_query_item
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_sys_query_item
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_sys_query_item
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="sysqueryitemDaoMap">
+		select * from tb_sys_query_item where id = #{id}
+	</select>
+
+	<select id="getListMap" parameterType="hashmap" resultMap="sysqueryitemDaoListMap">
+		select * from
+		tb_sys_query_item
+		where join_id = #{joinId}
+		and join_type = #{joinType}
+		order by ord
+	</select>
+	
+	
+	<insert id="addBatch" parameterType="com.h2y.bmg.entity.SysQueryItem">
+		insert into tb_sys_query_item
+		(
+		join_id,
+		join_type,
+		name,
+		field_name,
+		form_name,
+		input_name,
+		data_type,
+		value,
+		datasource_type,
+		datasource_value,
+		query_type,
+		operator,
+		row,
+		rowspan,
+		width,
+		x,
+		ord,
+		unit_id
+		)
+		values 
+		<foreach collection="list" item="item" separator=",">
+            (
+			#{item.joinId,jdbcType=BIGINT},
+			#{item.joinType,jdbcType=VARCHAR},
+			#{item.name,jdbcType=VARCHAR},
+			#{item.fieldName,jdbcType=VARCHAR},
+			#{item.formName,jdbcType=VARCHAR},
+			#{item.inputName,jdbcType=VARCHAR},
+			#{item.dataType,jdbcType=VARCHAR},
+			#{item.value,jdbcType=VARCHAR},
+			#{item.datasourceType,jdbcType=VARCHAR},
+			#{item.datasourceValue,jdbcType=VARCHAR},
+			#{item.queryType,jdbcType=VARCHAR},
+			#{item.operator,jdbcType=VARCHAR},
+			#{item.row,jdbcType=BIGINT},
+			#{item.rowspan,jdbcType=BIGINT},
+			#{item.width,jdbcType=BIGINT},
+			#{item.x,jdbcType=BIGINT},
+			#{item.ord,jdbcType=BIGINT},
+			#{item.unitId,jdbcType=BIGINT}
+			)
+        </foreach>
+	</insert>
+	
+	<delete id="deleteByJoinType" parameterType="hashmap">
+        delete from
+        tb_sys_query_item
+        where join_id = #{joinId} and join_type = #{joinType}
+    </delete>
+    
+    <select id="getListByJoinType" parameterType="hashmap" resultMap="sysqueryitemDaoMap">
+        select
+        *
+        from
+        tb_sys_query_item
+        where join_id = #{joinId} and join_type = #{joinType} order by row,ord
+    </select>
+
+</mapper>

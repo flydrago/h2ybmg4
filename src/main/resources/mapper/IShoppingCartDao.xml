@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IShoppingCartDao">
+
+	<resultMap type="com.h2y.bmg.entity.ShoppingCart" id="shoppingcartDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+        <result property="unitsId" column="units_id" javaType="long" jdbcType="BIGINT" />		
+        <result property="goodsId" column="goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsCount" column="goods_count" javaType="int" jdbcType="INTEGER" />
+		<result property="goodsAmount" column="goods_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="ifWork" column="if_work" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="createUserId" column="create_user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="type" column="type" javaType="string" jdbcType="VARCHAR" />
+		<result property="remark" column="remark" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="shoppingcartDaoListMap">
+		<result property="cid" column="cid" javaType="long" jdbcType="BIGINT" />
+		<result property="gid" column="gid" javaType="long" jdbcType="BIGINT" />
+		<result property="count" column="count" javaType="int" jdbcType="INTEGER" />
+		<result property="checked" column="checked" javaType="string" jdbcType="VARCHAR" />
+		<result property="name" column="name" javaType="string" jdbcType="VARCHAR" />
+		<result property="memberPrice" column="member_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="totalPrice" column="total_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="realMemberPrice" column="real_member_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="activityMemberPrice" column="activity_member_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="furl" column="furl" javaType="string" jdbcType="VARCHAR" />
+		<result property="fid" column="fid" javaType="long" jdbcType="BIGINT" />
+		<result property="version" column="version" javaType="int" jdbcType="INTEGER" />
+		<result property="isGift" column="is_gift" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	 
+
+    <select id="get" parameterType="long" resultMap="shoppingcartDaoMap">
+        SELECT * FROM tb_shopping_cart WHERE id = #{id}   
+    </select>
+	 
+   
+	
+	<select id="queryCart" parameterType="hashmap" resultMap="shoppingcartDaoListMap">
+		SELECT
+		sc.id AS cid,
+		sc.goods_id AS gid,
+		'true' AS checked,
+		sc.goods_count AS count,
+		gp.goods_nick_name AS name,
+		g.number,
+		CASE 
+		WHEN if_activity ='1'  THEN gp.activity_price
+		WHEN if_activity = '0' THEN gp.member_price END AS member_price,
+		gp.member_price AS real_member_price,
+		gp.activity_price AS real_activity_price,
+		sc.goods_count*gp.member_price AS total_price,
+		fd.root_path AS furl,
+        fd.id AS fid,
+        gp.id as gpid,
+		gp.goods_version AS version,
+		gp.is_gift,
+		su.unit_name,
+		su.id AS unid
+		FROM
+		tb_shopping_cart sc
+ 		LEFT JOIN tb_goods_price gp ON sc.goods_id = gp.goods_id AND sc.units_id = gp.unit_id
+ 		LEFT JOIN tb_goods g ON g.id = gp.goods_id
+        LEFT JOIN tb_file_data fd ON gp.id= fd.data_id AND gp.version = fd.data_version
+        LEFT JOIN tb_sys_units su ON su.id = gp.unit_id
+		WHERE
+		sc.create_user_id =#{uid}
+		AND sc.if_work = 0
+		AND fd.file_type=0
+		AND fd.ord = 2
+		AND fd.data_type = 1
+        AND su.stop_date>now()
+        <if test="zoneCode!= null and zoneCode!=''">
+          AND gp.zone_code = #{zoneCode}
+        </if>
+        <!-- 采购商 -->
+        AND su.unit_type = 2
+        <if test="unid!= null and unid!=''">
+           AND su.id = #{unid}
+        </if>
+        <if test="caseWhere!= null and caseWhere!=''">
+          AND sc.id IN ${caseWhere}
+        </if>
+	</select>
+	
+	 
+</mapper>

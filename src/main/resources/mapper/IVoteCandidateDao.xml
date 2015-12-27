@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IVoteCandidateDao">
+
+	<resultMap type="com.h2y.bmg.entity.VoteCandidate" id="votecandidateDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="subjectId" column="subject_id" javaType="long" jdbcType="BIGINT" />
+		<result property="memberId" column="member_id" javaType="long" jdbcType="BIGINT" />
+		<result property="memberAccount" column="member_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="userNo" column="user_no" javaType="long" jdbcType="BIGINT" />
+		<result property="userName" column="user_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="userPhone" column="user_phone" javaType="string" jdbcType="VARCHAR" />
+		<result property="userVotes" column="user_votes" javaType="long" jdbcType="BIGINT" />
+		<result property="visitTimes" column="visit_times" javaType="long" jdbcType="BIGINT" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="reserve1" column="reserve_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="reserve2" column="reserve_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="reserve3" column="reserve_3" javaType="string" jdbcType="VARCHAR" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+		<resultMap type="java.util.Map" id="votecandidateDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="SUBJECT_ID" column="subject_id" javaType="long" jdbcType="BIGINT" />
+		<result property="MEMBER_ID" column="member_id" javaType="long" jdbcType="BIGINT" />
+		<result property="MEMBER_ACCOUNT" column="member_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="USER_NO" column="user_no" javaType="long" jdbcType="BIGINT" />
+		<result property="USER_NAME" column="user_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="USER_PHONE" column="user_phone" javaType="string" jdbcType="VARCHAR" />
+		<result property="USER_VOTES" column="user_votes" javaType="long" jdbcType="BIGINT" />
+		<result property="VISIT_TIMES" column="visit_times" javaType="long" jdbcType="BIGINT" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="UPDATE_DATE" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="RESERVE_1" column="reserve_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="RESERVE_2" column="reserve_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="RESERVE_3" column="reserve_3" javaType="string" jdbcType="VARCHAR" />
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.VoteCandidate">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_vote_candidate 
+		</selectKey>  
+		insert into tb_vote_candidate
+		(
+		unit_id,
+		subject_id,
+		member_id,
+		member_account,
+		user_no,
+		user_name,
+		user_phone,
+		user_votes,
+		visit_times,
+		create_date,
+		update_date,
+		reserve_1,
+		reserve_2,
+		reserve_3,
+		status
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{subjectId,jdbcType=BIGINT},
+		#{memberId,jdbcType=BIGINT},
+		#{memberAccount,jdbcType=VARCHAR},
+		#{userNo,jdbcType=BIGINT},
+		#{userName,jdbcType=VARCHAR},
+		#{userPhone,jdbcType=VARCHAR},
+		#{userVotes,jdbcType=BIGINT},
+		#{visitTimes,jdbcType=BIGINT},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{reserve1,jdbcType=VARCHAR},
+		#{reserve2,jdbcType=VARCHAR},
+		#{reserve3,jdbcType=VARCHAR},
+		#{status,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.VoteCandidate">
+		update tb_vote_candidate
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		subject_id = #{subjectId,jdbcType=BIGINT},
+		member_id = #{memberId,jdbcType=BIGINT},
+		member_account = #{memberAccount,jdbcType=VARCHAR},
+		user_no = #{userNo,jdbcType=BIGINT},
+		user_name = #{userName,jdbcType=VARCHAR},
+		user_phone = #{userPhone,jdbcType=VARCHAR},
+		user_votes = #{userVotes,jdbcType=BIGINT},
+		visit_times = #{visitTimes,jdbcType=BIGINT},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		reserve_1 = #{reserve1,jdbcType=VARCHAR},
+		reserve_2 = #{reserve2,jdbcType=VARCHAR},
+		reserve_3 = #{reserve3,jdbcType=VARCHAR},
+		status = #{status,jdbcType=INTEGER}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.VoteCandidate">
+		delete from
+		tb_vote_candidate
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_vote_candidate
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_vote_candidate
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="votecandidateDaoMap">
+		select * from tb_vote_candidate where id = #{id}
+	</select>
+	
+   <select id="getList" resultMap="votecandidateDaoListMap">
+		select * from tb_vote_candidate
+	</select>
+		
+	<select id="getListMap" parameterType="hashmap" resultMap="votecandidateDaoListMap">
+		select * from tb_vote_candidate
+ 		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+ 			status ='0'
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			<if test="subId!= null and subId!=''">
+			and subject_id = #{subId}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder}
+				</if>
+			</when>
+			<otherwise>
+				order by user_votes desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select count(id) from tb_vote_candidate
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+ 			status ='0'
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			<if test="subId!= null and subId!=''">
+			and subject_id = #{subId}
+			</if>
+		</trim>
+	</select>
+	
+</mapper>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IWechatActivityPrizeDao">
+
+	<resultMap type="com.h2y.bmg.entity.WechatActivityPrize" id="wechatactivityprizeDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="activityId" column="activity_id" javaType="long" jdbcType="BIGINT" />
+		<result property="prizeName" column="prize_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="prizeCount" column="prize_count" javaType="long" jdbcType="BIGINT" />
+		<result property="prizeNumber" column="prize_number" javaType="long" jdbcType="BIGINT" />
+		<result property="prizeRate" column="prize_rate" javaType="double" jdbcType="DOUBLE" />
+		<result property="prizeLevel" column="prize_level" javaType="string" jdbcType="VARCHAR" />
+		<result property="prizeType" column="prize_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsPriceId" column="goods_price_id" javaType="long" jdbcType="BIGINT" />
+		<result property="ord" column="ord" javaType="int" jdbcType="INTEGER" />
+		<result property="reverse1" column="reverse_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="reverse2" column="reverse_2" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+	<resultMap type="java.util.Map" id="wechatactivityprizeDaoListMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="activityId" column="activity_id" javaType="long" jdbcType="BIGINT" />
+		<result property="prizeName" column="prize_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="prizeCount" column="prize_count" javaType="long" jdbcType="BIGINT" />
+		<result property="prizeNumber" column="prize_number" javaType="long" jdbcType="BIGINT" />
+		<result property="prizeRate" column="prize_rate" javaType="double" jdbcType="DOUBLE" />
+		<result property="prizeLevel" column="prize_level" javaType="string" jdbcType="VARCHAR" />
+		<result property="prizeType" column="prize_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsPriceId" column="goods_price_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsName" column="goods_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="ord" column="ord" javaType="int" jdbcType="INTEGER" />
+		<result property="reverse1" column="reverse_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="reverse2" column="reverse_2" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.WechatActivityPrize">
+			<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_wechat_activity_prize 
+		</selectKey>  
+		insert into tb_wechat_activity_prize
+		(
+		unit_id,
+		activity_id,
+		prize_name,
+		prize_count,
+		prize_number,
+		prize_rate,
+		prize_level,
+		prize_type,
+		goods_price_id,
+		ord,
+		reverse_1,
+		reverse_2
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{activityId,jdbcType=BIGINT},
+		#{prizeName,jdbcType=VARCHAR},
+		#{prizeCount,jdbcType=BIGINT},
+		#{prizeNumber,jdbcType=BIGINT},
+		#{prizeRate,jdbcType=DOUBLE},
+		#{prizeLevel,jdbcType=VARCHAR},
+		#{prizeType,jdbcType=VARCHAR},
+		#{goodsPriceId,jdbcType=BIGINT},
+		#{ord,jdbcType=INTEGER},
+		#{reverse1,jdbcType=VARCHAR},
+		#{reverse2,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.WechatActivityPrize">
+		update tb_wechat_activity_prize
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		activity_id = #{activityId,jdbcType=BIGINT},
+		prize_name = #{prizeName,jdbcType=VARCHAR},
+		prize_count = #{prizeCount,jdbcType=BIGINT},
+		prize_number = #{prizeNumber,jdbcType=BIGINT},
+		prize_rate = #{prizeRate,jdbcType=DOUBLE},
+		prize_level = #{prizeLevel,jdbcType=VARCHAR},
+		prize_type = #{prizeType,jdbcType=VARCHAR},
+		goods_price_id = #{goodsPriceId,jdbcType=BIGINT},
+		ord = #{ord,jdbcType=INTEGER},
+		reverse_1 = #{reverse1,jdbcType=VARCHAR},
+		reverse_2 = #{reverse2,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.WechatActivityPrize">
+		delete from
+		tb_wechat_activity_prize
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_wechat_activity_prize
+		where
+		id = #{id} 
+	</delete>
+	
+	
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_wechat_activity_prize
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="wechatactivityprizeDaoMap">
+		select * from tb_wechat_activity_prize where id = #{id}
+	</select>
+
+	<insert id="addBatch" parameterType="com.h2y.bmg.entity.WechatActivityPrize">
+		insert into tb_wechat_activity_prize
+		(
+		unit_id,
+		activity_id,
+		prize_name,
+		prize_count,
+		prize_number,
+		prize_rate,
+		prize_level,
+		prize_type,
+		goods_price_id,
+		ord,
+		reverse_1,
+		reverse_2
+		)
+		values 
+		<foreach collection="list" item="item" separator=",">
+		(
+		#{item.unitId,jdbcType=BIGINT},
+		#{item.activityId,jdbcType=BIGINT},
+		#{item.prizeName,jdbcType=VARCHAR},
+		#{item.prizeCount,jdbcType=BIGINT},
+		#{item.prizeNumber,jdbcType=BIGINT},
+		#{item.prizeRate,jdbcType=DOUBLE},
+		#{item.prizeLevel,jdbcType=VARCHAR},
+		#{item.prizeType,jdbcType=VARCHAR},
+		#{item.goodsPriceId,jdbcType=BIGINT},
+		#{item.ord,jdbcType=INTEGER},
+		#{item.reverse1,jdbcType=VARCHAR},
+		#{item.reverse2,jdbcType=VARCHAR}
+		)
+        </foreach>
+	</insert>
+	
+	
+	<delete id="deleteByActivityId" parameterType="hashmap">
+        delete from
+        tb_wechat_activity_prize
+        where
+        activity_id = #{activityId}
+        <if test="filterIdList!=null">
+        	and id not in
+	        <foreach collection="filterIdList" item="id" open="(" separator=","
+	                 close=")">#{id}
+	        </foreach>
+        </if>
+    </delete>
+    
+    <select id="getPrizeListByActivityId" parameterType="long"
+		resultMap="wechatactivityprizeDaoListMap">
+		SELECT
+			ap.*,
+			g.goods_nick_name as goods_name
+		FROM
+			tb_wechat_activity_prize ap
+		LEFT JOIN tb_goods_price g ON ap.goods_price_id = g.id
+		where ap.activity_id = #{activityId} order by ord
+	</select>
+    
+</mapper>

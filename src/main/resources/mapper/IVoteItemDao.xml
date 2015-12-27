@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IVoteItemDao">
+
+	<resultMap type="com.h2y.bmg.entity.VoteItem" id="voteitemDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="subjectId" column="subject_id" javaType="long" jdbcType="BIGINT" />
+		<result property="memberId" column="member_id" javaType="long" jdbcType="BIGINT" />
+		<result property="memberAccount" column="member_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="candidateId" column="candidate_id" javaType="long" jdbcType="BIGINT" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="reserve1" column="reserve_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="reserve2" column="reserve_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="reserve3" column="reserve_3" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+		<resultMap type="java.util.Map" id="voteitemDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="SUBJECT_ID" column="subject_id" javaType="long" jdbcType="BIGINT" />
+		<result property="MEMBER_ID" column="member_id" javaType="long" jdbcType="BIGINT" />
+		<result property="MEMBER_ACCOUNT" column="member_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="CANDIDATE_ID" column="candidate_id" javaType="long" jdbcType="BIGINT" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="RESERVE_1" column="reserve_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="RESERVE_2" column="reserve_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="RESERVE_3" column="reserve_3" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<insert id="add" parameterType="com.h2y.bmg.entity.VoteItem">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_vote_item 
+		</selectKey>  
+		insert into tb_vote_item
+		(
+		unit_id,
+		subject_id,
+		member_id,
+		member_account,
+		candidate_id,
+		create_date,
+		reserve_1,
+		reserve_2,
+		reserve_3
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{subjectId,jdbcType=BIGINT},
+		#{memberId,jdbcType=BIGINT},
+		#{memberAccount,jdbcType=VARCHAR},
+		#{candidateId,jdbcType=BIGINT},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{reserve1,jdbcType=VARCHAR},
+		#{reserve2,jdbcType=VARCHAR},
+		#{reserve3,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.VoteItem">
+		update tb_vote_item
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		subject_id = #{subjectId,jdbcType=BIGINT},
+		member_id = #{memberId,jdbcType=BIGINT},
+		member_account = #{memberAccount,jdbcType=VARCHAR},
+		candidate_id = #{candidateId,jdbcType=BIGINT},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		reserve_1 = #{reserve1,jdbcType=VARCHAR},
+		reserve_2 = #{reserve2,jdbcType=VARCHAR},
+		reserve_3 = #{reserve3,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.VoteItem">
+		delete from
+		tb_vote_item
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_vote_item
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_vote_item
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="voteitemDaoMap">
+		select * from tb_vote_item where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.bmg.entity.VoteItem" resultMap="voteitemDaoMap">
+		select * from tb_vote_item
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+		</trim>
+			</select>
+
+
+	<select id="getListMap" parameterType="hashmap" resultMap="voteitemDaoListMap">
+		select * from tb_vote_item
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="candidateId!=null and candidateId!=''">
+				and candidate_id =${candidateId}
+			</if>
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder}
+				</if>
+			</when>
+			<otherwise>
+				order by create_date desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select count(id) from tb_vote_item
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="candidateId!=null and candidateId!=''">
+				and candidate_id =${candidateId}
+			</if>
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+</mapper>

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ICommonActivityDao">
+
+	<resultMap type="com.h2y.bmg.entity.CommonActivity" id="commonactivityDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="userId" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="title" column="title" javaType="string" jdbcType="VARCHAR" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="dataType" column="data_type" javaType="int" jdbcType="INTEGER" />
+		<result property="activityType" column="activity_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="ord" column="ord" javaType="int" jdbcType="INTEGER" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="isAllData" column="is_all_data" javaType="int" jdbcType="INTEGER" />
+		<result property="isSpike" column="is_spike" javaType="int" jdbcType="INTEGER" />
+		<result property="startDate" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="endDate" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="fixedPrice" column="fixed_price" javaType="double" jdbcType="DOUBLE" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="commonactivityDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="USER_ID" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="TITLE" column="title" javaType="string" jdbcType="VARCHAR" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_TYPE" column="data_type" javaType="int" jdbcType="INTEGER" />
+		<result property="ACTIVITY_TYPE" column="activity_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="ORD" column="ord" javaType="int" jdbcType="INTEGER" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="IS_ALL_DATA" column="is_all_data" javaType="int" jdbcType="INTEGER" />
+		<result property="IS_SPIKE" column="is_spike" javaType="int" jdbcType="INTEGER" />
+		<result property="START_DATE" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="END_DATE" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="FIXED_PRICE" column="fixed_price" javaType="double" jdbcType="DOUBLE" />
+	</resultMap>
+	
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.CommonActivity">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_common_activity 
+		</selectKey>  
+		insert into tb_common_activity
+		(
+		unit_id,
+		user_id,
+		title,
+		memo,
+		data_type,
+		activity_type,
+		ord,
+		create_date,
+		status,
+		is_all_data,
+		is_spike,
+		start_date,
+		end_date,
+		fixed_price
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{userId,jdbcType=BIGINT},
+		#{title,jdbcType=VARCHAR},
+		#{memo,jdbcType=VARCHAR},
+		#{dataType,jdbcType=INTEGER},
+		#{activityType,jdbcType=VARCHAR},
+		#{ord,jdbcType=INTEGER},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{status,jdbcType=INTEGER},
+		#{isAllData,jdbcType=INTEGER},
+		#{isSpike,jdbcType=INTEGER},
+		#{startDate,jdbcType=TIMESTAMP},
+		#{endDate,jdbcType=TIMESTAMP},
+		#{fixedPrice,jdbcType=DOUBLE}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.CommonActivity">
+		update tb_common_activity
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		user_id = #{userId,jdbcType=BIGINT},
+		title = #{title,jdbcType=VARCHAR},
+		memo = #{memo,jdbcType=VARCHAR},
+		data_type = #{dataType,jdbcType=INTEGER},
+		activity_type = #{activityType,jdbcType=VARCHAR},
+		ord = #{ord,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		status = #{status,jdbcType=INTEGER},
+		is_all_data = #{isAllData,jdbcType=INTEGER},
+		is_spike = #{isSpike,jdbcType=INTEGER},
+		start_date = #{startDate,jdbcType=TIMESTAMP},
+		end_date = #{endDate,jdbcType=TIMESTAMP},
+		fixed_price = #{fixedPrice,jdbcType=DOUBLE}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.CommonActivity">
+		delete from
+		tb_common_activity
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_common_activity
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_common_activity
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+	<select id="get" parameterType="long"
+		resultMap="commonactivityDaoMap">
+		select * from tb_common_activity where id = #{id}
+	</select>
+	
+	
+	
+	<select id="getListMap" parameterType="hashmap" resultMap="commonactivityDaoListMap">
+		select
+		 *
+		from
+		tb_common_activity
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			unit_id = #{unitId}
+			and status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by ord desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select
+			count(id)
+		from
+		tb_common_activity
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			unit_id = #{unitId}
+			and status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="getTreeList" parameterType="hashmap" resultType="hashmap">
+		select
+			id,
+			title as text,
+			data_type as dataType,
+			0 as pid
+		from
+		tb_common_activity
+		where unit_id = #{unitId}		
+		<if test="dataFlag!=null and dataFlag!='' and dataFlag == 'dataSubject'">
+			and data_type = #{dataType}
+		</if>
+		<if test="dataFlag!=null and dataFlag!='' and dataFlag == 'dataActivity'">
+			and data_type &lt;&gt; #{dataType}
+		</if>
+		and status &lt;&gt; -1
+		order by ord desc
+	</select>
+	
+	<!-- 判断秒杀活动是否有时间冲突 -->
+	<select id="getDateCrossListRows" parameterType="hashmap" resultType="long">
+		select
+			count(id)
+		from
+		tb_common_activity t
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			unit_id = #{unitId}
+			and is_spike = 1
+			<!--  and data_type = #{dataType}-->
+			and status &lt;&gt; -1
+			AND (
+				!(start_date &gt;= #{endDate} OR end_date &lt;= #{startDate}) 
+				or(start_date &lt;= #{startDate} and end_date &gt;= #{endDate})
+			)
+			<if test="id!=null and id!='' and id!=0">
+				and id &lt;&gt; #{id}
+			</if>
+			
+		</trim>
+	</select>
+	
+	<select id="getSelectListMap" parameterType="hashmap" resultMap="commonactivityDaoListMap">
+		select
+		 *
+		from
+		tb_common_activity
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			unit_id = #{unitId}
+			and status &lt;&gt; -1
+			<if test="dataType!=null">
+				and data_type = #{dataType}
+			</if>
+			<if test="activityIdList!=null">
+				and id not in 
+				<foreach collection="activityIdList" item="activityId" open="(" separator=","
+					close=")"> #{activityId} 
+				</foreach>
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by ord desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getSelectListRows" parameterType="hashmap" resultType="long">
+		select
+			count(id)
+		from
+		tb_common_activity
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			unit_id = #{unitId}
+			and status &lt;&gt; -1
+			<if test="dataType!=null">
+				and data_type = #{dataType}
+			</if>
+			<if test="activityIdList!=null">
+				and id not in 
+				<foreach collection="activityIdList" item="activityId" open="(" separator=","
+					close=")"> #{activityId} 
+				</foreach>
+			</if>
+		</trim>
+	</select>
+	
+</mapper>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ISysDeptUserDao">
+
+	<resultMap type="com.h2y.bmg.entity.SysDeptUser" id="sysdeptuserDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="deptId" column="dept_id" javaType="long" jdbcType="BIGINT" />
+		<result property="deptCode" column="dept_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="userId" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="duOrd" column="du_ord" javaType="long" jdbcType="BIGINT" />
+		<result property="userLevel" column="user_level" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	<insert id="add" parameterType="com.h2y.bmg.entity.SysDeptUser">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_sys_dept_user 
+		</selectKey>  
+		insert into tb_sys_dept_user
+		(
+		dept_id,
+		dept_code,
+		user_id,
+		du_ord,
+		user_level
+		)
+		values (
+		#{deptId,jdbcType=BIGINT},
+		#{deptCode,jdbcType=VARCHAR},
+		#{userId,jdbcType=BIGINT},
+		#{duOrd,jdbcType=BIGINT},
+		#{userLevel,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.SysDeptUser">
+		update tb_sys_dept_user
+		set
+		dept_id = #{deptId,jdbcType=BIGINT},
+		dept_code = #{deptCode,jdbcType=VARCHAR},
+		user_id = #{userId,jdbcType=BIGINT},
+		du_ord = #{duOrd,jdbcType=BIGINT},
+		user_level = #{userLevel,jdbcType=BIGINT}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.SysDeptUser">
+		delete from
+		tb_sys_dept_user
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_sys_dept_user
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_sys_dept_user
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="sysdeptuserDaoMap">
+		select * from tb_sys_dept_user where id = #{id}
+	</select>
+	
+	
+	<delete id="deleteByUserId" parameterType="long">
+		delete from
+		tb_sys_dept_user
+		where
+		user_id = #{userId} 
+	</delete>
+	
+	
+	<insert id="addBatch" parameterType="com.h2y.bmg.entity.SysDeptUser">
+		insert into tb_sys_dept_user
+		(
+		dept_id,
+		dept_code,
+		user_id,
+		du_ord,
+		user_level
+		)
+		values 
+		<foreach collection="list" item="item" separator=",">
+        (
+		#{item.deptId,jdbcType=BIGINT},
+		#{item.deptCode,jdbcType=VARCHAR},
+		#{item.userId,jdbcType=BIGINT},
+		#{item.duOrd,jdbcType=BIGINT},
+		#{item.userLevel,jdbcType=BIGINT}
+		)
+        </foreach>
+	</insert>
+	
+	<delete id="deleteByDeptIdAndUserIds" parameterType="hashmap">
+		delete from
+		tb_sys_dept_user
+		where
+		dept_id = #{deptId} and  user_id in (${userIds})
+	</delete>
+	
+	<select id="getDeptRowsByuserId" parameterType="long" resultType="long">
+		SELECT
+			count(du.id)
+		FROM
+			tb_sys_dept_user du
+		JOIN tb_sys_department d ON du.dept_id = d.id
+		WHERE
+			du.user_id = #{userId} and d.if_delete = 0
+	</select>
+	
+	<select id="getListByUserId" parameterType="long"
+		resultMap="sysdeptuserDaoMap">
+		select * from tb_sys_dept_user where user_id = #{userId} order by du_ord 
+	</select>
+	
+</mapper>

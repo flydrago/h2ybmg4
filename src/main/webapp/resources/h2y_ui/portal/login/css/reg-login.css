@@ -1,0 +1,62 @@
+﻿.jx-main{ width:1000px; margin:0px auto;}
+.jx-content{height:521px;text-align: center;}
+.loginCon{width: 306px;display: inline-block;margin-top: 160px;}
+.loginCon table{font-size:14px;}
+.login_inpName{
+	background:url(../img/name.png) no-repeat 5px center #fff;
+	border:1px solid #979393;
+	color:#979393;
+	height:32px;	
+	line-height:30px;
+	padding-left:30px;
+	width:196px;
+	}
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    .login_inpName{line-height:14px;}
+    } 
+
+.login_inpLock{
+	background:url(../img/lock.png) no-repeat 5px center #fff;
+	border:1px solid #979393;
+	color:#979393;
+	height:32px;	
+	line-height:30px;
+	padding-left:30px;
+	width:196px;
+}
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    .login_inpLock{line-height:14px;}
+    }
+.login_iptBut{
+	background:#003399;
+	border:none;
+	color:#fff;
+	letter-spacing:0.2em;
+	height:38px;
+	width:120px;
+	border-radius: 4px;
+	font-size:18px;
+}
+.login_banqu{
+	text-align:center;
+	width:100%;
+}
+.login_head{
+	text-align:center;
+	width:100%;
+	color:#003399;
+	font-size:30px;
+}
+
+.login_label{
+	color:#000033;
+	font-size:15px;
+}
+
+
+
+
+
+
+
+

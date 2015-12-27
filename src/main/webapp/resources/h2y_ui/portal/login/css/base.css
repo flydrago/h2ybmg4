@@ -1,0 +1,24 @@
+/* CSS Document */
+HTML{FONT-SIZE:12px;FONT-FAMILY:Arial, Helvetica, sans-serif,"宋体"; text-align:left;word-break:break-all;text-overflow:ellipsis; }
+body{FONT-SIZE:12px;color:#666; background:#f7f7f7;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{padding:0; margin:0;}
+ul,li{list-style:none;margin:0px;padding:0px}
+form{ padding:0px; margin:0px}
+td{FONT-SIZE:12px}
+img{border:0px}
+a{ COLOR:#666;TEXT-DECORATION:none;blr:expression(this.onFocus=this.blur());}
+a:hover{color:#cc0001; text-decoration:underline;}
+input, select { vertical-align: middle;}
+.clear{clear:both; font-size:0; line-height:0; height:0;}
+.mt10{ margin-top:10px;}
+.mt7{ margin-top:7px;}
+.red{ color:#cf0404;}
+
+select{
+	 height:30px;
+	 line-height: 30px;
+	 width:300px;
+}
+
+.topCollect p i,.topRight li i,.topBanner span,.logoAll,#nav_list i,.column span,.storeNav .on,.goods_mnudl dt,.gdhot_icon,.rightNavBox .rightNav li,.rightNavBox p,.raceListTime i,.hotSellNav .on i,.rightBtn,.topTenCon li i,.topRight li em,.topRightM p i{ background:url(../img/newheader/index_icon.png) no-repeat 0 0;}
+.title_1,.title_2,.title_3,.title_4,.title_5,.title_6,.title_7{ background:url(../image/index_title.jpg) no-repeat 0 0; height:31px;}

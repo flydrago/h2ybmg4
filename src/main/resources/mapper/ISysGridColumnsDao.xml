@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ISysGridColumnsDao">
+
+	<resultMap type="com.h2y.bmg.entity.SysGridColumns" id="sysgridcolumnsDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="joinId" column="join_id" javaType="long" jdbcType="BIGINT" />
+		<result property="title" column="title" javaType="string" jdbcType="VARCHAR" />
+		<result property="name" column="name" javaType="string" jdbcType="VARCHAR" />
+		<result property="width" column="width" javaType="string" jdbcType="VARCHAR" />
+		<result property="align" column="align" javaType="string" jdbcType="VARCHAR" />
+		<result property="dataType" column="data_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="editorType" column="editor_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="render" column="render" javaType="string" jdbcType="VARCHAR" />
+		<result property="isSort" column="is_sort" javaType="long" jdbcType="BIGINT" />
+		<result property="joinType" column="join_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="ord" column="ord" javaType="long" jdbcType="BIGINT" />
+		<result property="ifWidth" column="if_width" javaType="long" jdbcType="BIGINT" />
+		<result property="ifVisible" column="if_visible" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+
+    <resultMap type="java.util.Map" id="sysgridcolumnsDaoListMap">
+        <result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+        <result property="JOIN_ID" column="join_id" javaType="long" jdbcType="BIGINT" />
+        <result property="TITLE" column="title" javaType="string" jdbcType="VARCHAR" />
+        <result property="NAME" column="name" javaType="string" jdbcType="VARCHAR" />
+        <result property="WIDTH" column="width" javaType="string" jdbcType="VARCHAR" />
+        <result property="ALIGN" column="align" javaType="string" jdbcType="VARCHAR" />
+        <result property="DATA_TYPE" column="data_type" javaType="string" jdbcType="VARCHAR" />
+        <result property="EDITOR_TYPE" column="editor_type" javaType="string" jdbcType="VARCHAR" />
+        <result property="RENDER" column="render" javaType="string" jdbcType="VARCHAR" />
+        <result property="IS_SORT" column="is_sort" javaType="long" jdbcType="BIGINT" />
+        <result property="JOIN_TYPE" column="join_type" javaType="string" jdbcType="VARCHAR" />
+        <result property="ORD" column="ord" javaType="long" jdbcType="BIGINT" />
+        <result property="IF_WIDTH" column="if_width" javaType="long" jdbcType="BIGINT" />
+        <result property="IF_VISIBLE" column="if_visible" javaType="long" jdbcType="BIGINT" />
+    </resultMap>
+
+
+	<insert id="add" parameterType="com.h2y.bmg.entity.SysGridColumns">
+		<selectKey keyProperty="id" resultType="Long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_sys_grid_columns 
+		</selectKey>  
+		insert into tb_sys_grid_columns
+		(
+		join_id,
+		title,
+		name,
+		width,
+		align,
+		data_type,
+		editor_type,
+		render,
+		is_sort,
+		join_type,
+		ord,
+		if_width,
+		if_visible
+		)
+		values (
+		#{joinId,jdbcType=BIGINT},
+		#{title,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{width,jdbcType=VARCHAR},
+		#{align,jdbcType=VARCHAR},
+		#{dataType,jdbcType=VARCHAR},
+		#{editorType,jdbcType=VARCHAR},
+		#{render,jdbcType=VARCHAR},
+		#{isSort,jdbcType=BIGINT},
+		#{joinType,jdbcType=VARCHAR},
+		#{ord,jdbcType=BIGINT},
+		#{ifWidth,jdbcType=BIGINT},
+		#{ifVisible,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.SysGridColumns">
+		update tb_sys_grid_columns
+		set
+		join_id = #{joinId,jdbcType=BIGINT},
+		title = #{title,jdbcType=VARCHAR},
+		name = #{name,jdbcType=VARCHAR},
+		width = #{width,jdbcType=VARCHAR},
+		align = #{align,jdbcType=VARCHAR},
+		data_type = #{dataType,jdbcType=VARCHAR},
+		editor_type = #{editorType,jdbcType=VARCHAR},
+		render = #{render,jdbcType=VARCHAR},
+		is_sort = #{isSort,jdbcType=BIGINT},
+		join_type = #{joinType,jdbcType=VARCHAR},
+		ord = #{ord,jdbcType=BIGINT},
+		if_width = #{ifWidth,jdbcType=BIGINT},
+		if_visible = #{ifVisible,jdbcType=BIGINT}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.SysGridColumns">
+		delete from
+		tb_sys_grid_columns
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_sys_grid_columns
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteByIds">
+		delete from
+		tb_sys_grid_columns
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+
+
+	<select id="get" parameterType="long"
+		resultMap="sysgridcolumnsDaoMap">
+		select * from tb_sys_grid_columns where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.bmg.entity.SysGridColumns"
+		resultMap="sysgridcolumnsDaoMap">
+		select * from
+		tb_sys_grid_columns
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="joinId!= null">
+			and join_id = #{joinId}
+			</if>
+			<if test="title!= null and title!=''">
+			and title = #{title}
+			</if>
+			<if test="name!= null and name!=''">
+			and name = #{name}
+			</if>
+			<if test="width!= null and width!=''">
+			and width = #{width}
+			</if>
+			<if test="align!= null and align!=''">
+			and align = #{align}
+			</if>
+			<if test="dataType!= null and dataType!=''">
+			and data_type = #{dataType}
+			</if>
+			<if test="editorType!= null and editorType!=''">
+			and editor_type = #{editorType}
+			</if>
+			<if test="render!= null and render!=''">
+			and render = #{render}
+			</if>
+			<if test="isSort!= null">
+			and is_sort = #{isSort}
+			</if>
+			<if test="joinType!= null and joinType!=''">
+			and join_type = #{joinType}
+			</if>
+			<if test="ord!= null">
+			and ord = #{ord}
+			</if>
+			<if test="ifWidth!= null">
+			and if_width = #{ifWidth}
+			</if>
+			<if test="ifVisible!= null">
+			and if_visible = #{ifVisible}
+			</if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="sysgridcolumnsDaoMap">
+		select
+		*
+		from
+		tb_sys_grid_columns
+		<if test="keySysGridColumns!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keySysGridColumns.id!= null">
+				and id = #{keySysGridColumns.id}
+				</if>
+				<if test="keySysGridColumns.joinId!= null">
+				and join_id = #{keySysGridColumns.joinId}
+				</if>
+				<if test="keySysGridColumns.title!= null and keySysGridColumns.title!=''">
+				and title = #{keySysGridColumns.title}
+				</if>
+				<if test="keySysGridColumns.name!= null and keySysGridColumns.name!=''">
+				and name = #{keySysGridColumns.name}
+				</if>
+				<if test="keySysGridColumns.width!= null and keySysGridColumns.width!=''">
+				and width = #{keySysGridColumns.width}
+				</if>
+				<if test="keySysGridColumns.align!= null and keySysGridColumns.align!=''">
+				and align = #{keySysGridColumns.align}
+				</if>
+				<if test="keySysGridColumns.dataType!= null and keySysGridColumns.dataType!=''">
+				and data_type = #{keySysGridColumns.dataType}
+				</if>
+				<if test="keySysGridColumns.editorType!= null and keySysGridColumns.editorType!=''">
+				and editor_type = #{keySysGridColumns.editorType}
+				</if>
+				<if test="keySysGridColumns.render!= null and keySysGridColumns.render!=''">
+				and render = #{keySysGridColumns.render}
+				</if>
+				<if test="keySysGridColumns.isSort!= null">
+				and is_sort = #{keySysGridColumns.isSort}
+				</if>
+				<if test="keySysGridColumns.joinType!= null and keySysGridColumns.joinType!=''">
+				and join_type = #{keySysGridColumns.joinType}
+				</if>
+				<if test="keySysGridColumns.ord!= null">
+				and ord = #{keySysGridColumns.ord}
+				</if>
+				<if test="keySysGridColumns.ifWidth!= null">
+				and if_width = #{keySysGridColumns.ifWidth}
+				</if>
+				<if test="keySysGridColumns.ifVisible!= null">
+				and if_visible = #{keySysGridColumns.ifVisible}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_sys_grid_columns
+		<if test="keySysGridColumns!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keySysGridColumns.id!= null">
+				and id = #{keySysGridColumns.id}
+				</if>
+				<if test="keySysGridColumns.joinId!= null">
+				and join_id = #{keySysGridColumns.joinId}
+				</if>
+				<if test="keySysGridColumns.title!= null and keySysGridColumns.title!=''">
+				and title = #{keySysGridColumns.title}
+				</if>
+				<if test="keySysGridColumns.name!= null and keySysGridColumns.name!=''">
+				and name = #{keySysGridColumns.name}
+				</if>
+				<if test="keySysGridColumns.width!= null and keySysGridColumns.width!=''">
+				and width = #{keySysGridColumns.width}
+				</if>
+				<if test="keySysGridColumns.align!= null and keySysGridColumns.align!=''">
+				and align = #{keySysGridColumns.align}
+				</if>
+				<if test="keySysGridColumns.dataType!= null and keySysGridColumns.dataType!=''">
+				and data_type = #{keySysGridColumns.dataType}
+				</if>
+				<if test="keySysGridColumns.editorType!= null and keySysGridColumns.editorType!=''">
+				and editor_type = #{keySysGridColumns.editorType}
+				</if>
+				<if test="keySysGridColumns.render!= null and keySysGridColumns.render!=''">
+				and render = #{keySysGridColumns.render}
+				</if>
+				<if test="keySysGridColumns.isSort!= null">
+				and is_sort = #{keySysGridColumns.isSort}
+				</if>
+				<if test="keySysGridColumns.joinType!= null and keySysGridColumns.joinType!=''">
+				and join_type = #{keySysGridColumns.joinType}
+				</if>
+				<if test="keySysGridColumns.ord!= null">
+				and ord = #{keySysGridColumns.ord}
+				</if>
+				<if test="keySysGridColumns.ifWidth!= null">
+				and if_width = #{keySysGridColumns.ifWidth}
+				</if>
+				<if test="keySysGridColumns.ifVisible!= null">
+				and if_visible = #{keySysGridColumns.ifVisible}
+				</if>
+			</trim>
+		</if>
+	</select>
+
+    <select id="getListMap" parameterType="hashmap" resultMap="sysgridcolumnsDaoListMap">
+        select
+        *
+        from
+        tb_sys_grid_columns
+        where join_id = #{joinId} and join_type = #{joinType} order by ord
+    </select>
+
+
+    <delete id="deleteByJoinType" parameterType="hashmap">
+        delete from
+        tb_sys_grid_columns
+        where join_id = #{joinId} and join_type = #{joinType}
+    </delete>
+
+
+    <insert id="addBatch" parameterType="com.h2y.bmg.entity.SysGridColumns">
+        insert into tb_sys_grid_columns
+        (
+        join_id,
+        title,
+        name,
+        width,
+        align,
+        data_type,
+        editor_type,
+        render,
+        is_sort,
+        join_type,
+        ord,
+        if_width,
+        if_visible
+        )
+        values
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{item.joinId,jdbcType=BIGINT},
+            #{item.title,jdbcType=VARCHAR},
+            #{item.name,jdbcType=VARCHAR},
+            #{item.width,jdbcType=VARCHAR},
+            #{item.align,jdbcType=VARCHAR},
+            #{item.dataType,jdbcType=VARCHAR},
+            #{item.editorType,jdbcType=VARCHAR},
+            #{item.render,jdbcType=VARCHAR},
+            #{item.isSort,jdbcType=BIGINT},
+            #{item.joinType,jdbcType=VARCHAR},
+            #{item.ord,jdbcType=BIGINT},
+            #{item.ifWidth,jdbcType=BIGINT},
+            #{item.ifVisible,jdbcType=BIGINT}
+            )
+        </foreach>
+
+    </insert>
+    
+    
+    <select id="getListByJoinType" parameterType="hashmap" resultMap="sysgridcolumnsDaoMap">
+        select
+        *
+        from
+        tb_sys_grid_columns
+        where join_id = #{joinId} and join_type = #{joinType} and if_visible = 1 order by ord
+    </select>
+
+</mapper>

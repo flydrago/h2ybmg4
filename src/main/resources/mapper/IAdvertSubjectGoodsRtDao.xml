@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IAdvertSubjectGoodsRtDao">
+
+	<resultMap type="com.h2y.bmg.entity.AdvertSubjectGoodsRt" id="advertsubjectgoodsrtDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="subjectId" column="subject_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsId" column="goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsPriceId" column="goods_price_id" javaType="long" jdbcType="BIGINT" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ord" column="ord" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="advertsubjectgoodsrtDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="GOODS_PRICE_ID" column="goods_price_id" javaType="long" jdbcType="BIGINT" />
+		<result property="TYPE_NAME" column="type_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="GOODS_ID" column="goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="GOODS_NICK_NAME" column="goods_nick_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="GOODS_NAME" column="goods_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="GOODS_VERSION" column="goods_version" javaType="int" jdbcType="INTEGER" />
+		<result property="GOODS_STATUS" column="goods_status" javaType="int" jdbcType="INTEGER" />
+		<result property="ZONE_CODE" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_TYPE" column="unit_type" javaType="int" jdbcType="INTEGER" />
+		<result property="MEMBER_PRICE" column="member_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="MARKET_PRICE" column="market_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="SELL_PRICE" column="sell_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="VERSION" column="version" javaType="int" jdbcType="INTEGER" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="SHELVES_DATE" column="shelves_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ADDED_DATE" column="added_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="INVENTORY" column="inventory" javaType="int" jdbcType="INTEGER" />
+		<result property="IS_ACTIVITY" column="is_activity" javaType="int" jdbcType="INTEGER" />
+		<result property="ACTIVITY_PRICE" column="activity_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="ACTIVITY_GOODS_ID" column="activity_goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="ACTIVITY_TYPE" column="activity_type" javaType="int" jdbcType="INTEGER" />
+		<result property="IS_GIFT" column="is_gift" javaType="int" jdbcType="INTEGER" />
+		<result property="IS_RELATION" column="is_relation" javaType="int" jdbcType="INTEGER" />
+		<result property="ORD" column="ord" javaType="long" jdbcType="BIGINT" />
+		<result property="WEIGHT" column="weight" javaType="long" jdbcType="BIGINT" />
+		<result property="TYPE_NAME" column="type_name" javaType="string" jdbcType="VARCHAR" />	
+		<result property="GOODS_NUMBER" column="goods_number" javaType="string" jdbcType="VARCHAR" />
+		<result property="SHORT_GOODS_NUMBER" column="short_goods_number" javaType="string" jdbcType="VARCHAR" />	
+		<result property="SPEC" column="spec" javaType="int" jdbcType="INTEGER" />
+		<result property="GOODS_UNIT_NAME" column="goods_unit_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="GOODS_SOURCE" column="goods_source" javaType="int" jdbcType="INTEGER" />
+		<result property="GOODS_EDIT_STATUS" column="goods_edit_status" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.AdvertSubjectGoodsRt">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_advert_subject_goods_rt 
+		</selectKey>  
+		insert into tb_advert_subject_goods_rt
+		(
+		subject_id,
+		goods_id,
+		goods_price_id,
+		create_date,
+		ord
+		)
+		values (
+		#{subjectId,jdbcType=BIGINT},
+		#{goodsId,jdbcType=BIGINT},
+		#{goodsPriceId,jdbcType=BIGINT},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{ord,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.AdvertSubjectGoodsRt">
+		update tb_advert_subject_goods_rt
+		set
+		subject_id = #{subjectId,jdbcType=BIGINT},
+		goods_id = #{goodsId,jdbcType=BIGINT},
+		goods_price_id = #{goodsPriceId,jdbcType=BIGINT},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		ord = #{ord,jdbcType=INTEGER}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.AdvertSubjectGoodsRt">
+		delete from
+		tb_advert_subject_goods_rt
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_advert_subject_goods_rt
+		where
+		id = #{id} 
+	</delete>
+
+	<select id="get" parameterType="long"
+		resultMap="advertsubjectgoodsrtDaoMap">
+		select * from tb_advert_subject_goods_rt where id = #{id}
+	</select>
+	
+	<insert id="addBatch" parameterType="com.h2y.bmg.entity.AdvertSubjectGoodsRt">
+		insert into tb_advert_subject_goods_rt
+		(
+		subject_id,
+		goods_id,
+		goods_price_id,
+		create_date,
+		ord
+		)
+		values 
+        <foreach collection="list" item="item" separator=",">
+        (
+		#{item.subjectId,jdbcType=BIGINT},
+		#{item.goodsId,jdbcType=BIGINT},
+		#{item.goodsPriceId,jdbcType=BIGINT},
+		#{item.createDate,jdbcType=TIMESTAMP},
+		#{item.ord,jdbcType=INTEGER}
+		)
+        </foreach>
+    </insert>
+    
+    
+    <delete id="deleteBySubjectIdAndPriceIds" parameterType="hashmap">
+		delete from
+		tb_advert_subject_goods_rt
+		where
+		subject_id = #{subjectId} 
+		and goods_price_id in 
+		<foreach collection="goodsPriceIds" item="id" open="(" separator="," close=")"> 
+			#{id} 
+		</foreach> 
+	</delete>
+	
+	
+	<select id="getListMap" parameterType="hashmap" resultMap="advertsubjectgoodsrtDaoListMap">
+		SELECT
+			asg.id,
+			gt.type_name,
+			gp.goods_number,
+			gp.goods_name,
+			gp.goods_nick_name,
+			gp.inventory,
+			gp.goods_unit,
+			gp.spec,
+			gp.max_price,
+			gp.min_price,
+			gp.id as goods_price_id,
+			gp.member_price,
+			gp.activity_price,
+			gp.is_activity,
+			gp.create_date,
+			asg.ord
+		FROM
+			tb_goods_price gp
+		JOIN tb_advert_subject_goods_rt asg ON gp.id = asg.goods_price_id
+		JOIN tb_goods_type gt ON gp.goods_type_id = gt.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			asg.subject_id = #{subjectId}
+			and gp.`status` &lt;&gt; -1
+			and gt.`status` &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if>
+			</when>
+			<otherwise>
+				order by asg.ord desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="getListRows" parameterType="long" resultType="long">
+		SELECT
+			count(asg.id)
+		FROM
+			tb_goods_price gp
+		JOIN tb_advert_subject_goods_rt asg ON gp.id = asg.goods_price_id
+		JOIN tb_goods_type gt ON gp.goods_type_id = gt.id
+		where asg.subject_id = #{subjectId}
+		and gp.`status` &lt;&gt; -1
+		and gt.`status` &lt;&gt; -1
+	</select>
+    
+</mapper>

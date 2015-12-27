@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ISysRoleDao">
+
+	<resultMap type="com.h2y.bmg.entity.SysRole" id="sysroleDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="roleCode" column="role_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="roleName" column="role_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="roleDesc" column="role_desc" javaType="string" jdbcType="VARCHAR" />
+		<result property="ifSys" column="if_sys" javaType="long" jdbcType="BIGINT" />
+		<result property="ifPrivilege" column="if_privilege" javaType="long" jdbcType="BIGINT" />
+		<result property="ifDelete" column="if_delete" javaType="long" jdbcType="BIGINT" />
+		<result property="roleOrd" column="role_ord" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="sysroleDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="ROLE_CODE" column="role_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="ROLE_NAME" column="role_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="ROLE_DESC" column="role_desc" javaType="string" jdbcType="VARCHAR" />
+		<result property="IF_SYS" column="if_sys" javaType="long" jdbcType="BIGINT" />
+		<result property="IF_PRIVILEGE" column="if_privilege" javaType="long" jdbcType="BIGINT" />
+		<result property="IF_DELETE" column="if_delete" javaType="long" jdbcType="BIGINT" />
+		<result property="ROLE_ORD" column="role_ord" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="sysroleUserListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_ORD" column="user_ord" javaType="long" jdbcType="BIGINT" />
+		<result property="USER_NAME" column="user_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="ACCOUNT" column="account" javaType="string" jdbcType="VARCHAR" />
+		<result property="MOBILE" column="mobile" javaType="string" jdbcType="VARCHAR" />
+		<result property="EMAIL" column="email" javaType="string" jdbcType="VARCHAR" />
+		<result property="USER_CORD" column="user_cord" javaType="long" jdbcType="BIGINT" />
+		<result property="IF_LOCK" column="if_lock" javaType="long" jdbcType="BIGINT" />
+		<result property="ROLE_ID" column="role_id" javaType="long" jdbcType="BIGINT" />
+		<result property="PRIVILEGE_ID" column="privilege_id" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.SysRole">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_sys_role 
+		</selectKey>  
+		insert into tb_sys_role
+		(
+		unit_id,
+		role_code,
+		role_name,
+		role_desc,
+		if_sys,
+		if_privilege,
+		if_delete,
+		role_ord
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{roleCode,jdbcType=VARCHAR},
+		#{roleName,jdbcType=VARCHAR},
+		#{roleDesc,jdbcType=VARCHAR},
+		#{ifSys,jdbcType=BIGINT},
+		#{ifPrivilege,jdbcType=BIGINT},
+		#{ifDelete,jdbcType=BIGINT},
+		#{roleOrd,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.SysRole">
+		update tb_sys_role
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		role_code = #{roleCode,jdbcType=VARCHAR},
+		role_name = #{roleName,jdbcType=VARCHAR},
+		role_desc = #{roleDesc,jdbcType=VARCHAR},
+		if_sys = #{ifSys,jdbcType=BIGINT},
+		if_privilege = #{ifPrivilege,jdbcType=BIGINT},
+		if_delete = #{ifDelete,jdbcType=BIGINT},
+		role_ord = #{roleOrd,jdbcType=BIGINT}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.SysRole">
+		delete from
+		tb_sys_role
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_sys_role
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_sys_role
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="sysroleDaoMap">
+		select * from tb_sys_role where id = #{id}
+	</select>
+	
+	
+	<select id="getListMap" parameterType="hashmap" resultMap="sysroleDaoListMap">
+		select * from tb_sys_role 
+		where
+		<choose>
+			<when test="userId==-1">
+				unit_id = 1 and if_sys = 1
+			</when>
+			<otherwise>
+				unit_id = #{unitId} and if_sys = 0 and if_privilege = 0
+			</otherwise>
+		</choose>
+		and if_delete = 0
+		<if test="sortname !=null and sortname !='' ">
+			order by if_sys,${sortname}
+			<if test="sortorder !=null and sortorder !='' ">
+				${sortorder} 
+			</if>
+		</if>
+        limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select count(id) from tb_sys_role 
+		where 
+		<choose>
+			<when test="userId==-1">
+				unit_id = 1 and if_sys = 1
+			</when>
+			<otherwise>
+				unit_id = #{unitId} and if_sys = 0 and if_privilege = 0
+			</otherwise>
+		</choose>
+		and if_delete = 0
+	</select>
+
+
+	<select id="getSameCodeRows" parameterType="hashmap" resultType="long">
+		select
+		count(id)
+		from
+		tb_sys_role
+		where role_code = #{roleCode} and if_delete = 0
+		<choose>
+			<when test="unitId!=1">
+				and ((unit_id = 1 and if_privilege=0 and if_sys = 1) or unit_id = #{unitId})
+			</when>
+			<otherwise>
+				and unit_id = #{unitId}
+			</otherwise>
+		</choose>
+		<if test="id!= null">
+			and id &lt;&gt; #{id}
+		</if>
+	</select>
+	
+	<select id="getMenuRoleTreeList" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			CASE
+			WHEN if_sys = 1
+			AND if_privilege = 1 THEN
+				CONCAT('privilege_0')
+			WHEN if_sys = 1
+			AND if_privilege = 0 THEN
+				CONCAT('sys_0')
+			ELSE
+				CONCAT('normal_0')
+			END AS pid,
+		 	role_name AS text,
+		 	id
+		FROM
+			tb_sys_role
+		where 
+		<choose>
+			<when test="userId == -1">
+				<!-- ((unit_id = 1 and if_privilege=0 and if_sys = 1) or unit_id = #{unitId}) -->
+				unit_id = 1 and if_sys = 1
+			</when>
+			<otherwise>
+				unit_id = #{unitId} and if_sys = 0 and if_privilege = 0
+			</otherwise>
+		</choose>
+		and if_delete = 0 
+		order by role_ord
+	</select>
+	
+	
+	
+	<select id="getUserRoleTreeList" parameterType="hashmap" resultType="hashmap">
+		
+		select 
+			id,
+			role_name as text, 	
+			CASE
+			WHEN if_sys = 1
+			AND if_privilege = 1 THEN
+				CONCAT('privilege_0')
+			WHEN if_sys = 1
+			AND if_privilege = 0 THEN
+				CONCAT('sys_0')
+			ELSE
+				CONCAT('normal_0')
+			END AS pid,
+			if_sys,
+			if_privilege
+		from 
+			tb_sys_role 
+		where 
+			((unit_id = #{unitId} and if_sys = 0) or (if_sys = 1 and if_privilege = 0))
+		and if_delete = 0 
+		order by role_ord
+	</select>
+	
+	
+	<select id="getRoleGridMenuList" parameterType="hashmap" resultType="hashmap">
+		
+		SELECT
+			DISTINCT
+			sm.id AS ID,
+			sm.menu_name AS NAME,
+			sm.menu_url AS URL,
+			'MENU' AS TYPE,
+			sm.parent_id AS P_ID,
+			(
+				CASE
+				WHEN b.id IS NULL THEN
+					0
+				WHEN b.id IS NOT NULL THEN
+					1
+				END
+			)AS ISHAS
+		FROM
+		<choose>
+			<when test="unitId == 1">
+				(select usm.* from tb_sys_menu usm where 
+				usm.parent_id = #{pId} 
+				and usm.if_sys = 0 
+				and usm.if_visible = 1
+				order by usm.menu_ord)
+			</when>
+			<otherwise>
+				(SELECT
+					usm.*
+				FROM
+					tb_sys_menu usm,
+					tb_sys_privilege_list ut
+				WHERE
+					ut.privilege_master = 'ROLE'
+				AND ut.privilege_access = 'MENU'
+				AND usm.id = ut.privilege_access_value
+				AND ut.privilege_master_value = #{sysRoleId}
+				and	usm.parent_id = #{pId} 
+				and usm.if_sys = 0 
+				and usm.if_visible = 1
+				order by usm.menu_ord)
+			</otherwise>
+		</choose> sm
+		LEFT JOIN(
+			SELECT
+				t.*
+			FROM
+				tb_sys_privilege_list t
+			WHERE
+				t.privilege_master = 'ROLE'
+			AND t.privilege_access = 'MENU'
+			AND t.privilege_master_value = #{roleId}
+		)b ON b.privilege_access_value = sm.id
+		<if test="page!=null and pagesize != null">
+			limit ${(page-1)*pagesize},${pagesize}
+		</if>
+	</select>
+	
+	<select id="getRoleGridMenuRows" parameterType="hashmap" resultType="long">
+		<choose>
+			<when test="unitId == 1">
+				select count(usm.id) 
+				from tb_sys_menu usm where 
+				usm.parent_id = #{pId} 
+				and usm.if_sys = 0 
+				and usm.if_visible = 1
+			</when>
+			<otherwise>
+				SELECT
+					DISTINCT
+					count(usm.id)
+				FROM
+					tb_sys_menu usm,
+					tb_sys_privilege_list ut
+				WHERE
+					ut.privilege_master = 'ROLE'
+				AND ut.privilege_access = 'MENU'
+				AND usm.id = ut.privilege_access_value
+				AND ut.privilege_master_value = #{sysRoleId}
+				and	usm.parent_id = #{pId} 
+				and usm.if_sys = 0 
+				and usm.if_visible = 1
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="getRoleButtonMenuList" parameterType="hashmap" resultType="hashmap">
+		select
+	        sb.id as ID,
+	        sb.button_name AS NAME,
+	        sb.button_url AS URL,
+	        'BUTTON' AS TYPE,
+	        (
+				CASE
+				WHEN b.id IS NULL THEN
+					0
+				WHEN b.id IS NOT NULL THEN
+					1
+				END
+			)AS ISHAS
+        from
+        <choose>
+			<when test="unitId == 1">
+				( 
+				SELECT
+					usb.*
+				FROM
+					tb_sys_button usb
+				where usb.menu_id = #{menuId} 
+				and usb.if_visible = 1
+				order by usb.button_ord
+				)
+			</when>
+			<otherwise>
+				(SELECT
+					usb.*
+				FROM
+					tb_sys_button usb,
+					tb_sys_privilege_list ut
+				WHERE
+					ut.privilege_master = 'ROLE'
+				AND ut.privilege_access = 'BUTTON'
+				AND usb.id = ut.privilege_access_value
+				AND ut.privilege_master_value = #{sysRoleId}
+				and usb.menu_id = #{menuId} 
+				and usb.if_visible = 1
+				order by usb.button_ord)
+			</otherwise>
+		</choose> sb
+		LEFT JOIN(
+			SELECT
+				t.*
+			FROM
+				tb_sys_privilege_list t
+			WHERE
+				t.privilege_master = 'ROLE'
+			AND t.privilege_access = 'BUTTON'
+			AND t.privilege_master_value = #{roleId}
+		)b ON b.privilege_access_value = sb.id
+	</select>
+	
+	
+	<select id="getRoleUserList" parameterType="hashmap" resultMap="sysroleUserListMap">
+	
+		SELECT
+			su.id,
+			su.unit_id,
+			su.user_ord,
+			su.user_name,
+			su.account,
+			su.mobile,
+			su.email,
+			su.user_cord,
+			su.if_lock,
+			pl.privilege_access_value as role_id,
+			pl.id as privilege_id
+		FROM
+			tb_sys_user su,
+			tb_sys_privilege_list pl
+		WHERE
+			pl.privilege_master = 'USER'
+		AND pl.privilege_access = 'ROLE'
+		AND pl.privilege_master_value = su.id
+		AND pl.privilege_access_value = #{roleId}
+		AND su.unit_id = #{unitId}
+		AND su.if_delete = 0
+		<if test="userName !=null">
+			and su.user_name like #{userName} or su.account like #{userName}
+		</if>
+		<if test="sortname !=null and sortname !='' ">
+			order by ${sortname}
+			<if test="sortorder !=null and sortorder !='' ">
+				${sortorder} 
+			</if>
+		</if>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	
+	<select id="getRoleUserRows" parameterType="hashmap" resultType="long">
+	
+		SELECT
+			count(su.id)
+		FROM
+			tb_sys_user su,
+			tb_sys_privilege_list pl
+		WHERE
+			pl.privilege_master = 'USER'
+		AND pl.privilege_access = 'ROLE'
+		AND pl.privilege_master_value = su.id
+		AND pl.privilege_access_value = #{roleId}
+		AND su.unit_id = #{unitId}
+		AND su.if_delete = 0
+		<if test="userName !=null">
+			and su.user_name like #{userName} or su.account like #{userName}
+		</if>
+	</select>
+	
+	<select id="getUnitRoleList" resultMap="sysroleDaoListMap">
+		select * from tb_sys_role 
+		where unit_id = 1 
+		and if_privilege=1 
+		and if_sys = 1
+		and if_delete = 0
+		and id > 0
+	</select>
+</mapper>

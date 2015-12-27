@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ISysPrivilegeListDao">
+
+	<resultMap type="com.h2y.bmg.entity.SysPrivilegeList" id="sysprivilegelistDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="privilegeMaster" column="privilege_master" javaType="string" jdbcType="VARCHAR" />
+		<result property="privilegeMasterValue" column="privilege_master_value" javaType="long" jdbcType="BIGINT" />
+		<result property="privilegeAccess" column="privilege_access" javaType="string" jdbcType="VARCHAR" />
+		<result property="privilegeAccessValue" column="privilege_access_value" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	<insert id="add" parameterType="com.h2y.bmg.entity.SysPrivilegeList">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_sys_privilege_list 
+		</selectKey>  
+		insert into tb_sys_privilege_list
+		(
+		unit_id,
+		privilege_master,
+		privilege_master_value,
+		privilege_access,
+		privilege_access_value
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{privilegeMaster,jdbcType=VARCHAR},
+		#{privilegeMasterValue,jdbcType=BIGINT},
+		#{privilegeAccess,jdbcType=VARCHAR},
+		#{privilegeAccessValue,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.SysPrivilegeList">
+		update tb_sys_privilege_list
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		privilege_master = #{privilegeMaster,jdbcType=VARCHAR},
+		privilege_master_value = #{privilegeMasterValue,jdbcType=BIGINT},
+		privilege_access = #{privilegeAccess,jdbcType=VARCHAR},
+		privilege_access_value = #{privilegeAccessValue,jdbcType=BIGINT}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.SysPrivilegeList">
+		delete from
+		tb_sys_privilege_list
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_sys_privilege_list
+		where
+		id = #{id} 
+	</delete>
+	
+	<delete id="deleteByIds">
+		delete from
+		tb_sys_privilege_list
+		where
+		id in 
+		<foreach collection="list" item="id" open="(" separator=","
+                 close=")">#{id}
+        </foreach>
+	</delete>
+
+	<select id="get" parameterType="long"
+		resultMap="sysprivilegelistDaoMap">
+		select * from tb_sys_privilege_list where id = #{id}
+	</select>
+	
+	
+	<insert id="addBatch" parameterType="com.h2y.bmg.entity.SysPrivilegeList">
+		insert into tb_sys_privilege_list
+		(
+		unit_id,
+		privilege_master,
+		privilege_master_value,
+		privilege_access,
+		privilege_access_value
+		)
+		values
+		 <foreach collection="list" item="item" separator=",">
+         (
+			#{item.unitId,jdbcType=BIGINT},
+			#{item.privilegeMaster,jdbcType=VARCHAR},
+			#{item.privilegeMasterValue,jdbcType=BIGINT},
+			#{item.privilegeAccess,jdbcType=VARCHAR},
+			#{item.privilegeAccessValue,jdbcType=BIGINT}
+		)
+        </foreach>
+	</insert>
+	
+	
+	
+	<delete id="deleteByAccessList" parameterType="long">
+		delete from
+		tb_sys_privilege_list
+		where
+		privilege_master = #{master}
+		and privilege_master_value = #{masterValue}
+		and privilege_access = #{access}
+		and privilege_access_value in 
+		<foreach collection="accessValueList" item="id" open="(" separator=","
+                 close=")">#{id}
+        </foreach>
+	</delete>
+	
+	
+	<delete id="deleteByMasterList" parameterType="long">
+		delete from
+		tb_sys_privilege_list
+		where
+		privilege_master = #{master}
+		and privilege_access_value = #{accessValue}
+		and privilege_access = #{access}
+		and privilege_master_value in 
+		<foreach collection="masterValueList" item="id" open="(" separator=","
+                 close=")">#{id}
+        </foreach>
+	</delete>
+	
+	
+	<select id="getRoleIdsByUserId" parameterType="long" resultType="long">
+		
+		SELECT
+			pl.privilege_access_value
+		FROM
+			tb_sys_privilege_list pl,tb_sys_role role
+		WHERE
+			pl.privilege_master = 'USER'
+		AND pl.privilege_master_value = #{userId}
+		AND pl.privilege_access = 'ROLE'
+		AND pl.privilege_access_value = role.id
+		and role.if_delete = 0
+	</select>
+	
+	<select id="getSysRoleIdByUnitId" parameterType="long" resultType="long">
+		SELECT
+			privilege_access_value
+		FROM
+			tb_sys_privilege_list
+		WHERE
+			privilege_master = 'UNIT'
+		AND privilege_master_value = #{unitId}
+		AND privilege_access = 'ROLE'
+		limit 0,1
+	</select>
+	
+	<!-- 根据公司id获取 -->
+	<select id="getPrivilegeByUnitId" parameterType="hashmap" resultMap="sysprivilegelistDaoMap">
+		SELECT
+			*
+		FROM
+			tb_sys_privilege_list
+		WHERE
+			privilege_master = #{privilegeMaster}
+		AND unit_id = #{unitId}
+		AND privilege_access = 'ROLE'
+		limit 0,1
+	</select>
+	
+	
+	
+</mapper>

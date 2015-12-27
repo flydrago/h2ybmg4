@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ISysDictDetailDao">
+
+	<resultMap type="com.h2y.bmg.entity.SysDictDetail" id="sysdictdetailDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="dictMainId" column="dict_main_id" javaType="long" jdbcType="BIGINT" />
+		<result property="code" column="code" javaType="string" jdbcType="VARCHAR" />
+		<result property="value" column="value" javaType="string" jdbcType="VARCHAR" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="ord" column="ord" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	
+	<resultMap type="java.util.Map" id="sysdictdetailDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="DICT_MAIN_ID" column="dict_main_id" javaType="long" jdbcType="BIGINT" />
+		<result property="CODE" column="code" javaType="string" jdbcType="VARCHAR" />
+		<result property="VALUE" column="value" javaType="string" jdbcType="VARCHAR" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="ORD" column="ord" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.SysDictDetail">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_sys_dict_detail 
+		</selectKey>  
+		insert into tb_sys_dict_detail
+		(
+		unit_id,
+		dict_main_id,
+		code,
+		value,
+		memo,
+		ord
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{dictMainId,jdbcType=BIGINT},
+		#{code,jdbcType=VARCHAR},
+		#{value,jdbcType=VARCHAR},
+		#{memo,jdbcType=VARCHAR},
+		#{ord,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.SysDictDetail">
+		update tb_sys_dict_detail
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		dict_main_id = #{dictMainId,jdbcType=BIGINT},
+		code = #{code,jdbcType=VARCHAR},
+		value = #{value,jdbcType=VARCHAR},
+		memo = #{memo,jdbcType=VARCHAR},
+		ord = #{ord,jdbcType=BIGINT}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.SysDictDetail">
+		delete from
+		tb_sys_dict_detail
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_sys_dict_detail
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_sys_dict_detail
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="sysdictdetailDaoMap">
+		select * from tb_sys_dict_detail where id = #{id}
+	</select>
+	
+	
+	<select id="getListMap" parameterType="hashmap" resultMap="sysdictdetailDaoListMap">
+		select * from tb_sys_dict_detail 
+		where dict_main_id = #{dictMainId} 
+		and (unit_id = 1 or unit_id = #{unitId})
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if>
+			</when>
+			<otherwise>
+				order by ord desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select count(id) from tb_sys_dict_detail 
+		where dict_main_id = #{dictMainId}
+		and (unit_id = 1 or unit_id = #{unitId})
+	</select>
+	
+	
+	<select id="getRowsByCode" parameterType="hashmap" resultType="long">
+		select count(id) from tb_sys_dict_detail 
+		where dict_main_id = #{dictMainId}
+		and code = #{code}
+		and (unit_id = 1 or unit_id = #{unitId})
+		<if test="id!=null">
+			and id &lt;&gt; #{id}
+		</if>
+	</select>
+	
+	
+	<select id="getAllList" resultMap="sysdictdetailDaoMap">
+		select * from tb_sys_dict_detail
+	</select>
+	
+	
+	<select id="getDetailListByMainCode" parameterType="hashmap" resultMap="sysdictdetailDaoMap">
+	
+		SELECT
+			dd.*
+		FROM
+			tb_sys_dict_detail dd,
+			tb_sys_dict_main dm
+		WHERE
+			dd.dict_main_id = dm.id
+		AND dm.dict_code = #{mainCode}
+		AND(dd.unit_id = 1 OR dd.unit_id = #{unitId})
+	</select>
+	
+	
+	<select id="getDetailByMainCode" parameterType="hashmap" resultMap="sysdictdetailDaoMap">
+		SELECT
+			dd.*
+		FROM
+			tb_sys_dict_detail dd,
+			tb_sys_dict_main dm
+		WHERE
+			dd.dict_main_id = dm.id
+		AND dm.dict_code = #{mainCode}
+		AND(dd.unit_id = 1 OR dd.unit_id = #{unitId})
+		And dd.code = #{code} limit 0,1
+	</select>
+	
+	<select id="getExtendsListMap" parameterType="hashmap" resultMap="sysdictdetailDaoListMap">
+		SELECT
+			*
+		FROM
+		(
+			SELECT
+				*
+			FROM
+				tb_sys_dict_detail
+			WHERE
+				unit_id = #{unitId}
+			AND dict_main_id = #{dictMainId} 
+			<if test="unitId != 1">
+			UNION
+			SELECT
+				*
+			FROM
+				tb_sys_dict_detail
+			WHERE
+				unit_id = 1
+			AND dict_main_id = #{dictMainId} 
+			AND code NOT IN(
+				SELECT
+					code
+				FROM
+					tb_sys_dict_detail
+				WHERE
+					unit_id = #{unitId}
+				AND dict_main_id = #{dictMainId} 
+			)
+			</if>
+		)a 
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if>
+			</when>
+			<otherwise>
+				order by a.ord desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	
+	<select id="getExtendsListRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(id)
+		FROM
+		(
+			SELECT
+				*
+			FROM
+				tb_sys_dict_detail
+			WHERE
+				unit_id = #{unitId}
+			AND dict_main_id = #{dictMainId} 
+			<if test="unitId != 1">
+			UNION
+			SELECT
+				*
+			FROM
+				tb_sys_dict_detail
+			WHERE
+				unit_id = 1
+			AND dict_main_id = #{dictMainId} 
+			AND code NOT IN(
+				SELECT
+					code
+				FROM
+					tb_sys_dict_detail
+				WHERE
+					unit_id = #{unitId}
+				AND dict_main_id = #{dictMainId} 
+			)
+			</if>
+		)a 
+	</select>
+
+</mapper>

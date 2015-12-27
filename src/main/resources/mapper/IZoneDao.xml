@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IZoneDao">
+
+	<resultMap type="com.h2y.bmg.entity.Zone" id="zoneDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="code" column="code" javaType="string" jdbcType="VARCHAR" />
+		<result property="name" column="name" javaType="string" jdbcType="VARCHAR" />
+		<result property="pid" column="pid" javaType="string" jdbcType="VARCHAR" />
+		<result property="pcode" column="pcode" javaType="string" jdbcType="VARCHAR" />
+		<result property="preFix" column="pre_fix" javaType="string" jdbcType="VARCHAR" />
+		<result property="level" column="level" javaType="string" jdbcType="VARCHAR" />
+		<result property="isLast" column="is_last" javaType="string" jdbcType="VARCHAR" />
+		<result property="longitude" column="longitude" javaType="double" jdbcType="DOUBLE" />
+		<result property="latitude" column="latitude" javaType="double" jdbcType="DOUBLE" />
+		<result property="location" column="location" javaType="string" jdbcType="VARCHAR" />
+		<result property="spellName" column="spell_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="firSpellName" column="fir_spell_name" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="zoneDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="CODE" column="code" javaType="string" jdbcType="VARCHAR" />
+		<result property="NAME" column="name" javaType="string" jdbcType="VARCHAR" />
+		<result property="PID" column="pid" javaType="string" jdbcType="VARCHAR" />
+		<result property="PCODE" column="pcode" javaType="string" jdbcType="VARCHAR" />
+		<result property="PREFIX" column="pre_fix" javaType="string" jdbcType="VARCHAR" />
+		<result property="LEVEL" column="level" javaType="string" jdbcType="VARCHAR" />
+		<result property="IS_LAST" column="is_last" javaType="string" jdbcType="VARCHAR" />
+		<result property="LONGITUDE" column="longitude" javaType="double" jdbcType="DOUBLE" />
+		<result property="LATITUDE" column="latitude" javaType="double" jdbcType="DOUBLE" />
+		<result property="LOCATION" column="location" javaType="string" jdbcType="VARCHAR" />
+		<result property="spellName" column="spell_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="firSpellName" column="fir_spell_name" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.Zone">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_zone 
+		</selectKey>  
+		insert into tb_zone
+		(
+		code,
+		name,
+		pid,
+		pcode,
+		pre_fix,
+		level,
+		is_last,
+		longitude,
+		latitude,
+		location,
+		spell_name,
+		fir_spell_name
+		)
+		values (
+		#{code,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{pid,jdbcType=VARCHAR},
+		#{pcode,jdbcType=VARCHAR},
+		#{preFix,jdbcType=VARCHAR},
+		#{level,jdbcType=VARCHAR},
+		#{isLast,jdbcType=VARCHAR},
+		#{longitude,jdbcType=DOUBLE},
+		#{latitude,jdbcType=DOUBLE},
+		#{location,jdbcType=VARCHAR},
+		#{spellName,jdbcType=VARCHAR},
+		#{firSpellName,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.Zone">
+		update tb_zone
+		set
+		code = #{code,jdbcType=VARCHAR},
+		name = #{name,jdbcType=VARCHAR},
+		pid = #{pid,jdbcType=VARCHAR},
+		pcode = #{pcode,jdbcType=VARCHAR},
+		pre_fix = #{preFix,jdbcType=VARCHAR},
+		level = #{level,jdbcType=VARCHAR},
+		is_last = #{isLast,jdbcType=VARCHAR},
+		longitude = #{longitude,jdbcType=DOUBLE},
+		latitude = #{latitude,jdbcType=DOUBLE},
+		location = #{location,jdbcType=VARCHAR},
+		spell_name=#{spellName,jdbcType=VARCHAR},
+		fir_spell_name=#{firSpellName,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.Zone">
+		delete from
+		tb_zone
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_zone
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_zone
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="zoneDaoMap">
+		select * from tb_zone where id = #{id}
+	</select>
+	
+	
+	<select id="getZoneByCode" parameterType="string" resultMap="zoneDaoMap">
+		select * from tb_zone where code = #{code}
+	</select>
+
+	<select id="getTreeList" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			id,
+			NAME as text,
+			pid,
+			pre_fix,
+			is_last,
+			code,
+			level
+		FROM
+			tb_zone
+		WHERE
+		<choose>
+			<when test="pid==0">
+				<!--ISNULL(pcode)  -->
+				<if test="unitId==1">
+					level = 1
+				</if>
+				<if test="unitId!=1">
+					code = #{code};
+				</if>
+			</when>
+			<otherwise>
+				pid = #{pid}
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="getGridList" parameterType="hashmap" resultMap="zoneDaoListMap">
+		SELECT
+			*
+		FROM
+			tb_zone
+		WHERE
+		<choose>
+			<when test="pid==0">
+				<!--ISNULL(pcode)  -->
+				<if test="unitId==1">
+					level = 1
+				</if>
+				<if test="unitId!=1">
+					code = #{code};
+				</if>
+			</when>
+			<otherwise>
+				pid = #{pid}
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="getList" parameterType="hashmap" resultMap="zoneDaoMap">
+	  select * from tb_zone
+	
+	</select>
+	
+	
+	<select id="getCurrentName" parameterType="hashmap" resultType="string">
+		select 
+		CONCAT(
+		<foreach collection="list" item="id" separator=",">
+			(SELECT name FROM tb_zone where id = #{id}) 
+		</foreach>
+		)
+	</select>
+	
+	
+	<select id="getMaxCodeByPid" parameterType="long" resultType="string">
+		SELECT
+			max(code)
+		FROM
+			tb_zone
+		WHERE
+			pid = #{pid}
+	</select>
+	
+	
+	<select id="getChildRowsByPid" parameterType="long" resultType="long">
+		SELECT
+			count(id)
+		FROM
+			tb_zone
+		WHERE
+			pid = #{pid}
+	</select>
+	
+	
+	
+	<select id="getZoneCodeByName" parameterType="string" resultMap="zoneDaoMap">
+	    SELECT * FROM tb_zone WHERE name = #{zoneName}
+	</select>
+	
+	
+	<select id="getAll"  parameterType="hashmap" resultType="hashmap">
+	   SELECT * FROM tb_zone z WHERE 1=1
+	   <if test="keyWord != null and keyWord != ''">
+	      AND (z.name like #{keyWord} OR z.code like #{keyWord} OR z.spell_name like #{keyWord} OR z.fir_spell_name like #{keyWord})
+	   </if>
+	   AND LENGTH(z.code)=9
+	   AND SUBSTR(code FROM 7 FOR 9)='000'
+	   AND SUBSTR(code FROM 5 FOR 9) !='00000'
+	   AND NOT EXISTS (SELECT * FROM tb_transport_fee tf  WHERE z.code = tf.des_zone_code AND tf.units_id = #{unid}) 
+	   LIMIT ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	
+	<select id="getAllSize"  parameterType="hashmap" resultType="long">
+	   SELECT count(id) FROM tb_zone z WHERE 1=1
+	   <if test="keyWord != null and keyWord != ''">
+	      AND (z.name like #{keyWord} OR z.code like #{keyWord} OR z.spell_name like #{keyWord} OR z.fir_spell_name like #{keyWord})
+	   </if>
+	   AND LENGTH(z.code)=9
+	   AND SUBSTR(code FROM 7 FOR 9)='000'
+	   AND SUBSTR(code FROM 5 FOR 9) !='00000'
+	   AND NOT EXISTS (SELECT * FROM tb_transport_fee tf  WHERE z.code = tf.des_zone_code AND tf.units_id = #{unid}) 
+	</select>
+	
+</mapper>

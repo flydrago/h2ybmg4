@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IAdvertSubjectDao">
+
+	<resultMap type="com.h2y.bmg.entity.AdvertSubject" id="advertsubjectDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="userId" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="rootPath" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="relativePath" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="iosFileName" column="ios_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="androidFileName" column="android_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="wechatFileName" column="wechat_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="subjectName" column="subject_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="subjectType" column="subject_type" javaType="int" jdbcType="INTEGER" />
+		<result property="subjectContent" column="subject_content" javaType="string" jdbcType="VARCHAR" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="advertsubjectDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="USER_ID" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="UPDATE_DATE" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ROOT_PATH" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="RELATIVE_PATH" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="IOS_FILE_NAME" column="ios_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="ANDROID_FILE_NAME" column="android_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="WECHAT_FILE_NAME" column="wechat_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="SUBJECT_NAME" column="subject_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="SUBJECT_TYPE" column="subject_type" javaType="int" jdbcType="INTEGER" />
+		<result property="SUBJECT_CONTENT" column="subject_content" javaType="string" jdbcType="VARCHAR" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+		
+		<result property="SHORT_NAME" column="short_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="UNIT_TYPE" column="unit_type" javaType="int" jdbcType="INTEGER" />
+		<result property="UNIT_NAME" column="unit_name" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.AdvertSubject">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_advert_subject 
+		</selectKey>  
+		insert into tb_advert_subject
+		(
+		unit_id,
+		user_id,
+		create_date,
+		update_date,
+		root_path,
+		relative_path,
+		ios_file_name,
+		android_file_name,
+		wechat_file_name,
+		subject_name,
+		subject_type,
+		subject_content,
+		memo,
+		status
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{userId,jdbcType=BIGINT},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{rootPath,jdbcType=VARCHAR},
+		#{relativePath,jdbcType=VARCHAR},
+		#{iosFileName,jdbcType=VARCHAR},
+		#{androidFileName,jdbcType=VARCHAR},
+		#{wechatFileName,jdbcType=VARCHAR},
+		#{subjectName,jdbcType=VARCHAR},
+		#{subjectType,jdbcType=INTEGER},
+		#{subjectContent,jdbcType=VARCHAR},
+		#{memo,jdbcType=VARCHAR},
+		#{status,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.AdvertSubject">
+		update tb_advert_subject
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		user_id = #{userId,jdbcType=BIGINT},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		root_path = #{rootPath,jdbcType=VARCHAR},
+		relative_path = #{relativePath,jdbcType=VARCHAR},
+		ios_file_name = #{iosFileName,jdbcType=VARCHAR},
+		android_file_name = #{androidFileName,jdbcType=VARCHAR},
+		wechat_file_name = #{wechatFileName,jdbcType=VARCHAR},
+		subject_name = #{subjectName,jdbcType=VARCHAR},
+		subject_type = #{subjectType,jdbcType=INTEGER},
+		subject_content = #{subjectContent,jdbcType=VARCHAR},
+		memo = #{memo,jdbcType=VARCHAR},
+		status = #{status,jdbcType=INTEGER}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.AdvertSubject">
+		delete from
+		tb_advert_subject
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_advert_subject
+		where
+		id = #{id} 
+	</delete>
+
+	<select id="get" parameterType="long"
+		resultMap="advertsubjectDaoMap">
+		select * from tb_advert_subject where id = #{id}
+	</select>
+	
+	<select id="getListMap" parameterType="hashmap" resultMap="advertsubjectDaoListMap">
+	
+		SELECT
+			ads.id,
+			ads.user_id,
+			ads.create_date,
+			ads.update_date,
+			ads.subject_name,
+			ads.subject_type,
+			ads.status,
+			ads.memo,
+			ads.unit_id,
+			u.short_name,
+			u.unit_type,
+			u.unit_name
+		FROM
+			tb_advert_subject ads
+		JOIN tb_sys_units u ON ads.unit_id = u.id	
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<choose>
+				<when test="unitType == 0">
+					ads.unit_id in (select id from tb_sys_units where (zone_code like #{zoneCode} and unit_type = 1) or id =  #{unitId})
+				</when>
+				<otherwise>
+					ads.unit_id = #{unitId}
+				</otherwise>
+			</choose>
+			and ads.status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by u.zone_code ,${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if>
+			</when>
+			<otherwise>
+				order by ads.create_date
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(ads.id)
+		FROM
+			tb_advert_subject ads
+		JOIN tb_sys_units u ON ads.unit_id = u.id	
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<choose>
+				<when test="unitType == 0">
+					ads.unit_id in (select id from tb_sys_units where (zone_code like #{zoneCode} and unit_type = 1) or id =  #{unitId})
+				</when>
+				<otherwise>
+					ads.unit_id = #{unitId}
+				</otherwise>
+			</choose>
+			and ads.status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+</mapper>

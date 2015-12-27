@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ITraceProviderGoodsDao">
+
+	<resultMap type="com.h2y.bmg.entity.TraceProviderGoods" id="traceprovidergoodsDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="provideId" column="provide_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsId" column="goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsName" column="goods_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="batchNo" column="batch_no" javaType="int" jdbcType="INTEGER" />
+		<result property="privideDate" column="privide_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="startDate" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="endDate" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ifEnable" column="if_enable" javaType="int" jdbcType="INTEGER" />
+		<result property="optUserId" column="opt_user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="optUserAccount" column="opt_user_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="optUserName" column="opt_user_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="data1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="data2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="traceprovidergoodsDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="PROVIDE_ID" column="provide_id" javaType="long" jdbcType="BIGINT" />
+		<result property="GOODS_ID" column="goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="GOODS_NAME" column="goods_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="BATCH_NO" column="batch_no" javaType="int" jdbcType="INTEGER" />
+		<result property="PRIVIDE_DATE" column="privide_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="START_DATE" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="END_DATE" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="IF_ENABLE" column="if_enable" javaType="int" jdbcType="INTEGER" />
+		<result property="OPT_USER_ID" column="opt_user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="OPT_USER_ACCOUNT" column="opt_user_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="OPT_USER_NAME" column="opt_user_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<insert id="add" parameterType="com.h2y.bmg.entity.TraceProviderGoods">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_trace_provider_goods 
+		</selectKey>  
+		insert into tb_trace_provider_goods
+		(
+		provide_id,
+		goods_id,
+		goods_name,
+		batch_no,
+		privide_date,
+		start_date,
+		end_date,
+		if_enable,
+		opt_user_id,
+		opt_user_account,
+		opt_user_name,
+		data_1,
+		data_2,
+		data_3
+		)
+		values (
+		#{provideId,jdbcType=BIGINT},
+		#{goodsId,jdbcType=BIGINT},
+		#{goodsName,jdbcType=VARCHAR},
+		#{batchNo,jdbcType=INTEGER},
+		#{privideDate,jdbcType=TIMESTAMP},
+		#{startDate,jdbcType=TIMESTAMP},
+		#{endDate,jdbcType=TIMESTAMP},<!--DATE_FORMAT("9999-12-31","%Y-%m-%d"),  -->
+		#{ifEnable,jdbcType=INTEGER},
+		#{optUserId,jdbcType=BIGINT},
+		#{optUserAccount,jdbcType=VARCHAR},
+		#{optUserName,jdbcType=VARCHAR},
+		#{data1,jdbcType=VARCHAR},
+		#{data2,jdbcType=VARCHAR},
+		#{data3,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.TraceProviderGoods">
+		update tb_trace_provider_goods
+		set
+		provide_id = #{provideId,jdbcType=BIGINT},
+		goods_id = #{goodsId,jdbcType=BIGINT},
+		goods_name = #{goodsName,jdbcType=VARCHAR},
+		batch_no = #{batchNo,jdbcType=INTEGER},
+		privide_date = #{privideDate,jdbcType=TIMESTAMP},
+		start_date = #{startDate,jdbcType=TIMESTAMP},
+		end_date = #{endDate,jdbcType=TIMESTAMP},
+		if_enable = #{ifEnable,jdbcType=INTEGER},
+		opt_user_id = #{optUserId,jdbcType=BIGINT},
+		opt_user_account = #{optUserAccount,jdbcType=VARCHAR},
+		opt_user_name = #{optUserName,jdbcType=VARCHAR},
+		data_1 = #{data1,jdbcType=VARCHAR},
+		data_2 = #{data2,jdbcType=VARCHAR},
+		data_3 = #{data3,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.TraceProviderGoods">
+		delete from
+		tb_trace_provider_goods
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_trace_provider_goods
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_trace_provider_goods
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="traceprovidergoodsDaoMap">
+		select * from tb_trace_provider_goods where id = #{id}
+	</select>
+
+	<select id="getListByPage" parameterType="hashmap" resultMap="traceprovidergoodsDaoListMap">
+		select
+		*
+		from
+		tb_trace_provider_goods
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="parentId!= null">
+			and provide_id = #{parentId}
+			</if>
+		</trim>
+		limit ${(page-1)*pagesize},${pagesize}
+		
+	</select>
+	
+	<select id="getGoodsIdList" parameterType="hashmap" resultMap="traceprovidergoodsDaoMap">
+		select
+		*
+		from
+		tb_trace_provider_goods
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="parentId != null">
+			and provide_id = #{parentId}
+			</if>
+			<if test="ifEnable != null">
+			and if_enable = #{ifEnable}
+			</if>
+		</trim>
+		
+	</select>
+
+	<update id="updateStatueByIds" parameterType="hashmap">
+		update tb_trace_provider_goods
+		set
+		
+		end_date = #{endDate,jdbcType=TIMESTAMP},
+		if_enable = #{ifEnable,jdbcType=INTEGER}
+		
+		where provide_id = #{parentId} and id in
+		<foreach collection="ids" item="id" open="(" separator="," close=")"> 
+			#{id} 
+		</foreach>
+	</update>
+
+	<select id="getList" parameterType="com.h2y.bmg.entity.TraceProviderGoods"
+		resultMap="traceprovidergoodsDaoMap">
+		select * from
+		tb_trace_provider_goods
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="provideId!= null">
+			and provide_id = #{provideId}
+			</if>
+			<if test="goodsId!= null">
+			and goods_id = #{goodsId}
+			</if>
+			<if test="goodsName!= null and goodsName!=''">
+			and goods_name = #{goodsName}
+			</if>
+			<if test="batchNo!= null">
+			and batch_no = #{batchNo}
+			</if>
+			<if test="privideDate!= null and privideDate!=''">
+			and privide_date = #{privideDate}
+			</if>
+			<if test="startDate!= null and startDate!=''">
+			and start_date = #{startDate}
+			</if>
+			<if test="endDate!= null and endDate!=''">
+			and end_date = #{endDate}
+			</if>
+			<if test="ifEnable!= null">
+			and if_enable = #{ifEnable}
+			</if>
+			<if test="optUserId!= null">
+			and opt_user_id = #{optUserId}
+			</if>
+			<if test="optUserAccount!= null and optUserAccount!=''">
+			and opt_user_account = #{optUserAccount}
+			</if>
+			<if test="optUserName!= null and optUserName!=''">
+			and opt_user_name = #{optUserName}
+			</if>
+			<if test="data1!= null and data1!=''">
+			and data_1 = #{data1}
+			</if>
+			<if test="data2!= null and data2!=''">
+			and data_2 = #{data2}
+			</if>
+			<if test="data3!= null and data3!=''">
+			and data_3 = #{data3}
+			</if>
+		</trim>
+
+	</select>
+	
+	<select id="getProviderTreeList" parameterType="hashmap" resultType="hashmap">
+		select
+		
+		CONCAT("prov_",CAST(id AS CHAR)) AS id,
+		CONCAT("unit_",CAST(parent_id AS CHAR)) AS pid,
+		provider_name as text
+		from
+		tb_trace_provider_item
+		
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+			<if test="parentId != null">
+			and parent_id = #{parentId}
+			</if>
+		</trim>
+		union
+		select
+			CONCAT("unit_",CAST(id AS CHAR)) AS id,
+			0 AS pid,
+			unit_name as text
+		from 
+			tb_sys_units
+		where
+			id = #{parentId}
+	</select>
+	
+
+	<select id="getListPage" parameterType="hashmap" resultMap="traceprovidergoodsDaoMap">
+		select
+		*
+		from
+		tb_trace_provider_goods
+		<if test="keyTraceProviderGoods!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keyTraceProviderGoods.id!= null">
+				and id = #{keyTraceProviderGoods.id}
+				</if>
+				<if test="keyTraceProviderGoods.provideId!= null">
+				and provide_id = #{keyTraceProviderGoods.provideId}
+				</if>
+				<if test="keyTraceProviderGoods.goodsId!= null">
+				and goods_id = #{keyTraceProviderGoods.goodsId}
+				</if>
+				<if test="keyTraceProviderGoods.goodsName!= null and keyTraceProviderGoods.goodsName!=''">
+				and goods_name = #{keyTraceProviderGoods.goodsName}
+				</if>
+				<if test="keyTraceProviderGoods.batchNo!= null">
+				and batch_no = #{keyTraceProviderGoods.batchNo}
+				</if>
+				<if test="keyTraceProviderGoods.privideDate!= null and keyTraceProviderGoods.privideDate!=''">
+				and privide_date = #{keyTraceProviderGoods.privideDate}
+				</if>
+				<if test="keyTraceProviderGoods.startDate!= null and keyTraceProviderGoods.startDate!=''">
+				and start_date = #{keyTraceProviderGoods.startDate}
+				</if>
+				<if test="keyTraceProviderGoods.endDate!= null and keyTraceProviderGoods.endDate!=''">
+				and end_date = #{keyTraceProviderGoods.endDate}
+				</if>
+				<if test="keyTraceProviderGoods.ifEnable!= null">
+				and if_enable = #{keyTraceProviderGoods.ifEnable}
+				</if>
+				<if test="keyTraceProviderGoods.optUserId!= null">
+				and opt_user_id = #{keyTraceProviderGoods.optUserId}
+				</if>
+				<if test="keyTraceProviderGoods.optUserAccount!= null and keyTraceProviderGoods.optUserAccount!=''">
+				and opt_user_account = #{keyTraceProviderGoods.optUserAccount}
+				</if>
+				<if test="keyTraceProviderGoods.optUserName!= null and keyTraceProviderGoods.optUserName!=''">
+				and opt_user_name = #{keyTraceProviderGoods.optUserName}
+				</if>
+				<if test="keyTraceProviderGoods.data1!= null and keyTraceProviderGoods.data1!=''">
+				and data_1 = #{keyTraceProviderGoods.data1}
+				</if>
+				<if test="keyTraceProviderGoods.data2!= null and keyTraceProviderGoods.data2!=''">
+				and data_2 = #{keyTraceProviderGoods.data2}
+				</if>
+				<if test="keyTraceProviderGoods.data3!= null and keyTraceProviderGoods.data3!=''">
+				and data_3 = #{keyTraceProviderGoods.data3}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_trace_provider_goods
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="parentId!= null">
+			and provide_id = #{parentId}
+			</if>
+		</trim>
+	</select>
+</mapper>

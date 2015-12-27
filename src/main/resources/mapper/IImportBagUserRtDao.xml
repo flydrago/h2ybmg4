@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IImportBagUserRtDao">
+
+	<resultMap type="com.h2y.bmg.entity.ImportBagUserRt" id="importbaguserrtDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="bagCode" column="bag_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="toAccount" column="to_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsCount" column="goods_count" javaType="int" jdbcType="INTEGER" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="signDate" column="sign_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="importbaguserrtDaoListMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="bagCode" column="bag_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="toAccount" column="to_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsCount" column="goods_count" javaType="int" jdbcType="INTEGER" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="signDate" column="sign_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="nickName" column="nick_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="realName" column="real_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.ImportBagUserRt">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_import_bag_user_rt 
+		</selectKey>  
+		insert into tb_import_bag_user_rt
+		(
+		bag_code,
+		to_account,
+		goods_count,
+		create_date,
+		update_date,
+		sign_date,
+		memo,
+		status
+		)
+		values (
+		#{bagCode,jdbcType=VARCHAR},
+		#{toAccount,jdbcType=VARCHAR},
+		#{goodsCount,jdbcType=INTEGER},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{signDate,jdbcType=TIMESTAMP},
+		#{memo,jdbcType=VARCHAR},
+		#{status,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.ImportBagUserRt">
+		update tb_import_bag_user_rt
+		set
+		bag_code = #{bagCode,jdbcType=VARCHAR},
+		to_account = #{toAccount,jdbcType=VARCHAR},
+		goods_count = #{goodsCount,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		sign_date = #{signDate,jdbcType=TIMESTAMP},
+		memo = #{memo,jdbcType=VARCHAR},
+		status = #{status,jdbcType=INTEGER}
+		where id = #{id}
+	</update>
+
+	<select id="get" parameterType="long"
+		resultMap="importbaguserrtDaoMap">
+		select * from tb_import_bag_user_rt where id = #{id}
+	</select>
+
+	
+	<select id="getUserListMap" parameterType="hashmap" resultMap="importbaguserrtDaoListMap">
+		SELECT
+			bu.*
+		FROM
+			tb_import_bag_user_rt bu
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			bu.bag_code = #{bagCode}
+			and bu.status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if>
+			</when>
+			<otherwise>
+				order by bu.create_date desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getUserListRows" parameterType="hashmap" resultType="long">
+	
+		SELECT
+			count(bu.id)
+		FROM
+			tb_import_bag_user_rt bu
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			bu.bag_code = #{bagCode}
+			and bu.status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="getRowsByAccountAndBagCode" parameterType="hashmap" resultType="long">
+	
+		SELECT
+			count(bu.id)
+		FROM
+			tb_import_bag_user_rt bu
+		where bu.bag_code = #{bagCode} 
+		and bu.to_account = #{toAccount} 
+		and bu.status &lt;&gt; -1
+	</select>
+	
+	<select id="getRowsByBagCode" parameterType="string" resultType="long">
+	
+		SELECT
+			count(bu.id)
+		FROM
+			tb_import_bag_user_rt bu
+		where bu.bag_code = #{bagCode} 
+		and bu.status &lt;&gt; -1
+	</select>
+	
+	
+	<update id="updateGoodsCount" parameterType="com.h2y.bmg.entity.ImportBagUserRt">
+		update tb_import_bag_user_rt
+		set
+		goods_count = #{goodsCount,jdbcType=INTEGER},
+		update_date = now()
+		where bag_code = #{bagCode} and to_account = #{toAccount}
+	</update>
+	
+	<insert id="addBatch" parameterType="com.h2y.bmg.entity.ImportBagUserRt">
+		insert into tb_import_bag_user_rt
+		(
+		bag_code,
+		to_account,
+		goods_count,
+		create_date,
+		update_date,
+		sign_date,
+		memo,
+		status
+		)
+		values 
+        <foreach collection="list" item="item" separator=",">
+        (
+		#{item.bagCode,jdbcType=VARCHAR},
+		#{item.toAccount,jdbcType=VARCHAR},
+		#{item.goodsCount,jdbcType=INTEGER},
+		#{item.createDate,jdbcType=TIMESTAMP},
+		#{item.updateDate,jdbcType=TIMESTAMP},
+		#{item.signDate,jdbcType=TIMESTAMP},
+		#{item.memo,jdbcType=VARCHAR},
+		#{item.status,jdbcType=INTEGER}
+		)
+        </foreach>
+    </insert>
+</mapper>

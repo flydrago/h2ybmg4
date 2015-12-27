@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IGoodsMarkRtDao">
+
+	<resultMap type="com.h2y.bmg.entity.GoodsMarkRt" id="goodsmarkdetailDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsId" column="goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="typeCode" column="type_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="markId" column="mark_id" javaType="long" jdbcType="BIGINT" />
+		<result property="markInfoId" column="mark_info_id" javaType="long" jdbcType="BIGINT" />
+		<result property="version" column="version" javaType="int" jdbcType="INTEGER" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="userId" column="user_id" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.GoodsMarkRt">
+		<selectKey keyProperty="id" resultType="long" order="AFTER">
+			SELECT max(id) AS value from tb_goods_mark_rt
+		</selectKey>
+		insert into tb_goods_mark_rt
+		(
+		goods_id,
+		type_code,
+		mark_id,
+		mark_info_id,
+		version,
+		create_date,
+		user_id
+		)
+		values (
+		#{goodsId,jdbcType=BIGINT},
+		#{typeCode,jdbcType=VARCHAR},
+		#{markId,jdbcType=BIGINT},
+		#{markInfoId,jdbcType=BIGINT},
+		#{version,jdbcType=INTEGER},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{userId,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.GoodsMarkRt">
+		update tb_goods_mark_rt
+		set
+		goods_id = #{goodsId,jdbcType=BIGINT},
+		type_code =
+		#{typeCode,jdbcType=VARCHAR},
+		mark_id = #{markId,jdbcType=BIGINT},
+		mark_info_id = #{markInfoId,jdbcType=BIGINT},
+		version =
+		#{version,jdbcType=INTEGER},
+		create_date =
+		#{createDate,jdbcType=TIMESTAMP},
+		user_id = #{userId,jdbcType=BIGINT}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.GoodsMarkRt">
+		delete from
+		tb_goods_mark_rt
+		where
+		id = #{id}
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_goods_mark_rt
+		where
+		id = #{id}
+	</delete>
+
+	<select id="get" parameterType="long" resultMap="goodsmarkdetailDaoMap">
+		select * from
+		tb_goods_mark_rt where id = #{id}
+	</select>
+
+
+	<delete id="deleteByGoodsId" parameterType="long">
+		delete from
+		tb_goods_mark_rt
+		where
+		goods_id = #{goodsId}
+	</delete>
+
+	<insert id="addBatch" parameterType="com.h2y.bmg.entity.GoodsMarkRt">
+		insert into tb_goods_mark_rt
+		(
+		goods_id,
+		type_code,
+		mark_id,
+		mark_info_id,
+		version,
+		create_date,
+		user_id
+		)
+		values
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.goodsId,jdbcType=BIGINT},
+			#{item.typeCode,jdbcType=VARCHAR},
+			#{item.markId,jdbcType=BIGINT},
+			#{item.markInfoId,jdbcType=BIGINT},
+			#{item.version,jdbcType=INTEGER},
+			#{item.createDate,jdbcType=TIMESTAMP},
+			#{item.userId,jdbcType=BIGINT}
+			)
+		</foreach>
+	</insert>
+	
+</mapper>

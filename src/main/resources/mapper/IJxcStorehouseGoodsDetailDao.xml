@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.jxc.dao.IJxcStorehouseGoodsDetailDao">
+
+	<resultMap type="com.h2y.jxc.entity.StorehouseGoodsDetail" id="storehousegoodsdetailDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="storehouseId" column="storehouse_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsPriceId" column="goods_price_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsPriceVersion" column="goods_price_version" javaType="int" jdbcType="INTEGER" />
+		<result property="goodsId" column="goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsLocation" column="goods_location" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsCount" column="goods_count" javaType="int" jdbcType="INTEGER" />
+		<result property="type" column="type" javaType="int" jdbcType="INTEGER" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="createUserId" column="create_user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="subareaId" column="subarea_id" javaType="long" jdbcType="BIGINT" />
+		<result property="billNo" column="bill_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="billStatus" column="bill_status" javaType="int" jdbcType="INTEGER" />
+		<result property="previousCount" column="previous_count" javaType="long" jdbcType="BIGINT" />
+		<result property="afterCount" column="after_count" javaType="long" jdbcType="BIGINT" />
+		<result property="data1" column="data1" javaType="string" jdbcType="VARCHAR" />
+		<result property="data2" column="data2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data3" javaType="string" jdbcType="VARCHAR" />
+		<result property="data4" column="data4" javaType="long" jdbcType="BIGINT" />
+		<result property="data5" column="data5" javaType="long" jdbcType="BIGINT" />
+		<result property="data6" column="data6" javaType="long" jdbcType="BIGINT" />
+		<result property="data7" column="data7" javaType="long" jdbcType="BIGINT" />
+		<result property="data8" column="data8" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<insert id="addDetail" parameterType="hashmap">
+		insert into tb_storehouse_goods_detail
+		(
+		storehouse_id,
+		goods_price_id,
+		goods_count,
+		type,
+		status,
+		create_date,
+		create_user_id,
+		memo,
+		bill_no,
+		bill_status,
+		previous_count,
+		after_count
+		)
+		values (
+		#{storehouseId,jdbcType=BIGINT},
+		#{goodsPriceId,jdbcType=BIGINT},
+		#{goodsCount,jdbcType=INTEGER},
+		#{type,jdbcType=INTEGER},
+		#{status,jdbcType=INTEGER},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{createUserId,jdbcType=BIGINT},
+		#{memo,jdbcType=VARCHAR},
+		#{billNo,jdbcType=VARCHAR},
+		#{billStatus,jdbcType=INTEGER},
+		#{previousCount,jdbcType=BIGINT},
+		#{afterCount,jdbcType=BIGINT}
+		)
+	</insert>	
+	
+	<insert id="add" parameterType="com.h2y.jxc.entity.StorehouseGoodsDetail">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_storehouse_goods_detail 
+		</selectKey>  
+		insert into tb_storehouse_goods_detail
+		(
+		storehouse_id,
+		goods_price_id,
+		goods_price_version,
+		goods_id,
+		goods_location,
+		goods_count,
+		type,
+		status,
+		create_date,
+		create_user_id,
+		memo,
+		subarea_id,
+		bill_no,
+		bill_status,
+		previous_count,
+		after_count,
+		data1,
+		data2,
+		data3,
+		data4,
+		data5,
+		data6,
+		data7,
+		data8
+		)
+		values (
+		#{storehouseId,jdbcType=BIGINT},
+		#{goodsPriceId,jdbcType=BIGINT},
+		#{goodsPriceVersion,jdbcType=INTEGER},
+		#{goodsId,jdbcType=BIGINT},
+		#{goodsLocation,jdbcType=VARCHAR},
+		#{goodsCount,jdbcType=INTEGER},
+		#{type,jdbcType=INTEGER},
+		#{status,jdbcType=INTEGER},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{createUserId,jdbcType=BIGINT},
+		#{memo,jdbcType=VARCHAR},
+		#{subareaId,jdbcType=BIGINT},
+		#{billNo,jdbcType=VARCHAR},
+		#{billStatus,jdbcType=INTEGER},
+		#{previousCount,jdbcType=BIGINT},
+		#{afterCount,jdbcType=BIGINT},
+		#{data1,jdbcType=VARCHAR},
+		#{data2,jdbcType=VARCHAR},
+		#{data3,jdbcType=VARCHAR},
+		#{data4,jdbcType=BIGINT},
+		#{data5,jdbcType=BIGINT},
+		#{data6,jdbcType=BIGINT},
+		#{data7,jdbcType=BIGINT},
+		#{data8,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.jxc.entity.StorehouseGoodsDetail">
+		update tb_storehouse_goods_detail
+		set
+		storehouse_id = #{storehouseId,jdbcType=BIGINT},
+		goods_price_id = #{goodsPriceId,jdbcType=BIGINT},
+		goods_price_version = #{goodsPriceVersion,jdbcType=INTEGER},
+		goods_id = #{goodsId,jdbcType=BIGINT},
+		goods_location = #{goodsLocation,jdbcType=VARCHAR},
+		goods_count = #{goodsCount,jdbcType=INTEGER},
+		type = #{type,jdbcType=INTEGER},
+		status = #{status,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		create_user_id = #{createUserId,jdbcType=BIGINT},
+		memo = #{memo,jdbcType=VARCHAR},
+		subarea_id = #{subareaId,jdbcType=BIGINT},
+		bill_no = #{billNo,jdbcType=VARCHAR},
+		bill_status = #{billStatus,jdbcType=INTEGER},
+		previous_count = #{previousCount,jdbcType=BIGINT},
+		after_count = #{afterCount,jdbcType=BIGINT},
+		data1 = #{data1,jdbcType=VARCHAR},
+		data2 = #{data2,jdbcType=VARCHAR},
+		data3 = #{data3,jdbcType=VARCHAR},
+		data4 = #{data4,jdbcType=BIGINT},
+		data5 = #{data5,jdbcType=BIGINT},
+		data6 = #{data6,jdbcType=BIGINT},
+		data7 = #{data7,jdbcType=BIGINT},
+		data8 = #{data8,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.jxc.entity.StorehouseGoodsDetail">
+		delete from
+		tb_storehouse_goods_detail
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_storehouse_goods_detail
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_storehouse_goods_detail
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="storehousegoodsdetailDaoMap">
+		select * from tb_storehouse_goods_detail where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.jxc.entity.StorehouseGoodsDetail"
+		resultMap="storehousegoodsdetailDaoMap">
+		select * from
+		tb_storehouse_goods_detail
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="storehouseId!= null">
+			and storehouse_id = #{storehouseId}
+			</if>
+			<if test="goodsPriceId!= null">
+			and goods_price_id = #{goodsPriceId}
+			</if>
+			<if test="goodsPriceVersion!= null">
+			and goods_price_version = #{goodsPriceVersion}
+			</if>
+			<if test="goodsId!= null">
+			and goods_id = #{goodsId}
+			</if>
+			<if test="goodsLocation!= null and goodsLocation!=''">
+			and goods_location = #{goodsLocation}
+			</if>
+			<if test="goodsCount!= null">
+			and goods_count = #{goodsCount}
+			</if>
+			<if test="type!= null">
+			and type = #{type}
+			</if>
+			<if test="status!= null">
+			and status = #{status}
+			</if>
+			<if test="createDate!= null and createDate!=''">
+			and create_date = #{createDate}
+			</if>
+			<if test="createUserId!= null">
+			and create_user_id = #{createUserId}
+			</if>
+			<if test="memo!= null and memo!=''">
+			and memo = #{memo}
+			</if>
+			<if test="subareaId!= null">
+			and subarea_id = #{subareaId}
+			</if>
+			<if test="billNo!= null and billNo!=''">
+			and bill_no = #{billNo}
+			</if>
+			<if test="billStatus!= null">
+			and bill_status = #{billStatus}
+			</if>
+			<if test="previousCount!= null">
+			and previous_count = #{previousCount}
+			</if>
+			<if test="afterCount!= null">
+			and after_count = #{afterCount}
+			</if>
+			<if test="data1!= null and data1!=''">
+			and data1 = #{data1}
+			</if>
+			<if test="data2!= null and data2!=''">
+			and data2 = #{data2}
+			</if>
+			<if test="data3!= null and data3!=''">
+			and data3 = #{data3}
+			</if>
+			<if test="data4!= null">
+			and data4 = #{data4}
+			</if>
+			<if test="data5!= null">
+			and data5 = #{data5}
+			</if>
+			<if test="data6!= null">
+			and data6 = #{data6}
+			</if>
+			<if test="data7!= null">
+			and data7 = #{data7}
+			</if>
+			<if test="data8!= null and data8!=''">
+			and data8 = #{data8}
+			</if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="storehousegoodsdetailDaoMap">
+		select
+		*
+		from
+		tb_storehouse_goods_detail
+		<if test="keyStorehouseGoodsDetail!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keyStorehouseGoodsDetail.id!= null">
+				and id = #{keyStorehouseGoodsDetail.id}
+				</if>
+				<if test="keyStorehouseGoodsDetail.storehouseId!= null">
+				and storehouse_id = #{keyStorehouseGoodsDetail.storehouseId}
+				</if>
+				<if test="keyStorehouseGoodsDetail.goodsPriceId!= null">
+				and goods_price_id = #{keyStorehouseGoodsDetail.goodsPriceId}
+				</if>
+				<if test="keyStorehouseGoodsDetail.goodsPriceVersion!= null">
+				and goods_price_version = #{keyStorehouseGoodsDetail.goodsPriceVersion}
+				</if>
+				<if test="keyStorehouseGoodsDetail.goodsId!= null">
+				and goods_id = #{keyStorehouseGoodsDetail.goodsId}
+				</if>
+				<if test="keyStorehouseGoodsDetail.goodsLocation!= null and keyStorehouseGoodsDetail.goodsLocation!=''">
+				and goods_location = #{keyStorehouseGoodsDetail.goodsLocation}
+				</if>
+				<if test="keyStorehouseGoodsDetail.goodsCount!= null">
+				and goods_count = #{keyStorehouseGoodsDetail.goodsCount}
+				</if>
+				<if test="keyStorehouseGoodsDetail.type!= null">
+				and type = #{keyStorehouseGoodsDetail.type}
+				</if>
+				<if test="keyStorehouseGoodsDetail.status!= null">
+				and status = #{keyStorehouseGoodsDetail.status}
+				</if>
+				<if test="keyStorehouseGoodsDetail.createDate!= null and keyStorehouseGoodsDetail.createDate!=''">
+				and create_date = #{keyStorehouseGoodsDetail.createDate}
+				</if>
+				<if test="keyStorehouseGoodsDetail.createUserId!= null">
+				and create_user_id = #{keyStorehouseGoodsDetail.createUserId}
+				</if>
+				<if test="keyStorehouseGoodsDetail.memo!= null and keyStorehouseGoodsDetail.memo!=''">
+				and memo = #{keyStorehouseGoodsDetail.memo}
+				</if>
+				<if test="keyStorehouseGoodsDetail.subareaId!= null">
+				and subarea_id = #{keyStorehouseGoodsDetail.subareaId}
+				</if>
+				<if test="keyStorehouseGoodsDetail.billNo!= null and keyStorehouseGoodsDetail.billNo!=''">
+				and bill_no = #{keyStorehouseGoodsDetail.billNo}
+				</if>
+				<if test="keyStorehouseGoodsDetail.billStatus!= null">
+				and bill_status = #{keyStorehouseGoodsDetail.billStatus}
+				</if>
+				<if test="keyStorehouseGoodsDetail.previousCount!= null">
+				and previous_count = #{keyStorehouseGoodsDetail.previousCount}
+				</if>
+				<if test="keyStorehouseGoodsDetail.afterCount!= null">
+				and after_count = #{keyStorehouseGoodsDetail.afterCount}
+				</if>
+				<if test="keyStorehouseGoodsDetail.data1!= null and keyStorehouseGoodsDetail.data1!=''">
+				and data1 = #{keyStorehouseGoodsDetail.data1}
+				</if>
+				<if test="keyStorehouseGoodsDetail.data2!= null and keyStorehouseGoodsDetail.data2!=''">
+				and data2 = #{keyStorehouseGoodsDetail.data2}
+				</if>
+				<if test="keyStorehouseGoodsDetail.data3!= null and keyStorehouseGoodsDetail.data3!=''">
+				and data3 = #{keyStorehouseGoodsDetail.data3}
+				</if>
+				<if test="keyStorehouseGoodsDetail.data4!= null">
+				and data4 = #{keyStorehouseGoodsDetail.data4}
+				</if>
+				<if test="keyStorehouseGoodsDetail.data5!= null">
+				and data5 = #{keyStorehouseGoodsDetail.data5}
+				</if>
+				<if test="keyStorehouseGoodsDetail.data6!= null">
+				and data6 = #{keyStorehouseGoodsDetail.data6}
+				</if>
+				<if test="keyStorehouseGoodsDetail.data7!= null">
+				and data7 = #{keyStorehouseGoodsDetail.data7}
+				</if>
+				<if test="keyStorehouseGoodsDetail.data8!= null and keyStorehouseGoodsDetail.data8!=''">
+				and data8 = #{keyStorehouseGoodsDetail.data8}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_storehouse_goods_detail
+		<if test="keyStorehouseGoodsDetail!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keyStorehouseGoodsDetail.id!= null">
+				and id = #{keyStorehouseGoodsDetail.id}
+				</if>
+				<if test="keyStorehouseGoodsDetail.storehouseId!= null">
+				and storehouse_id = #{keyStorehouseGoodsDetail.storehouseId}
+				</if>
+				<if test="keyStorehouseGoodsDetail.goodsPriceId!= null">
+				and goods_price_id = #{keyStorehouseGoodsDetail.goodsPriceId}
+				</if>
+				<if test="keyStorehouseGoodsDetail.goodsPriceVersion!= null">
+				and goods_price_version = #{keyStorehouseGoodsDetail.goodsPriceVersion}
+				</if>
+				<if test="keyStorehouseGoodsDetail.goodsId!= null">
+				and goods_id = #{keyStorehouseGoodsDetail.goodsId}
+				</if>
+				<if test="keyStorehouseGoodsDetail.goodsLocation!= null and keyStorehouseGoodsDetail.goodsLocation!=''">
+				and goods_location = #{keyStorehouseGoodsDetail.goodsLocation}
+				</if>
+				<if test="keyStorehouseGoodsDetail.goodsCount!= null">
+				and goods_count = #{keyStorehouseGoodsDetail.goodsCount}
+				</if>
+				<if test="keyStorehouseGoodsDetail.type!= null">
+				and type = #{keyStorehouseGoodsDetail.type}
+				</if>
+				<if test="keyStorehouseGoodsDetail.status!= null">
+				and status = #{keyStorehouseGoodsDetail.status}
+				</if>
+				<if test="keyStorehouseGoodsDetail.createDate!= null and keyStorehouseGoodsDetail.createDate!=''">
+				and create_date = #{keyStorehouseGoodsDetail.createDate}
+				</if>
+				<if test="keyStorehouseGoodsDetail.createUserId!= null">
+				and create_user_id = #{keyStorehouseGoodsDetail.createUserId}
+				</if>
+				<if test="keyStorehouseGoodsDetail.memo!= null and keyStorehouseGoodsDetail.memo!=''">
+				and memo = #{keyStorehouseGoodsDetail.memo}
+				</if>
+				<if test="keyStorehouseGoodsDetail.subareaId!= null">
+				and subarea_id = #{keyStorehouseGoodsDetail.subareaId}
+				</if>
+				<if test="keyStorehouseGoodsDetail.billNo!= null and keyStorehouseGoodsDetail.billNo!=''">
+				and bill_no = #{keyStorehouseGoodsDetail.billNo}
+				</if>
+				<if test="keyStorehouseGoodsDetail.billStatus!= null">
+				and bill_status = #{keyStorehouseGoodsDetail.billStatus}
+				</if>
+				<if test="keyStorehouseGoodsDetail.previousCount!= null">
+				and previous_count = #{keyStorehouseGoodsDetail.previousCount}
+				</if>
+				<if test="keyStorehouseGoodsDetail.afterCount!= null">
+				and after_count = #{keyStorehouseGoodsDetail.afterCount}
+				</if>
+				<if test="keyStorehouseGoodsDetail.data1!= null and keyStorehouseGoodsDetail.data1!=''">
+				and data1 = #{keyStorehouseGoodsDetail.data1}
+				</if>
+				<if test="keyStorehouseGoodsDetail.data2!= null and keyStorehouseGoodsDetail.data2!=''">
+				and data2 = #{keyStorehouseGoodsDetail.data2}
+				</if>
+				<if test="keyStorehouseGoodsDetail.data3!= null and keyStorehouseGoodsDetail.data3!=''">
+				and data3 = #{keyStorehouseGoodsDetail.data3}
+				</if>
+				<if test="keyStorehouseGoodsDetail.data4!= null">
+				and data4 = #{keyStorehouseGoodsDetail.data4}
+				</if>
+				<if test="keyStorehouseGoodsDetail.data5!= null">
+				and data5 = #{keyStorehouseGoodsDetail.data5}
+				</if>
+				<if test="keyStorehouseGoodsDetail.data6!= null">
+				and data6 = #{keyStorehouseGoodsDetail.data6}
+				</if>
+				<if test="keyStorehouseGoodsDetail.data7!= null">
+				and data7 = #{keyStorehouseGoodsDetail.data7}
+				</if>
+				<if test="keyStorehouseGoodsDetail.data8!= null and keyStorehouseGoodsDetail.data8!=''">
+				and data8 = #{keyStorehouseGoodsDetail.data8}
+				</if>
+			</trim>
+		</if>
+	</select>
+</mapper>

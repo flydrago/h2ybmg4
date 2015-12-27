@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IPromoteActivityDao">
+
+	<resultMap type="com.h2y.bmg.entity.PromoteActivity" id="promoteactivityDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitType" column="unit_type" javaType="int" jdbcType="INTEGER" />
+		<result property="zoneCode" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="title" column="title" javaType="string" jdbcType="VARCHAR" />
+		<result property="claimLimit" column="claim_limit" javaType="int" jdbcType="INTEGER" />
+		<result property="claimNum" column="claim_num" javaType="int" jdbcType="INTEGER" />
+		<result property="fileName" column="file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="diskFileName" column="disk_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="rootPath" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="relativePath" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="fileSize" column="file_size" javaType="long" jdbcType="BIGINT" />
+		<result property="fileSuffix" column="file_suffix" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="startDate" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="endDate" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="description" column="description" javaType="string" jdbcType="VARCHAR" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="promoteStatus" column="promote_status" javaType="int" jdbcType="INTEGER" />
+		<result property="ord" column="ord" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	
+	<resultMap type="java.util.Map" id="promoteactivityListDaoMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_TYPE" column="unit_type" javaType="int" jdbcType="INTEGER" />
+		<result property="ZONE_CODE" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="TITLE" column="title" javaType="string" jdbcType="VARCHAR" />
+		<result property="CLAIM_LIMIT" column="claim_limit" javaType="int" jdbcType="INTEGER" />
+		<result property="CLAIM_NUM" column="claim_num" javaType="int" jdbcType="INTEGER" />
+		<result property="FILE_NAME" column="file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="DISK_FILE_NAME" column="disk_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="ROOT_PATH" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="RELATIVE_PATH" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="FILE_SIZE" column="file_size" javaType="long" jdbcType="BIGINT" />
+		<result property="FILE_SUFFIX" column="file_suffix" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="UPDATE_DATE" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="START_DATE" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="END_DATE" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="DESCRIPTION" column="description" javaType="string" jdbcType="VARCHAR" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="PROMOTE_STATUS" column="promote_status" javaType="int" jdbcType="INTEGER" />
+		<result property="ORD" column="ord" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.PromoteActivity">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_promote_activity 
+		</selectKey>  
+		insert into tb_promote_activity
+		(
+		unit_id,
+		unit_type,
+		zone_code,
+		title,
+		claim_limit,
+		claim_num,
+		file_name,
+		disk_file_name,
+		root_path,
+		relative_path,
+		file_size,
+		file_suffix,
+		create_date,
+		update_date,
+		start_date,
+		end_date,
+		description,
+		memo,
+		promote_status,
+		ord
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{unitType,jdbcType=INTEGER},
+		#{zoneCode,jdbcType=VARCHAR},
+		#{title,jdbcType=VARCHAR},
+		#{claimLimit,jdbcType=INTEGER},
+		#{claimNum,jdbcType=INTEGER},
+		#{fileName,jdbcType=VARCHAR},
+		#{diskFileName,jdbcType=VARCHAR},
+		#{rootPath,jdbcType=VARCHAR},
+		#{relativePath,jdbcType=VARCHAR},
+		#{fileSize,jdbcType=BIGINT},
+		#{fileSuffix,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{startDate,jdbcType=TIMESTAMP},
+		#{endDate,jdbcType=TIMESTAMP},
+		#{description,jdbcType=VARCHAR},
+		#{memo,jdbcType=VARCHAR},
+		#{promoteStatus,jdbcType=INTEGER},
+		#{ord,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.PromoteActivity">
+		update tb_promote_activity
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		unit_type = #{unitType,jdbcType=INTEGER},
+		zone_code = #{zoneCode,jdbcType=VARCHAR},
+		title = #{title,jdbcType=VARCHAR},
+		claim_limit = #{claimLimit,jdbcType=INTEGER},
+		claim_num = #{claimNum,jdbcType=INTEGER},
+		file_name = #{fileName,jdbcType=VARCHAR},
+		disk_file_name = #{diskFileName,jdbcType=VARCHAR},
+		root_path = #{rootPath,jdbcType=VARCHAR},
+		relative_path = #{relativePath,jdbcType=VARCHAR},
+		file_size = #{fileSize,jdbcType=BIGINT},
+		file_suffix = #{fileSuffix,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		start_date = #{startDate,jdbcType=TIMESTAMP},
+		end_date = #{endDate,jdbcType=TIMESTAMP},
+		description = #{description,jdbcType=VARCHAR},
+		memo = #{memo,jdbcType=VARCHAR},
+		promote_status = #{promoteStatus,jdbcType=INTEGER},
+		ord = #{ord,jdbcType=INTEGER}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.PromoteActivity">
+		delete from
+		tb_promote_activity
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_promote_activity
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_promote_activity
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="promoteactivityDaoMap">
+		select * from tb_promote_activity where id = #{id}
+	</select>
+
+	
+	
+	<select id="getListMap" parameterType="hashmap"	resultMap="promoteactivityDaoMap">
+		select * from
+		tb_promote_activity
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			promote_status &lt;&gt; -1
+			and unit_id = #{unitId}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by ord desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select
+			count(id)
+		from
+		tb_promote_activity
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			promote_status &lt;&gt; -1
+			and unit_id = #{unitId}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			
+		</trim>
+	</select>
+	
+	
+	<select id="getUserRtList" parameterType="hashmap"	resultType="hashmap">
+		select rt.*,p.title,p.description from
+		tb_promote_activity_user_rt rt,tb_promote_activity p		 
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			rt.promote_id = #{promoteId}
+			and rt.promote_id = p.id
+			and p.promote_status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by rt.create_date desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	
+
+	<select id="getUserRtListRows" parameterType="hashmap" resultType="long">
+		select
+			count(rt.id)
+		from
+		tb_promote_activity_user_rt rt,tb_promote_activity p
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			rt.promote_id = #{promoteId}
+			and rt.promote_id = p.id
+			and p.promote_status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			
+		</trim>
+	</select>
+
+
+	<!-- 获取活动列表  分享链接关联窗口 -->
+	<select id="getPromoteList" parameterType="hashmap"	resultType="hashmap">
+		select p.* from
+		tb_promote_activity p		 
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			p.promote_status &lt;&gt; -1
+			and unit_id = #{unitId}
+			and  p.id not in (
+				select rt.data_id from tb_share_href_data_rt rt,tb_share_href h where h.id=rt.href_id and h.href_status &lt;&gt; -1 and rt.str_1='promote'
+			)
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by p.ord desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	
+
+	<select id="getPromoteListRows" parameterType="hashmap" resultType="long">
+		select
+			count(p.id) from
+		tb_promote_activity p		 
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			p.promote_status &lt;&gt; -1
+			and unit_id = #{unitId}
+			and  p.id not in (
+				select rt.data_id from tb_share_href_data_rt rt,tb_share_href h where h.id=rt.href_id and h.href_status &lt;&gt; -1 and rt.str_1='promote'
+			)
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			
+		</trim>
+	</select>
+	
+	
+	<select id="getSelectListMap" parameterType="hashmap" resultMap="promoteactivityListDaoMap">
+		select * from tb_promote_activity 		 
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			promote_status &lt;&gt; -1
+			and unit_id = #{unitId}
+			and NOW() BETWEEN start_date AND end_date
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by create_date desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	
+	<select id="getSelectListRows" parameterType="hashmap" resultType="long">
+		select count(id) from tb_promote_activity 		 
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			promote_status &lt;&gt; -1
+			and unit_id = #{unitId}
+			and NOW() BETWEEN start_date AND end_date
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+</mapper>

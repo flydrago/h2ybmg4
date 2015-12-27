@@ -1,0 +1,810 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IMemberUserDao">
+
+	<resultMap type="com.h2y.bmg.entity.MemberUser" id="memberuserDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="account" column="account" javaType="string" jdbcType="VARCHAR" />
+		<result property="password" column="password" javaType="string" jdbcType="VARCHAR" />
+		<result property="realName" column="real_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="nickName" column="nick_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="sex" column="sex" javaType="string" jdbcType="VARCHAR" />
+		<result property="birDate" column="bir_date" javaType="string" jdbcType="VARCHAR" />
+		<result property="idCard" column="id_card" javaType="string" jdbcType="VARCHAR" />
+		<result property="mailAdd" column="mail_add" javaType="string" jdbcType="VARCHAR" />
+		<result property="telPhone" column="tel_phone" javaType="string" jdbcType="VARCHAR" />
+		<result property="zone" column="zone" javaType="string" jdbcType="VARCHAR" />
+		<result property="zoneDetail" column="zone_detail" javaType="string" jdbcType="VARCHAR" />
+		<result property="qrPath" column="qr_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="qrRelPath" column="qr_rel_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="uuid" column="uuid" javaType="string" jdbcType="VARCHAR" />
+		<result property="headPath" column="head_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="levelId" column="level_id" javaType="long" jdbcType="BIGINT" />
+		<result property="openId" column="open_id" javaType="string" jdbcType="VARCHAR" />
+		<result property="regDevice" column="reg_device" javaType="string" jdbcType="VARCHAR" />
+		<result property="regSource" column="reg_source" javaType="string" jdbcType="VARCHAR" />
+		<result property="loginType" column="login_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="loginDate" column="login_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="type" column="type" javaType="int" jdbcType="INTEGER" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="iosPushCode" column="ios_push_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="androidPushCode" column="android_push_code" javaType="string" jdbcType="VARCHAR" />
+		
+		<result property="isAgreement" column="is_agreement" javaType="int" jdbcType="INTEGER" />
+		<result property="androidPushUserid" column="android_push_userid" javaType="string" jdbcType="VARCHAR" />
+		<result property="iosPushUserid" column="ios_push_userid" javaType="string" jdbcType="VARCHAR" />
+		<result property="userKey" column="user_key" javaType="string" jdbcType="VARCHAR" />
+		<result property="data1" column="data1" javaType="string" jdbcType="VARCHAR" />
+		<result property="data2" column="data2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data3" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+		<resultMap type="java.util.Map" id="memberuserDaoListMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="ACCOUNT" column="account" javaType="string" jdbcType="VARCHAR" />
+		<result property="PASSWORD" column="password" javaType="string" jdbcType="VARCHAR" />
+		<result property="REAL_NAME" column="real_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="NICK_NAME" column="nick_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="SEX" column="sex" javaType="string" jdbcType="VARCHAR" />
+		<result property="BIR_DATE" column="bir_date" javaType="string" jdbcType="VARCHAR" />
+		<result property="ID_CARD" column="id_card" javaType="string" jdbcType="VARCHAR" />
+		<result property="MAIL_ADD" column="mail_add" javaType="string" jdbcType="VARCHAR" />
+		<result property="TEL_PHONE" column="tel_phone" javaType="string" jdbcType="VARCHAR" />
+		<result property="ZONE" column="zone" javaType="string" jdbcType="VARCHAR" />
+		<result property="ZONE_DETAIL" column="zone_detail" javaType="string" jdbcType="VARCHAR" />
+		<result property="QR_PATH" column="qr_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="QR_REL_PATH" column="qr_rel_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="UUID" column="uuid" javaType="string" jdbcType="VARCHAR" />
+		<result property="HEAD_PATH" column="head_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="LEVEL_ID" column="level_id" javaType="long" jdbcType="BIGINT" />
+		<result property="OPEN_ID" column="open_id" javaType="string" jdbcType="VARCHAR" />
+		<result property="REG_DEVICE" column="reg_device" javaType="string" jdbcType="VARCHAR" />
+		<result property="REG_SOURCE" column="reg_source" javaType="string" jdbcType="VARCHAR" />
+		<result property="LOGIN_TYPE" column="login_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="LOGIN_DATE" column="login_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="TYPE" column="type" javaType="int" jdbcType="INTEGER" />
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="UPDATE_DATE" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="IOS_PUSH_CODE" column="ios_push_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="ANDROID_PUSH_CODE" column="android_push_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="IS_AGREEMENT" column="is_agreement" javaType="int" jdbcType="INTEGER" />
+		<result property="ANDROID_PUSH_USERID" column="android_push_userid" javaType="string" jdbcType="VARCHAR" />
+		<result property="IOS_PUSH_USERID" column="ios_push_userid" javaType="string" jdbcType="VARCHAR" />
+		<result property="USER_KEY" column="user_key" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA1" column="data1" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA2" column="data2" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA3" column="data3" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+	
+	<!-- 获取会员 推荐用户account -->
+	<select id="getRefAccountList" parameterType="hashmap" resultType="string">
+		select distinct ref_account 
+		from tb_member_ref_rt 
+		where ref_level = 1 and account = ${account}
+	</select>
+	
+	<!-- 获取会员 推荐用户 -->
+	<select id="getRefMemberList" parameterType="hashmap" resultMap="memberuserDaoMap">
+		select * 
+		from tb_member_user 
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			1=1 
+			<if test="refAccountList != '()'">
+				and account in ${refAccountList}
+			</if>
+			<if test="refAccountList == '()'">
+				and 1=0
+			</if>
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			<if test="zoneCode!=null and zoneCode!=''">
+				and zone = ${zoneCode}
+			</if>
+			<choose>
+				<when test="sortname !=null and sortname !=''">
+					order by ${sortname}
+					<if test="sortorder !=null and sortorder !='' ">
+						${sortorder} 
+					</if> 
+				</when>
+				<otherwise>
+						order by id desc
+				</otherwise>
+			</choose>
+		</trim>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	<!-- 获取会员 推荐用户总数 -->
+	<select id="getRefMemberRows" parameterType="hashmap" resultType="long">
+		select count(*) 
+		from tb_member_user 
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			1=1 
+			<if test="refAccountList != '()'">
+				and account in ${refAccountList}
+			</if>
+			<if test="refAccountList == '()'">
+				and 1=0
+			</if>
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			<if test="zoneCode!=null and zoneCode!=''">
+				and zone = ${zoneCode}
+			</if>
+		</trim>
+	</select>
+	
+	
+	<!-- 获取本地会员列表 -->
+	<select id="getLocalMemberListMap" parameterType="hashmap" resultMap="memberuserDaoMap">
+		select *
+		from tb_member_user
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			1=1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			<if test="zoneCode!=null and zoneCode!=''">
+				and zone = ${zoneCode}
+			</if>
+			<choose>
+				<when test="sortname !=null and sortname !=''">
+					order by ${sortname}
+					<if test="sortorder !=null and sortorder !='' ">
+						${sortorder} 
+					</if> 
+				</when>
+				<otherwise>
+						order by id desc
+				</otherwise>
+			</choose>
+		</trim>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	<!-- 获取本地会员总数 -->
+	<select id="getLocalMemberListRows" parameterType="hashmap" resultType="long">
+		select count(*) 
+		from tb_member_user
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			1=1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			<if test="zoneCode!=null and zoneCode!=''">
+				and zone = ${zoneCode}
+			</if>
+		</trim>
+	</select>
+	
+	
+	<!-- 获取会员列表 -->
+	<select id="getListMap" parameterType="hashmap" resultMap="memberuserDaoMap">
+		select
+		*
+		from
+		<!--  tb_member_user member left join (select zone_code,unit_name from tb_sys_units)as zoneinfo on member.zone = zoneinfo.zone_code-->
+		tb_member_user member left join (select zone_code,unit_name,unit_type,unit_status from tb_sys_units)as zoneinfo on member.zone = zoneinfo.zone_code
+		and zoneinfo.unit_type=0 and zoneinfo.unit_status='pass'
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			1=1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			<if test="zone!=null and zone!=''">
+				and zone = #{zone}
+			</if>
+				
+			<choose>
+				<when test="sortname !=null and sortname !=''">
+					order by ${sortname}
+					<if test="sortorder !=null and sortorder !='' ">
+						${sortorder} 
+					</if> 
+				</when>
+				<otherwise>
+						order by id desc
+				</otherwise>
+			</choose>
+		</trim>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select
+		count(id) from
+		tb_member_user member left join (select zone_code,unit_name,unit_type,unit_status from tb_sys_units)as zoneinfo on member.zone = zoneinfo.zone_code
+		and zoneinfo.unit_type=0 and zoneinfo.unit_status='pass'
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			1=1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			<if test="zone!=null and zone!=''">
+				and zone = #{zone}
+			</if>
+		</trim>
+	</select>
+	
+	
+	<update id="updateStatusByIds" parameterType="hashmap">
+		update tb_member_user
+		set
+		status = #{status}		
+		<if test="updateDate!=null and updateDate!=''">
+				,update_date = #{updateDate,jdbcType=TIMESTAMP}
+		</if>
+		where id in
+		<foreach collection="ids" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</update>
+	
+	<select id="getByAccount" parameterType="string"
+		resultMap="memberuserDaoMap">
+		select * from tb_member_user where account = #{account}
+	</select>
+	
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.MemberUser">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_member_user 
+		</selectKey>  
+		insert into tb_member_user
+		(
+		account,
+		password,
+		real_name,
+		nick_name,
+		sex,
+		bir_date,
+		id_card,
+		mail_add,
+		tel_phone,
+		zone,
+		zone_detail,
+		qr_path,
+		qr_rel_path,
+		uuid,
+		head_path,
+		level_id,
+		open_id,
+		reg_device,
+		reg_source,
+		login_type,
+		login_date,
+		type,
+		status,
+		create_date,
+		update_date,
+		memo,
+		ios_push_code,
+		android_push_code,
+		is_agreement,
+		android_push_userid,
+		ios_push_userid,
+		user_key,
+		data1,
+		data2,
+		data3
+		)
+		values (
+		#{account,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR},
+		#{realName,jdbcType=VARCHAR},
+		#{nickName,jdbcType=VARCHAR},
+		#{sex,jdbcType=VARCHAR},
+		#{birDate,jdbcType=VARCHAR},
+		#{idCard,jdbcType=VARCHAR},
+		#{mailAdd,jdbcType=VARCHAR},
+		#{telPhone,jdbcType=VARCHAR},
+		#{zone,jdbcType=VARCHAR},
+		#{zoneDetail,jdbcType=VARCHAR},
+		#{qrPath,jdbcType=VARCHAR},
+		#{qrRelPath,jdbcType=VARCHAR},
+		#{uuid,jdbcType=VARCHAR},
+		#{headPath,jdbcType=VARCHAR},
+		#{levelId,jdbcType=BIGINT},
+		#{openId,jdbcType=VARCHAR},
+		#{regDevice,jdbcType=VARCHAR},
+		#{regSource,jdbcType=VARCHAR},
+		#{loginType,jdbcType=VARCHAR},
+		#{loginDate,jdbcType=TIMESTAMP},
+		#{type,jdbcType=INTEGER},
+		#{status,jdbcType=INTEGER},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{memo,jdbcType=VARCHAR},
+		#{iosPushCode,jdbcType=VARCHAR},
+		#{androidPushCode,jdbcType=VARCHAR},
+		#{isAgreement,jdbcType=INTEGER},
+		#{androidPushUserid,jdbcType=VARCHAR},
+		#{iosPushUserid,jdbcType=VARCHAR},
+		#{userKey,jdbcType=VARCHAR},
+		#{data1,jdbcType=VARCHAR},
+		#{data2,jdbcType=VARCHAR},
+		#{data3,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.MemberUser">
+		update tb_member_user
+		set
+		account = #{account,jdbcType=VARCHAR},
+		password = #{password,jdbcType=VARCHAR},
+		real_name = #{realName,jdbcType=VARCHAR},
+		nick_name = #{nickName,jdbcType=VARCHAR},
+		sex = #{sex,jdbcType=VARCHAR},
+		bir_date = #{birDate,jdbcType=VARCHAR},
+		id_card = #{idCard,jdbcType=VARCHAR},
+		mail_add = #{mailAdd,jdbcType=VARCHAR},
+		tel_phone = #{telPhone,jdbcType=VARCHAR},
+		zone = #{zone,jdbcType=VARCHAR},
+		zone_detail = #{zoneDetail,jdbcType=VARCHAR},
+		qr_path = #{qrPath,jdbcType=VARCHAR},
+		qr_rel_path = #{qrRelPath,jdbcType=VARCHAR},
+		uuid = #{uuid,jdbcType=VARCHAR},
+		head_path = #{headPath,jdbcType=VARCHAR},
+		level_id = #{levelId,jdbcType=BIGINT},
+		open_id = #{openId,jdbcType=VARCHAR},
+		reg_device = #{regDevice,jdbcType=VARCHAR},
+		reg_source = #{regSource,jdbcType=VARCHAR},
+		login_type = #{loginType,jdbcType=VARCHAR},
+		login_date = #{loginDate,jdbcType=TIMESTAMP},
+		type = #{type,jdbcType=INTEGER},
+		status = #{status,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		memo = #{memo,jdbcType=VARCHAR},
+		ios_push_code = #{iosPushCode,jdbcType=VARCHAR},
+		android_push_code = #{androidPushCode,jdbcType=VARCHAR},
+		is_agreement = #{isAgreement,jdbcType=INTEGER},
+		android_push_userid = #{androidPushUserid,jdbcType=VARCHAR},
+		ios_push_userid = #{iosPushUserid,jdbcType=VARCHAR},
+		user_key = #{userKey,jdbcType=VARCHAR},
+		data1 = #{data1,jdbcType=VARCHAR},
+		data2 = #{data2,jdbcType=VARCHAR},
+		data3 = #{data3,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.MemberUser">
+		delete from
+		tb_member_user
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_member_user
+		where
+		id = #{id} 
+	</delete>
+
+	<select id="get" parameterType="long"
+		resultMap="memberuserDaoMap">
+		select * from tb_member_user where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.bmg.entity.MemberUser"
+		resultMap="memberuserDaoMap">
+		select * from
+		tb_member_user
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="account!= null and account!=''">
+			and account = #{account}
+			</if>
+			<if test="password!= null and password!=''">
+			and password = #{password}
+			</if>
+			<if test="realName!= null and realName!=''">
+			and real_name = #{realName}
+			</if>
+			<if test="nickName!= null and nickName!=''">
+			and nick_name = #{nickName}
+			</if>
+			<if test="sex!= null and sex!=''">
+			and sex = #{sex}
+			</if>
+			<if test="birDate!= null and birDate!=''">
+			and bir_date = #{birDate}
+			</if>
+			<if test="idCard!= null and idCard!=''">
+			and id_card = #{idCard}
+			</if>
+			<if test="mailAdd!= null and mailAdd!=''">
+			and mail_add = #{mailAdd}
+			</if>
+			<if test="telPhone!= null and telPhone!=''">
+			and tel_phone = #{telPhone}
+			</if>
+			<if test="zone!= null and zone!=''">
+			and zone = #{zone}
+			</if>
+			<if test="zoneDetail!= null and zoneDetail!=''">
+			and zone_detail = #{zoneDetail}
+			</if>
+			<if test="qrPath!= null and qrPath!=''">
+			and qr_path = #{qrPath}
+			</if>
+			<if test="qrRelPath!= null and qrRelPath!=''">
+			and qr_rel_path = #{qrRelPath}
+			</if>
+			<if test="uuid!= null and uuid!=''">
+			and uuid = #{uuid}
+			</if>
+			<if test="headPath!= null and headPath!=''">
+			and head_path = #{headPath}
+			</if>
+			<if test="levelId!= null">
+			and level_id = #{levelId}
+			</if>
+			<if test="openId!= null and openId!=''">
+			and open_id = #{openId}
+			</if>
+			<if test="regDevice!= null and regDevice!=''">
+			and reg_device = #{regDevice}
+			</if>
+			<if test="regSource!= null and regSource!=''">
+			and reg_source = #{regSource}
+			</if>
+			<if test="loginType!= null and loginType!=''">
+			and login_type = #{loginType}
+			</if>
+			<if test="loginDate!= null and loginDate!=''">
+			and login_date = #{loginDate}
+			</if>
+			<if test="type!= null">
+			and type = #{type}
+			</if>
+			<if test="status!= null">
+			and status = #{status}
+			</if>
+			<if test="createDate!= null and createDate!=''">
+			and create_date = #{createDate}
+			</if>
+			<if test="updateDate!= null and updateDate!=''">
+			and update_date = #{updateDate}
+			</if>
+			<if test="memo!= null and memo!=''">
+			and memo = #{memo}
+			</if>
+			<if test="iosPushCode!= null and iosPushCode!=''">
+			and ios_push_code = #{iosPushCode}
+			</if>
+			<if test="androidPushCode!= null and androidPushCode!=''">
+			and android_push_code = #{androidPushCode}
+			</if>
+			<if test="isAgreement!= null">
+			and is_agreement = #{isAgreement}
+			</if>
+			<if test="androidPushUserid!= null and androidPushUserid!=''">
+			and android_push_userid = #{androidPushUserid}
+			</if>
+			<if test="iosPushUserid!= null and iosPushUserid!=''">
+			and ios_push_userid = #{iosPushUserid}
+			</if>
+			<if test="userKey!= null and userKey!=''">
+			and user_key = #{userKey}
+			</if>
+			<if test="data1!= null and data1!=''">
+			and data1 = #{data1}
+			</if>
+			<if test="data2!= null and data2!=''">
+			and data2 = #{data2}
+			</if>
+			<if test="data3!= null and data3!=''">
+			and data3 = #{data3}
+			</if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="memberuserDaoMap">
+		select
+		*
+		from
+		tb_member_user
+		<if test="keyMemberUser!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keyMemberUser.id!= null">
+				and id = #{keyMemberUser.id}
+				</if>
+				<if test="keyMemberUser.account!= null and keyMemberUser.account!=''">
+				and account = #{keyMemberUser.account}
+				</if>
+				<if test="keyMemberUser.password!= null and keyMemberUser.password!=''">
+				and password = #{keyMemberUser.password}
+				</if>
+				<if test="keyMemberUser.realName!= null and keyMemberUser.realName!=''">
+				and real_name = #{keyMemberUser.realName}
+				</if>
+				<if test="keyMemberUser.nickName!= null and keyMemberUser.nickName!=''">
+				and nick_name = #{keyMemberUser.nickName}
+				</if>
+				<if test="keyMemberUser.sex!= null and keyMemberUser.sex!=''">
+				and sex = #{keyMemberUser.sex}
+				</if>
+				<if test="keyMemberUser.birDate!= null and keyMemberUser.birDate!=''">
+				and bir_date = #{keyMemberUser.birDate}
+				</if>
+				<if test="keyMemberUser.idCard!= null and keyMemberUser.idCard!=''">
+				and id_card = #{keyMemberUser.idCard}
+				</if>
+				<if test="keyMemberUser.mailAdd!= null and keyMemberUser.mailAdd!=''">
+				and mail_add = #{keyMemberUser.mailAdd}
+				</if>
+				<if test="keyMemberUser.telPhone!= null and keyMemberUser.telPhone!=''">
+				and tel_phone = #{keyMemberUser.telPhone}
+				</if>
+				<if test="keyMemberUser.zone!= null and keyMemberUser.zone!=''">
+				and zone = #{keyMemberUser.zone}
+				</if>
+				<if test="keyMemberUser.zoneDetail!= null and keyMemberUser.zoneDetail!=''">
+				and zone_detail = #{keyMemberUser.zoneDetail}
+				</if>
+				<if test="keyMemberUser.qrPath!= null and keyMemberUser.qrPath!=''">
+				and qr_path = #{keyMemberUser.qrPath}
+				</if>
+				<if test="keyMemberUser.qrRelPath!= null and keyMemberUser.qrRelPath!=''">
+				and qr_rel_path = #{keyMemberUser.qrRelPath}
+				</if>
+				<if test="keyMemberUser.uuid!= null and keyMemberUser.uuid!=''">
+				and uuid = #{keyMemberUser.uuid}
+				</if>
+				<if test="keyMemberUser.headPath!= null and keyMemberUser.headPath!=''">
+				and head_path = #{keyMemberUser.headPath}
+				</if>
+				<if test="keyMemberUser.levelId!= null">
+				and level_id = #{keyMemberUser.levelId}
+				</if>
+				<if test="keyMemberUser.openId!= null and keyMemberUser.openId!=''">
+				and open_id = #{keyMemberUser.openId}
+				</if>
+				<if test="keyMemberUser.regDevice!= null and keyMemberUser.regDevice!=''">
+				and reg_device = #{keyMemberUser.regDevice}
+				</if>
+				<if test="keyMemberUser.regSource!= null and keyMemberUser.regSource!=''">
+				and reg_source = #{keyMemberUser.regSource}
+				</if>
+				<if test="keyMemberUser.loginType!= null and keyMemberUser.loginType!=''">
+				and login_type = #{keyMemberUser.loginType}
+				</if>
+				<if test="keyMemberUser.loginDate!= null and keyMemberUser.loginDate!=''">
+				and login_date = #{keyMemberUser.loginDate}
+				</if>
+				<if test="keyMemberUser.type!= null">
+				and type = #{keyMemberUser.type}
+				</if>
+				<if test="keyMemberUser.status!= null">
+				and status = #{keyMemberUser.status}
+				</if>
+				<if test="keyMemberUser.createDate!= null and keyMemberUser.createDate!=''">
+				and create_date = #{keyMemberUser.createDate}
+				</if>
+				<if test="keyMemberUser.updateDate!= null and keyMemberUser.updateDate!=''">
+				and update_date = #{keyMemberUser.updateDate}
+				</if>
+				<if test="keyMemberUser.memo!= null and keyMemberUser.memo!=''">
+				and memo = #{keyMemberUser.memo}
+				</if>
+				<if test="keyMemberUser.iosPushCode!= null and keyMemberUser.iosPushCode!=''">
+				and ios_push_code = #{keyMemberUser.iosPushCode}
+				</if>
+				<if test="keyMemberUser.androidPushCode!= null and keyMemberUser.androidPushCode!=''">
+				and android_push_code = #{keyMemberUser.androidPushCode}
+				</if>
+				<if test="keyMemberUser.isAgreement!= null">
+				and is_agreement = #{keyMemberUser.isAgreement}
+				</if>
+				<if test="keyMemberUser.androidPushUserid!= null and keyMemberUser.androidPushUserid!=''">
+				and android_push_userid = #{keyMemberUser.androidPushUserid}
+				</if>
+				<if test="keyMemberUser.iosPushUserid!= null and keyMemberUser.iosPushUserid!=''">
+				and ios_push_userid = #{keyMemberUser.iosPushUserid}
+				</if>
+				<if test="keyMemberUser.userKey!= null and keyMemberUser.userKey!=''">
+				and user_key = #{keyMemberUser.userKey}
+				</if>
+				<if test="keyMemberUser.data1!= null and keyMemberUser.data1!=''">
+				and data1 = #{keyMemberUser.data1}
+				</if>
+				<if test="keyMemberUser.data2!= null and keyMemberUser.data2!=''">
+				and data2 = #{keyMemberUser.data2}
+				</if>
+				<if test="keyMemberUser.data3!= null and keyMemberUser.data3!=''">
+				and data3 = #{keyMemberUser.data3}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_member_user
+		<if test="keyMemberUser!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keyMemberUser.id!= null">
+				and id = #{keyMemberUser.id}
+				</if>
+				<if test="keyMemberUser.account!= null and keyMemberUser.account!=''">
+				and account = #{keyMemberUser.account}
+				</if>
+				<if test="keyMemberUser.password!= null and keyMemberUser.password!=''">
+				and password = #{keyMemberUser.password}
+				</if>
+				<if test="keyMemberUser.realName!= null and keyMemberUser.realName!=''">
+				and real_name = #{keyMemberUser.realName}
+				</if>
+				<if test="keyMemberUser.nickName!= null and keyMemberUser.nickName!=''">
+				and nick_name = #{keyMemberUser.nickName}
+				</if>
+				<if test="keyMemberUser.sex!= null and keyMemberUser.sex!=''">
+				and sex = #{keyMemberUser.sex}
+				</if>
+				<if test="keyMemberUser.birDate!= null and keyMemberUser.birDate!=''">
+				and bir_date = #{keyMemberUser.birDate}
+				</if>
+				<if test="keyMemberUser.idCard!= null and keyMemberUser.idCard!=''">
+				and id_card = #{keyMemberUser.idCard}
+				</if>
+				<if test="keyMemberUser.mailAdd!= null and keyMemberUser.mailAdd!=''">
+				and mail_add = #{keyMemberUser.mailAdd}
+				</if>
+				<if test="keyMemberUser.telPhone!= null and keyMemberUser.telPhone!=''">
+				and tel_phone = #{keyMemberUser.telPhone}
+				</if>
+				<if test="keyMemberUser.zone!= null and keyMemberUser.zone!=''">
+				and zone = #{keyMemberUser.zone}
+				</if>
+				<if test="keyMemberUser.zoneDetail!= null and keyMemberUser.zoneDetail!=''">
+				and zone_detail = #{keyMemberUser.zoneDetail}
+				</if>
+				<if test="keyMemberUser.qrPath!= null and keyMemberUser.qrPath!=''">
+				and qr_path = #{keyMemberUser.qrPath}
+				</if>
+				<if test="keyMemberUser.qrRelPath!= null and keyMemberUser.qrRelPath!=''">
+				and qr_rel_path = #{keyMemberUser.qrRelPath}
+				</if>
+				<if test="keyMemberUser.uuid!= null and keyMemberUser.uuid!=''">
+				and uuid = #{keyMemberUser.uuid}
+				</if>
+				<if test="keyMemberUser.headPath!= null and keyMemberUser.headPath!=''">
+				and head_path = #{keyMemberUser.headPath}
+				</if>
+				<if test="keyMemberUser.levelId!= null">
+				and level_id = #{keyMemberUser.levelId}
+				</if>
+				<if test="keyMemberUser.openId!= null and keyMemberUser.openId!=''">
+				and open_id = #{keyMemberUser.openId}
+				</if>
+				<if test="keyMemberUser.regDevice!= null and keyMemberUser.regDevice!=''">
+				and reg_device = #{keyMemberUser.regDevice}
+				</if>
+				<if test="keyMemberUser.regSource!= null and keyMemberUser.regSource!=''">
+				and reg_source = #{keyMemberUser.regSource}
+				</if>
+				<if test="keyMemberUser.loginType!= null and keyMemberUser.loginType!=''">
+				and login_type = #{keyMemberUser.loginType}
+				</if>
+				<if test="keyMemberUser.loginDate!= null and keyMemberUser.loginDate!=''">
+				and login_date = #{keyMemberUser.loginDate}
+				</if>
+				<if test="keyMemberUser.type!= null">
+				and type = #{keyMemberUser.type}
+				</if>
+				<if test="keyMemberUser.status!= null">
+				and status = #{keyMemberUser.status}
+				</if>
+				<if test="keyMemberUser.createDate!= null and keyMemberUser.createDate!=''">
+				and create_date = #{keyMemberUser.createDate}
+				</if>
+				<if test="keyMemberUser.updateDate!= null and keyMemberUser.updateDate!=''">
+				and update_date = #{keyMemberUser.updateDate}
+				</if>
+				<if test="keyMemberUser.memo!= null and keyMemberUser.memo!=''">
+				and memo = #{keyMemberUser.memo}
+				</if>
+				<if test="keyMemberUser.iosPushCode!= null and keyMemberUser.iosPushCode!=''">
+				and ios_push_code = #{keyMemberUser.iosPushCode}
+				</if>
+				<if test="keyMemberUser.androidPushCode!= null and keyMemberUser.androidPushCode!=''">
+				and android_push_code = #{keyMemberUser.androidPushCode}
+				</if>
+				<if test="keyMemberUser.isAgreement!= null">
+				and is_agreement = #{keyMemberUser.isAgreement}
+				</if>
+				<if test="keyMemberUser.androidPushUserid!= null and keyMemberUser.androidPushUserid!=''">
+				and android_push_userid = #{keyMemberUser.androidPushUserid}
+				</if>
+				<if test="keyMemberUser.iosPushUserid!= null and keyMemberUser.iosPushUserid!=''">
+				and ios_push_userid = #{keyMemberUser.iosPushUserid}
+				</if>
+				<if test="keyMemberUser.userKey!= null and keyMemberUser.userKey!=''">
+				and user_key = #{keyMemberUser.userKey}
+				</if>
+				<if test="keyMemberUser.data1!= null and keyMemberUser.data1!=''">
+				and data1 = #{keyMemberUser.data1}
+				</if>
+				<if test="keyMemberUser.data2!= null and keyMemberUser.data2!=''">
+				and data2 = #{keyMemberUser.data2}
+				</if>
+				<if test="keyMemberUser.data3!= null and keyMemberUser.data3!=''">
+				and data3 = #{keyMemberUser.data3}
+				</if>
+			</trim>
+		</if>
+	</select>
+
+
+	<!-- 获取投票活动新增会员列表 -->
+	<select id="getNewListMap" parameterType="hashmap" resultMap="memberuserDaoListMap">
+		select *
+		from tb_member_user
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="regSource!= null and regSource!=''">
+				and reg_source = #{regSource}
+			</if>
+			<if test="subId!= null and subId!=''">
+				and data2 = #{subId}
+			</if>
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			<!-- <if test="unitId!= null and unitId!=''"> and unitId = #{unitId} </if> -->
+			<choose>
+				<when test="sortname !=null and sortname !=''">
+					order by ${sortname}
+					<if test="sortorder !=null and sortorder !='' ">
+						${sortorder}
+					</if>
+				</when>
+				<otherwise>
+					order by id desc
+				</otherwise>
+			</choose>
+		</trim>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<!-- 获取投票活动新增会员总数 -->
+	<select id="getNewListRows" parameterType="hashmap" resultType="long">
+		select count(*)
+		from tb_member_user
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="subId!= null and subId!=''">
+				and data2 = #{subId}
+			</if>
+			<if test="regSource!= null and regSource!=''">
+				and reg_source = #{regSource}
+			</if>
+			<!-- <if test="unitId!= null and unitId!=''"> and unitId = #{unitId} </if> -->
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+</mapper>

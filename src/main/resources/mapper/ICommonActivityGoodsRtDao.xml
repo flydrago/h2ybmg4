@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ICommonActivityGoodsRtDao">
+
+	<resultMap type="com.h2y.bmg.entity.CommonActivityGoodsRt" id="commonactivitygoodsDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="dataId" column="data_id" javaType="long" jdbcType="BIGINT" />
+		<result property="dataType" column="data_type" javaType="int" jdbcType="INTEGER" />
+		<result property="goodsId" column="goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsPriceId" column="goods_price_id" javaType="long" jdbcType="BIGINT" />
+		<result property="activityPrice" column="activity_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="startDate" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="endDate" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="limitNumber" column="limit_number" javaType="int" jdbcType="INTEGER" />
+		<result property="sellNumber" column="sell_number" javaType="int" jdbcType="INTEGER" />
+		<result property="rewardType" column="reward_type" javaType="int" jdbcType="INTEGER" />
+		<result property="rewardNumber" column="reward_number" javaType="int" jdbcType="INTEGER" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsLevel" column="goods_level" javaType="int" jdbcType="INTEGER" />
+		<result property="ord" column="ord" javaType="long" jdbcType="BIGINT" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="limitSellNumber" column="limit_sell_number" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="commonactivitygoodsDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="DATA_ID" column="data_id" javaType="long" jdbcType="BIGINT" />
+		<result property="DATA_TYPE" column="data_type" javaType="int" jdbcType="INTEGER" />
+		<result property="GOODS_ID" column="goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="ACTIVITY_PRICE" column="activity_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="START_DATE" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="END_DATE" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="LIMIT_NUMBER" column="limit_number" javaType="int" jdbcType="INTEGER" />
+		<result property="sell_number" column="sell_number" javaType="int" jdbcType="INTEGER" />
+		<result property="REWARD_TYPE" column="reward_type" javaType="int" jdbcType="INTEGER" />
+		<result property="REWARD_NUMBER" column="reward_number" javaType="int" jdbcType="INTEGER" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="GOODS_LEVEL" column="goods_level" javaType="int" jdbcType="INTEGER" />
+		<result property="ORD" column="ord" javaType="long" jdbcType="BIGINT" />
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+	
+		<result property="GOODS_NAME" column="goods_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="GOODS_NUMBER" column="goods_number" javaType="string" jdbcType="VARCHAR" />
+		<result property="GOODS_TYPE_NAME" column="goods_type_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="GOODS_NICK_NAME" column="goods_nick_name" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="dateCrossAcitivityGoodsList">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="DATA_ID" column="data_id" javaType="long" jdbcType="BIGINT" />
+		<result property="DATA_TYPE" column="data_type" javaType="int" jdbcType="INTEGER" />
+		<result property="GOODS_ID" column="goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="ACTIVITY_PRICE" column="activity_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="START_DATE" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="END_DATE" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="LIMIT_NUMBER" column="limit_number" javaType="int" jdbcType="INTEGER" />
+		<result property="sell_number" column="sell_number" javaType="int" jdbcType="INTEGER" />
+		<result property="REWARD_TYPE" column="reward_type" javaType="int" jdbcType="INTEGER" />
+		<result property="REWARD_NUMBER" column="reward_number" javaType="int" jdbcType="INTEGER" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="GOODS_LEVEL" column="goods_level" javaType="int" jdbcType="INTEGER" />
+		<result property="ORD" column="ord" javaType="long" jdbcType="BIGINT" />
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+		
+		<result property="GOODS_NICK_NAME" column="goods_nick_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="GOODS_NUMBER" column="goods_number" javaType="string" jdbcType="VARCHAR" />
+		<result property="GOODS_TYPE_NAME" column="goods_type_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="TITLE" column="title" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.CommonActivityGoodsRt">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_common_activity_goods_rt 
+		</selectKey>  
+		insert into tb_common_activity_goods_rt
+		(
+		unit_id,
+		data_id,
+		data_type,
+		goods_id,
+		goods_price_id,
+		activity_price,
+		create_date,
+		start_date,
+		end_date,
+		limit_number,
+		sell_number,
+		reward_type,
+		reward_number,
+		memo,
+		goods_level,
+		ord,
+		status,
+		limit_sell_number
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{dataId,jdbcType=BIGINT},
+		#{dataType,jdbcType=INTEGER},
+		#{goodsId,jdbcType=BIGINT},
+		#{goodsPriceId,jdbcType=BIGINT},
+		#{activityPrice,jdbcType=DOUBLE},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{startDate,jdbcType=TIMESTAMP},
+		#{endDate,jdbcType=TIMESTAMP},
+		#{limitNumber,jdbcType=INTEGER},
+		#{sellNumber,jdbcType=INTEGER},
+		#{rewardType,jdbcType=INTEGER},
+		#{rewardNumber,jdbcType=INTEGER},
+		#{memo,jdbcType=VARCHAR},
+		#{goodsLevel,jdbcType=INTEGER},
+		#{ord,jdbcType=BIGINT},
+		#{status,jdbcType=INTEGER},
+		#{limitSellNumber,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.CommonActivityGoodsRt">
+		update tb_common_activity_goods_rt
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		data_id = #{dataId,jdbcType=BIGINT},
+		data_type = #{dataType,jdbcType=INTEGER},
+		goods_id = #{goodsId,jdbcType=BIGINT},
+		goods_price_id = #{goodsPriceId,jdbcType=BIGINT},
+		activity_price = #{activityPrice,jdbcType=DOUBLE},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		start_date = #{startDate,jdbcType=TIMESTAMP},
+		end_date = #{endDate,jdbcType=TIMESTAMP},
+		limit_number = #{limitNumber,jdbcType=INTEGER},
+		sell_number = #{sellNumber,jdbcType=INTEGER},
+		reward_type = #{rewardType,jdbcType=INTEGER},
+		reward_number = #{rewardNumber,jdbcType=INTEGER},
+		memo = #{memo,jdbcType=VARCHAR},
+		goods_level = #{goodsLevel,jdbcType=INTEGER},
+		ord = #{ord,jdbcType=BIGINT},
+		status = #{status,jdbcType=INTEGER},
+		limit_sell_number = #{limitSellNumber,jdbcType=INTEGER}
+		where id = #{id}
+	</update>
+	
+	
+	<update id="updateByDataId" parameterType="hashmap">
+		update tb_common_activity_goods_rt
+		set		
+			start_date = #{startDate,jdbcType=TIMESTAMP},
+			end_date = #{endDate,jdbcType=TIMESTAMP},
+			sell_number = #{sellNumber,jdbcType=INTEGER}			
+		where data_id = #{dataId} and status = 0
+	</update>
+	
+	<!-- 修改活动定价价钱  同时修改该活动下商品价钱 -->
+	<update id="updateFixedPriceByDataId" parameterType="hashmap">
+		update tb_common_activity_goods_rt
+		set		
+			activity_price = #{fixedPrice,jdbcType=DOUBLE}				
+		where data_id = #{dataId} and status = 0
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.CommonActivityGoodsRt">
+		delete from
+		tb_common_activity_goods_rt
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_common_activity_goods_rt
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_common_activity_goods_rt
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="commonactivitygoodsDaoMap">
+		select * from tb_common_activity_goods_rt where id = #{id}
+	</select>
+	
+	
+	<select id="getListMap" parameterType="hashmap" resultMap="commonactivitygoodsDaoListMap">
+		SELECT
+			cag.*, gp.goods_name,
+			gp.goods_number,
+			gt.type_name AS goods_type_name,
+			gp.goods_nick_name
+		FROM
+			tb_common_activity_goods_rt cag
+		JOIN tb_goods_price gp ON cag.goods_price_id = gp.id
+		JOIN tb_goods_type gt ON gt.id = gp.goods_type_id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			cag.unit_id = #{unitId}
+			and gp.unit_id = #{unitId}
+			and cag.data_id = #{dataId}
+			and cag.data_type = #{dataType}
+			AND cag.status &lt;&gt; -1			
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			<if test="isStart!=null and isStart=='yes'">
+				AND cag.status = 0
+				AND cag.start_date &lt;= NOW()
+				AND cag.end_date &gt;= NOW()
+				and gp.status=0
+				and gp.goods_status=0
+				and gp.goods_edit_status=0
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by cag.goods_level desc,cag.ord desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(cag.id)
+		FROM
+			tb_common_activity_goods_rt cag
+		JOIN tb_goods_price gp ON cag.goods_price_id = gp.id
+		JOIN tb_goods_type gt ON gt.id = gp.goods_type_id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			cag.unit_id = #{unitId}
+			and gp.unit_id = #{unitId}
+			and cag.data_id = #{dataId}
+			and cag.data_type = #{dataType}
+			AND cag.status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			<if test="isStart!=null and isStart=='yes'">
+				AND cag.status = 0
+				AND cag.start_date &lt;= NOW()
+				AND cag.end_date &gt;= NOW()
+				and gp.status=0
+				and gp.goods_status=0
+				and gp.goods_edit_status=0
+			</if>
+		</trim>
+	</select>
+	
+	<select id="getDateCrossActivityGoodsRows" parameterType="hashmap" resultType="long">
+	
+		SELECT
+			count(cag.id)
+		FROM
+			tb_common_activity_goods_rt cag 
+		WHERE
+			cag.goods_price_id = #{goodsPriceId}
+		AND (
+			!(cag.start_date &gt;= #{endDate} OR cag.end_date &lt;= #{startDate}) 
+			or( cag.start_date &lt;= #{startDate} and cag.end_date &gt;= #{endDate})
+		)
+		)
+		and cag.unit_id = #{unitId}
+		AND cag.status &lt;&gt; -1
+		<if test="op == 'modify'">
+			and cag.id &lt;&gt; #{id}
+		</if>
+	</select>
+	
+	<select id="getDateCrossListMap" parameterType="hashmap" resultMap="dateCrossAcitivityGoodsList">
+		
+		select a.* from (
+		SELECT
+			cag.*, gp.goods_nick_name,
+			gp.goods_number,
+			gt.type_name AS goods_type_name,
+			ca.title
+		FROM
+			tb_common_activity_goods_rt cag
+		JOIN tb_goods_price gp ON cag.goods_price_id = gp.id
+		JOIN tb_goods_type gt ON gt.id = gp.goods_type_id
+		JOIN tb_common_activity ca ON cag.data_id = ca.id
+		AND ca.`status` &lt;&gt; -1 and cag.data_type = 0
+		WHERE
+			cag.goods_price_id = #{goodsPriceId}
+		and cag.unit_id = #{unitId}
+		AND cag.`status` &lt;&gt; -1
+		AND cag.unit_id = gp.unit_id
+		AND (
+			!(cag.start_date &gt;= #{endDate} OR cag.end_date &lt;= #{startDate}) 
+			or( cag.start_date &lt;= #{startDate} and cag.end_date &gt;= #{endDate})
+		)
+		UNION ALL
+		SELECT
+			cag.*, gp.goods_nick_name,
+			gp.goods_number,
+			gt.type_name AS goods_type_name,
+			cs.subject_name as title
+		FROM
+			tb_common_activity_goods_rt cag
+		JOIN tb_goods_price gp ON cag.goods_price_id = gp.id
+		JOIN tb_goods_type gt ON gt.id = gp.goods_type_id
+		JOIN tb_common_subject cs ON cag.data_id = cs.id
+		AND cs.`status`&lt;&gt; -1 and cag.data_type = 1
+		WHERE
+			cag.goods_price_id = #{goodsPriceId}
+		and cag.unit_id = #{unitId}
+		AND cag.`status` &lt;&gt; -1
+		AND cag.unit_id = gp.unit_id
+		AND (
+			!(cag.start_date &gt;= #{endDate} OR cag.end_date &lt;= #{startDate}) 
+			or( cag.start_date &lt;= #{startDate} and cag.end_date &gt;= #{endDate})
+		)
+		) a
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="op == 'modify'">
+				and a.id &lt;&gt; #{id}
+			</if>
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<if test="sortname !=null and sortname !='' ">
+			order by ${sortname}
+			<if test="sortorder !=null and sortorder !='' ">
+				${sortorder} 
+			</if>
+		</if>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	
+	
+	<select id="getDateCrossListRows" parameterType="hashmap" resultType="long">
+		
+		select count(a.id) from (
+		SELECT
+			cag.id
+		FROM
+			tb_common_activity_goods_rt cag
+		JOIN tb_goods_price gp ON cag.goods_price_id = gp.id
+		JOIN tb_goods_type gt ON gt.id = gp.goods_type_id
+		JOIN tb_common_activity ca ON cag.data_id = ca.id
+		AND ca.`status` &lt;&gt; -1 and cag.data_type = 0
+		WHERE
+			cag.goods_price_id = #{goodsPriceId}
+		and cag.unit_id = #{unitId}
+		AND cag.`status` &lt;&gt; -1
+		AND cag.unit_id = gp.unit_id
+		AND (
+			!(cag.start_date &gt;= #{endDate} OR cag.end_date &lt;= #{startDate}) 
+			or( cag.start_date &lt;= #{startDate} and cag.end_date &gt;= #{endDate})
+		)
+		UNION ALL
+		SELECT
+			cag.id
+		FROM
+			tb_common_activity_goods_rt cag
+		JOIN tb_goods_price gp ON cag.goods_price_id = gp.id
+		JOIN tb_goods_type gt ON gt.id = gp.goods_type_id
+		JOIN tb_common_subject cs ON cag.data_id = cs.id
+		AND cs.`status`&lt;&gt; -1 and cag.data_type = 1
+		WHERE
+			cag.goods_price_id = #{goodsPriceId}
+		and cag.unit_id = #{unitId}
+		AND cag.`status` &lt;&gt; -1
+		AND cag.unit_id = gp.unit_id
+		AND (
+			!(cag.start_date &gt;= #{endDate} OR cag.end_date &lt;= #{startDate}) 
+			or( cag.start_date &lt;= #{startDate} and cag.end_date &gt;= #{endDate})
+		)
+		) a
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="op == 'modify'">
+				and a.id &lt;&gt; #{id}
+			</if>
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="getListByDataType" parameterType="hashmap" resultMap="commonactivitygoodsDaoMap">
+		select * from tb_common_activity_goods_rt 
+		where data_id = #{dataId} 
+		and data_type = #{dataType}
+		and status &lt;&gt; -1
+	</select>
+	
+	
+	<select id="getRowsByDataType" parameterType="hashmap" resultType="long">
+		select 
+			count(id) 
+		from 
+			tb_common_activity_goods_rt 
+		where data_id = #{dataId} 
+		and data_type = #{dataType}
+		and status &lt;&gt; -1
+	</select>
+	
+</mapper>

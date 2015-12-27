@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.jxc.dao.IJxcSalesOutboundDao">
+
+	<resultMap type="com.h2y.jxc.entity.JxcSalesOutbound" id="jxcsalesoutboundDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="billNo" column="bill_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="billCustomNo" column="bill_custom_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="outboundDate" column="outbound_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="proceedsDate" column="proceeds_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="customerId" column="customer_id" javaType="long" jdbcType="BIGINT" />
+		<result property="customer" column="customer" javaType="string" jdbcType="VARCHAR" />
+		<result property="storageId" column="storage_id" javaType="long" jdbcType="BIGINT" />
+		<result property="storage" column="storage" javaType="string" jdbcType="VARCHAR" />
+		<result property="storageArea" column="storage_area" javaType="string" jdbcType="VARCHAR" />
+		<result property="brokerId" column="broker_id" javaType="long" jdbcType="BIGINT" />
+		<result property="broker" column="broker" javaType="string" jdbcType="VARCHAR" />
+		<result property="proceedsAccountId" column="proceeds_account_id" javaType="long" jdbcType="BIGINT" />
+		<result property="proceedsAccount" column="proceeds_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="currentProceeds" column="current_proceeds" javaType="double" jdbcType="DOUBLE" />
+		<result property="notes" column="notes" javaType="string" jdbcType="VARCHAR" />
+		<result property="reviseMark" column="revise_mark" javaType="int" jdbcType="INTEGER" />
+		<result property="checkStatus" column="check_status" javaType="int" jdbcType="INTEGER" />
+		<result property="billStatus" column="bill_status" javaType="int" jdbcType="INTEGER" />
+		<result property="totalAmount" column="total_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="discount" column="discount" javaType="double" jdbcType="DOUBLE" />
+		<result property="discountAmount" column="discount_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="receivableAmount" column="receivable_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="billMaker" column="bill_maker" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="zoneCode" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="data1" column="data1" javaType="string" jdbcType="VARCHAR" />
+		<result property="data2" column="data2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data3" javaType="string" jdbcType="VARCHAR" />
+		<result property="data4" column="data4" javaType="string" jdbcType="VARCHAR" />
+		<result property="data5" column="data5" javaType="long" jdbcType="BIGINT" />
+		<result property="data6" column="data6" javaType="long" jdbcType="BIGINT" />
+		<result property="data7" column="data7" javaType="long" jdbcType="BIGINT" />
+		<result property="data8" column="data8" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	
+	<resultMap type="java.util.Map" id="jxcsalesoutboundMapList">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="BILL_NO" column="bill_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="BILL_CUSTOM_NO" column="bill_custom_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="OUTBOUND_DATE" column="outbound_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="PROCEEDS_DATE" column="proceeds_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="CUSTOMER_ID" column="customer_id" javaType="long" jdbcType="BIGINT" />
+		<result property="CUSTOMER" column="customer" javaType="string" jdbcType="VARCHAR" />
+		<result property="STORAGE_ID" column="storage_id" javaType="long" jdbcType="BIGINT" />
+		<result property="STORAGE" column="storage" javaType="string" jdbcType="VARCHAR" />
+		<result property="STORAGE_AREA" column="storage_area" javaType="string" jdbcType="VARCHAR" />
+		<result property="BROKER_ID" column="broker_id" javaType="long" jdbcType="BIGINT" />
+		<result property="BROKER" column="broker" javaType="string" jdbcType="VARCHAR" />
+		<result property="PROCEEDS_ACCOUNT_ID" column="proceeds_account_id" javaType="long" jdbcType="BIGINT" />
+		<result property="PROCEEDS_ACCOUNT" column="proceeds_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="CURRENT_PROCEEDS" column="current_proceeds" javaType="double" jdbcType="DOUBLE" />
+		<result property="NOTES" column="notes" javaType="string" jdbcType="VARCHAR" />
+		<result property="REVISE_MARK" column="revise_mark" javaType="int" jdbcType="INTEGER" />
+		<result property="CHECK_STATUS" column="check_status" javaType="int" jdbcType="INTEGER" />
+		<result property="BILL_STATUS" column="bill_status" javaType="int" jdbcType="INTEGER" />
+		<result property="TOTAL_AMOUNT" column="total_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="DISCOUNT" column="discount" javaType="double" jdbcType="DOUBLE" />
+		<result property="DISCOUNT_AMOUNT" column="discount_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="RECEIVABLE_AMOUNT" column="receivable_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="BILL_MAKER" column="bill_maker" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ZONE_CODE" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+	<select id="getListMap" parameterType="hashmap" resultMap="jxcsalesoutboundMapList">
+		select * from 
+		tb_jxc_sales_outbound
+		<trim prefix="WHERE" prefixOverrides="AND|OR" >
+			1=1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			<choose>
+				<when test="sortname !=null and sortname !=''">
+					order by ${sortname}
+					<if test="sortorder !=null and sortorder !='' ">
+						${sortorder} 
+					</if>
+				</when>
+				<otherwise>
+					order by create_date desc
+				</otherwise>
+			</choose>
+		</trim>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	<select id="getListRows" parameterType="hashMap" resultType="long">
+		select count(*) from 
+		tb_jxc_sales_outbound
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			1=1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	
+	
+	<insert id="add" parameterType="com.h2y.jxc.entity.JxcSalesOutbound">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_jxc_sales_outbound 
+		</selectKey>  
+		insert into tb_jxc_sales_outbound
+		(
+		bill_no,
+		bill_custom_no,
+		outbound_date,
+		proceeds_date,
+		customer_id,
+		customer,
+		storage_id,
+		storage,
+		storage_area,
+		broker_id,
+		broker,
+		proceeds_account_id,
+		proceeds_account,
+		current_proceeds,
+		notes,
+		revise_mark,
+		check_status,
+		bill_status,
+		total_amount,
+		discount,
+		discount_amount,
+		receivable_amount,
+		bill_maker,
+		create_date,
+		zone_code,
+		data1,
+		data2,
+		data3,
+		data4,
+		data5,
+		data6,
+		data7,
+		data8
+		)
+		values (
+		#{billNo,jdbcType=VARCHAR},
+		#{billCustomNo,jdbcType=VARCHAR},
+		#{outboundDate,jdbcType=TIMESTAMP},
+		#{proceedsDate,jdbcType=TIMESTAMP},
+		#{customerId,jdbcType=BIGINT},
+		#{customer,jdbcType=VARCHAR},
+		#{storageId,jdbcType=BIGINT},
+		#{storage,jdbcType=VARCHAR},
+		#{storageArea,jdbcType=VARCHAR},
+		#{brokerId,jdbcType=BIGINT},
+		#{broker,jdbcType=VARCHAR},
+		#{proceedsAccountId,jdbcType=BIGINT},
+		#{proceedsAccount,jdbcType=VARCHAR},
+		#{currentProceeds,jdbcType=DOUBLE},
+		#{notes,jdbcType=VARCHAR},
+		#{reviseMark,jdbcType=INTEGER},
+		#{checkStatus,jdbcType=INTEGER},
+		#{billStatus,jdbcType=INTEGER},
+		#{totalAmount,jdbcType=DOUBLE},
+		#{discount,jdbcType=DOUBLE},
+		#{discountAmount,jdbcType=DOUBLE},
+		#{receivableAmount,jdbcType=DOUBLE},
+		#{billMaker,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{zoneCode,jdbcType=VARCHAR},
+		#{data1,jdbcType=VARCHAR},
+		#{data2,jdbcType=VARCHAR},
+		#{data3,jdbcType=VARCHAR},
+		#{data4,jdbcType=VARCHAR},
+		#{data5,jdbcType=BIGINT},
+		#{data6,jdbcType=BIGINT},
+		#{data7,jdbcType=BIGINT},
+		#{data8,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.jxc.entity.JxcSalesOutbound">
+		update tb_jxc_sales_outbound
+		set
+		bill_no = #{billNo,jdbcType=VARCHAR},
+		bill_custom_no = #{billCustomNo,jdbcType=VARCHAR},
+		outbound_date = #{outboundDate,jdbcType=TIMESTAMP},
+		proceeds_date = #{proceedsDate,jdbcType=TIMESTAMP},
+		customer_id = #{customerId,jdbcType=BIGINT},
+		customer = #{customer,jdbcType=VARCHAR},
+		storage_id = #{storageId,jdbcType=BIGINT},
+		storage = #{storage,jdbcType=VARCHAR},
+		storage_area = #{storageArea,jdbcType=VARCHAR},
+		broker_id = #{brokerId,jdbcType=BIGINT},
+		broker = #{broker,jdbcType=VARCHAR},
+		proceeds_account_id = #{proceedsAccountId,jdbcType=BIGINT},
+		proceeds_account = #{proceedsAccount,jdbcType=VARCHAR},
+		current_proceeds = #{currentProceeds,jdbcType=DOUBLE},
+		notes = #{notes,jdbcType=VARCHAR},
+		revise_mark = #{reviseMark,jdbcType=INTEGER},
+		check_status = #{checkStatus,jdbcType=INTEGER},
+		bill_status = #{billStatus,jdbcType=INTEGER},
+		total_amount = #{totalAmount,jdbcType=DOUBLE},
+		discount = #{discount,jdbcType=DOUBLE},
+		discount_amount = #{discountAmount,jdbcType=DOUBLE},
+		receivable_amount = #{receivableAmount,jdbcType=DOUBLE},
+		bill_maker = #{billMaker,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		zone_code = #{zoneCode,jdbcType=VARCHAR},
+		data1 = #{data1,jdbcType=VARCHAR},
+		data2 = #{data2,jdbcType=VARCHAR},
+		data3 = #{data3,jdbcType=VARCHAR},
+		data4 = #{data4,jdbcType=VARCHAR},
+		data5 = #{data5,jdbcType=BIGINT},
+		data6 = #{data6,jdbcType=BIGINT},
+		data7 = #{data7,jdbcType=BIGINT},
+		data8 = #{data8,jdbcType=BIGINT}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.jxc.entity.JxcSalesOutbound">
+		delete from
+		tb_jxc_sales_outbound
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_jxc_sales_outbound
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_jxc_sales_outbound
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="jxcsalesoutboundDaoMap">
+		select * from tb_jxc_sales_outbound where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.jxc.entity.JxcSalesOutbound"
+		resultMap="jxcsalesoutboundDaoMap">
+		select * from
+		tb_jxc_sales_outbound
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="billNo!= null and billNo!=''">
+			and bill_no = #{billNo}
+			</if>
+			<if test="billCustomNo!= null and billCustomNo!=''">
+			and bill_custom_no = #{billCustomNo}
+			</if>
+			<if test="outboundDate!= null and outboundDate!=''">
+			and outbound_date = #{outboundDate}
+			</if>
+			<if test="proceedsDate!= null and proceedsDate!=''">
+			and proceeds_date = #{proceedsDate}
+			</if>
+			<if test="customerId!= null">
+			and customer_id = #{customerId}
+			</if>
+			<if test="customer!= null and customer!=''">
+			and customer = #{customer}
+			</if>
+			<if test="storageId!= null">
+			and storage_id = #{storageId}
+			</if>
+			<if test="storage!= null and storage!=''">
+			and storage = #{storage}
+			</if>
+			<if test="storageArea!= null and storageArea!=''">
+			and storage_area = #{storageArea}
+			</if>
+			<if test="brokerId!= null">
+			and broker_id = #{brokerId}
+			</if>
+			<if test="broker!= null and broker!=''">
+			and broker = #{broker}
+			</if>
+			<if test="proceedsAccountId!= null">
+			and proceeds_account_id = #{proceedsAccountId}
+			</if>
+			<if test="proceedsAccount!= null and proceedsAccount!=''">
+			and proceeds_account = #{proceedsAccount}
+			</if>
+			<if test="currentProceeds!= null and currentProceeds!=''">
+			and current_proceeds = #{currentProceeds}
+			</if>
+			<if test="notes!= null and notes!=''">
+			and notes = #{notes}
+			</if>
+			<if test="reviseMark!= null">
+			and revise_mark = #{reviseMark}
+			</if>
+			<if test="checkStatus!= null">
+			and check_status = #{checkStatus}
+			</if>
+			<if test="billStatus!= null">
+			and bill_status = #{billStatus}
+			</if>
+			<if test="totalAmount!= null and totalAmount!=''">
+			and total_amount = #{totalAmount}
+			</if>
+			<if test="discount!= null and discount!=''">
+			and discount = #{discount}
+			</if>
+			<if test="discountAmount!= null and discountAmount!=''">
+			and discount_amount = #{discountAmount}
+			</if>
+			<if test="receivableAmount!= null and receivableAmount!=''">
+			and receivable_amount = #{receivableAmount}
+			</if>
+			<if test="billMaker!= null and billMaker!=''">
+			and bill_maker = #{billMaker}
+			</if>
+			<if test="createDate!= null and createDate!=''">
+			and create_date = #{createDate}
+			</if>
+			<if test="zoneCode!= null and zoneCode!=''">
+			and zone_code = #{zoneCode}
+			</if>
+			<if test="data1!= null and data1!=''">
+			and data1 = #{data1}
+			</if>
+			<if test="data2!= null and data2!=''">
+			and data2 = #{data2}
+			</if>
+			<if test="data3!= null and data3!=''">
+			and data3 = #{data3}
+			</if>
+			<if test="data4!= null and data4!=''">
+			and data4 = #{data4}
+			</if>
+			<if test="data5!= null">
+			and data5 = #{data5}
+			</if>
+			<if test="data6!= null">
+			and data6 = #{data6}
+			</if>
+			<if test="data7!= null">
+			and data7 = #{data7}
+			</if>
+			<if test="data8!= null">
+			and data8 = #{data8}
+			</if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="jxcsalesoutboundDaoMap">
+		select
+		*
+		from
+		tb_jxc_sales_outbound
+		<if test="keyJxcSalesOutbound!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keyJxcSalesOutbound.id!= null">
+				and id = #{keyJxcSalesOutbound.id}
+				</if>
+				<if test="keyJxcSalesOutbound.billNo!= null and keyJxcSalesOutbound.billNo!=''">
+				and bill_no = #{keyJxcSalesOutbound.billNo}
+				</if>
+				<if test="keyJxcSalesOutbound.billCustomNo!= null and keyJxcSalesOutbound.billCustomNo!=''">
+				and bill_custom_no = #{keyJxcSalesOutbound.billCustomNo}
+				</if>
+				<if test="keyJxcSalesOutbound.outboundDate!= null and keyJxcSalesOutbound.outboundDate!=''">
+				and outbound_date = #{keyJxcSalesOutbound.outboundDate}
+				</if>
+				<if test="keyJxcSalesOutbound.proceedsDate!= null and keyJxcSalesOutbound.proceedsDate!=''">
+				and proceeds_date = #{keyJxcSalesOutbound.proceedsDate}
+				</if>
+				<if test="keyJxcSalesOutbound.customerId!= null">
+				and customer_id = #{keyJxcSalesOutbound.customerId}
+				</if>
+				<if test="keyJxcSalesOutbound.customer!= null and keyJxcSalesOutbound.customer!=''">
+				and customer = #{keyJxcSalesOutbound.customer}
+				</if>
+				<if test="keyJxcSalesOutbound.storageId!= null">
+				and storage_id = #{keyJxcSalesOutbound.storageId}
+				</if>
+				<if test="keyJxcSalesOutbound.storage!= null and keyJxcSalesOutbound.storage!=''">
+				and storage = #{keyJxcSalesOutbound.storage}
+				</if>
+				<if test="keyJxcSalesOutbound.storageArea!= null and keyJxcSalesOutbound.storageArea!=''">
+				and storage_area = #{keyJxcSalesOutbound.storageArea}
+				</if>
+				<if test="keyJxcSalesOutbound.brokerId!= null">
+				and broker_id = #{keyJxcSalesOutbound.brokerId}
+				</if>
+				<if test="keyJxcSalesOutbound.broker!= null and keyJxcSalesOutbound.broker!=''">
+				and broker = #{keyJxcSalesOutbound.broker}
+				</if>
+				<if test="keyJxcSalesOutbound.proceedsAccountId!= null">
+				and proceeds_account_id = #{keyJxcSalesOutbound.proceedsAccountId}
+				</if>
+				<if test="keyJxcSalesOutbound.proceedsAccount!= null and keyJxcSalesOutbound.proceedsAccount!=''">
+				and proceeds_account = #{keyJxcSalesOutbound.proceedsAccount}
+				</if>
+				<if test="keyJxcSalesOutbound.currentProceeds!= null and keyJxcSalesOutbound.currentProceeds!=''">
+				and current_proceeds = #{keyJxcSalesOutbound.currentProceeds}
+				</if>
+				<if test="keyJxcSalesOutbound.notes!= null and keyJxcSalesOutbound.notes!=''">
+				and notes = #{keyJxcSalesOutbound.notes}
+				</if>
+				<if test="keyJxcSalesOutbound.reviseMark!= null">
+				and revise_mark = #{keyJxcSalesOutbound.reviseMark}
+				</if>
+				<if test="keyJxcSalesOutbound.checkStatus!= null">
+				and check_status = #{keyJxcSalesOutbound.checkStatus}
+				</if>
+				<if test="keyJxcSalesOutbound.billStatus!= null">
+				and bill_status = #{keyJxcSalesOutbound.billStatus}
+				</if>
+				<if test="keyJxcSalesOutbound.totalAmount!= null and keyJxcSalesOutbound.totalAmount!=''">
+				and total_amount = #{keyJxcSalesOutbound.totalAmount}
+				</if>
+				<if test="keyJxcSalesOutbound.discount!= null and keyJxcSalesOutbound.discount!=''">
+				and discount = #{keyJxcSalesOutbound.discount}
+				</if>
+				<if test="keyJxcSalesOutbound.discountAmount!= null and keyJxcSalesOutbound.discountAmount!=''">
+				and discount_amount = #{keyJxcSalesOutbound.discountAmount}
+				</if>
+				<if test="keyJxcSalesOutbound.receivableAmount!= null and keyJxcSalesOutbound.receivableAmount!=''">
+				and receivable_amount = #{keyJxcSalesOutbound.receivableAmount}
+				</if>
+				<if test="keyJxcSalesOutbound.billMaker!= null and keyJxcSalesOutbound.billMaker!=''">
+				and bill_maker = #{keyJxcSalesOutbound.billMaker}
+				</if>
+				<if test="keyJxcSalesOutbound.createDate!= null and keyJxcSalesOutbound.createDate!=''">
+				and create_date = #{keyJxcSalesOutbound.createDate}
+				</if>
+				<if test="keyJxcSalesOutbound.zoneCode!= null and keyJxcSalesOutbound.zoneCode!=''">
+				and zone_code = #{keyJxcSalesOutbound.zoneCode}
+				</if>
+				<if test="keyJxcSalesOutbound.data1!= null and keyJxcSalesOutbound.data1!=''">
+				and data1 = #{keyJxcSalesOutbound.data1}
+				</if>
+				<if test="keyJxcSalesOutbound.data2!= null and keyJxcSalesOutbound.data2!=''">
+				and data2 = #{keyJxcSalesOutbound.data2}
+				</if>
+				<if test="keyJxcSalesOutbound.data3!= null and keyJxcSalesOutbound.data3!=''">
+				and data3 = #{keyJxcSalesOutbound.data3}
+				</if>
+				<if test="keyJxcSalesOutbound.data4!= null and keyJxcSalesOutbound.data4!=''">
+				and data4 = #{keyJxcSalesOutbound.data4}
+				</if>
+				<if test="keyJxcSalesOutbound.data5!= null">
+				and data5 = #{keyJxcSalesOutbound.data5}
+				</if>
+				<if test="keyJxcSalesOutbound.data6!= null">
+				and data6 = #{keyJxcSalesOutbound.data6}
+				</if>
+				<if test="keyJxcSalesOutbound.data7!= null">
+				and data7 = #{keyJxcSalesOutbound.data7}
+				</if>
+				<if test="keyJxcSalesOutbound.data8!= null">
+				and data8 = #{keyJxcSalesOutbound.data8}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_jxc_sales_outbound
+		<if test="keyJxcSalesOutbound!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keyJxcSalesOutbound.id!= null">
+				and id = #{keyJxcSalesOutbound.id}
+				</if>
+				<if test="keyJxcSalesOutbound.billNo!= null and keyJxcSalesOutbound.billNo!=''">
+				and bill_no = #{keyJxcSalesOutbound.billNo}
+				</if>
+				<if test="keyJxcSalesOutbound.billCustomNo!= null and keyJxcSalesOutbound.billCustomNo!=''">
+				and bill_custom_no = #{keyJxcSalesOutbound.billCustomNo}
+				</if>
+				<if test="keyJxcSalesOutbound.outboundDate!= null and keyJxcSalesOutbound.outboundDate!=''">
+				and outbound_date = #{keyJxcSalesOutbound.outboundDate}
+				</if>
+				<if test="keyJxcSalesOutbound.proceedsDate!= null and keyJxcSalesOutbound.proceedsDate!=''">
+				and proceeds_date = #{keyJxcSalesOutbound.proceedsDate}
+				</if>
+				<if test="keyJxcSalesOutbound.customerId!= null">
+				and customer_id = #{keyJxcSalesOutbound.customerId}
+				</if>
+				<if test="keyJxcSalesOutbound.customer!= null and keyJxcSalesOutbound.customer!=''">
+				and customer = #{keyJxcSalesOutbound.customer}
+				</if>
+				<if test="keyJxcSalesOutbound.storageId!= null">
+				and storage_id = #{keyJxcSalesOutbound.storageId}
+				</if>
+				<if test="keyJxcSalesOutbound.storage!= null and keyJxcSalesOutbound.storage!=''">
+				and storage = #{keyJxcSalesOutbound.storage}
+				</if>
+				<if test="keyJxcSalesOutbound.storageArea!= null and keyJxcSalesOutbound.storageArea!=''">
+				and storage_area = #{keyJxcSalesOutbound.storageArea}
+				</if>
+				<if test="keyJxcSalesOutbound.brokerId!= null">
+				and broker_id = #{keyJxcSalesOutbound.brokerId}
+				</if>
+				<if test="keyJxcSalesOutbound.broker!= null and keyJxcSalesOutbound.broker!=''">
+				and broker = #{keyJxcSalesOutbound.broker}
+				</if>
+				<if test="keyJxcSalesOutbound.proceedsAccountId!= null">
+				and proceeds_account_id = #{keyJxcSalesOutbound.proceedsAccountId}
+				</if>
+				<if test="keyJxcSalesOutbound.proceedsAccount!= null and keyJxcSalesOutbound.proceedsAccount!=''">
+				and proceeds_account = #{keyJxcSalesOutbound.proceedsAccount}
+				</if>
+				<if test="keyJxcSalesOutbound.currentProceeds!= null and keyJxcSalesOutbound.currentProceeds!=''">
+				and current_proceeds = #{keyJxcSalesOutbound.currentProceeds}
+				</if>
+				<if test="keyJxcSalesOutbound.notes!= null and keyJxcSalesOutbound.notes!=''">
+				and notes = #{keyJxcSalesOutbound.notes}
+				</if>
+				<if test="keyJxcSalesOutbound.reviseMark!= null">
+				and revise_mark = #{keyJxcSalesOutbound.reviseMark}
+				</if>
+				<if test="keyJxcSalesOutbound.checkStatus!= null">
+				and check_status = #{keyJxcSalesOutbound.checkStatus}
+				</if>
+				<if test="keyJxcSalesOutbound.billStatus!= null">
+				and bill_status = #{keyJxcSalesOutbound.billStatus}
+				</if>
+				<if test="keyJxcSalesOutbound.totalAmount!= null and keyJxcSalesOutbound.totalAmount!=''">
+				and total_amount = #{keyJxcSalesOutbound.totalAmount}
+				</if>
+				<if test="keyJxcSalesOutbound.discount!= null and keyJxcSalesOutbound.discount!=''">
+				and discount = #{keyJxcSalesOutbound.discount}
+				</if>
+				<if test="keyJxcSalesOutbound.discountAmount!= null and keyJxcSalesOutbound.discountAmount!=''">
+				and discount_amount = #{keyJxcSalesOutbound.discountAmount}
+				</if>
+				<if test="keyJxcSalesOutbound.receivableAmount!= null and keyJxcSalesOutbound.receivableAmount!=''">
+				and receivable_amount = #{keyJxcSalesOutbound.receivableAmount}
+				</if>
+				<if test="keyJxcSalesOutbound.billMaker!= null and keyJxcSalesOutbound.billMaker!=''">
+				and bill_maker = #{keyJxcSalesOutbound.billMaker}
+				</if>
+				<if test="keyJxcSalesOutbound.createDate!= null and keyJxcSalesOutbound.createDate!=''">
+				and create_date = #{keyJxcSalesOutbound.createDate}
+				</if>
+				<if test="keyJxcSalesOutbound.zoneCode!= null and keyJxcSalesOutbound.zoneCode!=''">
+				and zone_code = #{keyJxcSalesOutbound.zoneCode}
+				</if>
+				<if test="keyJxcSalesOutbound.data1!= null and keyJxcSalesOutbound.data1!=''">
+				and data1 = #{keyJxcSalesOutbound.data1}
+				</if>
+				<if test="keyJxcSalesOutbound.data2!= null and keyJxcSalesOutbound.data2!=''">
+				and data2 = #{keyJxcSalesOutbound.data2}
+				</if>
+				<if test="keyJxcSalesOutbound.data3!= null and keyJxcSalesOutbound.data3!=''">
+				and data3 = #{keyJxcSalesOutbound.data3}
+				</if>
+				<if test="keyJxcSalesOutbound.data4!= null and keyJxcSalesOutbound.data4!=''">
+				and data4 = #{keyJxcSalesOutbound.data4}
+				</if>
+				<if test="keyJxcSalesOutbound.data5!= null">
+				and data5 = #{keyJxcSalesOutbound.data5}
+				</if>
+				<if test="keyJxcSalesOutbound.data6!= null">
+				and data6 = #{keyJxcSalesOutbound.data6}
+				</if>
+				<if test="keyJxcSalesOutbound.data7!= null">
+				and data7 = #{keyJxcSalesOutbound.data7}
+				</if>
+				<if test="keyJxcSalesOutbound.data8!= null">
+				and data8 = #{keyJxcSalesOutbound.data8}
+				</if>
+			</trim>
+		</if>
+	</select>
+</mapper>

@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.jxc.dao.IJxcBillDetailDao">
+
+	<resultMap type="com.h2y.jxc.entity.JxcBillDetail" id="jxcbilldetailDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="billNo" column="bill_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="storehouseId" column="storehouse_id" javaType="long" jdbcType="BIGINT" />
+		<result property="storehouseName" column="storehouse_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsId" column="goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsNickName" column="goods_nick_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsNumber" column="goods_number" javaType="string" jdbcType="VARCHAR" />
+		<result property="singlePrice" column="single_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="goodsCount" column="goods_count" javaType="int" jdbcType="INTEGER" />
+		<result property="totalAmount" column="total_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="notes" column="notes" javaType="string" jdbcType="VARCHAR" />
+		<result property="data1" column="data1" javaType="int" jdbcType="INTEGER" />
+		<result property="data2" column="data2" javaType="double" jdbcType="DOUBLE" />
+		<result property="data3" column="data3" javaType="double" jdbcType="DOUBLE" />
+		<result property="data4" column="data4" javaType="string" jdbcType="VARCHAR" />
+		<result property="data5" column="data5" javaType="string" jdbcType="VARCHAR" />
+		<result property="data6" column="data6" javaType="string" jdbcType="VARCHAR" />
+		<result property="data7" column="data7" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="billGoodsListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="BILL_NO" column="bill_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="STOREHOUSE_ID" column="storehouse_id" javaType="long" jdbcType="BIGINT" />
+		<result property="STOREHOUSE_NAME" column="storehouse_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="GOODS_ID" column="goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="GOODS_NICK_NAME" column="goods_nick_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="GOODS_NUMBER" column="goods_number" javaType="string" jdbcType="VARCHAR" />
+		<result property="SINGLE_PRICE" column="single_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="GOODS_COUNT" column="goods_count" javaType="int" jdbcType="INTEGER" />
+		<result property="TOTAL_AMOUNT" column="total_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="NOTES" column="notes" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="getBillGoodsList" parameterType="hashmap" resultMap="billGoodsListMap">
+		select id,bill_no,storehouse_id,storehouse_name,goods_id,goods_nick_name,goods_number,single_price,goods_count,total_amount,create_date,notes 
+		from tb_jxc_bill_detail 
+		where bill_no = #{billNo,jdbcType=VARCHAR}; 
+	</select>
+	
+	<select id="getBillGoodsDetailList" parameterType="hashmap" resultMap="jxcbilldetailDaoMap">
+		select * from tb_jxc_bill_detail 
+		where bill_no = #{billNo,jdbcType=VARCHAR}; 
+	</select>
+	
+	<insert id="add" parameterType="com.h2y.jxc.entity.JxcBillDetail">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_jxc_bill_detail 
+		</selectKey>  
+		insert into tb_jxc_bill_detail
+		(
+		bill_no,
+		storehouse_id,
+		storehouse_name,
+		goods_id,
+		goods_nick_name,
+		goods_number,
+		single_price,
+		goods_count,
+		total_amount,
+		create_date,
+		notes,
+		data1,
+		data2,
+		data3,
+		data4,
+		data5,
+		data6,
+		data7
+		)
+		values (
+		#{billNo,jdbcType=VARCHAR},
+		#{storehouseId,jdbcType=BIGINT},
+		#{storehouseName,jdbcType=VARCHAR},
+		#{goodsId,jdbcType=BIGINT},
+		#{goodsNickName,jdbcType=VARCHAR},
+		#{goodsNumber,jdbcType=VARCHAR},
+		#{singlePrice,jdbcType=DOUBLE},
+		#{goodsCount,jdbcType=INTEGER},
+		#{totalAmount,jdbcType=DOUBLE},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{notes,jdbcType=VARCHAR},
+		#{data1,jdbcType=INTEGER},
+		#{data2,jdbcType=DOUBLE},
+		#{data3,jdbcType=DOUBLE},
+		#{data4,jdbcType=VARCHAR},
+		#{data5,jdbcType=VARCHAR},
+		#{data6,jdbcType=VARCHAR},
+		#{data7,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.jxc.entity.JxcBillDetail">
+		update tb_jxc_bill_detail
+		set
+		bill_no = #{billNo,jdbcType=VARCHAR},
+		storehouse_id = #{storehouseId,jdbcType=BIGINT},
+		storehouse_name = #{storehouseName,jdbcType=VARCHAR},
+		goods_id = #{goodsId,jdbcType=BIGINT},
+		goods_nick_name = #{goodsNickName,jdbcType=VARCHAR},
+		goods_number = #{goodsNumber,jdbcType=VARCHAR},
+		single_price = #{singlePrice,jdbcType=DOUBLE},
+		goods_count = #{goodsCount,jdbcType=INTEGER},
+		total_amount = #{totalAmount,jdbcType=DOUBLE},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		notes = #{notes,jdbcType=VARCHAR},
+		data1 = #{data1,jdbcType=INTEGER},
+		data2 = #{data2,jdbcType=DOUBLE},
+		data3 = #{data3,jdbcType=DOUBLE},
+		data4 = #{data4,jdbcType=VARCHAR},
+		data5 = #{data5,jdbcType=VARCHAR},
+		data6 = #{data6,jdbcType=VARCHAR},
+		data7 = #{data7,jdbcType=INTEGER}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.jxc.entity.JxcBillDetail">
+		delete from
+		tb_jxc_bill_detail
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_jxc_bill_detail
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_jxc_bill_detail
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="jxcbilldetailDaoMap">
+		select * from tb_jxc_bill_detail where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.jxc.entity.JxcBillDetail"
+		resultMap="jxcbilldetailDaoMap">
+		select * from
+		tb_jxc_bill_detail
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="billNo!= null and billNo!=''">
+			and bill_no = #{billNo}
+			</if>
+			<if test="storehouseId!= null">
+			and storehouse_id = #{storehouseId}
+			</if>
+			<if test="storehouseName!= null and storehouseName!=''">
+			and storehouse_name = #{storehouseName}
+			</if>
+			<if test="goodsId!= null">
+			and goods_id = #{goodsId}
+			</if>
+			<if test="goodsNickName!= null and goodsNickName!=''">
+			and goods_nick_name = #{goodsNickName}
+			</if>
+			<if test="goodsNumber!= null and goodsNumber!=''">
+			and goods_number = #{goodsNumber}
+			</if>
+			<if test="singlePrice!= null and singlePrice!=''">
+			and single_price = #{singlePrice}
+			</if>
+			<if test="goodsCount!= null">
+			and goods_count = #{goodsCount}
+			</if>
+			<if test="totalAmount!= null and totalAmount!=''">
+			and total_amount = #{totalAmount}
+			</if>
+			<if test="createDate!= null and createDate!=''">
+			and create_date = #{createDate}
+			</if>
+			<if test="notes!= null and notes!=''">
+			and notes = #{notes}
+			</if>
+			<if test="data1!= null">
+			and data1 = #{data1}
+			</if>
+			<if test="data2!= null and data2!=''">
+			and data2 = #{data2}
+			</if>
+			<if test="data3!= null and data3!=''">
+			and data3 = #{data3}
+			</if>
+			<if test="data4!= null and data4!=''">
+			and data4 = #{data4}
+			</if>
+			<if test="data5!= null and data5!=''">
+			and data5 = #{data5}
+			</if>
+			<if test="data6!= null and data6!=''">
+			and data6 = #{data6}
+			</if>
+			<if test="data7!= null">
+			and data7 = #{data7}
+			</if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="jxcbilldetailDaoMap">
+		select
+		*
+		from
+		tb_jxc_bill_detail
+		<if test="keyJxcBillDetail!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keyJxcBillDetail.id!= null">
+				and id = #{keyJxcBillDetail.id}
+				</if>
+				<if test="keyJxcBillDetail.billNo!= null and keyJxcBillDetail.billNo!=''">
+				and bill_no = #{keyJxcBillDetail.billNo}
+				</if>
+				<if test="keyJxcBillDetail.storehouseId!= null">
+				and storehouse_id = #{keyJxcBillDetail.storehouseId}
+				</if>
+				<if test="keyJxcBillDetail.storehouseName!= null and keyJxcBillDetail.storehouseName!=''">
+				and storehouse_name = #{keyJxcBillDetail.storehouseName}
+				</if>
+				<if test="keyJxcBillDetail.goodsId!= null">
+				and goods_id = #{keyJxcBillDetail.goodsId}
+				</if>
+				<if test="keyJxcBillDetail.goodsNickName!= null and keyJxcBillDetail.goodsNickName!=''">
+				and goods_nick_name = #{keyJxcBillDetail.goodsNickName}
+				</if>
+				<if test="keyJxcBillDetail.goodsNumber!= null and keyJxcBillDetail.goodsNumber!=''">
+				and goods_number = #{keyJxcBillDetail.goodsNumber}
+				</if>
+				<if test="keyJxcBillDetail.singlePrice!= null and keyJxcBillDetail.singlePrice!=''">
+				and single_price = #{keyJxcBillDetail.singlePrice}
+				</if>
+				<if test="keyJxcBillDetail.goodsCount!= null">
+				and goods_count = #{keyJxcBillDetail.goodsCount}
+				</if>
+				<if test="keyJxcBillDetail.totalAmount!= null and keyJxcBillDetail.totalAmount!=''">
+				and total_amount = #{keyJxcBillDetail.totalAmount}
+				</if>
+				<if test="keyJxcBillDetail.createDate!= null and keyJxcBillDetail.createDate!=''">
+				and create_date = #{keyJxcBillDetail.createDate}
+				</if>
+				<if test="keyJxcBillDetail.notes!= null and keyJxcBillDetail.notes!=''">
+				and notes = #{keyJxcBillDetail.notes}
+				</if>
+				<if test="keyJxcBillDetail.data1!= null">
+				and data1 = #{keyJxcBillDetail.data1}
+				</if>
+				<if test="keyJxcBillDetail.data2!= null and keyJxcBillDetail.data2!=''">
+				and data2 = #{keyJxcBillDetail.data2}
+				</if>
+				<if test="keyJxcBillDetail.data3!= null and keyJxcBillDetail.data3!=''">
+				and data3 = #{keyJxcBillDetail.data3}
+				</if>
+				<if test="keyJxcBillDetail.data4!= null and keyJxcBillDetail.data4!=''">
+				and data4 = #{keyJxcBillDetail.data4}
+				</if>
+				<if test="keyJxcBillDetail.data5!= null and keyJxcBillDetail.data5!=''">
+				and data5 = #{keyJxcBillDetail.data5}
+				</if>
+				<if test="keyJxcBillDetail.data6!= null and keyJxcBillDetail.data6!=''">
+				and data6 = #{keyJxcBillDetail.data6}
+				</if>
+				<if test="keyJxcBillDetail.data7!= null">
+				and data7 = #{keyJxcBillDetail.data7}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_jxc_bill_detail
+		<if test="keyJxcBillDetail!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keyJxcBillDetail.id!= null">
+				and id = #{keyJxcBillDetail.id}
+				</if>
+				<if test="keyJxcBillDetail.billNo!= null and keyJxcBillDetail.billNo!=''">
+				and bill_no = #{keyJxcBillDetail.billNo}
+				</if>
+				<if test="keyJxcBillDetail.storehouseId!= null">
+				and storehouse_id = #{keyJxcBillDetail.storehouseId}
+				</if>
+				<if test="keyJxcBillDetail.storehouseName!= null and keyJxcBillDetail.storehouseName!=''">
+				and storehouse_name = #{keyJxcBillDetail.storehouseName}
+				</if>
+				<if test="keyJxcBillDetail.goodsId!= null">
+				and goods_id = #{keyJxcBillDetail.goodsId}
+				</if>
+				<if test="keyJxcBillDetail.goodsNickName!= null and keyJxcBillDetail.goodsNickName!=''">
+				and goods_nick_name = #{keyJxcBillDetail.goodsNickName}
+				</if>
+				<if test="keyJxcBillDetail.goodsNumber!= null and keyJxcBillDetail.goodsNumber!=''">
+				and goods_number = #{keyJxcBillDetail.goodsNumber}
+				</if>
+				<if test="keyJxcBillDetail.singlePrice!= null and keyJxcBillDetail.singlePrice!=''">
+				and single_price = #{keyJxcBillDetail.singlePrice}
+				</if>
+				<if test="keyJxcBillDetail.goodsCount!= null">
+				and goods_count = #{keyJxcBillDetail.goodsCount}
+				</if>
+				<if test="keyJxcBillDetail.totalAmount!= null and keyJxcBillDetail.totalAmount!=''">
+				and total_amount = #{keyJxcBillDetail.totalAmount}
+				</if>
+				<if test="keyJxcBillDetail.createDate!= null and keyJxcBillDetail.createDate!=''">
+				and create_date = #{keyJxcBillDetail.createDate}
+				</if>
+				<if test="keyJxcBillDetail.notes!= null and keyJxcBillDetail.notes!=''">
+				and notes = #{keyJxcBillDetail.notes}
+				</if>
+				<if test="keyJxcBillDetail.data1!= null">
+				and data1 = #{keyJxcBillDetail.data1}
+				</if>
+				<if test="keyJxcBillDetail.data2!= null and keyJxcBillDetail.data2!=''">
+				and data2 = #{keyJxcBillDetail.data2}
+				</if>
+				<if test="keyJxcBillDetail.data3!= null and keyJxcBillDetail.data3!=''">
+				and data3 = #{keyJxcBillDetail.data3}
+				</if>
+				<if test="keyJxcBillDetail.data4!= null and keyJxcBillDetail.data4!=''">
+				and data4 = #{keyJxcBillDetail.data4}
+				</if>
+				<if test="keyJxcBillDetail.data5!= null and keyJxcBillDetail.data5!=''">
+				and data5 = #{keyJxcBillDetail.data5}
+				</if>
+				<if test="keyJxcBillDetail.data6!= null and keyJxcBillDetail.data6!=''">
+				and data6 = #{keyJxcBillDetail.data6}
+				</if>
+				<if test="keyJxcBillDetail.data7!= null">
+				and data7 = #{keyJxcBillDetail.data7}
+				</if>
+			</trim>
+		</if>
+	</select>
+</mapper>

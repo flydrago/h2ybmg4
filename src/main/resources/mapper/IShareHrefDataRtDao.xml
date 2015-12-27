@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IShareHrefDataRtDao">
+
+	<resultMap type="com.h2y.bmg.entity.ShareHrefDataRt" id="sharehrefdatartDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="hrefId" column="href_id" javaType="long" jdbcType="BIGINT" />
+		<result property="dataId" column="data_id" javaType="long" jdbcType="BIGINT" />
+		<result property="ord" column="ord" javaType="int" jdbcType="INTEGER" />
+		<result property="str1" column="str_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="str2" column="str_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="str3" column="str_3" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<insert id="add" parameterType="com.h2y.bmg.entity.ShareHrefDataRt">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_share_href_data_rt 
+		</selectKey>  
+		insert into tb_share_href_data_rt
+		(
+		href_id,
+		data_id,
+		ord,
+		str_1,
+		str_2,
+		str_3
+		)
+		values (
+		#{hrefId,jdbcType=BIGINT},
+		#{dataId,jdbcType=BIGINT},
+		#{ord,jdbcType=INTEGER},
+		#{str1,jdbcType=VARCHAR},
+		#{str2,jdbcType=VARCHAR},
+		#{str3,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.ShareHrefDataRt">
+		update tb_share_href_data_rt
+		set
+		href_id = #{hrefId,jdbcType=BIGINT},
+		data_id = #{dataId,jdbcType=BIGINT},
+		ord = #{ord,jdbcType=INTEGER},
+		str_1 = #{str1,jdbcType=VARCHAR},
+		str_2 = #{str2,jdbcType=VARCHAR},
+		str_3 = #{str3,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.ShareHrefDataRt">
+		delete from
+		tb_share_href_data_rt
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_share_href_data_rt
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_share_href_data_rt
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="sharehrefdatartDaoMap">
+		select * from tb_share_href_data_rt where id = #{id}
+	</select>
+	
+	
+	<select id="getListMap" parameterType="hashmap"	resultType="hashmap">
+		select rt.*,t.title,f.name,f.title as href_title from
+		tb_share_href_data_rt rt,tb_promote_activity t,tb_share_href f
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			rt.href_id = #{hrefId}
+			and rt.data_id = t.id
+			and t.promote_status  &lt;&gt; -1
+			and f.href_status = 0
+			and f.id = rt.href_id
+			and rt.str_1='promote'
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by rt.ord desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select
+			count(rt.id)
+		from
+		tb_share_href_data_rt rt,tb_promote_activity t,tb_share_href f
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			rt.href_id = #{hrefId}
+			and rt.data_id = t.id
+			and t.promote_status &lt;&gt; -1
+			and f.href_status = 0
+			and f.id = rt.href_id
+			and rt.str_1='promote'
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			
+		</trim>
+	</select>
+	
+	
+	<select id="getVoteList" parameterType="hashmap"	resultType="hashmap">
+		select rt.*,t.subject_name,f.name,f.title as href_title,t.start_date,t.end_date
+		from tb_share_href_data_rt rt,tb_vote_subject t,tb_share_href f
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			rt.href_id = #{hrefId}
+			and rt.data_id = t.id
+			and t.subject_status &lt;&gt; -1
+			and f.href_status = 0
+			and f.id = rt.href_id
+			and rt.str_1='vote'
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by rt.id desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	
+
+	<select id="getVoteListRows" parameterType="hashmap" resultType="long">
+		select
+			count(rt.id)
+		from
+		tb_share_href_data_rt rt,tb_vote_subject t,tb_share_href f
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			rt.href_id = #{hrefId}
+			and rt.data_id = t.id
+			and t.subject_status &lt;&gt; -1
+			and f.href_status = 0
+			and f.id = rt.href_id
+			and rt.str_1='vote'
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			
+		</trim>
+	</select>
+	
+	
+	
+	<!-- 获取活动列表  分享链接关联窗口 -->
+	<select id="getVoteSelectList" parameterType="hashmap"	resultType="hashmap">
+		select v.* from
+		tb_vote_subject v		 
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			v.subject_status &lt;&gt; -1
+			and v.unit_id = #{unitId}
+			and  v.id not in (
+				select rt.data_id from tb_share_href_data_rt rt,tb_share_href h where h.id=rt.href_id and h.href_status &lt;&gt; -1 and rt.str_1='vote'
+			)
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by v.id desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	
+
+	<select id="getVoteSelectListRows" parameterType="hashmap" resultType="long">
+		select
+			count(v.id) from
+		tb_vote_subject v		 
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			v.subject_status &lt;&gt; -1
+			and v.unit_id = #{unitId}
+			and  v.id not in (
+				select rt.data_id from tb_share_href_data_rt rt,tb_share_href h where h.id=rt.href_id and h.href_status &lt;&gt; -1 and rt.str_1='vote'
+			)
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			
+		</trim>
+	</select>
+
+	
+</mapper>

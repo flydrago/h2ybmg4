@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ITraceNumberSectionDao">
+
+	<resultMap type="com.h2y.bmg.entity.TraceNumberSection" id="tracenumbersectionDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="fromId" column="from_id" javaType="long" jdbcType="BIGINT" />
+		<result property="toId" column="to_id" javaType="long" jdbcType="BIGINT" />
+		<result property="parentId" column="parent_id" javaType="long" jdbcType="BIGINT" />
+		<result property="startNo" column="start_no" javaType="long" jdbcType="BIGINT" />
+		<result property="endNo" column="end_no" javaType="long" jdbcType="BIGINT" />
+		<result property="spec" column="spec" javaType="int" jdbcType="INTEGER" />
+		<result property="ifReceive" column="if_receive" javaType="int" jdbcType="INTEGER" />
+		<result property="ifEnable" column="if_enable" javaType="int" jdbcType="INTEGER" />
+		<result property="ifCreate" column="if_create" javaType="int" jdbcType="INTEGER" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="optUserId" column="opt_user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="optUserAccount" column="opt_user_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="optUserName" column="opt_user_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="optFlag" column="opt_flag" javaType="int" jdbcType="INTEGER" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="data1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="data2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="tracenumbersectionDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="FROM_ID" column="from_id" javaType="long" jdbcType="BIGINT" />
+		<result property="TO_ID" column="to_id" javaType="long" jdbcType="BIGINT" />
+		<result property="PARENT_ID" column="parent_id" javaType="long" jdbcType="BIGINT" />
+		<result property="START_NO" column="start_no" javaType="long" jdbcType="BIGINT" />
+		<result property="END_NO" column="end_no" javaType="long" jdbcType="BIGINT" />
+		<result property="SPEC" column="spec" javaType="int" jdbcType="INTEGER" />
+		<result property="IF_RECEIVE" column="if_receive" javaType="int" jdbcType="INTEGER" />
+		<result property="IF_ENABLE" column="if_enable" javaType="int" jdbcType="INTEGER" />
+		<result property="IF_CREATE" column="if_create" javaType="int" jdbcType="INTEGER" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="OPT_USER_ID" column="opt_user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="OPT_USER_ACCOUNT" column="opt_user_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="OPT_USER_NAME" column="opt_user_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="OPT_FLAG" column="opt_flag" javaType="int" jdbcType="INTEGER" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="sysunitsDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_CODE" column="unit_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="PARENT_ID" column="parent_id" javaType="long" jdbcType="BIGINT" />
+		<result property="ZONE_CODE" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="UNIT_DOMAIN" column="unit_domain" javaType="string" jdbcType="VARCHAR" />
+		<result property="UNIT_NAME" column="unit_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="SHORT_NAME" column="short_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="REG_DATE" column="reg_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="STOP_DATE" column="stop_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="USER_COUNT" column="user_count" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_STATUS" column="unit_status" javaType="string" jdbcType="VARCHAR" />
+		<result property="ADMIN_URL" column="admin_url" javaType="string" jdbcType="VARCHAR" />
+		<result property="PORTAL_URL" column="portal_url" javaType="string" jdbcType="VARCHAR" />
+		<result property="UNIT_ADDRESS" column="unit_address" javaType="string" jdbcType="VARCHAR" />
+		<result property="TEL_AREA_CODE" column="tel_area_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="TEL" column="tel" javaType="string" jdbcType="VARCHAR" />
+		<result property="TELSERVICE" column="tel_service" javaType="string" jdbcType="VARCHAR" />
+		<result property="FAX" column="fax" javaType="string" jdbcType="VARCHAR" />
+		<result property="LEGAL_PERSON" column="legal_person" javaType="string" jdbcType="VARCHAR" />
+		<result property="LEGAL_PERSON_MOBILE" column="legal_person_mobile" javaType="string" jdbcType="VARCHAR" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="UNIT_TYPE" column="unit_type" javaType="int" jdbcType="INTEGER" />
+		<result property="S3UCODE" column="s3ucode" javaType="string" jdbcType="VARCHAR" />
+		<result property="S3UNAME" column="s3uname" javaType="string" jdbcType="VARCHAR" />
+		<result property="S3CREATEDATE" column="s3createdate" javaType="date" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="traceprovideritemDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="PROVIDER_NAME" column="provider_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="LEGAL_USER" column="legal_user" javaType="string" jdbcType="VARCHAR" />
+		<result property="CONTACT_TELEPHONE" column="contact_telephone" javaType="string" jdbcType="VARCHAR" />
+		<result property="COMPANY_ADDRESS" column="company_address" javaType="string" jdbcType="VARCHAR" />
+		<result property="BENEFICIARY_ACCOUNT" column="beneficiary_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="UPDATE_DATE" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="OPT_USER_ID" column="opt_user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="OPT_USER_ACCOUNT" column="opt_user_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="OPT_USER_NAME" column="opt_user_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="IF_ENABLE" column="if_enable" javaType="int" jdbcType="INTEGER" />
+		<result property="PARENT_ID" column="parent_id" javaType="long" jdbcType="BIGINT" />
+		<result property="ZONE_CODE" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.TraceNumberSection">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_trace_number_section 
+		</selectKey>  
+		insert into tb_trace_number_section
+		(
+		from_id,
+		to_id,
+		parent_id,
+		start_no,
+		end_no,
+		spec,
+		if_receive,
+		if_enable,
+		if_create,
+		create_date,
+		opt_user_id,
+		opt_user_account,
+		opt_user_name,
+		opt_flag,
+		memo,
+		data_1,
+		data_2,
+		data_3
+		)
+		values (
+		#{fromId,jdbcType=BIGINT},
+		#{toId,jdbcType=BIGINT},
+		#{parentId,jdbcType=BIGINT},
+		#{startNo,jdbcType=BIGINT},
+		#{endNo,jdbcType=BIGINT},
+		#{spec,jdbcType=INTEGER},
+		#{ifReceive,jdbcType=INTEGER},
+		#{ifEnable,jdbcType=INTEGER},
+		#{ifCreate,jdbcType=INTEGER},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{optUserId,jdbcType=BIGINT},
+		#{optUserAccount,jdbcType=VARCHAR},
+		#{optUserName,jdbcType=VARCHAR},
+		#{optFlag,jdbcType=INTEGER},
+		#{memo,jdbcType=VARCHAR},
+		#{data1,jdbcType=VARCHAR},
+		#{data2,jdbcType=VARCHAR},
+		#{data3,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<update id="update" parameterType="com.h2y.bmg.entity.TraceNumberSection">
+		update tb_trace_number_section
+		set
+		from_id = #{fromId,jdbcType=BIGINT},
+		to_id = #{toId,jdbcType=BIGINT},
+		parent_id = #{parentId,jdbcType=BIGINT},
+		start_no = #{startNo,jdbcType=BIGINT},
+		end_no = #{endNo,jdbcType=BIGINT},
+		spec = #{spec,jdbcType=INTEGER},
+		if_receive = #{ifReceive,jdbcType=INTEGER},
+		if_enable = #{ifEnable,jdbcType=INTEGER},
+		if_create = #{ifCreate,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		opt_user_id = #{optUserId,jdbcType=BIGINT},
+		opt_user_account = #{optUserAccount,jdbcType=VARCHAR},
+		opt_user_name = #{optUserName,jdbcType=VARCHAR},
+		opt_flag = #{optFlag,jdbcType=INTEGER},
+		memo = #{memo,jdbcType=VARCHAR},
+		data_1 = #{data1,jdbcType=VARCHAR},
+		data_2 = #{data2,jdbcType=VARCHAR},
+		data_3 = #{data3,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.TraceNumberSection">
+		delete from
+		tb_trace_number_section
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_trace_number_section
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_trace_number_section
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="Long"
+		resultMap="tracenumbersectionDaoMap">
+		select * from tb_trace_number_section where id = #{id}
+	</select>
+	
+	<select id="getSelectProvinceListMap" parameterType="hashmap"
+		resultMap="sysunitsDaoListMap">
+		select * from tb_sys_units 
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="unitType != null">
+			and unit_type = #{unitType}
+			</if>
+	    </trim>
+	    limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	<select id="getSelectProvinceRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_sys_units
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="unitType != null">
+			and unit_type = #{unitType}
+			</if>
+	    </trim>
+	</select>
+	<select id="getSelectProviderListMap" parameterType="hashmap" resultMap="traceprovideritemDaoListMap">
+		select
+		* from
+		tb_trace_provider_item
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="parentId != null">
+			and parent_id = #{parentId}
+			</if>
+	    </trim>
+	    limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	<select id="getSelectProviderRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_trace_provider_item
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="parentId != null">
+			and parent_id = #{parentId}
+			</if>
+	    </trim>
+	</select>
+	
+	<select id="getList" parameterType="com.h2y.bmg.entity.TraceNumberSection"
+		resultMap="tracenumbersectionDaoMap">
+		select * from
+		tb_trace_number_section
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="fromId!= null">
+			and from_id = #{fromId}
+			</if>
+			<if test="toId!= null">
+			and to_id = #{toId}
+			</if>
+			<if test="parentId!= null">
+			and parent_id = #{parentId}
+			</if>
+			<if test="startNo!= null">
+			and start_no = #{startNo}
+			</if>
+			<if test="endNo!= null">
+			and end_no = #{endNo}
+			</if>
+			<if test="spec!= null">
+			and spec = #{spec}
+			</if>
+			<if test="ifReceive!= null">
+			and if_receive = #{ifReceive}
+			</if>
+			<if test="ifEnable!= null">
+			and if_enable = #{ifEnable}
+			</if>
+			<if test="ifCreate!= null">
+			and if_create = #{ifCreate}
+			</if>
+			<if test="createDate!= null and createDate!=''">
+			and create_date = #{createDate}
+			</if>
+			<if test="optUserId!= null">
+			and opt_user_id = #{optUserId}
+			</if>
+			<if test="optUserAccount!= null and optUserAccount!=''">
+			and opt_user_account = #{optUserAccount}
+			</if>
+			<if test="optUserName!= null and optUserName!=''">
+			and opt_user_name = #{optUserName}
+			</if>
+			<if test="optFlag!= null">
+			and opt_flag = #{optFlag}
+			</if>
+			<if test="memo!= null and memo!=''">
+			and memo = #{memo}
+			</if>
+			<if test="data1!= null and data1!=''">
+			and data_1 = #{data1}
+			</if>
+			<if test="data2!= null and data2!=''">
+			and data_2 = #{data2}
+			</if>
+			<if test="data3!= null and data3!=''">
+			and data_3 = #{data3}
+			</if>
+		</trim>
+
+	</select>
+
+
+	<select id="getListByPage" parameterType="hashmap" resultMap="tracenumbersectionDaoListMap">
+		select
+		*
+		from
+		tb_trace_number_section
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="parentId!= null">
+			and parent_id = #{parentId}
+			</if>
+			<if test="fromId!= null">
+			and from_id = #{fromId}
+			</if>
+			<if test="toId!= null">
+			and to_id = #{toId}
+			</if>
+			<if test="ifReceive!= null">
+			and if_receive = #{ifReceive}
+			</if>
+			<if test="ifEnable!= null">
+			and if_enable = #{ifEnable}
+			</if>
+			<if test="ifCreate!= null">
+			and if_create = #{ifCreate}
+			</if>
+			
+			<if test="optFlag!= null">
+			and opt_flag = #{optFlag}
+			</if>
+			<if test="ifQuery != null and ifQuery != ''">
+			and ${ifQuery}
+			</if>
+			
+		</trim>
+		limit ${(page-1)*pagesize},${pagesize}
+		
+	</select>
+
+	<select id="getListData" parameterType="hashmap"
+		resultMap="tracenumbersectionDaoMap">
+		select * from
+		tb_trace_number_section  ns
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="parentId != null">
+			and parent_id = #{parentId}
+			</if>
+			<if test="spec != null">
+			and spec = #{spec}
+			</if>
+			<if test="ifReceive != null">
+			and if_receive = #{ifReceive}
+			</if>
+			<if test="ifEnable != null">
+			and if_enable = #{ifEnable}
+			</if>
+			<if test="ifCreate != null">
+			and if_create = #{ifCreate}
+			</if>
+			
+			<if test="optFlag != null">
+			and opt_flag = #{optFlag}
+			</if>
+			
+		</trim>
+		order by ns.start_no asc
+	</select>
+
+	<select id="getListPage" parameterType="hashmap" resultMap="tracenumbersectionDaoMap">
+		select
+		*
+		from
+		tb_trace_number_section
+		<if test="keyTraceNumberSection!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keyTraceNumberSection.id!= null">
+				and id = #{keyTraceNumberSection.id}
+				</if>
+				<if test="keyTraceNumberSection.fromId!= null">
+				and from_id = #{keyTraceNumberSection.fromId}
+				</if>
+				<if test="keyTraceNumberSection.toId!= null">
+				and to_id = #{keyTraceNumberSection.toId}
+				</if>
+				<if test="keyTraceNumberSection.parentId!= null">
+				and parent_id = #{keyTraceNumberSection.parentId}
+				</if>
+				<if test="keyTraceNumberSection.startNo!= null">
+				and start_no = #{keyTraceNumberSection.startNo}
+				</if>
+				<if test="keyTraceNumberSection.endNo!= null">
+				and end_no = #{keyTraceNumberSection.endNo}
+				</if>
+				<if test="keyTraceNumberSection.spec!= null">
+				and spec = #{keyTraceNumberSection.spec}
+				</if>
+				<if test="keyTraceNumberSection.ifReceive!= null">
+				and if_receive = #{keyTraceNumberSection.ifReceive}
+				</if>
+				<if test="keyTraceNumberSection.ifEnable!= null">
+				and if_enable = #{keyTraceNumberSection.ifEnable}
+				</if>
+				<if test="keyTraceNumberSection.ifCreate!= null">
+				and if_create = #{keyTraceNumberSection.ifCreate}
+				</if>
+				<if test="keyTraceNumberSection.createDate!= null and keyTraceNumberSection.createDate!=''">
+				and create_date = #{keyTraceNumberSection.createDate}
+				</if>
+				<if test="keyTraceNumberSection.optUserId!= null">
+				and opt_user_id = #{keyTraceNumberSection.optUserId}
+				</if>
+				<if test="keyTraceNumberSection.optUserAccount!= null and keyTraceNumberSection.optUserAccount!=''">
+				and opt_user_account = #{keyTraceNumberSection.optUserAccount}
+				</if>
+				<if test="keyTraceNumberSection.optUserName!= null and keyTraceNumberSection.optUserName!=''">
+				and opt_user_name = #{keyTraceNumberSection.optUserName}
+				</if>
+				<if test="keyTraceNumberSection.optFlag!= null">
+				and opt_flag = #{keyTraceNumberSection.optFlag}
+				</if>
+				<if test="keyTraceNumberSection.memo!= null and keyTraceNumberSection.memo!=''">
+				and memo = #{keyTraceNumberSection.memo}
+				</if>
+				<if test="keyTraceNumberSection.data1!= null and keyTraceNumberSection.data1!=''">
+				and data_1 = #{keyTraceNumberSection.data1}
+				</if>
+				<if test="keyTraceNumberSection.data2!= null and keyTraceNumberSection.data2!=''">
+				and data_2 = #{keyTraceNumberSection.data2}
+				</if>
+				<if test="keyTraceNumberSection.data3!= null and keyTraceNumberSection.data3!=''">
+				and data_3 = #{keyTraceNumberSection.data3}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(id) from
+		tb_trace_number_section
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="parentId!= null">
+			and parent_id = #{parentId}
+			</if>
+			<if test="ifReceive!= null">
+			and if_receive = #{ifReceive}
+			</if>
+			<if test="ifEnable!= null">
+			and if_enable = #{ifEnable}
+			</if>
+			<if test="ifCreate!= null">
+			and if_create = #{ifCreate}
+			</if>
+			
+			<if test="optFlag!= null">
+			and opt_flag = #{optFlag}
+			</if>
+			<if test="ifQuery != null and ifQuery != ''">
+			and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+</mapper>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ICommonActivityGoodsRtHisDao">
+
+	<resultMap type="com.h2y.bmg.entity.CommonActivityGoodsRtHis" id="commonactivitygoodshisDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="activityGoodsId" column="activity_goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="dataId" column="data_id" javaType="long" jdbcType="BIGINT" />
+		<result property="dataType" column="data_type" javaType="int" jdbcType="INTEGER" />
+		<result property="goodsId" column="goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsPriceId" column="goods_price_id" javaType="long" jdbcType="BIGINT" />
+		<result property="activityPrice" column="activity_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="startDate" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="endDate" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="opDate" column="op_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="limitNumber" column="limit_number" javaType="int" jdbcType="INTEGER" />
+		<result property="sellNumber" column="sell_number" javaType="int" jdbcType="INTEGER" />
+		<result property="rewardType" column="reward_type" javaType="int" jdbcType="INTEGER" />
+		<result property="rewardNumber" column="reward_number" javaType="int" jdbcType="INTEGER" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsLevel" column="goods_level" javaType="int" jdbcType="INTEGER" />
+		<result property="ord" column="ord" javaType="long" jdbcType="BIGINT" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="limitSellNumber" column="limit_sell_number" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+
+		
+	<insert id="add" parameterType="com.h2y.bmg.entity.CommonActivityGoodsRtHis">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_common_activity_goods_rt_his 
+		</selectKey>  
+		insert into tb_common_activity_goods_rt_his
+		(
+		activity_goods_id,
+		unit_id,
+		data_id,
+		data_type,
+		goods_id,
+		goods_price_id,
+		activity_price,
+		create_date,
+		start_date,
+		end_date,
+		op_date,
+		limit_number,
+		sell_number,
+		reward_type,
+		reward_number,
+		memo,
+		goods_level,
+		ord,
+		status,
+		limit_sell_number
+		)
+		values (
+		#{activityGoodsId,jdbcType=BIGINT},
+		#{unitId,jdbcType=BIGINT},
+		#{dataId,jdbcType=BIGINT},
+		#{dataType,jdbcType=INTEGER},
+		#{goodsId,jdbcType=BIGINT},
+		#{goodsPriceId,jdbcType=BIGINT},
+		#{activityPrice,jdbcType=DOUBLE},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{startDate,jdbcType=TIMESTAMP},
+		#{endDate,jdbcType=TIMESTAMP},
+		#{opDate,jdbcType=TIMESTAMP},
+		#{limitNumber,jdbcType=INTEGER},
+		#{sellNumber,jdbcType=INTEGER},
+		#{rewardType,jdbcType=INTEGER},
+		#{rewardNumber,jdbcType=INTEGER},
+		#{memo,jdbcType=VARCHAR},
+		#{goodsLevel,jdbcType=INTEGER},
+		#{ord,jdbcType=BIGINT},
+		#{status,jdbcType=INTEGER},
+		#{limitSellNumber,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.CommonActivityGoodsRtHis">
+		update tb_common_activity_goods_rt_his
+		set
+		activity_goods_id = #{activityGoodsId,jdbcType=BIGINT},
+		unit_id = #{unitId,jdbcType=BIGINT},
+		data_id = #{dataId,jdbcType=BIGINT},
+		data_type = #{dataType,jdbcType=INTEGER},
+		goods_id = #{goodsId,jdbcType=BIGINT},
+		goods_price_id = #{goodsPriceId,jdbcType=BIGINT},
+		activity_price = #{activityPrice,jdbcType=DOUBLE},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		start_date = #{startDate,jdbcType=TIMESTAMP},
+		end_date = #{endDate,jdbcType=TIMESTAMP},
+		op_date = #{opDate,jdbcType=TIMESTAMP},
+		limit_number = #{limitNumber,jdbcType=INTEGER},
+		sell_number = #{sellNumber,jdbcType=INTEGER},
+		reward_type = #{rewardType,jdbcType=INTEGER},
+		reward_number = #{rewardNumber,jdbcType=INTEGER},
+		memo = #{memo,jdbcType=VARCHAR},
+		goods_level = #{goodsLevel,jdbcType=INTEGER},
+		ord = #{ord,jdbcType=BIGINT},
+		status = #{status,jdbcType=INTEGER},
+		limit_sell_number = #{limitSellNumber,jdbcType=INTEGER}
+		where id = #{id}
+	</update>
+	
+	<update id="updateByDataId" parameterType="hashmap">
+		update tb_common_activity_goods_rt_his
+		set		
+			start_date = #{startDate,jdbcType=TIMESTAMP},
+			end_date = #{endDate,jdbcType=TIMESTAMP},
+			sell_number = #{sellNumber,jdbcType=INTEGER}			
+		where data_id = #{dataId} and status = 0
+	</update>
+	
+	<!-- 修改活动定价价钱  同时修改该活动下商品价钱 -->
+	<update id="updateFixedPriceByDataId" parameterType="hashmap">
+		update tb_common_activity_goods_rt
+		set		
+			activity_price = #{fixedPrice,jdbcType=DOUBLE}				
+		where data_id = #{dataId} and status = 0
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.CommonActivityGoodsRtHis">
+		delete from
+		tb_common_activity_goods_rt_his
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_common_activity_goods_rt_his
+		where
+		id = #{id} 
+	</delete>
+
+	<select id="get" parameterType="long"
+		resultMap="commonactivitygoodshisDaoMap">
+		select * from tb_common_activity_goods_rt_his where id = #{id}
+	</select>
+
+</mapper>

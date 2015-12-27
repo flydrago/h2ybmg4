@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IFindActivityDao">
+
+	<resultMap type="com.h2y.bmg.entity.FindActivity" id="findactivityDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="userId" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="title" column="title" javaType="string" jdbcType="VARCHAR" />
+		<result property="description" column="description" javaType="string" jdbcType="VARCHAR" />
+		<result property="activityLevel" column="activity_level" javaType="int" jdbcType="INTEGER" />
+		<result property="activityType" column="activity_type" javaType="int" jdbcType="INTEGER" />
+		<result property="content" column="content" javaType="string" jdbcType="VARCHAR" />
+		<result property="fileName" column="file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="diskFileName" column="disk_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="rootPath" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="relativePath" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="fileSize" column="file_size" javaType="long" jdbcType="BIGINT" />
+		<result property="fileSuffix" column="file_suffix" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="startDate" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="endDate" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ifSetDate" column="if_set_date" javaType="int" jdbcType="INTEGER" />
+		<result property="ifSetPush" column="if_set_push" javaType="int" jdbcType="INTEGER" />
+		<result property="pushDate" column="push_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="activityStatus" column="activity_status" javaType="int" jdbcType="INTEGER" />
+		<result property="reverse1" column="reverse_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="reverse2" column="reverse_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="pushType" column="push_type" javaType="int" jdbcType="INTEGER" />
+		<result property="pushTimes" column="push_times" javaType="int" jdbcType="INTEGER" />
+		<result property="pushDate1" column="push_date1" javaType="string" jdbcType="VARCHAR" />
+		<result property="pushDate2" column="push_date2" javaType="string" jdbcType="VARCHAR" />
+		<result property="pushDate3" column="push_date3" javaType="string" jdbcType="VARCHAR" />
+		<result property="pushDate4" column="push_date4" javaType="string" jdbcType="VARCHAR" />
+		<result property="pushDate5" column="push_date5" javaType="string" jdbcType="VARCHAR" />
+		<result property="pushDate6" column="push_date6" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="findactivityDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="USER_ID" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="TITLE" column="title" javaType="string" jdbcType="VARCHAR" />
+		<result property="DESCRIPTION" column="description" javaType="string" jdbcType="VARCHAR" />
+		<result property="ACTIVITY_LEVEL" column="activity_level" javaType="int" jdbcType="INTEGER" />
+		<result property="CONTENT" column="content" javaType="string" jdbcType="VARCHAR" />
+		<result property="FILE_NAME" column="file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="DISK_FILE_NAME" column="disk_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="ROOT_PATH" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="RELATIVE_PATH" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="FILE_SIZE" column="file_size" javaType="long" jdbcType="BIGINT" />
+		<result property="FILE_SUFFIX" column="file_suffix" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="START_DATE" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="END_DATE" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="UPDATE_DATE" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="IF_SET_DATE" column="if_set_date" javaType="int" jdbcType="INTEGER" />
+		<result property="IF_SET_PUSH" column="if_set_push" javaType="int" jdbcType="INTEGER" />
+		<result property="PUSH_DATE" column="push_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ACTIVITY_STATUS" column="activity_status" javaType="int" jdbcType="INTEGER" />
+		<result property="REVERSE_1" column="reverse_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="REVERSE_2" column="reverse_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="ACTIVITY_LEVEL_NAME" column="activity_level_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="ACTIVITY_TYPE_NAME" column="activity_type_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="PUSH_TYPE" column="push_type" javaType="int" jdbcType="INTEGER" />
+		<result property="PUSH_TIMES" column="push_times" javaType="int" jdbcType="INTEGER" />
+		<result property="PUSH_DATE1" column="push_date1" javaType="string" jdbcType="TIMESTAMP" />
+		<result property="PUSH_DATE2" column="push_date2" javaType="string" jdbcType="TIMESTAMP" />
+		<result property="PUSH_DATE3" column="push_date3" javaType="string" jdbcType="TIMESTAMP" />
+		<result property="PUSH_DATE4" column="push_date4" javaType="string" jdbcType="TIMESTAMP" />
+		<result property="PUSH_DATE5" column="push_date5" javaType="string" jdbcType="TIMESTAMP" />
+		<result property="PUSH_DATE6" column="push_date6" javaType="string" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.FindActivity">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_find_activity 
+		</selectKey>  
+		insert into tb_find_activity
+		(
+		unit_id,
+		user_id,
+		title,
+		description,
+		activity_level,
+		activity_type,
+		content,
+		file_name,
+		disk_file_name,
+		root_path,
+		relative_path,
+		file_size,
+		file_suffix,
+		create_date,
+		start_date,
+		end_date,
+		update_date,
+		if_set_date,
+		if_set_push,
+		push_date,
+		activity_status,
+		reverse_1,
+		reverse_2,
+		push_type,
+		push_times,
+		push_date1,
+		push_date2,
+		push_date3,
+		push_date4,
+		push_date5,
+		push_date6
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{userId,jdbcType=BIGINT},
+		#{title,jdbcType=VARCHAR},
+		#{description,jdbcType=VARCHAR},
+		#{activityLevel,jdbcType=INTEGER},
+		#{activityType,jdbcType=INTEGER},
+		#{content,jdbcType=VARCHAR},
+		#{fileName,jdbcType=VARCHAR},
+		#{diskFileName,jdbcType=VARCHAR},
+		#{rootPath,jdbcType=VARCHAR},
+		#{relativePath,jdbcType=VARCHAR},
+		#{fileSize,jdbcType=BIGINT},
+		#{fileSuffix,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{startDate,jdbcType=TIMESTAMP},
+		#{endDate,jdbcType=TIMESTAMP},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{ifSetDate,jdbcType=INTEGER},
+		#{ifSetPush,jdbcType=INTEGER},
+		#{pushDate,jdbcType=TIMESTAMP},
+		#{activityStatus,jdbcType=INTEGER},
+		#{reverse1,jdbcType=VARCHAR},
+		#{reverse2,jdbcType=VARCHAR},
+		#{pushType,jdbcType=INTEGER},
+		#{pushTimes,jdbcType=INTEGER},
+		#{pushDate1,jdbcType=VARCHAR},
+		#{pushDate2,jdbcType=VARCHAR},
+		#{pushDate3,jdbcType=VARCHAR},
+		#{pushDate4,jdbcType=VARCHAR},
+		#{pushDate5,jdbcType=VARCHAR},
+		#{pushDate6,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.FindActivity">
+		update tb_find_activity
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		user_id = #{userId,jdbcType=BIGINT},
+		title = #{title,jdbcType=VARCHAR},
+		description = #{description,jdbcType=VARCHAR},
+		activity_level = #{activityLevel,jdbcType=INTEGER},
+		activity_type = #{activityType,jdbcType=INTEGER},
+		content = #{content,jdbcType=VARCHAR},
+		file_name = #{fileName,jdbcType=VARCHAR},
+		disk_file_name = #{diskFileName,jdbcType=VARCHAR},
+		root_path = #{rootPath,jdbcType=VARCHAR},
+		relative_path = #{relativePath,jdbcType=VARCHAR},
+		file_size = #{fileSize,jdbcType=BIGINT},
+		file_suffix = #{fileSuffix,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		start_date = #{startDate,jdbcType=TIMESTAMP},
+		end_date = #{endDate,jdbcType=TIMESTAMP},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		if_set_date = #{ifSetDate,jdbcType=INTEGER},
+		if_set_push = #{ifSetPush,jdbcType=INTEGER},
+		push_date = #{pushDate,jdbcType=TIMESTAMP},
+		activity_status = #{activityStatus,jdbcType=INTEGER},
+		reverse_1 = #{reverse1,jdbcType=VARCHAR},
+		reverse_2 = #{reverse2,jdbcType=VARCHAR},
+		push_type = #{pushType,jdbcType=INTEGER},
+		push_times = #{pushTimes,jdbcType=INTEGER},
+		push_date1 = #{pushDate1,jdbcType=VARCHAR},
+		push_date2 = #{pushDate2,jdbcType=VARCHAR},
+		push_date3 = #{pushDate3,jdbcType=VARCHAR},
+		push_date4 = #{pushDate4,jdbcType=VARCHAR},
+		push_date5 = #{pushDate5,jdbcType=VARCHAR},
+		push_date6 = #{pushDate6,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.FindActivity">
+		delete from
+		tb_find_activity
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_find_activity
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_find_activity
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="findactivityDaoMap">
+		select * from tb_find_activity where id = #{id}
+	</select>
+
+	<select id="getListMap" parameterType="hashmap" resultMap="findactivityDaoListMap">
+		select 
+			fa.id,
+			fa.unit_id,
+			fa.user_id,
+			fa.title,
+			fa.description,
+			fa.activity_level,
+			fa.create_date,
+			fa.start_date,
+			fa.end_date,
+			fa.if_set_date,
+			fa.activity_status,
+			fa.reverse_1,
+			fa.reverse_2,
+			dd.value as activity_level_name,
+			d.value as activity_type_name
+		from
+		tb_find_activity fa
+		JOIN(
+			tb_sys_dict_detail dd
+			JOIN tb_sys_dict_main dm ON dd.dict_main_id = dm.id
+			AND dm.dict_code = 'activity_level'
+		)ON fa.activity_level = dd.`code`
+		JOIN(
+			tb_sys_dict_detail d
+			JOIN tb_sys_dict_main dt ON d.dict_main_id = dt.id
+			AND dt.dict_code = 'activity_type'
+		)ON fa.activity_type = d.`code`
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			fa.activity_status &lt;&gt; -1
+			and fa.unit_id = #{unitId}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<if test="sortname !=null and sortname !='' ">
+			order by fa.activity_level desc,${sortname}
+			<if test="sortorder !=null and sortorder !='' ">
+				${sortorder} 
+			</if>
+		</if>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select 
+			count(fa.id)
+		from
+		tb_find_activity fa
+		JOIN(
+			tb_sys_dict_detail dd
+			JOIN tb_sys_dict_main dm ON dd.dict_main_id = dm.id
+			AND dm.dict_code = 'activity_level'
+		)ON fa.activity_level = dd.`code`
+		JOIN(
+			tb_sys_dict_detail d
+			JOIN tb_sys_dict_main dt ON d.dict_main_id = dt.id
+			AND dt.dict_code = 'activity_type'
+		)ON fa.activity_type = d.`code`
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			fa.activity_status &lt;&gt; -1
+			and fa.unit_id = #{unitId}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+
+	
+	
+</mapper>

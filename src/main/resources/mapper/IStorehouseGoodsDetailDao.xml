@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IStorehouseGoodsDetailDao">
+
+	<resultMap type="com.h2y.bmg.entity.StorehouseGoodsDetail" id="storehousegoodsdetailDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="storehouseId" column="storehouse_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsPriceId" column="goods_price_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsPriceVersion" column="goods_price_version" javaType="int" jdbcType="INTEGER" />
+		<result property="goodsId" column="goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsLocation" column="goods_location" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsCount" column="goods_count" javaType="int" jdbcType="INTEGER" />
+		<result property="type" column="type" javaType="int" jdbcType="INTEGER" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="createUserId" column="create_user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.StorehouseGoodsDetail">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_storehouse_goods_detail 
+		</selectKey>  
+		insert into tb_storehouse_goods_detail
+		(
+		storehouse_id,
+		goods_price_id,
+		goods_price_version,
+		goods_id,
+		goods_location,
+		goods_count,
+		type,
+		status,
+		create_date,
+		create_user_id,
+		memo
+		)
+		values (
+		#{storehouseId,jdbcType=BIGINT},
+		#{goodsPriceId,jdbcType=BIGINT},
+		#{goodsPriceVersion,jdbcType=INTEGER},
+		#{goodsId,jdbcType=BIGINT},
+		#{goodsLocation,jdbcType=VARCHAR},
+		#{goodsCount,jdbcType=INTEGER},
+		#{type,jdbcType=INTEGER},
+		#{status,jdbcType=INTEGER},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{createUserId,jdbcType=BIGINT},
+		#{memo,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.StorehouseGoodsDetail">
+		update tb_storehouse_goods_detail
+		set
+		storehouse_id = #{storehouseId,jdbcType=BIGINT},
+		goods_price_id = #{goodsPriceId,jdbcType=BIGINT},
+		goods_price_version = #{goodsPriceVersion,jdbcType=INTEGER},
+		goods_id = #{goodsId,jdbcType=BIGINT},
+		goods_location = #{goodsLocation,jdbcType=VARCHAR},
+		goods_count = #{goodsCount,jdbcType=INTEGER},
+		type = #{type,jdbcType=INTEGER},
+		status = #{status,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		create_user_id = #{createUserId,jdbcType=BIGINT},
+		memo = #{memo,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.StorehouseGoodsDetail">
+		delete from
+		tb_storehouse_goods_detail
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_storehouse_goods_detail
+		where
+		id = #{id} 
+	</delete>
+
+	<select id="get" parameterType="long"
+		resultMap="storehousegoodsdetailDaoMap">
+		select * from tb_storehouse_goods_detail where id = #{id}
+	</select>
+	
+</mapper>

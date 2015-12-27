@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ISysTypeDao">
+
+	<resultMap type="com.h2y.bmg.entity.SysType" id="systypeDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="code" column="code" javaType="string" jdbcType="VARCHAR" />
+		<result property="pid" column="pid" javaType="long" jdbcType="BIGINT" />
+		<result property="name" column="name" javaType="string" jdbcType="VARCHAR" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="type" column="type" javaType="string" jdbcType="VARCHAR" />
+        <result property="ord" column="ord" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+
+
+    <resultMap type="java.util.Map" id="systypeDaoListMap">
+        <result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+        <result property="CODE" column="code" javaType="string" jdbcType="VARCHAR" />
+        <result property="PID" column="pid" javaType="long" jdbcType="BIGINT" />
+        <result property="NAME" column="name" javaType="string" jdbcType="VARCHAR" />
+        <result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+        <result property="TYPE" column="type" javaType="string" jdbcType="VARCHAR" />
+        <result property="ORD" column="ORD" javaType="long" jdbcType="BIGINT" />
+    </resultMap>
+
+
+	<insert id="add" parameterType="com.h2y.bmg.entity.SysType">
+		<selectKey keyProperty="id" resultType="Long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_sys_type 
+		</selectKey>  
+		insert into tb_sys_type
+		(
+		code,
+		pid,
+		name,
+		memo,
+		type,
+        ord
+		)
+		values (
+		#{code,jdbcType=VARCHAR},
+		#{pid,jdbcType=BIGINT},
+		#{name,jdbcType=VARCHAR},
+		#{memo,jdbcType=VARCHAR},
+		#{type,jdbcType=VARCHAR},
+        #{ord,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.SysType">
+		update tb_sys_type
+		set
+		code = #{code,jdbcType=VARCHAR},
+		pid = #{pid,jdbcType=BIGINT},
+		name = #{name,jdbcType=VARCHAR},
+		memo = #{memo,jdbcType=VARCHAR},
+		type = #{type,jdbcType=VARCHAR},
+		ord = #{ord,jdbcType=BIGINT}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.SysType">
+		delete from
+		tb_sys_type
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_sys_type
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteByIds">
+		delete from
+		tb_sys_type
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+
+
+	<select id="get" parameterType="long"
+		resultMap="systypeDaoMap">
+		select * from tb_sys_type where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.bmg.entity.SysType"
+		resultMap="systypeDaoMap">
+		select * from
+		tb_sys_type
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="code!= null and code!=''">
+			and code = #{code}
+			</if>
+			<if test="pid!= null">
+			and pid = #{pid}
+			</if>
+			<if test="name!= null and name!=''">
+			and name = #{name}
+			</if>
+			<if test="memo!= null and memo!=''">
+			and memo = #{memo}
+			</if>
+			<if test="type!= null and type!=''">
+			and type = #{type}
+			</if>
+            <if test="ord!= null and ord!=''">
+            and ord = #{ord}
+            </if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="systypeDaoMap">
+		select
+		*
+		from
+		tb_sys_type
+		<if test="keySysType!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keySysType.id!= null">
+				and id = #{keySysType.id}
+				</if>
+				<if test="keySysType.code!= null and keySysType.code!=''">
+				and code = #{keySysType.code}
+				</if>
+				<if test="keySysType.pid!= null">
+				and pid = #{keySysType.pid}
+				</if>
+				<if test="keySysType.name!= null and keySysType.name!=''">
+				and name = #{keySysType.name}
+				</if>
+				<if test="keySysType.memo!= null and keySysType.memo!=''">
+				and memo = #{keySysType.memo}
+				</if>
+				<if test="keySysType.type!= null and keySysType.type!=''">
+				and type = #{keySysType.type}
+				</if>
+                <if test="keySysType.ord!= null and keySysType.ord!=''">
+                    and ord = #{keySysType.ord}
+                </if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_sys_type
+		<if test="keySysType!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keySysType.id!= null">
+				and id = #{keySysType.id}
+				</if>
+				<if test="keySysType.code!= null and keySysType.code!=''">
+				and code = #{keySysType.code}
+				</if>
+				<if test="keySysType.pid!= null">
+				and pid = #{keySysType.pid}
+				</if>
+				<if test="keySysType.name!= null and keySysType.name!=''">
+				and name = #{keySysType.name}
+				</if>
+				<if test="keySysType.memo!= null and keySysType.memo!=''">
+				and memo = #{keySysType.memo}
+				</if>
+				<if test="keySysType.type!= null and keySysType.type!=''">
+				and type = #{keySysType.type}
+				</if>
+                <if test="keySysType.ord!= null and keySysType.ord!=''">
+                    and ord = #{keySysType.ord}
+                </if>
+			</trim>
+		</if>
+	</select>
+
+    <insert id="addBatch" parameterType="com.h2y.bmg.entity.SysType">
+        insert into tb_sys_type
+        (
+        code,
+        pid,
+        name,
+        memo,
+        type,
+        ord
+        )
+        values
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{item.code,jdbcType=VARCHAR},
+            #{item.pid,jdbcType=BIGINT},
+            #{item.name,jdbcType=VARCHAR},
+            #{item.memo,jdbcType=VARCHAR},
+            #{item.type,jdbcType=VARCHAR},
+            #{item.ord,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+
+
+
+    <select id="getListMap" parameterType="hashmap" resultMap="systypeDaoListMap">
+        select
+        *
+        from
+        tb_sys_type
+        where pid = #{pid} and type = #{type}
+        order by ord
+    </select>
+
+
+    <select id="getTreeData" parameterType="hashmap" resultType="hashmap">
+        select
+            id,
+            pid,
+            name as text
+        from
+        tb_sys_type
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            type = #{type}
+            <if test="pid!= null">
+                and pid = #{pid}
+            </if>
+        </trim>
+        order by ord
+    </select>
+
+
+    <select id="getChildTypeRows" parameterType="long" resultType="long">
+        select
+        count(id)
+        from
+        tb_sys_type
+        where pid = #{pid}
+    </select>
+
+
+    <select id="getSameCodeRows" parameterType="hashmap" resultType="long">
+        select
+        count(id)
+        from
+        tb_sys_type
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            code = #{code} and type = #{type}
+            <if test="id!= null">
+                and id &lt;&gt; #{id}
+            </if>
+        </trim>
+    </select>
+
+
+	<select id="getSysTypeByCode" parameterType="hashmap" resultMap="systypeDaoMap">
+        select
+        	*
+        from
+        tb_sys_type
+        where code = #{code} and type = #{type}
+        limit 0,1
+    </select>
+</mapper>

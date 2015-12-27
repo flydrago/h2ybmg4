@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IShareHrefDao">
+
+	<resultMap type="com.h2y.bmg.entity.ShareHref" id="sharehrefDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitType" column="unit_type" javaType="int" jdbcType="INTEGER" />
+		<result property="zoneCode" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="name" column="name" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="title" column="title" javaType="string" jdbcType="VARCHAR" />
+		<result property="description" column="description" javaType="string" jdbcType="VARCHAR" />
+		<result property="fileName" column="file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="diskFileName" column="disk_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="rootPath" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="relativePath" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="fileSize" column="file_size" javaType="long" jdbcType="BIGINT" />
+		<result property="fileSuffix" column="file_suffix" javaType="string" jdbcType="VARCHAR" />
+		<result property="dataType" column="data_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="str1" column="str_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="str2" column="str_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="str3" column="str_3" javaType="string" jdbcType="VARCHAR" />
+		<result property="ord" column="ord" javaType="int" jdbcType="INTEGER" />
+		<result property="hrefStatus" column="href_status" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	<insert id="add" parameterType="com.h2y.bmg.entity.ShareHref">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_share_href 
+		</selectKey>  
+		insert into tb_share_href
+		(
+		unit_id,
+		unit_type,
+		zone_code,
+		name,
+		create_date,
+		update_date,
+		title,
+		description,
+		file_name,
+		disk_file_name,
+		root_path,
+		relative_path,
+		file_size,
+		file_suffix,
+		data_type,
+		str_1,
+		str_2,
+		str_3,
+		ord,
+		href_status
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{unitType,jdbcType=INTEGER},
+		#{zoneCode,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{title,jdbcType=VARCHAR},
+		#{description,jdbcType=VARCHAR},
+		#{fileName,jdbcType=VARCHAR},
+		#{diskFileName,jdbcType=VARCHAR},
+		#{rootPath,jdbcType=VARCHAR},
+		#{relativePath,jdbcType=VARCHAR},
+		#{fileSize,jdbcType=BIGINT},
+		#{fileSuffix,jdbcType=VARCHAR},
+		#{dataType,jdbcType=VARCHAR},
+		#{str1,jdbcType=VARCHAR},
+		#{str2,jdbcType=VARCHAR},
+		#{str3,jdbcType=VARCHAR},
+		#{ord,jdbcType=INTEGER},
+		#{hrefStatus,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.ShareHref">
+		update tb_share_href
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		unit_type = #{unitType,jdbcType=INTEGER},
+		zone_code = #{zoneCode,jdbcType=VARCHAR},
+		name = #{name,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		title = #{title,jdbcType=VARCHAR},
+		description = #{description,jdbcType=VARCHAR},
+		file_name = #{fileName,jdbcType=VARCHAR},
+		disk_file_name = #{diskFileName,jdbcType=VARCHAR},
+		root_path = #{rootPath,jdbcType=VARCHAR},
+		relative_path = #{relativePath,jdbcType=VARCHAR},
+		file_size = #{fileSize,jdbcType=BIGINT},
+		file_suffix = #{fileSuffix,jdbcType=VARCHAR},
+		data_type = #{dataType,jdbcType=VARCHAR},
+		str_1 = #{str1,jdbcType=VARCHAR},
+		str_2 = #{str2,jdbcType=VARCHAR},
+		str_3 = #{str3,jdbcType=VARCHAR},
+		ord = #{ord,jdbcType=INTEGER},
+		href_status = #{hrefStatus,jdbcType=INTEGER}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.ShareHref">
+		delete from
+		tb_share_href
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_share_href
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_share_href
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="sharehrefDaoMap">
+		select * from tb_share_href where id = #{id}
+	</select>
+
+	
+
+
+
+
+	<select id="getListMap" parameterType="hashmap" resultMap="sharehrefDaoMap">
+		select * from tb_share_href
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			href_status &lt;&gt; -1
+			and unit_id = #{unitId}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by ord desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select
+			count(id)
+		from
+		tb_share_href
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			href_status &lt;&gt; -1
+			and unit_id = #{unitId}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			
+		</trim>
+	</select>
+</mapper>

@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.jxc.dao.IJxcBreakageDao">
+
+	<resultMap type="com.h2y.jxc.entity.JxcBreakage" id="jxcbreakageDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="billNo" column="bill_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="billCustomNo" column="bill_custom_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="breakageDate" column="breakage_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="storageId" column="storage_id" javaType="long" jdbcType="BIGINT" />
+		<result property="storage" column="storage" javaType="string" jdbcType="VARCHAR" />
+		<result property="brokerId" column="broker_id" javaType="long" jdbcType="BIGINT" />
+		<result property="broker" column="broker" javaType="string" jdbcType="VARCHAR" />
+		<result property="excursus" column="excursus" javaType="string" jdbcType="VARCHAR" />
+		<result property="notes" column="notes" javaType="string" jdbcType="VARCHAR" />
+		<result property="breakageCount" column="breakage_count" javaType="int" jdbcType="INTEGER" />
+		<result property="breakageAmount" column="breakage_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="reviseMark" column="revise_mark" javaType="int" jdbcType="INTEGER" />
+		<result property="checkStatus" column="check_status" javaType="int" jdbcType="INTEGER" />
+		<result property="billStatus" column="bill_status" javaType="int" jdbcType="INTEGER" />
+		<result property="billMaker" column="bill_maker" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		
+		<result property="zoneCode" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="data1" column="data1" javaType="string" jdbcType="VARCHAR" />
+		<result property="data2" column="data2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data3" javaType="string" jdbcType="VARCHAR" />
+		<result property="data4" column="data4" javaType="string" jdbcType="VARCHAR" />
+		<result property="data5" column="data5" javaType="int" jdbcType="INTEGER" />
+		<result property="data6" column="data6" javaType="int" jdbcType="INTEGER" />
+		<result property="data7" column="data7" javaType="int" jdbcType="INTEGER" />
+		<result property="data8" column="data8" javaType="double" jdbcType="DOUBLE" />
+		<result property="data9" column="data9" javaType="double" jdbcType="DOUBLE" />
+		<result property="data10" column="data10" javaType="double" jdbcType="DOUBLE" />
+		<result property="data11" column="data11" javaType="long" jdbcType="BIGINT" />
+		<result property="data12" column="data12" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="jxcbreakageMapList">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="BILL_NO" column="bill_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="BILL_CUSTOM_NO" column="bill_custom_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="BREAKAGE_DATE" column="breakage_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="STORAGE_ID" column="storage_id" javaType="long" jdbcType="BIGINT" />
+		<result property="STORAGE" column="storage" javaType="string" jdbcType="VARCHAR" />
+		<result property="BROKER_ID" column="broker_id" javaType="long" jdbcType="BIGINT" />
+		<result property="BROKER" column="broker" javaType="string" jdbcType="VARCHAR" />
+		<result property="EXCURSUS" column="excursus" javaType="string" jdbcType="VARCHAR" />
+		<result property="NOTES" column="notes" javaType="string" jdbcType="VARCHAR" />
+		<result property="BREAKAGE_COUNT" column="breakage_count" javaType="int" jdbcType="INTEGER" />
+		<result property="BREAKAGE_AMOUNT" column="breakage_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="REVISE_MARK" column="revise_mark" javaType="int" jdbcType="INTEGER" />
+		<result property="CHECK_STATUS" column="check_status" javaType="int" jdbcType="INTEGER" />
+		<result property="BILL_STATUS" column="bill_status" javaType="int" jdbcType="INTEGER" />
+		<result property="BILL_MAKER" column="bill_maker" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		
+		<result property="ZONE_CODE" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA1" column="data1" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA2" column="data2" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA3" column="data3" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA4" column="data4" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA5" column="data5" javaType="int" jdbcType="INTEGER" />
+		<result property="DATA6" column="data6" javaType="int" jdbcType="INTEGER" />
+		<result property="DATA7" column="data7" javaType="int" jdbcType="INTEGER" />
+		<result property="DATA8" column="data8" javaType="double" jdbcType="DOUBLE" />
+		<result property="DATA9" column="data9" javaType="double" jdbcType="DOUBLE" />
+		<result property="DATA10" column="data10" javaType="double" jdbcType="DOUBLE" />
+		<result property="DATA11" column="data11" javaType="long" jdbcType="BIGINT" />
+		<result property="DATA12" column="data12" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	<select id="getListMap" parameterType="hashmap" resultMap="jxcbreakageMapList">
+		select * from 
+		tb_jxc_breakage
+		<trim prefix="WHERE" prefixOverrides="AND|OR" >
+			1=1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			<choose>
+				<when test="sortname !=null and sortname !=''">
+					order by ${sortname}
+					<if test="sortorder !=null and sortorder !='' ">
+						${sortorder} 
+					</if>
+				</when>
+				<otherwise>
+					order by create_date desc
+				</otherwise>
+			</choose>
+		</trim>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+	select count(*) 
+	from tb_jxc_breakage
+	<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			1=1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	
+	<insert id="add" parameterType="com.h2y.jxc.entity.JxcBreakage">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_jxc_breakage 
+		</selectKey>  
+		insert into tb_jxc_breakage
+		(
+		bill_no,
+		bill_custom_no,
+		breakage_date,
+		storage_id,
+		storage,
+		broker_id,
+		broker,
+		excursus,
+		notes,
+		breakage_count,
+		breakage_amount,
+		revise_mark,
+		check_status,
+		bill_status,
+		bill_maker,
+		create_date,
+		zone_code,
+		data1,
+		data2,
+		data3,
+		data4,
+		data5,
+		data6,
+		data7,
+		data8,
+		data9,
+		data10,
+		data11,
+		data12
+		)
+		values (
+		#{billNo,jdbcType=VARCHAR},
+		#{billCustomNo,jdbcType=VARCHAR},
+		#{breakageDate,jdbcType=TIMESTAMP},
+		#{storageId,jdbcType=BIGINT},
+		#{storage,jdbcType=VARCHAR},
+		#{brokerId,jdbcType=BIGINT},
+		#{broker,jdbcType=VARCHAR},
+		#{excursus,jdbcType=VARCHAR},
+		#{notes,jdbcType=VARCHAR},
+		#{breakageCount,jdbcType=INTEGER},
+		#{breakageAmount,jdbcType=DOUBLE},
+		#{reviseMark,jdbcType=INTEGER},
+		#{checkStatus,jdbcType=INTEGER},
+		#{billStatus,jdbcType=INTEGER},
+		#{billMaker,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{zoneCode,jdbcType=VARCHAR},
+		#{data1,jdbcType=VARCHAR},
+		#{data2,jdbcType=VARCHAR},
+		#{data3,jdbcType=VARCHAR},
+		#{data4,jdbcType=VARCHAR},
+		#{data5,jdbcType=INTEGER},
+		#{data6,jdbcType=INTEGER},
+		#{data7,jdbcType=INTEGER},
+		#{data8,jdbcType=DOUBLE},
+		#{data9,jdbcType=DOUBLE},
+		#{data10,jdbcType=DOUBLE},
+		#{data11,jdbcType=BIGINT},
+		#{data12,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.jxc.entity.JxcBreakage">
+		update tb_jxc_breakage
+		set
+		bill_no = #{billNo,jdbcType=VARCHAR},
+		bill_custom_no = #{billCustomNo,jdbcType=VARCHAR},
+		breakage_date = #{breakageDate,jdbcType=TIMESTAMP},
+		storage_id = #{storageId,jdbcType=BIGINT},
+		storage = #{storage,jdbcType=VARCHAR},
+		broker_id = #{brokerId,jdbcType=BIGINT},
+		broker = #{broker,jdbcType=VARCHAR},
+		excursus = #{excursus,jdbcType=VARCHAR},
+		notes = #{notes,jdbcType=VARCHAR},
+		breakage_count = #{breakageCount,jdbcType=INTEGER},
+		breakage_amount = #{breakageAmount,jdbcType=DOUBLE},
+		revise_mark = #{reviseMark,jdbcType=INTEGER},
+		check_status = #{checkStatus,jdbcType=INTEGER},
+		bill_status = #{billStatus,jdbcType=INTEGER},
+		bill_maker = #{billMaker,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		zone_code = #{zoneCode,jdbcType=VARCHAR},
+		data1 = #{data1,jdbcType=VARCHAR},
+		data2 = #{data2,jdbcType=VARCHAR},
+		data3 = #{data3,jdbcType=VARCHAR},
+		data4 = #{data4,jdbcType=VARCHAR},
+		data5 = #{data5,jdbcType=INTEGER},
+		data6 = #{data6,jdbcType=INTEGER},
+		data7 = #{data7,jdbcType=INTEGER},
+		data8 = #{data8,jdbcType=DOUBLE},
+		data9 = #{data9,jdbcType=DOUBLE},
+		data10 = #{data10,jdbcType=DOUBLE},
+		data11 = #{data11,jdbcType=BIGINT},
+		data12 = #{data12,jdbcType=BIGINT}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.jxc.entity.JxcBreakage">
+		delete from
+		tb_jxc_breakage
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_jxc_breakage
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_jxc_breakage
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="jxcbreakageDaoMap">
+		select * from tb_jxc_breakage where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.jxc.entity.JxcBreakage"
+		resultMap="jxcbreakageDaoMap">
+		select * from
+		tb_jxc_breakage
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="billNo!= null and billNo!=''">
+			and bill_no = #{billNo}
+			</if>
+			<if test="billCustomNo!= null and billCustomNo!=''">
+			and bill_custom_no = #{billCustomNo}
+			</if>
+			<if test="breakageDate!= null and breakageDate!=''">
+			and breakage_date = #{breakageDate}
+			</if>
+			<if test="storageId!= null">
+			and storage_id = #{storageId}
+			</if>
+			<if test="storage!= null and storage!=''">
+			and storage = #{storage}
+			</if>
+			<if test="brokerId!= null">
+			and broker_id = #{brokerId}
+			</if>
+			<if test="broker!= null and broker!=''">
+			and broker = #{broker}
+			</if>
+			<if test="excursus!= null and excursus!=''">
+			and excursus = #{excursus}
+			</if>
+			<if test="notes!= null and notes!=''">
+			and notes = #{notes}
+			</if>
+			<if test="breakageCount!= null">
+			and breakage_count = #{breakageCount}
+			</if>
+			<if test="breakageAmount!= null and breakageAmount!=''">
+			and breakage_amount = #{breakageAmount}
+			</if>
+			<if test="reviseMark!= null">
+			and revise_mark = #{reviseMark}
+			</if>
+			<if test="checkStatus!= null">
+			and check_status = #{checkStatus}
+			</if>
+			<if test="billStatus!= null">
+			and bill_status = #{billStatus}
+			</if>
+			<if test="billMaker!= null and billMaker!=''">
+			and bill_maker = #{billMaker}
+			</if>
+			<if test="createDate!= null and createDate!=''">
+			and create_date = #{createDate}
+			</if>
+			<if test="zoneCode!= null and zoneCode!=''">
+			and zone_code = #{zoneCode}
+			</if>
+			<if test="data1!= null and data1!=''">
+			and data1 = #{data1}
+			</if>
+			<if test="data2!= null and data2!=''">
+			and data2 = #{data2}
+			</if>
+			<if test="data3!= null and data3!=''">
+			and data3 = #{data3}
+			</if>
+			<if test="data4!= null and data4!=''">
+			and data4 = #{data4}
+			</if>
+			<if test="data5!= null">
+			and data5 = #{data5}
+			</if>
+			<if test="data6!= null">
+			and data6 = #{data6}
+			</if>
+			<if test="data7!= null">
+			and data7 = #{data7}
+			</if>
+			<if test="data8!= null and data8!=''">
+			and data8 = #{data8}
+			</if>
+			<if test="data9!= null and data9!=''">
+			and data9 = #{data9}
+			</if>
+			<if test="data10!= null and data10!=''">
+			and data10 = #{data10}
+			</if>
+			<if test="data11!= null">
+			and data11 = #{data11}
+			</if>
+			<if test="data12!= null">
+			and data12 = #{data12}
+			</if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="jxcbreakageDaoMap">
+		select
+		*
+		from
+		tb_jxc_breakage
+		<if test="keyJxcBreakage!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keyJxcBreakage.id!= null">
+				and id = #{keyJxcBreakage.id}
+				</if>
+				<if test="keyJxcBreakage.billNo!= null and keyJxcBreakage.billNo!=''">
+				and bill_no = #{keyJxcBreakage.billNo}
+				</if>
+				<if test="keyJxcBreakage.billCustomNo!= null and keyJxcBreakage.billCustomNo!=''">
+				and bill_custom_no = #{keyJxcBreakage.billCustomNo}
+				</if>
+				<if test="keyJxcBreakage.breakageDate!= null and keyJxcBreakage.breakageDate!=''">
+				and breakage_date = #{keyJxcBreakage.breakageDate}
+				</if>
+				<if test="keyJxcBreakage.storageId!= null">
+				and storage_id = #{keyJxcBreakage.storageId}
+				</if>
+				<if test="keyJxcBreakage.storage!= null and keyJxcBreakage.storage!=''">
+				and storage = #{keyJxcBreakage.storage}
+				</if>
+				<if test="keyJxcBreakage.brokerId!= null">
+				and broker_id = #{keyJxcBreakage.brokerId}
+				</if>
+				<if test="keyJxcBreakage.broker!= null and keyJxcBreakage.broker!=''">
+				and broker = #{keyJxcBreakage.broker}
+				</if>
+				<if test="keyJxcBreakage.excursus!= null and keyJxcBreakage.excursus!=''">
+				and excursus = #{keyJxcBreakage.excursus}
+				</if>
+				<if test="keyJxcBreakage.notes!= null and keyJxcBreakage.notes!=''">
+				and notes = #{keyJxcBreakage.notes}
+				</if>
+				<if test="keyJxcBreakage.breakageCount!= null">
+				and breakage_count = #{keyJxcBreakage.breakageCount}
+				</if>
+				<if test="keyJxcBreakage.breakageAmount!= null and keyJxcBreakage.breakageAmount!=''">
+				and breakage_amount = #{keyJxcBreakage.breakageAmount}
+				</if>
+				<if test="keyJxcBreakage.reviseMark!= null">
+				and revise_mark = #{keyJxcBreakage.reviseMark}
+				</if>
+				<if test="keyJxcBreakage.checkStatus!= null">
+				and check_status = #{keyJxcBreakage.checkStatus}
+				</if>
+				<if test="keyJxcBreakage.billStatus!= null">
+				and bill_status = #{keyJxcBreakage.billStatus}
+				</if>
+				<if test="keyJxcBreakage.billMaker!= null and keyJxcBreakage.billMaker!=''">
+				and bill_maker = #{keyJxcBreakage.billMaker}
+				</if>
+				<if test="keyJxcBreakage.createDate!= null and keyJxcBreakage.createDate!=''">
+				and create_date = #{keyJxcBreakage.createDate}
+				</if>
+				<if test="keyJxcBreakage.zoneCode!= null and keyJxcBreakage.zoneCode!=''">
+				and zone_code = #{keyJxcBreakage.zoneCode}
+				</if>
+				<if test="keyJxcBreakage.data1!= null and keyJxcBreakage.data1!=''">
+				and data1 = #{keyJxcBreakage.data1}
+				</if>
+				<if test="keyJxcBreakage.data2!= null and keyJxcBreakage.data2!=''">
+				and data2 = #{keyJxcBreakage.data2}
+				</if>
+				<if test="keyJxcBreakage.data3!= null and keyJxcBreakage.data3!=''">
+				and data3 = #{keyJxcBreakage.data3}
+				</if>
+				<if test="keyJxcBreakage.data4!= null and keyJxcBreakage.data4!=''">
+				and data4 = #{keyJxcBreakage.data4}
+				</if>
+				<if test="keyJxcBreakage.data5!= null">
+				and data5 = #{keyJxcBreakage.data5}
+				</if>
+				<if test="keyJxcBreakage.data6!= null">
+				and data6 = #{keyJxcBreakage.data6}
+				</if>
+				<if test="keyJxcBreakage.data7!= null">
+				and data7 = #{keyJxcBreakage.data7}
+				</if>
+				<if test="keyJxcBreakage.data8!= null and keyJxcBreakage.data8!=''">
+				and data8 = #{keyJxcBreakage.data8}
+				</if>
+				<if test="keyJxcBreakage.data9!= null and keyJxcBreakage.data9!=''">
+				and data9 = #{keyJxcBreakage.data9}
+				</if>
+				<if test="keyJxcBreakage.data10!= null and keyJxcBreakage.data10!=''">
+				and data10 = #{keyJxcBreakage.data10}
+				</if>
+				<if test="keyJxcBreakage.data11!= null">
+				and data11 = #{keyJxcBreakage.data11}
+				</if>
+				<if test="keyJxcBreakage.data12!= null">
+				and data12 = #{keyJxcBreakage.data12}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_jxc_breakage
+		<if test="keyJxcBreakage!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keyJxcBreakage.id!= null">
+				and id = #{keyJxcBreakage.id}
+				</if>
+				<if test="keyJxcBreakage.billNo!= null and keyJxcBreakage.billNo!=''">
+				and bill_no = #{keyJxcBreakage.billNo}
+				</if>
+				<if test="keyJxcBreakage.billCustomNo!= null and keyJxcBreakage.billCustomNo!=''">
+				and bill_custom_no = #{keyJxcBreakage.billCustomNo}
+				</if>
+				<if test="keyJxcBreakage.breakageDate!= null and keyJxcBreakage.breakageDate!=''">
+				and breakage_date = #{keyJxcBreakage.breakageDate}
+				</if>
+				<if test="keyJxcBreakage.storageId!= null">
+				and storage_id = #{keyJxcBreakage.storageId}
+				</if>
+				<if test="keyJxcBreakage.storage!= null and keyJxcBreakage.storage!=''">
+				and storage = #{keyJxcBreakage.storage}
+				</if>
+				<if test="keyJxcBreakage.brokerId!= null">
+				and broker_id = #{keyJxcBreakage.brokerId}
+				</if>
+				<if test="keyJxcBreakage.broker!= null and keyJxcBreakage.broker!=''">
+				and broker = #{keyJxcBreakage.broker}
+				</if>
+				<if test="keyJxcBreakage.excursus!= null and keyJxcBreakage.excursus!=''">
+				and excursus = #{keyJxcBreakage.excursus}
+				</if>
+				<if test="keyJxcBreakage.notes!= null and keyJxcBreakage.notes!=''">
+				and notes = #{keyJxcBreakage.notes}
+				</if>
+				<if test="keyJxcBreakage.breakageCount!= null">
+				and breakage_count = #{keyJxcBreakage.breakageCount}
+				</if>
+				<if test="keyJxcBreakage.breakageAmount!= null and keyJxcBreakage.breakageAmount!=''">
+				and breakage_amount = #{keyJxcBreakage.breakageAmount}
+				</if>
+				<if test="keyJxcBreakage.reviseMark!= null">
+				and revise_mark = #{keyJxcBreakage.reviseMark}
+				</if>
+				<if test="keyJxcBreakage.checkStatus!= null">
+				and check_status = #{keyJxcBreakage.checkStatus}
+				</if>
+				<if test="keyJxcBreakage.billStatus!= null">
+				and bill_status = #{keyJxcBreakage.billStatus}
+				</if>
+				<if test="keyJxcBreakage.billMaker!= null and keyJxcBreakage.billMaker!=''">
+				and bill_maker = #{keyJxcBreakage.billMaker}
+				</if>
+				<if test="keyJxcBreakage.createDate!= null and keyJxcBreakage.createDate!=''">
+				and create_date = #{keyJxcBreakage.createDate}
+				</if>
+				<if test="keyJxcBreakage.zoneCode!= null and keyJxcBreakage.zoneCode!=''">
+				and zone_code = #{keyJxcBreakage.zoneCode}
+				</if>
+				<if test="keyJxcBreakage.data1!= null and keyJxcBreakage.data1!=''">
+				and data1 = #{keyJxcBreakage.data1}
+				</if>
+				<if test="keyJxcBreakage.data2!= null and keyJxcBreakage.data2!=''">
+				and data2 = #{keyJxcBreakage.data2}
+				</if>
+				<if test="keyJxcBreakage.data3!= null and keyJxcBreakage.data3!=''">
+				and data3 = #{keyJxcBreakage.data3}
+				</if>
+				<if test="keyJxcBreakage.data4!= null and keyJxcBreakage.data4!=''">
+				and data4 = #{keyJxcBreakage.data4}
+				</if>
+				<if test="keyJxcBreakage.data5!= null">
+				and data5 = #{keyJxcBreakage.data5}
+				</if>
+				<if test="keyJxcBreakage.data6!= null">
+				and data6 = #{keyJxcBreakage.data6}
+				</if>
+				<if test="keyJxcBreakage.data7!= null">
+				and data7 = #{keyJxcBreakage.data7}
+				</if>
+				<if test="keyJxcBreakage.data8!= null and keyJxcBreakage.data8!=''">
+				and data8 = #{keyJxcBreakage.data8}
+				</if>
+				<if test="keyJxcBreakage.data9!= null and keyJxcBreakage.data9!=''">
+				and data9 = #{keyJxcBreakage.data9}
+				</if>
+				<if test="keyJxcBreakage.data10!= null and keyJxcBreakage.data10!=''">
+				and data10 = #{keyJxcBreakage.data10}
+				</if>
+				<if test="keyJxcBreakage.data11!= null">
+				and data11 = #{keyJxcBreakage.data11}
+				</if>
+				<if test="keyJxcBreakage.data12!= null">
+				and data12 = #{keyJxcBreakage.data12}
+				</if>
+			</trim>
+		</if>
+	</select>
+</mapper>

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IGoodsTypeDao">
+
+
+	<resultMap type="com.h2y.bmg.entity.GoodsType" id="goodstypeDaoMap">
+		
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+
+		<result property="parentId" column="parent_id" javaType="long" jdbcType="BIGINT" />
+
+		<result property="typeCode" column="type_code" javaType="string" jdbcType="VARCHAR" />
+
+		<result property="typeName" column="type_name" javaType="string" jdbcType="VARCHAR" />
+
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+
+		<result property="ord" column="ord" javaType="long" jdbcType="BIGINT" />
+
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+
+		<result property="userId" column="user_id" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="goodstypeDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="PARENT_ID" column="parent_id" javaType="long" jdbcType="BIGINT" />
+		<result property="TYPE_CODE" column="type_code" javaType="string" jdbcType="VARCHAR" />	
+		<result property="TYPE_NAME" column="type_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="ORD" column="ord" javaType="long" jdbcType="BIGINT" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />	
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="USER_ID" column="user_id" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+
+
+
+	<insert id="add" parameterType="com.h2y.bmg.entity.GoodsType">
+		<selectKey keyProperty="id" resultType="long" order="AFTER">
+			SELECT
+			max(id) AS value from tb_goods_type
+		</selectKey>
+		insert into tb_goods_type
+		(
+		parent_id,
+		type_code,
+		type_name,
+		status,
+		ord,
+		create_date,
+		memo,
+		user_id
+		)
+		values (
+		#{parentId,jdbcType=BIGINT},
+		#{typeCode,jdbcType=VARCHAR},
+		#{typeName,jdbcType=VARCHAR},
+		#{status,jdbcType=INTEGER},
+		#{ord,jdbcType=BIGINT},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{memo,jdbcType=VARCHAR},
+		#{userId,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.GoodsType">
+		update tb_goods_type
+		set
+		parent_id = #{parentId,jdbcType=BIGINT},
+		type_code =
+		#{typeCode,jdbcType=VARCHAR},
+		type_name = #{typeName,jdbcType=VARCHAR},
+		status = #{status,jdbcType=INTEGER},
+		ord = #{ord,jdbcType=BIGINT},
+		create_date =
+		#{createDate,jdbcType=TIMESTAMP},
+		memo =
+		#{memo,jdbcType=VARCHAR},
+		user_id = #{userId,jdbcType=BIGINT}
+		where id =
+		#{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.GoodsType">
+		delete from
+		tb_goods_type
+		where
+		id = #{id}
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_goods_type
+		where
+		id = #{id}
+	</delete>
+
+	<select id="get" parameterType="long" resultMap="goodstypeDaoMap">
+		select * from
+		tb_goods_type where id = #{id}
+	</select>
+
+	<select id="getListMap" parameterType="hashmap" resultMap="goodstypeDaoListMap">
+		select * from
+		tb_goods_type
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			status &lt;&gt; -1
+			and parent_id = #{id}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder}
+				</if>
+			</when>
+			<otherwise>
+				order by ord desc
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select count(id) from
+		tb_goods_type
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			status &lt;&gt; -1
+			and parent_id = #{id}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+
+
+	<select id="getChildTreeListById" parameterType="long"
+		resultType="hashmap">
+		select
+		id,
+		parent_id as pid,
+		type_name as text,
+		type_code as code
+		from
+		tb_goods_type
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			status &lt;&gt; -1
+			and
+			parent_id = #{id}
+		</trim>
+		order by ord desc
+	</select>
+
+
+	<select id="getChildRowsById" parameterType="long" resultType="long">
+		select
+		count(id)
+		from
+		tb_goods_type
+		where status &lt;&gt; -1
+		and parent_id
+		= #{id}
+	</select>
+
+	<select id="getAllTreeList" resultType="hashmap">
+		select
+		id,
+		parent_id as
+		pid,
+		type_name as text,
+		type_code as code
+		from
+		tb_goods_type
+		where status
+		&lt;&gt; -1
+		order by ord desc
+	</select>
+
+	<select id="getChildSelectListById" parameterType="long"
+		resultType="hashmap">
+		select
+		id,
+		type_name as name,
+		type_code as code
+		from
+		tb_goods_type
+		where status &lt;&gt; -1
+		and parent_id = #{id}
+		order by ord
+		desc
+	</select>
+
+
+	<select id="getGridData" parameterType="hashmap" resultMap="goodstypeDaoListMap">
+		SELECT
+		gt.*,su.user_name
+		FROM
+		tb_goods_type gt left join tb_sys_user su on gt.create_user_id=su.id
+		where gt.status &lt;&gt; -1
+		<if test="pagesize!= null">
+			limit ${(page-1)*pagesize},${pagesize}
+		</if>
+
+	</select>
+
+	<select id="getByTypeCode" parameterType="string" resultMap="goodstypeDaoMap">
+		select * from tb_goods_type where type_code = #{typeCode}
+	</select>
+
+	<select id="getListByIds" parameterType="hashmap" resultMap="goodstypeDaoMap">
+		SELECT * FROM `tb_goods_type` where id in (${ids}) and status &lt;&gt;
+		-1 order by id asc
+	</select>
+	
+	<select id="getTreeListByUnitId" parameterType="long" resultType="hashmap">
+		select
+		id,
+		0 as pid,
+		type_name as text
+		from
+		tb_goods_type
+		where status
+		&lt;&gt; -1
+		and parent_id = #{unit_id}
+		order by ord desc
+	</select>
+
+</mapper>

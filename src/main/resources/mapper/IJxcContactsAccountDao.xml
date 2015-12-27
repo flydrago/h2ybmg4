@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.jxc.dao.IJxcContactsAccountDao">
+
+	<resultMap type="com.h2y.jxc.entity.JxcContactsAccount" id="jxccontactsaccountDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitsId" column="units_id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitsName" column="units_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="accountName" column="account_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="spellCode" column="spell_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="accountType" column="account_type" javaType="int" jdbcType="INTEGER" />
+		<result property="accountCurrency" column="account_currency" javaType="string" jdbcType="VARCHAR" />
+		<result property="depositBank" column="deposit_bank" javaType="string" jdbcType="VARCHAR" />
+		<result property="depositor" column="depositor" javaType="string" jdbcType="VARCHAR" />
+		<result property="bankAccount" column="bank_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="dutyParagraph" column="duty_paragraph" javaType="string" jdbcType="VARCHAR" />
+		<result property="data1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="data2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+		<result property="data4" column="data_4" javaType="int" jdbcType="INTEGER" />
+		<result property="data5" column="data_5" javaType="int" jdbcType="INTEGER" />
+		<result property="data6" column="data_6" javaType="int" jdbcType="INTEGER" />
+		<result property="data7" column="data_7" javaType="double" jdbcType="DOUBLE" />
+		<result property="data8" column="data_8" javaType="double" jdbcType="DOUBLE" />
+		<result property="data9" column="data_9" javaType="double" jdbcType="DOUBLE" />
+		<result property="data10" column="data_10" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	<select id="getListMap" parameterType="hashmap" resultMap="jxccontactsaccountDaoMap">
+		select * from 
+		tb_jxc_contacts_account
+		<where>
+			1=1
+		</where>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if>
+			</when>
+			<otherwise>
+				order by id desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select count(*) from
+		tb_jxc_contacts_account
+	</select>
+	
+	<insert id="add" parameterType="com.h2y.jxc.entity.JxcContactsAccount">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_jxc_contacts_account 
+		</selectKey>  
+		insert into tb_jxc_contacts_account
+		(
+		units_id,
+		units_name,
+		account_name,
+		spell_code,
+		account_type,
+		account_currency,
+		deposit_bank,
+		depositor,
+		bank_account,
+		duty_paragraph,
+		data_1,
+		data_2,
+		data_3,
+		data_4,
+		data_5,
+		data_6,
+		data_7,
+		data_8,
+		data_9,
+		data_10
+		)
+		values (
+		#{unitsId,jdbcType=BIGINT},
+		#{unitsName,jdbcType=VARCHAR},
+		#{accountName,jdbcType=VARCHAR},
+		#{spellCode,jdbcType=VARCHAR},
+		#{accountType,jdbcType=INTEGER},
+		#{accountCurrency,jdbcType=VARCHAR},
+		#{depositBank,jdbcType=VARCHAR},
+		#{depositor,jdbcType=VARCHAR},
+		#{bankAccount,jdbcType=VARCHAR},
+		#{dutyParagraph,jdbcType=VARCHAR},
+		#{data1,jdbcType=VARCHAR},
+		#{data2,jdbcType=VARCHAR},
+		#{data3,jdbcType=VARCHAR},
+		#{data4,jdbcType=INTEGER},
+		#{data5,jdbcType=INTEGER},
+		#{data6,jdbcType=INTEGER},
+		#{data7,jdbcType=DOUBLE},
+		#{data8,jdbcType=DOUBLE},
+		#{data9,jdbcType=DOUBLE},
+		#{data10,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.jxc.entity.JxcContactsAccount">
+		update tb_jxc_contacts_account
+		set
+		units_id = #{unitsId,jdbcType=BIGINT},
+		units_name = #{unitsName,jdbcType=VARCHAR},
+		account_name = #{accountName,jdbcType=VARCHAR},
+		spell_code = #{spellCode,jdbcType=VARCHAR},
+		account_type = #{accountType,jdbcType=INTEGER},
+		account_currency = #{accountCurrency,jdbcType=VARCHAR},
+		deposit_bank = #{depositBank,jdbcType=VARCHAR},
+		depositor = #{depositor,jdbcType=VARCHAR},
+		bank_account = #{bankAccount,jdbcType=VARCHAR},
+		duty_paragraph = #{dutyParagraph,jdbcType=VARCHAR},
+		data_1 = #{data1,jdbcType=VARCHAR},
+		data_2 = #{data2,jdbcType=VARCHAR},
+		data_3 = #{data3,jdbcType=VARCHAR},
+		data_4 = #{data4,jdbcType=INTEGER},
+		data_5 = #{data5,jdbcType=INTEGER},
+		data_6 = #{data6,jdbcType=INTEGER},
+		data_7 = #{data7,jdbcType=DOUBLE},
+		data_8 = #{data8,jdbcType=DOUBLE},
+		data_9 = #{data9,jdbcType=DOUBLE},
+		data_10 = #{data10,jdbcType=BIGINT}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.jxc.entity.JxcContactsAccount">
+		delete from
+		tb_jxc_contacts_account
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_jxc_contacts_account
+		where
+		id = #{id} 
+	</delete>
+
+	<select id="get" parameterType="long"
+		resultMap="jxccontactsaccountDaoMap">
+		select * from tb_jxc_contacts_account where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.jxc.entity.JxcContactsAccount"
+		resultMap="jxccontactsaccountDaoMap">
+		select * from
+		tb_jxc_contacts_account
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="unitsId!= null">
+			and units_id = #{unitsId}
+			</if>
+			<if test="unitsName!= null and unitsName!=''">
+			and units_name = #{unitsName}
+			</if>
+			<if test="accountName!= null and accountName!=''">
+			and account_name = #{accountName}
+			</if>
+			<if test="spellCode!= null and spellCode!=''">
+			and spell_code = #{spellCode}
+			</if>
+			<if test="accountType!= null">
+			and account_type = #{accountType}
+			</if>
+			<if test="accountCurrency!= null and accountCurrency!=''">
+			and account_currency = #{accountCurrency}
+			</if>
+			<if test="depositBank!= null and depositBank!=''">
+			and deposit_bank = #{depositBank}
+			</if>
+			<if test="depositor!= null and depositor!=''">
+			and depositor = #{depositor}
+			</if>
+			<if test="bankAccount!= null and bankAccount!=''">
+			and bank_account = #{bankAccount}
+			</if>
+			<if test="dutyParagraph!= null and dutyParagraph!=''">
+			and duty_paragraph = #{dutyParagraph}
+			</if>
+			<if test="data1!= null and data1!=''">
+			and data_1 = #{data1}
+			</if>
+			<if test="data2!= null and data2!=''">
+			and data_2 = #{data2}
+			</if>
+			<if test="data3!= null and data3!=''">
+			and data_3 = #{data3}
+			</if>
+			<if test="data4!= null">
+			and data_4 = #{data4}
+			</if>
+			<if test="data5!= null">
+			and data_5 = #{data5}
+			</if>
+			<if test="data6!= null">
+			and data_6 = #{data6}
+			</if>
+			<if test="data7!= null and data7!=''">
+			and data_7 = #{data7}
+			</if>
+			<if test="data8!= null and data8!=''">
+			and data_8 = #{data8}
+			</if>
+			<if test="data9!= null and data9!=''">
+			and data_9 = #{data9}
+			</if>
+			<if test="data10!= null">
+			and data_10 = #{data10}
+			</if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="jxccontactsaccountDaoMap">
+		select
+		*
+		from
+		tb_jxc_contacts_account
+		<if test="keyJxcContactsAccount!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keyJxcContactsAccount.id!= null">
+				and id = #{keyJxcContactsAccount.id}
+				</if>
+				<if test="keyJxcContactsAccount.unitsId!= null">
+				and units_id = #{keyJxcContactsAccount.unitsId}
+				</if>
+				<if test="keyJxcContactsAccount.unitsName!= null and keyJxcContactsAccount.unitsName!=''">
+				and units_name = #{keyJxcContactsAccount.unitsName}
+				</if>
+				<if test="keyJxcContactsAccount.accountName!= null and keyJxcContactsAccount.accountName!=''">
+				and account_name = #{keyJxcContactsAccount.accountName}
+				</if>
+				<if test="keyJxcContactsAccount.spellCode!= null and keyJxcContactsAccount.spellCode!=''">
+				and spell_code = #{keyJxcContactsAccount.spellCode}
+				</if>
+				<if test="keyJxcContactsAccount.accountType!= null">
+				and account_type = #{keyJxcContactsAccount.accountType}
+				</if>
+				<if test="keyJxcContactsAccount.accountCurrency!= null and keyJxcContactsAccount.accountCurrency!=''">
+				and account_currency = #{keyJxcContactsAccount.accountCurrency}
+				</if>
+				<if test="keyJxcContactsAccount.depositBank!= null and keyJxcContactsAccount.depositBank!=''">
+				and deposit_bank = #{keyJxcContactsAccount.depositBank}
+				</if>
+				<if test="keyJxcContactsAccount.depositor!= null and keyJxcContactsAccount.depositor!=''">
+				and depositor = #{keyJxcContactsAccount.depositor}
+				</if>
+				<if test="keyJxcContactsAccount.bankAccount!= null and keyJxcContactsAccount.bankAccount!=''">
+				and bank_account = #{keyJxcContactsAccount.bankAccount}
+				</if>
+				<if test="keyJxcContactsAccount.dutyParagraph!= null and keyJxcContactsAccount.dutyParagraph!=''">
+				and duty_paragraph = #{keyJxcContactsAccount.dutyParagraph}
+				</if>
+				<if test="keyJxcContactsAccount.data1!= null and keyJxcContactsAccount.data1!=''">
+				and data_1 = #{keyJxcContactsAccount.data1}
+				</if>
+				<if test="keyJxcContactsAccount.data2!= null and keyJxcContactsAccount.data2!=''">
+				and data_2 = #{keyJxcContactsAccount.data2}
+				</if>
+				<if test="keyJxcContactsAccount.data3!= null and keyJxcContactsAccount.data3!=''">
+				and data_3 = #{keyJxcContactsAccount.data3}
+				</if>
+				<if test="keyJxcContactsAccount.data4!= null">
+				and data_4 = #{keyJxcContactsAccount.data4}
+				</if>
+				<if test="keyJxcContactsAccount.data5!= null">
+				and data_5 = #{keyJxcContactsAccount.data5}
+				</if>
+				<if test="keyJxcContactsAccount.data6!= null">
+				and data_6 = #{keyJxcContactsAccount.data6}
+				</if>
+				<if test="keyJxcContactsAccount.data7!= null and keyJxcContactsAccount.data7!=''">
+				and data_7 = #{keyJxcContactsAccount.data7}
+				</if>
+				<if test="keyJxcContactsAccount.data8!= null and keyJxcContactsAccount.data8!=''">
+				and data_8 = #{keyJxcContactsAccount.data8}
+				</if>
+				<if test="keyJxcContactsAccount.data9!= null and keyJxcContactsAccount.data9!=''">
+				and data_9 = #{keyJxcContactsAccount.data9}
+				</if>
+				<if test="keyJxcContactsAccount.data10!= null">
+				and data_10 = #{keyJxcContactsAccount.data10}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_jxc_contacts_account
+		<if test="keyJxcContactsAccount!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keyJxcContactsAccount.id!= null">
+				and id = #{keyJxcContactsAccount.id}
+				</if>
+				<if test="keyJxcContactsAccount.unitsId!= null">
+				and units_id = #{keyJxcContactsAccount.unitsId}
+				</if>
+				<if test="keyJxcContactsAccount.unitsName!= null and keyJxcContactsAccount.unitsName!=''">
+				and units_name = #{keyJxcContactsAccount.unitsName}
+				</if>
+				<if test="keyJxcContactsAccount.accountName!= null and keyJxcContactsAccount.accountName!=''">
+				and account_name = #{keyJxcContactsAccount.accountName}
+				</if>
+				<if test="keyJxcContactsAccount.spellCode!= null and keyJxcContactsAccount.spellCode!=''">
+				and spell_code = #{keyJxcContactsAccount.spellCode}
+				</if>
+				<if test="keyJxcContactsAccount.accountType!= null">
+				and account_type = #{keyJxcContactsAccount.accountType}
+				</if>
+				<if test="keyJxcContactsAccount.accountCurrency!= null and keyJxcContactsAccount.accountCurrency!=''">
+				and account_currency = #{keyJxcContactsAccount.accountCurrency}
+				</if>
+				<if test="keyJxcContactsAccount.depositBank!= null and keyJxcContactsAccount.depositBank!=''">
+				and deposit_bank = #{keyJxcContactsAccount.depositBank}
+				</if>
+				<if test="keyJxcContactsAccount.depositor!= null and keyJxcContactsAccount.depositor!=''">
+				and depositor = #{keyJxcContactsAccount.depositor}
+				</if>
+				<if test="keyJxcContactsAccount.bankAccount!= null and keyJxcContactsAccount.bankAccount!=''">
+				and bank_account = #{keyJxcContactsAccount.bankAccount}
+				</if>
+				<if test="keyJxcContactsAccount.dutyParagraph!= null and keyJxcContactsAccount.dutyParagraph!=''">
+				and duty_paragraph = #{keyJxcContactsAccount.dutyParagraph}
+				</if>
+				<if test="keyJxcContactsAccount.data1!= null and keyJxcContactsAccount.data1!=''">
+				and data_1 = #{keyJxcContactsAccount.data1}
+				</if>
+				<if test="keyJxcContactsAccount.data2!= null and keyJxcContactsAccount.data2!=''">
+				and data_2 = #{keyJxcContactsAccount.data2}
+				</if>
+				<if test="keyJxcContactsAccount.data3!= null and keyJxcContactsAccount.data3!=''">
+				and data_3 = #{keyJxcContactsAccount.data3}
+				</if>
+				<if test="keyJxcContactsAccount.data4!= null">
+				and data_4 = #{keyJxcContactsAccount.data4}
+				</if>
+				<if test="keyJxcContactsAccount.data5!= null">
+				and data_5 = #{keyJxcContactsAccount.data5}
+				</if>
+				<if test="keyJxcContactsAccount.data6!= null">
+				and data_6 = #{keyJxcContactsAccount.data6}
+				</if>
+				<if test="keyJxcContactsAccount.data7!= null and keyJxcContactsAccount.data7!=''">
+				and data_7 = #{keyJxcContactsAccount.data7}
+				</if>
+				<if test="keyJxcContactsAccount.data8!= null and keyJxcContactsAccount.data8!=''">
+				and data_8 = #{keyJxcContactsAccount.data8}
+				</if>
+				<if test="keyJxcContactsAccount.data9!= null and keyJxcContactsAccount.data9!=''">
+				and data_9 = #{keyJxcContactsAccount.data9}
+				</if>
+				<if test="keyJxcContactsAccount.data10!= null">
+				and data_10 = #{keyJxcContactsAccount.data10}
+				</if>
+			</trim>
+		</if>
+	</select>
+</mapper>

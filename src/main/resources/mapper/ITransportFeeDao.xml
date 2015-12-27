@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ITransportFeeDao">
+
+	<resultMap type="com.h2y.bmg.entity.TransportFee" id="transportfeeDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitsId" column="units_id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitsZoneCode" column="units_zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="desZoneCode" column="des_zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="desZoneName" column="des_zone_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="feeAmount" column="fee_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="status" column="status" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="createUserId" column="create_user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateUserId" column="update_user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="remark" column="remark" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<insert id="add" parameterType="com.h2y.bmg.entity.TransportFee">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_transport_fee 
+		</selectKey>  
+		INSERT INTO tb_transport_fee
+		(
+		units_id,
+		units_zone_code,
+		des_zone_code,
+		des_zone_name,
+		fee_amount,
+		status,
+		create_date,
+		create_user_id,
+		update_date,
+		update_user_id,
+		remark
+		)
+		VALUES (
+		#{unitsId,jdbcType=BIGINT},
+		#{unitsZoneCode,jdbcType=VARCHAR},
+		#{desZoneCode,jdbcType=VARCHAR},
+		#{desZoneName,jdbcType=VARCHAR},
+		#{feeAmount,jdbcType=DOUBLE},
+		#{status,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{createUserId,jdbcType=BIGINT},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{updateUserId,jdbcType=BIGINT},
+		#{remark,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.TransportFee">
+		UPDATE tb_transport_fee
+		SET
+		units_id = #{unitsId,jdbcType=BIGINT},
+		units_zone_code = #{unitsZoneCode,jdbcType=VARCHAR},
+		des_zone_code = #{desZoneCode,jdbcType=VARCHAR},
+		des_zone_name = #{desZoneName,jdbcType=VARCHAR},
+		fee_amount = #{feeAmount,jdbcType=DOUBLE},
+		status = #{status,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		create_user_id = #{createUserId,jdbcType=BIGINT},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		update_user_id = #{updateUserId,jdbcType=BIGINT},
+		remark = #{remark,jdbcType=VARCHAR}
+		WHERE id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.TransportFee">
+		DELETE FROM tb_transport_fee WHERE id = #{id} 
+	</delete>
+	
+	<select id="get" parameterType="long" resultMap="transportfeeDaoMap">
+	    SELECT * from tb_transport_fee where id = #{id} 
+	</select>
+	
+	
+	<select id="getTransfee" parameterType="hashmap" resultMap="transportfeeDaoMap">
+	   SELECT * FROM tb_transport_fee WHERE units_id = #{unid} and des_zone_code = #{zcode} and status = 0
+	</select>
+	
+	
+	<!-- 查询供应商运费维护情况 -->
+	<select id="getGridData" parameterType="hashmap" resultType="hashmap">
+	   SELECT 
+	   tf.id,
+	   sz.name AS zone_name,
+	   su.unit_name,
+	   tf.fee_amount,
+	   tf.status,
+	   tf.create_date
+	   FROM tb_transport_fee tf
+	   LEFT JOIN tb_zone sz ON tf.des_zone_code = sz.code 
+	   LEFT JOIN tb_sys_units su ON tf.units_id = su.id
+	   WHERE tf.units_id = #{unid}
+	   LIMIT ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	<!-- 查询供应商运费维护情况 -->
+	<select id="getGridDataSize" parameterType="hashmap" resultType="long">
+	   SELECT 
+	   count(tf.id)
+	   FROM tb_transport_fee tf
+	   LEFT JOIN tb_zone sz ON tf.des_zone_code = sz.code 
+	   WHERE tf.units_id = #{unid}
+	</select>
+	 
+</mapper>

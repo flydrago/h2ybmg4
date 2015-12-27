@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ISysLogDao">
+
+	<resultMap type="com.h2y.bmg.entity.SysLog" id="syslogDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="userId" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="userName" column="user_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="account" column="account" javaType="string" jdbcType="VARCHAR" />
+		<result property="ip" column="ip" javaType="string" jdbcType="VARCHAR" />
+		<result property="moduleName" column="module_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="operateDate" column="operate_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="operateType" column="operate_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="operateResult" column="operate_result" javaType="string" jdbcType="VARCHAR" />
+		<result property="operateOs" column="operate_os" javaType="string" jdbcType="VARCHAR" />
+		<result property="operateBrowser" column="operate_browser" javaType="string" jdbcType="VARCHAR" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="businessId" column="business_Id" javaType="string" jdbcType="VARCHAR" />
+		<result property="tableName" column="table_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="reserve1" column="reserve_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="reserve2" column="reserve_2" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="syslogDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="USER_ID" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="USER_NAME" column="user_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="ACCOUNT" column="account" javaType="string" jdbcType="VARCHAR" />
+		<result property="IP" column="ip" javaType="string" jdbcType="VARCHAR" />
+		<result property="MODULE_NAME" column="module_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="OPERATE_DATE" column="operate_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="OPERATE_TYPE" column="operate_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="OPERATE_RESULTE" column="operate_result" javaType="string" jdbcType="VARCHAR" />
+		<result property="OPERATE_OS" column="operate_os" javaType="string" jdbcType="VARCHAR" />
+		<result property="OPERATE_BROWSER" column="operate_browser" javaType="string" jdbcType="VARCHAR" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="BUSINESS_ID" column="business_Id" javaType="string" jdbcType="VARCHAR" />
+		<result property="TABLE_NAME" column="table_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="RESERVE_1" column="reserve_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="RESERVE_2" column="reserve_2" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.SysLog">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_sys_log 
+		</selectKey>  
+		insert into tb_sys_log
+		(
+		user_id,
+		user_name,
+		account,
+		ip,
+		module_name,
+		operate_date,
+		operate_type,
+		operate_result,
+		operate_os,
+		operate_browser,
+		memo,
+		unit_id,
+		business_Id,
+		table_name,
+		reserve_1,
+		reserve_2
+		)
+		values (
+		#{userId,jdbcType=BIGINT},
+		#{userName,jdbcType=VARCHAR},
+		#{account,jdbcType=VARCHAR},
+		#{ip,jdbcType=VARCHAR},
+		#{moduleName,jdbcType=VARCHAR},
+		#{operateDate,jdbcType=TIMESTAMP},
+		#{operateType,jdbcType=VARCHAR},
+		#{operateResult,jdbcType=VARCHAR},
+		#{operateOs,jdbcType=VARCHAR},
+		#{operateBrowser,jdbcType=VARCHAR},
+		#{memo,jdbcType=VARCHAR},
+		#{unitId,jdbcType=BIGINT},
+		#{businessId,jdbcType=VARCHAR},
+		#{tableName,jdbcType=VARCHAR},
+		#{reserve1,jdbcType=VARCHAR},
+		#{reserve2,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.SysLog">
+		update tb_sys_log
+		set
+		user_id = #{userId,jdbcType=BIGINT},
+		user_name = #{userName,jdbcType=VARCHAR},
+		account = #{account,jdbcType=VARCHAR},
+		ip = #{ip,jdbcType=VARCHAR},
+		module_name = #{moduleName,jdbcType=VARCHAR},
+		operate_date = #{operateDate,jdbcType=TIMESTAMP},
+		operate_type = #{operateType,jdbcType=VARCHAR},
+		operate_result = #{operateResult,jdbcType=VARCHAR},
+		operate_os = #{operateOs,jdbcType=VARCHAR},
+		operate_browser = #{operateBrowser,jdbcType=VARCHAR},
+		memo = #{memo,jdbcType=VARCHAR},
+		unit_id = #{unitId,jdbcType=BIGINT},
+		business_Id = #{businessId,jdbcType=VARCHAR},
+		table_name = #{tableName,jdbcType=VARCHAR},
+		reserve_1 = #{reserve1,jdbcType=VARCHAR},
+		reserve_2 = #{reserve2,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.SysLog">
+		delete from
+		tb_sys_log
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_sys_log
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_sys_log
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+	<select id="get" parameterType="long"
+		resultMap="syslogDaoMap">
+		select * from tb_sys_log where id = #{id}
+	</select>
+	
+	
+	<select id="getListMap" parameterType="hashmap" resultMap="syslogDaoListMap">
+		select * from tb_sys_log 
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			unit_id = #{unitId}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<if test="sortname !=null and sortname !='' ">
+			order by ${sortname}
+			<if test="sortorder !=null and sortorder !='' ">
+				${sortorder} 
+			</if>
+		</if>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select count(id) from tb_sys_log 
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			unit_id = #{unitId}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+
+</mapper>

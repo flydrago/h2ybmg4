@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IAdvertColumnSubjectRtDao">
+
+	<resultMap type="com.h2y.bmg.entity.AdvertColumnSubjectRt" id="advertcolumnsubjectrtDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="columnId" column="column_id" javaType="long" jdbcType="BIGINT" />
+		<result property="userId" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="subjectId" column="subject_id" javaType="long" jdbcType="BIGINT" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="startDate" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="endDate" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="repeatStart" column="repeat_start" javaType="string" jdbcType="VARCHAR" />
+		<result property="repeatEnd" column="repeat_end" javaType="string" jdbcType="VARCHAR" />
+		<result property="repeatType" column="repeat_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="isDefault" column="is_default" javaType="int" jdbcType="INTEGER" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="advertcolumnsubjectrtDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="COLUMN_ID" column="column_id" javaType="long" jdbcType="BIGINT" />
+		<result property="USER_ID" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="SUBJECT_ID" column="subject_id" javaType="long" jdbcType="BIGINT" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="START_DATE" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="END_DATE" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="REPEAT_START" column="repeat_start" javaType="string" jdbcType="VARCHAR" />
+		<result property="REPEAT_END" column="repeat_end" javaType="string" jdbcType="VARCHAR" />
+		<result property="REPEAT_TYPE" column="repeat_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="IS_DEFAULT" column="is_default" javaType="int" jdbcType="INTEGER" />
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+		
+		<result property="SUBJECT_NAME" column="subject_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="SUBJECT_TYPE" column="subject_type" javaType="int" jdbcType="INTEGER" />
+		
+				
+		<result property="SHORT_NAME" column="short_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="UNIT_TYPE" column="unit_type" javaType="int" jdbcType="INTEGER" />
+		<result property="UNIT_NAME" column="unit_name" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.AdvertColumnSubjectRt">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_advert_column_subject_rt 
+		</selectKey>  
+		insert into tb_advert_column_subject_rt
+		(
+		unit_id,
+		column_id,
+		user_id,
+		subject_id,
+		create_date,
+		start_date,
+		end_date,
+		repeat_start,
+		repeat_end,
+		repeat_type,
+		memo,
+		is_default,
+		status
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{columnId,jdbcType=BIGINT},
+		#{userId,jdbcType=BIGINT},
+		#{subjectId,jdbcType=BIGINT},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{startDate,jdbcType=TIMESTAMP},
+		#{endDate,jdbcType=TIMESTAMP},
+		#{repeatStart,jdbcType=VARCHAR},
+		#{repeatEnd,jdbcType=VARCHAR},
+		#{repeatType,jdbcType=VARCHAR},
+		#{memo,jdbcType=VARCHAR},
+		#{isDefault,jdbcType=INTEGER},
+		#{status,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.AdvertColumnSubjectRt">
+		update tb_advert_column_subject_rt
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		column_id = #{columnId,jdbcType=BIGINT},
+		user_id = #{userId,jdbcType=BIGINT},
+		subject_id = #{subjectId,jdbcType=BIGINT},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		start_date = #{startDate,jdbcType=TIMESTAMP},
+		end_date = #{endDate,jdbcType=TIMESTAMP},
+		repeat_start = #{repeatStart,jdbcType=VARCHAR},
+		repeat_end = #{repeatEnd,jdbcType=VARCHAR},
+		repeat_type = #{repeatType,jdbcType=VARCHAR},
+		memo = #{memo,jdbcType=VARCHAR},
+		is_default = #{isDefault,jdbcType=INTEGER},
+		status = #{status,jdbcType=INTEGER}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.AdvertColumnSubjectRt">
+		delete from
+		tb_advert_column_subject_rt
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_advert_column_subject_rt
+		where
+		id = #{id} 
+	</delete>
+
+	<select id="get" parameterType="long"
+		resultMap="advertcolumnsubjectrtDaoMap">
+		select * from tb_advert_column_subject_rt where id = #{id}
+	</select>
+	
+	
+	<select id="getListMap" parameterType="hashmap" resultMap="advertcolumnsubjectrtDaoListMap">
+		SELECT
+			adcs.*,
+			ads.subject_name,
+			ads.subject_type,
+			u.short_name,
+			u.unit_type,
+			u.unit_name
+		FROM
+			tb_advert_column_subject_rt adcs
+		JOIN tb_advert_subject ads ON adcs.subject_id = ads.id
+		JOIN tb_sys_units u ON ads.unit_id = u.id	
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			adcs.column_id = #{columnId}
+			and adcs.unit_id = #{unitId}
+			and adcs.`status` &lt;&gt; -1
+			and ads.`status` &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by u.zone_code ,${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if>
+			</when>
+			<otherwise>
+				order by adcs.create_date
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	
+	
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(adcs.id)
+		FROM
+			tb_advert_column_subject_rt adcs
+		JOIN tb_advert_subject ads ON adcs.subject_id = ads.id
+		JOIN tb_sys_units u ON ads.unit_id = u.id	
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			adcs.column_id = #{columnId}
+			and adcs.unit_id = #{unitId}
+			and adcs.`status` &lt;&gt; -1
+			and ads.`status` &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="getDefaultListRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(adcs.id)
+		FROM
+			tb_advert_column_subject_rt adcs
+		WHERE adcs.column_id = #{columnId}
+		and adcs.unit_id = #{unitId}
+		and adcs.`status` &lt;&gt; -1
+		and adcs.is_default = 1
+		<if test="op == 'modify'">
+			and adcs.id &lt;&gt; #{id}
+		</if>
+	</select>
+	
+	<select id="getDateCrossListMap" parameterType="hashmap" resultMap="advertcolumnsubjectrtDaoListMap">
+		SELECT
+			adcs.*,
+			ads.subject_name,
+			ads.subject_type
+		FROM
+			tb_advert_column_subject_rt adcs
+		JOIN tb_advert_subject ads ON adcs.subject_id = ads.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			!(adcs.start_date &gt;= #{endDate} OR adcs.end_date &lt;= #{startDate})
+			AND !(adcs.repeat_start &gt;= #{repeatEnd} OR adcs.repeat_end &lt;= #{repeatStart} )
+			AND adcs.column_id = #{columnId}
+			AND adcs.unit_id = #{unitId}
+			and adcs.`status` &lt;&gt; -1
+			and ads.`status` &lt;&gt; -1
+			AND adcs.is_default &lt;&gt; 1
+			<if test="op == 'modify'">
+				and adcs.id &lt;&gt; #{id}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if>
+			</when>
+			<otherwise>
+				order by adcs.create_date
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	
+	
+	<select id="getDateCrossListRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(adcs.id)
+		FROM
+			tb_advert_column_subject_rt adcs
+		JOIN tb_advert_subject ads ON adcs.subject_id = ads.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			!(adcs.start_date &gt;= #{endDate} OR adcs.end_date &lt;= #{startDate})
+			AND !(adcs.repeat_start &gt;= #{repeatEnd} OR adcs.repeat_end &lt;= #{repeatStart} )
+			AND adcs.column_id = #{columnId}
+			AND adcs.unit_id = #{unitId}
+			AND adcs.is_default &lt;&gt; 1
+			and adcs.`status` &lt;&gt; -1
+			and ads.`status` &lt;&gt; -1
+			<if test="op == 'modify'">
+				and adcs.id &lt;&gt; #{id}
+			</if>
+		</trim>
+	</select>
+	
+	
+	<select id="getSubjectInfoByColumnId" parameterType="hashmap" resultType="hashmap">
+		select a.* from (
+		SELECT
+			ads.id as subjectId,
+			ads.subject_name as subjectName,
+			ads.subject_type as subjectType
+		FROM
+			tb_advert_column_subject_rt adcs
+		JOIN tb_advert_subject ads ON adcs.subject_id = ads.id
+		where NOW() BETWEEN adcs.start_date AND adcs.end_date 
+		AND CURTIME()BETWEEN adcs.repeat_start AND adcs.repeat_end
+		AND adcs.column_id = #{columnId}
+		AND adcs.unit_id = #{unitId}
+		AND adcs.is_default &lt;&gt; 1
+		and adcs.`status` &lt;&gt; -1
+		and ads.`status` &lt;&gt; -1
+		union 
+		SELECT
+			ads.id as subjectId,
+			ads.subject_name as subjectName,
+			ads.subject_type as subjectType
+		FROM
+			tb_advert_column_subject_rt adcs
+		JOIN tb_advert_subject ads ON adcs.subject_id = ads.id
+		where adcs.column_id = #{columnId}
+		AND adcs.unit_id = #{unitId}
+		AND adcs.is_default = 1
+		and adcs.`status` &lt;&gt; -1
+		and ads.`status` &lt;&gt; -1
+		) a
+		limit 0,1
+	</select>
+	
+</mapper>

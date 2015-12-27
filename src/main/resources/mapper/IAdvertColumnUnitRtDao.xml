@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IAdvertColumnUnitRtDao">
+
+	<resultMap type="com.h2y.bmg.entity.AdvertColumnUnitRt" id="advertcolumnunitrtDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="columnId" column="column_id" javaType="long" jdbcType="BIGINT" />
+		<result property="startDate" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="endDate" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="advertcolumnunitrtDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="COLUMN_ID" column="column_id" javaType="long" jdbcType="BIGINT" />
+		<result property="START_DATE" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="END_DATE" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="COLUMN_NAME" column="column_name" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.AdvertColumnUnitRt">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_advert_column_unit_rt 
+		</selectKey>  
+		insert into tb_advert_column_unit_rt
+		(
+		unit_id,
+		column_id,
+		start_date,
+		end_date,
+		status
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{columnId,jdbcType=BIGINT},
+		#{startDate,jdbcType=TIMESTAMP},
+		#{endDate,jdbcType=TIMESTAMP},
+		#{status,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.AdvertColumnUnitRt">
+		update tb_advert_column_unit_rt
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		column_id = #{columnId,jdbcType=BIGINT},
+		start_date = #{startDate,jdbcType=TIMESTAMP},
+		end_date = #{endDate,jdbcType=TIMESTAMP},
+		status = #{status,jdbcType=INTEGER}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.AdvertColumnUnitRt">
+		delete from
+		tb_advert_column_unit_rt
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_advert_column_unit_rt
+		where
+		id = #{id} 
+	</delete>
+
+	<select id="get" parameterType="long"
+		resultMap="advertcolumnunitrtDaoMap">
+		select * from tb_advert_column_unit_rt where id = #{id}
+	</select>
+	
+	<select id="getListMap" parameterType="hashmap"
+		resultMap="advertcolumnunitrtDaoListMap">
+		SELECT
+			cu.id,
+			cu.unit_id,
+			cu.column_id,
+			cu.start_date,
+			cu.end_date,
+			cu.status,
+			c.column_name
+		FROM
+			tb_advert_column_unit_rt cu
+		JOIN tb_advert_column c ON cu.column_id = c.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			cu.unit_id = #{unitId}
+			and c.column_type = 1
+			and c.status &lt;&gt; -1
+			and cu.status &lt;&gt; -1
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if>
+			</when>
+			<otherwise>
+				order by c.ord desc,cu.status
+			</otherwise>
+		</choose>
+	</select>
+	
+	
+	<select id="getColumnRowsByUnitId" parameterType="hashmap"
+		resultType="long">
+		SELECT
+			count(id)
+		FROM
+			tb_advert_column_unit_rt
+		WHERE
+			unit_id = #{unitId}
+		AND column_id = #{columnId}
+		<if test="id != null">
+			AND id &lt;&gt; #{id}
+		</if>
+		AND status &lt;&gt; -1
+	</select>
+
+</mapper>

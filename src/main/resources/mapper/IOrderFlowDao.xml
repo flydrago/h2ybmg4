@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IOrderFlowDao">
+
+	<resultMap type="java.util.Map" id="orderflowDaoListMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="orderId" column="order_id" javaType="long" jdbcType="BIGINT" />
+		<result property="orderNo" column="order_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="longitude" column="longitude" javaType="double" jdbcType="DECIMAL" />
+		<result property="latitude" column="latitude" javaType="double" jdbcType="DECIMAL" />
+		<result property="position" column="position" javaType="string" jdbcType="VARCHAR" />
+		<result property="orderStatus" column="order_status" javaType="int" jdbcType="INTEGER" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="operatorType" column="operator_type" javaType="int" jdbcType="INTEGER" />
+		<result property="operatorId" column="operator_id" javaType="long" jdbcType="BIGINT" />
+		<result property="operatorName" column="operator_name" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="getListByOrderNo" parameterType="string" resultMap="orderflowDaoListMap">
+		SELECT
+			*
+		FROM
+			tb_order_flow
+		WHERE
+			order_no = #{orderNo} 
+		order by create_date
+	</select>
+	
+	
+	<select id="getHisListByOrderNo" parameterType="string" resultMap="orderflowDaoListMap">
+		SELECT
+			*
+		FROM
+			tb_order_flow_hi
+		WHERE
+			order_no = #{orderNo} 
+		order by create_date
+	</select>
+	
+</mapper>

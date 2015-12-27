@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.jxc.dao.IJxcPurchaseReceiptsDao">
+
+	<resultMap type="com.h2y.jxc.entity.JxcPurchaseReceipts" id="jxcpurchasereceiptsDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="billNo" column="bill_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="billCustomNo" column="bill_custom_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="receiptsDate" column="receipts_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="paymentDate" column="payment_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="supplierId" column="supplier_id" javaType="long" jdbcType="BIGINT" />
+		<result property="supplier" column="supplier" javaType="string" jdbcType="VARCHAR" />
+		<result property="storageId" column="storage_id" javaType="long" jdbcType="BIGINT" />
+		<result property="storage" column="storage" javaType="string" jdbcType="VARCHAR" />
+		<result property="storageArea" column="storage_area" javaType="string" jdbcType="VARCHAR" />
+		<result property="brokerId" column="broker_id" javaType="long" jdbcType="BIGINT" />
+		<result property="broker" column="broker" javaType="string" jdbcType="VARCHAR" />
+		<result property="paymentAccountId" column="payment_account_id" javaType="long" jdbcType="BIGINT" />
+		<result property="paymentAccount" column="payment_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="currentPayment" column="current_payment" javaType="double" jdbcType="DOUBLE" />
+		<result property="notes" column="notes" javaType="string" jdbcType="VARCHAR" />
+		<result property="reviseMark" column="revise_mark" javaType="int" jdbcType="INTEGER" />
+		<result property="checkStatus" column="check_status" javaType="int" jdbcType="INTEGER" />
+		<result property="billStatus" column="bill_status" javaType="int" jdbcType="INTEGER" />
+		<result property="totalAmount" column="total_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="discount" column="discount" javaType="double" jdbcType="DOUBLE" />
+		<result property="discountAmount" column="discount_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="payableAmount" column="payable_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="billMaker" column="bill_maker" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="zoneCode" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="data1" column="data1" javaType="long" jdbcType="BIGINT" />
+		<result property="data2" column="data2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data3" javaType="string" jdbcType="VARCHAR" />
+		<result property="data4" column="data4" javaType="long" jdbcType="BIGINT" />
+		<result property="data5" column="data5" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="jxcPurchaseReceiptsListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="BILL_NO" column="bill_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="BILL_CUSTOM_NO" column="bill_custom_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="RECEIPTS_DATE" column="receipts_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="PAYMENT_DATE" column="payment_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="SUPPLIER_ID" column="supplier_id" javaType="long" jdbcType="BIGINT" />
+		<result property="SUPPLIER" column="supplier" javaType="string" jdbcType="VARCHAR" />
+		<result property="STORAGE_ID" column="storage_id" javaType="long" jdbcType="BIGINT" />
+		<result property="STORAGE" column="storage" javaType="string" jdbcType="VARCHAR" />
+		<result property="STORAGE_AREA" column="storage_area" javaType="string" jdbcType="VARCHAR" />
+		<result property="BROKER_ID" column="broker_id" javaType="long" jdbcType="BIGINT" />
+		<result property="BROKER" column="broker" javaType="string" jdbcType="VARCHAR" />
+		<result property="PAYMENT_ACCOUNT_ID" column="payment_account_id" javaType="long" jdbcType="BIGINT" />
+		<result property="PAYMENT_ACCOUNT" column="payment_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="CURRENT_PAYMENT" column="current_payment" javaType="double" jdbcType="DOUBLE" />
+		<result property="NOTES" column="notes" javaType="string" jdbcType="VARCHAR" />
+		<result property="REVISE_MARK" column="revise_mark" javaType="int" jdbcType="INTEGER" />
+		<result property="CHECK_STATUS" column="check_status" javaType="int" jdbcType="INTEGER" />
+		<result property="BILL_STATUS" column="bill_status" javaType="int" jdbcType="INTEGER" />
+		<result property="TOTAL_AMOUNT" column="total_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="DISCOUNT" column="discount" javaType="double" jdbcType="DOUBLE" />
+		<result property="DISCOUNT_AMOUNT" column="discount_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="PAYABLE_AMOUNT" column="payable_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="BILL_MAKER" column="bill_maker" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ZONE_CODE" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="getBillByBillNo"  parameterType="string" resultMap="jxcpurchasereceiptsDaoMap">
+		select *
+		from tb_jxc_purchase_receipts
+		where bill_no = #{billNo}
+	</select>
+
+	<select id="getListMap" parameterType="hashmap" resultMap="jxcPurchaseReceiptsListMap">
+		select * from 
+		tb_jxc_purchase_receipts
+		<trim prefix="WHERE" prefixOverrides="AND|OR" >
+			1=1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			<choose>
+				<when test="sortname !=null and sortname !=''">
+					order by ${sortname}
+					<if test="sortorder !=null and sortorder !='' ">
+						${sortorder} 
+					</if>
+				</when>
+				<otherwise>
+					order by create_date desc
+				</otherwise>
+			</choose>
+		</trim>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select count(*) from 
+		tb_jxc_purchase_receipts
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			1=1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	
+	<insert id="add" parameterType="com.h2y.jxc.entity.JxcPurchaseReceipts">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_jxc_purchase_receipts 
+		</selectKey>  
+		insert into tb_jxc_purchase_receipts
+		(
+		bill_no,
+		bill_custom_no,
+		receipts_date,
+		payment_date,
+		supplier_id,
+		supplier,
+		storage_id,
+		storage,
+		storage_area,
+		broker_id,
+		broker,
+		payment_account_id,
+		payment_account,
+		current_payment,
+		notes,
+		revise_mark,
+		check_status,
+		bill_status,
+		total_amount,
+		discount,
+		discount_amount,
+		payable_amount,
+		bill_maker,
+		create_date,
+		zone_code,
+		data1,
+		data2,
+		data3,
+		data4,
+		data5
+		)
+		values (
+		#{billNo,jdbcType=VARCHAR},
+		#{billCustomNo,jdbcType=VARCHAR},
+		#{receiptsDate,jdbcType=TIMESTAMP},
+		#{paymentDate,jdbcType=TIMESTAMP},
+		#{supplierId,jdbcType=BIGINT},
+		#{supplier,jdbcType=VARCHAR},
+		#{storageId,jdbcType=BIGINT},
+		#{storage,jdbcType=VARCHAR},
+		#{storageArea,jdbcType=VARCHAR},
+		#{brokerId,jdbcType=BIGINT},
+		#{broker,jdbcType=VARCHAR},
+		#{paymentAccountId,jdbcType=BIGINT},
+		#{paymentAccount,jdbcType=VARCHAR},
+		#{currentPayment,jdbcType=DOUBLE},
+		#{notes,jdbcType=VARCHAR},
+		#{reviseMark,jdbcType=INTEGER},
+		#{checkStatus,jdbcType=INTEGER},
+		#{billStatus,jdbcType=INTEGER},
+		#{totalAmount,jdbcType=DOUBLE},
+		#{discount,jdbcType=DOUBLE},
+		#{discountAmount,jdbcType=DOUBLE},
+		#{payableAmount,jdbcType=DOUBLE},
+		#{billMaker,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{zoneCode,jdbcType=VARCHAR},
+		#{data1,jdbcType=BIGINT},
+		#{data2,jdbcType=VARCHAR},
+		#{data3,jdbcType=VARCHAR},
+		#{data4,jdbcType=BIGINT},
+		#{data5,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.jxc.entity.JxcPurchaseReceipts">
+		update tb_jxc_purchase_receipts
+		set
+		bill_no = #{billNo,jdbcType=VARCHAR},
+		bill_custom_no = #{billCustomNo,jdbcType=VARCHAR},
+		receipts_date = #{receiptsDate,jdbcType=TIMESTAMP},
+		payment_date = #{paymentDate,jdbcType=TIMESTAMP},
+		supplier_id = #{supplierId,jdbcType=BIGINT},
+		supplier = #{supplier,jdbcType=VARCHAR},
+		storage_id = #{storageId,jdbcType=BIGINT},
+		storage = #{storage,jdbcType=VARCHAR},
+		storage_area = #{storageArea,jdbcType=VARCHAR},
+		broker_id = #{brokerId,jdbcType=BIGINT},
+		broker = #{broker,jdbcType=VARCHAR},
+		payment_account_id = #{paymentAccountId,jdbcType=BIGINT},
+		payment_account = #{paymentAccount,jdbcType=VARCHAR},
+		current_payment = #{currentPayment,jdbcType=DOUBLE},
+		notes = #{notes,jdbcType=VARCHAR},
+		revise_mark = #{reviseMark,jdbcType=INTEGER},
+		check_status = #{checkStatus,jdbcType=INTEGER},
+		bill_status = #{billStatus,jdbcType=INTEGER},
+		total_amount = #{totalAmount,jdbcType=DOUBLE},
+		discount = #{discount,jdbcType=DOUBLE},
+		discount_amount = #{discountAmount,jdbcType=DOUBLE},
+		payable_amount = #{payableAmount,jdbcType=DOUBLE},
+		bill_maker = #{billMaker,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		zone_code = #{zoneCode,jdbcType=VARCHAR},
+		data1 = #{data1,jdbcType=BIGINT},
+		data2 = #{data2,jdbcType=VARCHAR},
+		data3 = #{data3,jdbcType=VARCHAR},
+		data4 = #{data4,jdbcType=BIGINT},
+		data5 = #{data5,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.jxc.entity.JxcPurchaseReceipts">
+		delete from
+		tb_jxc_purchase_receipts
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_jxc_purchase_receipts
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_jxc_purchase_receipts
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="jxcpurchasereceiptsDaoMap">
+		select * from tb_jxc_purchase_receipts where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.jxc.entity.JxcPurchaseReceipts"
+		resultMap="jxcpurchasereceiptsDaoMap">
+		select * from
+		tb_jxc_purchase_receipts
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="billNo!= null and billNo!=''">
+			and bill_no = #{billNo}
+			</if>
+			<if test="billCustomNo!= null and billCustomNo!=''">
+			and bill_custom_no = #{billCustomNo}
+			</if>
+			<if test="receiptsDate!= null and receiptsDate!=''">
+			and receipts_date = #{receiptsDate}
+			</if>
+			<if test="paymentDate!= null and paymentDate!=''">
+			and payment_date = #{paymentDate}
+			</if>
+			<if test="supplierId!= null">
+			and supplier_id = #{supplierId}
+			</if>
+			<if test="supplier!= null and supplier!=''">
+			and supplier = #{supplier}
+			</if>
+			<if test="storageId!= null">
+			and storage_id = #{storageId}
+			</if>
+			<if test="storage!= null and storage!=''">
+			and storage = #{storage}
+			</if>
+			<if test="storageArea!= null and storageArea!=''">
+			and storage_area = #{storageArea}
+			</if>
+			<if test="brokerId!= null">
+			and broker_id = #{brokerId}
+			</if>
+			<if test="broker!= null and broker!=''">
+			and broker = #{broker}
+			</if>
+			<if test="paymentAccountId!= null">
+			and payment_account_id = #{paymentAccountId}
+			</if>
+			<if test="paymentAccount!= null and paymentAccount!=''">
+			and payment_account = #{paymentAccount}
+			</if>
+			<if test="currentPayment!= null and currentPayment!=''">
+			and current_payment = #{currentPayment}
+			</if>
+			<if test="notes!= null and notes!=''">
+			and notes = #{notes}
+			</if>
+			<if test="reviseMark!= null">
+			and revise_mark = #{reviseMark}
+			</if>
+			<if test="checkStatus!= null">
+			and check_status = #{checkStatus}
+			</if>
+			<if test="billStatus!= null">
+			and bill_status = #{billStatus}
+			</if>
+			<if test="totalAmount!= null and totalAmount!=''">
+			and total_amount = #{totalAmount}
+			</if>
+			<if test="discount!= null and discount!=''">
+			and discount = #{discount}
+			</if>
+			<if test="discountAmount!= null and discountAmount!=''">
+			and discount_amount = #{discountAmount}
+			</if>
+			<if test="payableAmount!= null and payableAmount!=''">
+			and payable_amount = #{payableAmount}
+			</if>
+			<if test="billMaker!= null and billMaker!=''">
+			and bill_maker = #{billMaker}
+			</if>
+			<if test="createDate!= null and createDate!=''">
+			and create_date = #{createDate}
+			</if>
+			<if test="zoneCode!= null and zoneCode!=''">
+			and zone_code = #{zoneCode}
+			</if>
+			<if test="data1!= null">
+			and data1 = #{data1}
+			</if>
+			<if test="data2!= null and data2!=''">
+			and data2 = #{data2}
+			</if>
+			<if test="data3!= null and data3!=''">
+			and data3 = #{data3}
+			</if>
+			<if test="data4!= null">
+			and data4 = #{data4}
+			</if>
+			<if test="data5!= null and data5!=''">
+			and data5 = #{data5}
+			</if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="jxcpurchasereceiptsDaoMap">
+		select
+		*
+		from
+		tb_jxc_purchase_receipts
+		<if test="keyJxcPurchaseReceipts!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keyJxcPurchaseReceipts.id!= null">
+				and id = #{keyJxcPurchaseReceipts.id}
+				</if>
+				<if test="keyJxcPurchaseReceipts.billNo!= null and keyJxcPurchaseReceipts.billNo!=''">
+				and bill_no = #{keyJxcPurchaseReceipts.billNo}
+				</if>
+				<if test="keyJxcPurchaseReceipts.billCustomNo!= null and keyJxcPurchaseReceipts.billCustomNo!=''">
+				and bill_custom_no = #{keyJxcPurchaseReceipts.billCustomNo}
+				</if>
+				<if test="keyJxcPurchaseReceipts.receiptsDate!= null and keyJxcPurchaseReceipts.receiptsDate!=''">
+				and receipts_date = #{keyJxcPurchaseReceipts.receiptsDate}
+				</if>
+				<if test="keyJxcPurchaseReceipts.paymentDate!= null and keyJxcPurchaseReceipts.paymentDate!=''">
+				and payment_date = #{keyJxcPurchaseReceipts.paymentDate}
+				</if>
+				<if test="keyJxcPurchaseReceipts.supplierId!= null">
+				and supplier_id = #{keyJxcPurchaseReceipts.supplierId}
+				</if>
+				<if test="keyJxcPurchaseReceipts.supplier!= null and keyJxcPurchaseReceipts.supplier!=''">
+				and supplier = #{keyJxcPurchaseReceipts.supplier}
+				</if>
+				<if test="keyJxcPurchaseReceipts.storageId!= null">
+				and storage_id = #{keyJxcPurchaseReceipts.storageId}
+				</if>
+				<if test="keyJxcPurchaseReceipts.storage!= null and keyJxcPurchaseReceipts.storage!=''">
+				and storage = #{keyJxcPurchaseReceipts.storage}
+				</if>
+				<if test="keyJxcPurchaseReceipts.storageArea!= null and keyJxcPurchaseReceipts.storageArea!=''">
+				and storage_area = #{keyJxcPurchaseReceipts.storageArea}
+				</if>
+				<if test="keyJxcPurchaseReceipts.brokerId!= null">
+				and broker_id = #{keyJxcPurchaseReceipts.brokerId}
+				</if>
+				<if test="keyJxcPurchaseReceipts.broker!= null and keyJxcPurchaseReceipts.broker!=''">
+				and broker = #{keyJxcPurchaseReceipts.broker}
+				</if>
+				<if test="keyJxcPurchaseReceipts.paymentAccountId!= null">
+				and payment_account_id = #{keyJxcPurchaseReceipts.paymentAccountId}
+				</if>
+				<if test="keyJxcPurchaseReceipts.paymentAccount!= null and keyJxcPurchaseReceipts.paymentAccount!=''">
+				and payment_account = #{keyJxcPurchaseReceipts.paymentAccount}
+				</if>
+				<if test="keyJxcPurchaseReceipts.currentPayment!= null and keyJxcPurchaseReceipts.currentPayment!=''">
+				and current_payment = #{keyJxcPurchaseReceipts.currentPayment}
+				</if>
+				<if test="keyJxcPurchaseReceipts.notes!= null and keyJxcPurchaseReceipts.notes!=''">
+				and notes = #{keyJxcPurchaseReceipts.notes}
+				</if>
+				<if test="keyJxcPurchaseReceipts.reviseMark!= null">
+				and revise_mark = #{keyJxcPurchaseReceipts.reviseMark}
+				</if>
+				<if test="keyJxcPurchaseReceipts.checkStatus!= null">
+				and check_status = #{keyJxcPurchaseReceipts.checkStatus}
+				</if>
+				<if test="keyJxcPurchaseReceipts.billStatus!= null">
+				and bill_status = #{keyJxcPurchaseReceipts.billStatus}
+				</if>
+				<if test="keyJxcPurchaseReceipts.totalAmount!= null and keyJxcPurchaseReceipts.totalAmount!=''">
+				and total_amount = #{keyJxcPurchaseReceipts.totalAmount}
+				</if>
+				<if test="keyJxcPurchaseReceipts.discount!= null and keyJxcPurchaseReceipts.discount!=''">
+				and discount = #{keyJxcPurchaseReceipts.discount}
+				</if>
+				<if test="keyJxcPurchaseReceipts.discountAmount!= null and keyJxcPurchaseReceipts.discountAmount!=''">
+				and discount_amount = #{keyJxcPurchaseReceipts.discountAmount}
+				</if>
+				<if test="keyJxcPurchaseReceipts.payableAmount!= null and keyJxcPurchaseReceipts.payableAmount!=''">
+				and payable_amount = #{keyJxcPurchaseReceipts.payableAmount}
+				</if>
+				<if test="keyJxcPurchaseReceipts.billMaker!= null and keyJxcPurchaseReceipts.billMaker!=''">
+				and bill_maker = #{keyJxcPurchaseReceipts.billMaker}
+				</if>
+				<if test="keyJxcPurchaseReceipts.createDate!= null and keyJxcPurchaseReceipts.createDate!=''">
+				and create_date = #{keyJxcPurchaseReceipts.createDate}
+				</if>
+				<if test="keyJxcPurchaseReceipts.zoneCode!= null and keyJxcPurchaseReceipts.zoneCode!=''">
+				and zone_code = #{keyJxcPurchaseReceipts.zoneCode}
+				</if>
+				<if test="keyJxcPurchaseReceipts.data1!= null">
+				and data1 = #{keyJxcPurchaseReceipts.data1}
+				</if>
+				<if test="keyJxcPurchaseReceipts.data2!= null and keyJxcPurchaseReceipts.data2!=''">
+				and data2 = #{keyJxcPurchaseReceipts.data2}
+				</if>
+				<if test="keyJxcPurchaseReceipts.data3!= null and keyJxcPurchaseReceipts.data3!=''">
+				and data3 = #{keyJxcPurchaseReceipts.data3}
+				</if>
+				<if test="keyJxcPurchaseReceipts.data4!= null">
+				and data4 = #{keyJxcPurchaseReceipts.data4}
+				</if>
+				<if test="keyJxcPurchaseReceipts.data5!= null and keyJxcPurchaseReceipts.data5!=''">
+				and data5 = #{keyJxcPurchaseReceipts.data5}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_jxc_purchase_receipts
+		<if test="keyJxcPurchaseReceipts!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keyJxcPurchaseReceipts.id!= null">
+				and id = #{keyJxcPurchaseReceipts.id}
+				</if>
+				<if test="keyJxcPurchaseReceipts.billNo!= null and keyJxcPurchaseReceipts.billNo!=''">
+				and bill_no = #{keyJxcPurchaseReceipts.billNo}
+				</if>
+				<if test="keyJxcPurchaseReceipts.billCustomNo!= null and keyJxcPurchaseReceipts.billCustomNo!=''">
+				and bill_custom_no = #{keyJxcPurchaseReceipts.billCustomNo}
+				</if>
+				<if test="keyJxcPurchaseReceipts.receiptsDate!= null and keyJxcPurchaseReceipts.receiptsDate!=''">
+				and receipts_date = #{keyJxcPurchaseReceipts.receiptsDate}
+				</if>
+				<if test="keyJxcPurchaseReceipts.paymentDate!= null and keyJxcPurchaseReceipts.paymentDate!=''">
+				and payment_date = #{keyJxcPurchaseReceipts.paymentDate}
+				</if>
+				<if test="keyJxcPurchaseReceipts.supplierId!= null">
+				and supplier_id = #{keyJxcPurchaseReceipts.supplierId}
+				</if>
+				<if test="keyJxcPurchaseReceipts.supplier!= null and keyJxcPurchaseReceipts.supplier!=''">
+				and supplier = #{keyJxcPurchaseReceipts.supplier}
+				</if>
+				<if test="keyJxcPurchaseReceipts.storageId!= null">
+				and storage_id = #{keyJxcPurchaseReceipts.storageId}
+				</if>
+				<if test="keyJxcPurchaseReceipts.storage!= null and keyJxcPurchaseReceipts.storage!=''">
+				and storage = #{keyJxcPurchaseReceipts.storage}
+				</if>
+				<if test="keyJxcPurchaseReceipts.storageArea!= null and keyJxcPurchaseReceipts.storageArea!=''">
+				and storage_area = #{keyJxcPurchaseReceipts.storageArea}
+				</if>
+				<if test="keyJxcPurchaseReceipts.brokerId!= null">
+				and broker_id = #{keyJxcPurchaseReceipts.brokerId}
+				</if>
+				<if test="keyJxcPurchaseReceipts.broker!= null and keyJxcPurchaseReceipts.broker!=''">
+				and broker = #{keyJxcPurchaseReceipts.broker}
+				</if>
+				<if test="keyJxcPurchaseReceipts.paymentAccountId!= null">
+				and payment_account_id = #{keyJxcPurchaseReceipts.paymentAccountId}
+				</if>
+				<if test="keyJxcPurchaseReceipts.paymentAccount!= null and keyJxcPurchaseReceipts.paymentAccount!=''">
+				and payment_account = #{keyJxcPurchaseReceipts.paymentAccount}
+				</if>
+				<if test="keyJxcPurchaseReceipts.currentPayment!= null and keyJxcPurchaseReceipts.currentPayment!=''">
+				and current_payment = #{keyJxcPurchaseReceipts.currentPayment}
+				</if>
+				<if test="keyJxcPurchaseReceipts.notes!= null and keyJxcPurchaseReceipts.notes!=''">
+				and notes = #{keyJxcPurchaseReceipts.notes}
+				</if>
+				<if test="keyJxcPurchaseReceipts.reviseMark!= null">
+				and revise_mark = #{keyJxcPurchaseReceipts.reviseMark}
+				</if>
+				<if test="keyJxcPurchaseReceipts.checkStatus!= null">
+				and check_status = #{keyJxcPurchaseReceipts.checkStatus}
+				</if>
+				<if test="keyJxcPurchaseReceipts.billStatus!= null">
+				and bill_status = #{keyJxcPurchaseReceipts.billStatus}
+				</if>
+				<if test="keyJxcPurchaseReceipts.totalAmount!= null and keyJxcPurchaseReceipts.totalAmount!=''">
+				and total_amount = #{keyJxcPurchaseReceipts.totalAmount}
+				</if>
+				<if test="keyJxcPurchaseReceipts.discount!= null and keyJxcPurchaseReceipts.discount!=''">
+				and discount = #{keyJxcPurchaseReceipts.discount}
+				</if>
+				<if test="keyJxcPurchaseReceipts.discountAmount!= null and keyJxcPurchaseReceipts.discountAmount!=''">
+				and discount_amount = #{keyJxcPurchaseReceipts.discountAmount}
+				</if>
+				<if test="keyJxcPurchaseReceipts.payableAmount!= null and keyJxcPurchaseReceipts.payableAmount!=''">
+				and payable_amount = #{keyJxcPurchaseReceipts.payableAmount}
+				</if>
+				<if test="keyJxcPurchaseReceipts.billMaker!= null and keyJxcPurchaseReceipts.billMaker!=''">
+				and bill_maker = #{keyJxcPurchaseReceipts.billMaker}
+				</if>
+				<if test="keyJxcPurchaseReceipts.createDate!= null and keyJxcPurchaseReceipts.createDate!=''">
+				and create_date = #{keyJxcPurchaseReceipts.createDate}
+				</if>
+				<if test="keyJxcPurchaseReceipts.zoneCode!= null and keyJxcPurchaseReceipts.zoneCode!=''">
+				and zone_code = #{keyJxcPurchaseReceipts.zoneCode}
+				</if>
+				<if test="keyJxcPurchaseReceipts.data1!= null">
+				and data1 = #{keyJxcPurchaseReceipts.data1}
+				</if>
+				<if test="keyJxcPurchaseReceipts.data2!= null and keyJxcPurchaseReceipts.data2!=''">
+				and data2 = #{keyJxcPurchaseReceipts.data2}
+				</if>
+				<if test="keyJxcPurchaseReceipts.data3!= null and keyJxcPurchaseReceipts.data3!=''">
+				and data3 = #{keyJxcPurchaseReceipts.data3}
+				</if>
+				<if test="keyJxcPurchaseReceipts.data4!= null">
+				and data4 = #{keyJxcPurchaseReceipts.data4}
+				</if>
+				<if test="keyJxcPurchaseReceipts.data5!= null and keyJxcPurchaseReceipts.data5!=''">
+				and data5 = #{keyJxcPurchaseReceipts.data5}
+				</if>
+			</trim>
+		</if>
+	</select>
+</mapper>

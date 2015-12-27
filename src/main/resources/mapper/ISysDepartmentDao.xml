@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ISysDepartmentDao">
+
+	<resultMap type="com.h2y.bmg.entity.SysDepartment" id="sysdepartmentDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="deptCode" column="dept_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="parentId" column="parent_id" javaType="long" jdbcType="BIGINT" />
+		<result property="deptLeader" column="dept_leader" javaType="long" jdbcType="BIGINT" />
+		<result property="deptName" column="dept_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="deptShortName" column="dept_short_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="deptDesc" column="dept_desc" javaType="string" jdbcType="VARCHAR" />
+		<result property="deptOrd" column="dept_ord" javaType="long" jdbcType="BIGINT" />
+		<result property="deptType" column="dept_type" javaType="long" jdbcType="BIGINT" />
+		<result property="ifDelete" column="if_delete" javaType="long" jdbcType="BIGINT" />
+		<result property="position" column="position" javaType="string" jdbcType="VARCHAR" />
+		<result property="gpsLongitude" column="gps_longitude" javaType="double" jdbcType="DOUBLE" />
+		<result property="gpsLatitude" column="gps_latitude" javaType="double" jdbcType="DOUBLE" />
+		<result property="reverse1" column="reverse_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="reverse2" column="reverse_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="ifHasShop" column="if_has_shop" javaType="long" jdbcType="BIGINT" />
+		<result property="xghdcode" column="xghdcode" javaType="string" jdbcType="VARCHAR" />
+		<result property="xghcreatedate" column="xghcreatedate" javaType="date" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	 <resultMap type="java.util.Map" id="sysdepartmentDaolistMap">
+        <result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+        <result property="DEPT_CODE" column="dept_code" javaType="string" jdbcType="VARCHAR" />
+        <result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+        <result property="PARENT_ID" column="parent_id" javaType="long" jdbcType="BIGINT" />
+        <result property="DEPT_LEADER" column="dept_leader" javaType="long" jdbcType="BIGINT" />
+        <result property="DEPT_NAME" column="dept_name" javaType="string" jdbcType="VARCHAR" />
+        <result property="DEPT_SHORT_NAME" column="dept_short_name" javaType="string" jdbcType="VARCHAR" />
+        <result property="DEPT_DESC" column="dept_desc" javaType="string" jdbcType="VARCHAR" />
+        <result property="DEPT_ORD" column="dept_ord" javaType="long" jdbcType="BIGINT" />
+        <result property="DEPT_TYPE" column="dept_type" javaType="long" jdbcType="BIGINT" />
+        <result property="REVERSE_1" column="reverse_1" javaType="string" jdbcType="VARCHAR" />
+        <result property="REVERSE_2" column="reverse_2" javaType="string" jdbcType="VARCHAR" />
+        <result property="IF_DELETE" column="if_delete" javaType="long" jdbcType="BIGINT" />
+        <result property="POSITION" column="position" javaType="string" jdbcType="VARCHAR" />
+		<result property="GPS_LONGITUDE" column="gps_longitude" javaType="double" jdbcType="DOUBLE" />
+		<result property="GPS_LATITUDE" column="gps_latitude" javaType="double" jdbcType="DOUBLE" />
+		<result property="REVERSE_1" column="reverse_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="REVERSE_2" column="reverse_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="IF_HAS_SHOP" column="if_has_shop" javaType="long" jdbcType="BIGINT" />
+    </resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.SysDepartment">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_sys_department 
+		</selectKey>  
+		insert into tb_sys_department
+		(
+		dept_code,
+		unit_id,
+		parent_id,
+		dept_leader,
+		dept_name,
+		dept_short_name,
+		dept_desc,
+		dept_ord,
+		dept_type,
+		if_delete,
+		position,
+		gps_longitude,
+		gps_latitude,
+		reverse_1,
+		reverse_2,
+		if_has_shop,
+		xghdcode,
+		xghcreatedate
+		)
+		values (
+		#{deptCode,jdbcType=VARCHAR},
+		#{unitId,jdbcType=BIGINT},
+		#{parentId,jdbcType=BIGINT},
+		#{deptLeader,jdbcType=BIGINT},
+		#{deptName,jdbcType=VARCHAR},
+		#{deptShortName,jdbcType=VARCHAR},
+		#{deptDesc,jdbcType=VARCHAR},
+		#{deptOrd,jdbcType=BIGINT},
+		#{deptType,jdbcType=BIGINT},
+		#{ifDelete,jdbcType=BIGINT},
+		#{position,jdbcType=VARCHAR},
+		#{gpsLongitude,jdbcType=DOUBLE},
+		#{gpsLatitude,jdbcType=DOUBLE},
+		#{reverse1,jdbcType=VARCHAR},
+		#{reverse2,jdbcType=VARCHAR},
+		#{ifHasShop,jdbcType=BIGINT},
+		#{xghdcode,jdbcType=VARCHAR},
+		#{xghcreatedate,jdbcType=TIMESTAMP}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.SysDepartment">
+		update tb_sys_department
+		set
+		dept_code = #{deptCode,jdbcType=VARCHAR},
+		unit_id = #{unitId,jdbcType=BIGINT},
+		parent_id = #{parentId,jdbcType=BIGINT},
+		dept_leader = #{deptLeader,jdbcType=BIGINT},
+		dept_name = #{deptName,jdbcType=VARCHAR},
+		dept_short_name = #{deptShortName,jdbcType=VARCHAR},
+		dept_desc = #{deptDesc,jdbcType=VARCHAR},
+		dept_ord = #{deptOrd,jdbcType=BIGINT},
+		dept_type = #{deptType,jdbcType=BIGINT},
+		if_delete = #{ifDelete,jdbcType=BIGINT},
+		position = #{position,jdbcType=VARCHAR},
+		gps_longitude = #{gpsLongitude,jdbcType=DOUBLE},
+		gps_latitude = #{gpsLatitude,jdbcType=DOUBLE},
+		reverse_1 = #{reverse1,jdbcType=VARCHAR},
+		reverse_2 = #{reverse2,jdbcType=VARCHAR},
+		if_has_shop = #{ifHasShop,jdbcType=BIGINT},
+		xghdcode = #{xghdcode,jdbcType=VARCHAR},
+		xghcreatedate = #{xghcreatedate,jdbcType=TIMESTAMP}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.SysDepartment">
+		delete from
+		tb_sys_department
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_sys_department
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_sys_department
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="sysdepartmentDaoMap">
+		select * from tb_sys_department where id = #{id}
+	</select>
+
+
+    <select id="getChildTreeData" parameterType="hashmap" resultType="hashmap">
+        select
+	        id,
+	        parent_id as pid,
+	        dept_name as text,
+	        dept_code as code,
+	        dept_type as type
+        from
+        tb_sys_department
+        where parent_id = #{parentId} and unit_id = #{unitId} and if_delete = 0
+        order by dept_ord
+    </select>
+
+
+    <select id="getChildDepartmentRows" parameterType="long" resultType="long">
+        select
+        	count(id)
+        from
+        tb_sys_department
+        where parent_id = #{parentId}  and if_delete = 0
+    </select>
+    
+     <select id="getListMap" parameterType="hashmap" resultMap="sysdepartmentDaolistMap">
+        SELECT
+        *
+        FROM
+        tb_sys_department
+        where  parent_id = #{parentId} and unit_id = #{unitId} and if_delete = 0
+        order by dept_ord
+        limit ${(page-1)*pagesize},${pagesize}
+    </select>
+    <select id="getListRows" parameterType="hashmap" resultType="long">
+        SELECT
+        count(id)
+        FROM
+        tb_sys_department
+        where  parent_id = #{parentId} and unit_id = #{unitId} and if_delete = 0
+    </select>
+    
+    
+    <select id="getSelectDialogDepartmentList" parameterType="hashmap" resultType="hashmap">
+	    SELECT
+			id as ID,
+			dept_code AS DEPT_CODE,
+			dept_name AS DEPT_NAME
+		FROM
+			tb_sys_department
+		WHERE
+			unit_id = #{unitId} 
+		AND if_delete = 0
+		<choose>
+			<when test="isCascade == 'no'">
+				and parent_id = #{deptId}
+			</when>
+			<otherwise>
+				and dept_code like #{deptCode}
+			</otherwise>
+		</choose>
+		<if test="searchName!=null">
+			and dept_name like #{searchName}
+		</if>
+		ORDER BY dept_ord
+	</select>
+	
+	
+	 <select id="getUserIdsByDeptCodes" parameterType="hashmap" resultType="long">
+	 
+	 	SELECT 
+			DISTINCT user_id
+		FROM
+			tb_sys_dept_user
+		WHERE
+			dept_code in 
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>	
+	</select>
+	
+	
+	<update id="updateIfShopByIds" parameterType="hashmap">
+		update tb_sys_department
+		set
+		if_has_shop = #{ifHasShop}
+		where id in (${ids})
+	</update>
+	
+	
+	<select id="getShopRowsByPid" parameterType="long" resultType="long">
+	 	SELECT
+	 		count(id)
+		FROM
+			tb_sys_department
+		WHERE
+			parent_id = #{pid} 
+		AND if_delete = 0
+		AND dept_type = 1
+	</select>
+
+
+	<select id="getUserRowsByDeptId" parameterType="long" resultType="long">
+		SELECT
+			count(du.id)
+		FROM
+			tb_sys_dept_user du
+		JOIN tb_sys_user u ON du.user_id = u.id
+		where u.if_delete = 0 and du.dept_id = #{deptId}
+	</select>
+	
+	<select id="getShopList" parameterType="hashmap" resultType="hashmap">
+		SELECT
+		sd.dept_name as shop_name,
+		sd.dept_type ,
+		sd.id as shop_id
+		FROM
+		tb_sys_dept_user sdu
+		LEFT JOIN tb_sys_department sd ON sdu.dept_id = sd.id
+		WHERE
+		sdu.user_id = #{uid}
+		AND sd.dept_type = 1
+	</select>
+	
+	
+	
+	<select id="getVirtualShopRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(id)
+		FROM
+			tb_sys_department
+		WHERE unit_id = #{unitId}
+		AND reverse_1 = 'virtual'
+		and if_delete = 0
+		AND dept_type = 1
+		<if test="id!=null">
+			and id != #{id}
+		</if>
+	</select>
+	
+</mapper>

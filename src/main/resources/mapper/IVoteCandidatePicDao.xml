@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IVoteCandidatePicDao">
+
+	<resultMap type="com.h2y.bmg.entity.VoteCandidatePic" id="votecandidatepicDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="candidateId" column="candidate_id" javaType="long" jdbcType="BIGINT" />
+		<result property="picFileName" column="pic_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="diskFileName" column="disk_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="rootPath" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="relativePath" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="fileSize" column="file_size" javaType="long" jdbcType="BIGINT" />
+		<result property="fileSuffix" column="file_suffix" javaType="string" jdbcType="VARCHAR" />
+		<result property="fileType" column="file_type" javaType="int" jdbcType="INTEGER" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="optUserId" column="opt_user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="optUserAccount" column="opt_user_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="optUserName" column="opt_user_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="picStatus" column="pic_status" javaType="int" jdbcType="INTEGER" />
+		<result property="ord" column="ord" javaType="int" jdbcType="INTEGER" />
+		<result property="reserve1" column="reserve_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="reserve2" column="reserve_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="reserve3" column="reserve_3" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+		<resultMap type="java.util.Map" id="votecandidatepicDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="CANDIDATEID" column="candidate_id" javaType="long" jdbcType="BIGINT" />
+		<result property="PICFILENAME" column="pic_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="DISKFILENAME" column="disk_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="ROOTPATH" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="RELATIVEPATH" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="FILESIZE" column="file_size" javaType="long" jdbcType="BIGINT" />
+		<result property="FILESUFFIX" column="file_suffix" javaType="string" jdbcType="VARCHAR" />
+		<result property="FILETYPE" column="file_type" javaType="int" jdbcType="INTEGER" />
+		<result property="CREATEDATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="UPDATEDATE" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="OPTUSERID" column="opt_user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="OPTUSERACCOUNT" column="opt_user_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="OPTUSERNAME" column="opt_user_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="PICSTATUS" column="pic_status" javaType="int" jdbcType="INTEGER" />
+		<result property="ORD" column="ord" javaType="int" jdbcType="INTEGER" />
+		<result property="RESERVE1" column="reserve_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="RESERVE2" column="reserve_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="RESERVE3" column="reserve_3" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<insert id="add" parameterType="com.h2y.bmg.entity.VoteCandidatePic">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_vote_candidate_pic 
+		</selectKey>  
+		insert into tb_vote_candidate_pic
+		(
+		candidate_id,
+		pic_file_name,
+		disk_file_name,
+		root_path,
+		relative_path,
+		file_size,
+		file_suffix,
+		file_type,
+		create_date,
+		update_date,
+		opt_user_id,
+		opt_user_account,
+		opt_user_name,
+		pic_status,
+		ord,
+		reserve_1,
+		reserve_2,
+		reserve_3
+		)
+		values (
+		#{candidateId,jdbcType=BIGINT},
+		#{picFileName,jdbcType=VARCHAR},
+		#{diskFileName,jdbcType=VARCHAR},
+		#{rootPath,jdbcType=VARCHAR},
+		#{relativePath,jdbcType=VARCHAR},
+		#{fileSize,jdbcType=BIGINT},
+		#{fileSuffix,jdbcType=VARCHAR},
+		#{fileType,jdbcType=INTEGER},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{optUserId,jdbcType=BIGINT},
+		#{optUserAccount,jdbcType=VARCHAR},
+		#{optUserName,jdbcType=VARCHAR},
+		#{picStatus,jdbcType=INTEGER},
+		#{ord,jdbcType=INTEGER},
+		#{reserve1,jdbcType=VARCHAR},
+		#{reserve2,jdbcType=VARCHAR},
+		#{reserve3,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.VoteCandidatePic">
+		update tb_vote_candidate_pic
+		set
+		candidate_id = #{candidateId,jdbcType=BIGINT},
+		pic_file_name = #{picFileName,jdbcType=VARCHAR},
+		disk_file_name = #{diskFileName,jdbcType=VARCHAR},
+		root_path = #{rootPath,jdbcType=VARCHAR},
+		relative_path = #{relativePath,jdbcType=VARCHAR},
+		file_size = #{fileSize,jdbcType=BIGINT},
+		file_suffix = #{fileSuffix,jdbcType=VARCHAR},
+		file_type = #{fileType,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		opt_user_id = #{optUserId,jdbcType=BIGINT},
+		opt_user_account = #{optUserAccount,jdbcType=VARCHAR},
+		opt_user_name = #{optUserName,jdbcType=VARCHAR},
+		pic_status = #{picStatus,jdbcType=INTEGER},
+		ord = #{ord,jdbcType=INTEGER},
+		reserve_1 = #{reserve1,jdbcType=VARCHAR},
+		reserve_2 = #{reserve2,jdbcType=VARCHAR},
+		reserve_3 = #{reserve3,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.VoteCandidatePic">
+		delete from
+		tb_vote_candidate_pic
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_vote_candidate_pic
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_vote_candidate_pic
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long" resultMap="votecandidatepicDaoMap">
+		select * from tb_vote_candidate_pic where id = #{id}
+	</select>
+	
+	<select id="getByUserId" parameterType="long" resultMap="votecandidatepicDaoListMap">
+		select * from tb_vote_candidate_pic where candidate_id = #{candidateId} and pic_status = 1
+	</select>
+	
+	<select id="getPicId" parameterType="long" resultMap="votecandidatepicDaoListMap">
+		select id from tb_vote_candidate_pic where candidate_id = #{candidateId} and pic_status = 1
+	</select>
+
+	<select id="getList" parameterType="com.h2y.bmg.entity.VoteCandidatePic"
+		resultMap="votecandidatepicDaoMap">
+		select * from
+		tb_vote_candidate_pic
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="candidatePicId!= null">
+			and candidate_id = #{candidatePicId}
+			</if>
+			<if test="candidateId!= null">
+			and candidate_id = #{candidateId}
+			</if>
+			<if test="picFileName!= null and picFileName!=''">
+			and pic_file_name = #{picFileName}
+			</if>
+			<if test="diskFileName!= null and diskFileName!=''">
+			and disk_file_name = #{diskFileName}
+			</if>
+			<if test="rootPath!= null and rootPath!=''">
+			and root_path = #{rootPath}
+			</if>
+			<if test="relativePath!= null and relativePath!=''">
+			and relative_path = #{relativePath}
+			</if>
+			<if test="fileSize!= null">
+			and file_size = #{fileSize}
+			</if>
+			<if test="fileSuffix!= null and fileSuffix!=''">
+			and file_suffix = #{fileSuffix}
+			</if>
+			<if test="fileType!= null">
+			and file_type = #{fileType}
+			</if>
+			<if test="createDate!= null and createDate!=''">
+			and create_date = #{createDate}
+			</if>
+			<if test="updateDate!= null and updateDate!=''">
+			and update_date = #{updateDate}
+			</if>
+			<if test="optUserId!= null">
+			and opt_user_id = #{optUserId}
+			</if>
+			<if test="optUserAccount!= null and optUserAccount!=''">
+			and opt_user_account = #{optUserAccount}
+			</if>
+			<if test="optUserName!= null and optUserName!=''">
+			and opt_user_name = #{optUserName}
+			</if>
+			<if test="picStatus!= null">
+			and pic_status = #{picStatus}
+			</if>
+			<if test="ord!= null">
+			and ord = #{ord}
+			</if>
+			<if test="reserve1!= null and reserve1!=''">
+			and reserve_1 = #{reserve1}
+			</if>
+			<if test="reserve2!= null and reserve2!=''">
+			and reserve_2 = #{reserve2}
+			</if>
+			<if test="reserve3!= null and reserve3!=''">
+			and reserve_3 = #{reserve3}
+			</if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="votecandidatepicDaoMap">
+		select
+		*
+		from
+		tb_vote_candidate_pic
+		<if test="keyVoteCandidatePic!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keyVoteCandidatePic.id!= null">
+				and id = #{keyVoteCandidatePic.id}
+				</if>
+				<if test="keyVoteCandidatePic.candidateId!= null">
+				and candidate_id = #{keyVoteCandidatePic.candidateId}
+				</if>
+				<if test="keyVoteCandidatePic.picFileName!= null and keyVoteCandidatePic.picFileName!=''">
+				and pic_file_name = #{keyVoteCandidatePic.picFileName}
+				</if>
+				<if test="keyVoteCandidatePic.diskFileName!= null and keyVoteCandidatePic.diskFileName!=''">
+				and disk_file_name = #{keyVoteCandidatePic.diskFileName}
+				</if>
+				<if test="keyVoteCandidatePic.rootPath!= null and keyVoteCandidatePic.rootPath!=''">
+				and root_path = #{keyVoteCandidatePic.rootPath}
+				</if>
+				<if test="keyVoteCandidatePic.relativePath!= null and keyVoteCandidatePic.relativePath!=''">
+				and relative_path = #{keyVoteCandidatePic.relativePath}
+				</if>
+				<if test="keyVoteCandidatePic.fileSize!= null">
+				and file_size = #{keyVoteCandidatePic.fileSize}
+				</if>
+				<if test="keyVoteCandidatePic.fileSuffix!= null and keyVoteCandidatePic.fileSuffix!=''">
+				and file_suffix = #{keyVoteCandidatePic.fileSuffix}
+				</if>
+				<if test="keyVoteCandidatePic.fileType!= null">
+				and file_type = #{keyVoteCandidatePic.fileType}
+				</if>
+				<if test="keyVoteCandidatePic.createDate!= null and keyVoteCandidatePic.createDate!=''">
+				and create_date = #{keyVoteCandidatePic.createDate}
+				</if>
+				<if test="keyVoteCandidatePic.updateDate!= null and keyVoteCandidatePic.updateDate!=''">
+				and update_date = #{keyVoteCandidatePic.updateDate}
+				</if>
+				<if test="keyVoteCandidatePic.optUserId!= null">
+				and opt_user_id = #{keyVoteCandidatePic.optUserId}
+				</if>
+				<if test="keyVoteCandidatePic.optUserAccount!= null and keyVoteCandidatePic.optUserAccount!=''">
+				and opt_user_account = #{keyVoteCandidatePic.optUserAccount}
+				</if>
+				<if test="keyVoteCandidatePic.optUserName!= null and keyVoteCandidatePic.optUserName!=''">
+				and opt_user_name = #{keyVoteCandidatePic.optUserName}
+				</if>
+				<if test="keyVoteCandidatePic.picStatus!= null">
+				and pic_status = #{keyVoteCandidatePic.picStatus}
+				</if>
+				<if test="keyVoteCandidatePic.ord!= null">
+				and ord = #{keyVoteCandidatePic.ord}
+				</if>
+				<if test="keyVoteCandidatePic.reserve1!= null and keyVoteCandidatePic.reserve1!=''">
+				and reserve_1 = #{keyVoteCandidatePic.reserve1}
+				</if>
+				<if test="keyVoteCandidatePic.reserve2!= null and keyVoteCandidatePic.reserve2!=''">
+				and reserve_2 = #{keyVoteCandidatePic.reserve2}
+				</if>
+				<if test="keyVoteCandidatePic.reserve3!= null and keyVoteCandidatePic.reserve3!=''">
+				and reserve_3 = #{keyVoteCandidatePic.reserve3}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_vote_candidate_pic
+		<if test="keyVoteCandidatePic!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="candidatePicId!= null">
+				and id = #{candidatePicId}
+				</if>
+				<if test="keyVoteCandidatePic.candidateId!= null">
+				and candidate_id = #{keyVoteCandidatePic.candidateId}
+				</if>
+				<if test="keyVoteCandidatePic.picFileName!= null and keyVoteCandidatePic.picFileName!=''">
+				and pic_file_name = #{keyVoteCandidatePic.picFileName}
+				</if>
+				<if test="keyVoteCandidatePic.diskFileName!= null and keyVoteCandidatePic.diskFileName!=''">
+				and disk_file_name = #{keyVoteCandidatePic.diskFileName}
+				</if>
+				<if test="keyVoteCandidatePic.rootPath!= null and keyVoteCandidatePic.rootPath!=''">
+				and root_path = #{keyVoteCandidatePic.rootPath}
+				</if>
+				<if test="keyVoteCandidatePic.relativePath!= null and keyVoteCandidatePic.relativePath!=''">
+				and relative_path = #{keyVoteCandidatePic.relativePath}
+				</if>
+				<if test="keyVoteCandidatePic.fileSize!= null">
+				and file_size = #{keyVoteCandidatePic.fileSize}
+				</if>
+				<if test="keyVoteCandidatePic.fileSuffix!= null and keyVoteCandidatePic.fileSuffix!=''">
+				and file_suffix = #{keyVoteCandidatePic.fileSuffix}
+				</if>
+				<if test="keyVoteCandidatePic.fileType!= null">
+				and file_type = #{keyVoteCandidatePic.fileType}
+				</if>
+				<if test="keyVoteCandidatePic.createDate!= null and keyVoteCandidatePic.createDate!=''">
+				and create_date = #{keyVoteCandidatePic.createDate}
+				</if>
+				<if test="keyVoteCandidatePic.updateDate!= null and keyVoteCandidatePic.updateDate!=''">
+				and update_date = #{keyVoteCandidatePic.updateDate}
+				</if>
+				<if test="keyVoteCandidatePic.optUserId!= null">
+				and opt_user_id = #{keyVoteCandidatePic.optUserId}
+				</if>
+				<if test="keyVoteCandidatePic.optUserAccount!= null and keyVoteCandidatePic.optUserAccount!=''">
+				and opt_user_account = #{keyVoteCandidatePic.optUserAccount}
+				</if>
+				<if test="keyVoteCandidatePic.optUserName!= null and keyVoteCandidatePic.optUserName!=''">
+				and opt_user_name = #{keyVoteCandidatePic.optUserName}
+				</if>
+				<if test="keyVoteCandidatePic.picStatus!= null">
+				and pic_status = #{keyVoteCandidatePic.picStatus}
+				</if>
+				<if test="keyVoteCandidatePic.ord!= null">
+				and ord = #{keyVoteCandidatePic.ord}
+				</if>
+				<if test="keyVoteCandidatePic.reserve1!= null and keyVoteCandidatePic.reserve1!=''">
+				and reserve_1 = #{keyVoteCandidatePic.reserve1}
+				</if>
+				<if test="keyVoteCandidatePic.reserve2!= null and keyVoteCandidatePic.reserve2!=''">
+				and reserve_2 = #{keyVoteCandidatePic.reserve2}
+				</if>
+				<if test="keyVoteCandidatePic.reserve3!= null and keyVoteCandidatePic.reserve3!=''">
+				and reserve_3 = #{keyVoteCandidatePic.reserve3}
+				</if>
+			</trim>
+		</if>
+	</select>
+</mapper>

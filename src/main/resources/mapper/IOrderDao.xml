@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IOrderDao">
+
+	<!-- 订单模型映射 -->
+	<resultMap type="com.h2y.bmg.entity.Order" id="orderDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="orderNo" column="order_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="orderUnique" column="order_unique" javaType="string" jdbcType="VARCHAR" />
+		<result property="orderLongitude" column="order_longitude" javaType="decimal" jdbcType="DECIMAL" />
+		<result property="orderLatitude" column="order_latitude" javaType="decimal" jdbcType="DECIMAL" />
+		<result property="orderPosition" column="order_position" javaType="string" jdbcType="VARCHAR" />
+		<result property="orderOs" column="order_os" javaType="string" jdbcType="VARCHAR" />
+		<result property="orderOsv" column="order_osv" javaType="string" jdbcType="VARCHAR" />
+		<result property="orderAppv" column="order_appv" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsCount" column="goods_count" javaType="int" jdbcType="INTEGER" />
+		<result property="goodsAmount" column="goods_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="goodsTransportAmount" column="goods_transport_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitType" column="unit_type" javaType="long" jdbcType="BIGINT" />
+		<result property="unitName" column="unit_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="unitShortName" column="unit_short_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="shopId" column="shop_id" javaType="long" jdbcType="BIGINT" />
+		<result property="storehouseId" column="storehouse_id" javaType="long" jdbcType="BIGINT" />
+		<result property="storehouseName" column="storehouse_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="shopName" column="shop_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="shopLongitude" column="shop_longitude" javaType="decimal" jdbcType="DECIMAL" />
+		<result property="shopLatitude" column="shop_latitude" javaType="decimal" jdbcType="DECIMAL" />
+		<result property="shopType" column="shop_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="shopAddress" column="shop_address" javaType="string" jdbcType="VARCHAR" />
+		<result property="memberId" column="member_id" javaType="long" jdbcType="BIGINT" />
+		<result property="memberAccount" column="member_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="receiverAddressId" column="receiver_address_id" javaType="long" jdbcType="BIGINT" />
+		<result property="receiverAddress" column="receiver_address" javaType="string" jdbcType="VARCHAR" />
+		<result property="receiverLongitude" column="receiver_longitude" javaType="decimal" jdbcType="DECIMAL" />
+		<result property="receiverLatitude" column="receiver_latitude" javaType="decimal" jdbcType="DECIMAL" />
+		<result property="receiverName" column="receiver_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="receiverMobile" column="receiver_mobile" javaType="string" jdbcType="VARCHAR" />
+		<result property="receiverTelephone" column="receiver_telephone" javaType="string" jdbcType="VARCHAR" />
+		<result property="receiverMail" column="receiver_mail" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="orderStatus" column="order_status" javaType="int" jdbcType="INTEGER" />
+		<result property="deliveryerStatus" column="deliveryer_status" javaType="int" jdbcType="INTEGER" />
+		<result property="receiverStatus" column="receiver_status" javaType="int" jdbcType="INTEGER" />
+		<result property="deliveryerId" column="deliveryer_id" javaType="long" jdbcType="BIGINT" />
+		<result property="deliveryerName" column="deliveryer_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="deliveryerMobile" column="deliveryer_mobile" javaType="string" jdbcType="VARCHAR" />
+		<result property="deliveryerDate" column="deliveryer_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="isPay" column="is_pay" javaType="int" jdbcType="INTEGER" />
+		<result property="payType" column="pay_type" javaType="int" jdbcType="INTEGER" />
+		<result property="payAccount" column="pay_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="orderCategory" column="order_category" javaType="int" jdbcType="INTEGER" />
+		<result property="receiveCode" column="receive_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="vipCoin" column="vip_coin" javaType="double" jdbcType="DOUBLE" />
+		<result property="coinAmount" column="coin_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="realAmount" column="real_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="isChild" column="is_child" javaType="int" jdbcType="INTEGER" />
+		<result property="s3ordercode" column="s3ordercode" javaType="string" jdbcType="VARCHAR" />
+		<result property="s3ordercode2" column="s3ordercode2" javaType="string" jdbcType="VARCHAR" />
+		<result property="s3createdate" column="s3createdate" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="s3op" column="s3op" javaType="string" jdbcType="VARCHAR" />
+		<result property="s3ucode" column="s3ucode" javaType="string" jdbcType="VARCHAR" />
+		<result property="s3stcode" column="s3stcode" javaType="string" jdbcType="VARCHAR" />
+		<result property="isComment" column="is_comment" javaType="int" jdbcType="INTEGER" />
+		<result property="zoneCode" column="zone_code" javaType="string" jdbcType="INTEGER" />
+		<result property="isCoupons" column="is_coupons" javaType="int" jdbcType="INTEGER" />
+		<result property="couponsAmount" column="coupons_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="isHasCount" column="is_has_count" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+
+	<!-- 订单列表映射 -->
+	<resultMap type="java.util.Map" id="orderDaoListMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="orderNo" column="order_no" javaType="string" jdbcType="VARCHAR" />
+		<result property="orderUnique" column="order_unique" javaType="string" jdbcType="VARCHAR" />
+		<result property="orderLongitude" column="order_longitude" javaType="decimal" jdbcType="DECIMAL" />
+		<result property="orderLatitude" column="order_latitude" javaType="decimal" jdbcType="DECIMAL" />
+		<result property="orderPosition" column="order_position" javaType="string" jdbcType="VARCHAR" />
+		<result property="orderOs" column="order_os" javaType="string" jdbcType="VARCHAR" />
+		<result property="orderOsv" column="order_osv" javaType="string" jdbcType="VARCHAR" />
+		<result property="orderAppv" column="order_appv" javaType="string" jdbcType="VARCHAR" />
+		<result property="goodsCount" column="goods_count" javaType="int" jdbcType="INTEGER" />
+		<result property="goodsAmount" column="goods_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="goodsTransportAmount" column="goods_transport_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitType" column="unit_type" javaType="long" jdbcType="BIGINT" />
+		<result property="unitName" column="unit_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="unitShortName" column="unit_short_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="shopId" column="shop_id" javaType="long" jdbcType="BIGINT" />
+		<result property="storehouseId" column="storehouse_id" javaType="long" jdbcType="BIGINT" />
+		<result property="storehouseName" column="storehouse_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="shopName" column="shop_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="shopLongitude" column="shop_longitude" javaType="decimal" jdbcType="DECIMAL" />
+		<result property="shopLatitude" column="shop_latitude" javaType="decimal" jdbcType="DECIMAL" />
+		<result property="shopType" column="shop_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="shopAddress" column="shop_address" javaType="string" jdbcType="VARCHAR" />
+		<result property="memberId" column="member_id" javaType="long" jdbcType="BIGINT" />
+		<result property="memberAccount" column="member_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="receiverAddressId" column="receiver_address_id" javaType="long" jdbcType="BIGINT" />
+		<result property="receiverAddress" column="receiver_address" javaType="string" jdbcType="VARCHAR" />
+		<result property="receiverLongitude" column="receiver_longitude" javaType="decimal" jdbcType="DECIMAL" />
+		<result property="receiverLatitude" column="receiver_latitude" javaType="decimal" jdbcType="DECIMAL" />
+		<result property="receiverName" column="receiver_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="receiverMobile" column="receiver_mobile" javaType="string" jdbcType="VARCHAR" />
+		<result property="receiverTelephone" column="receiver_telephone" javaType="string" jdbcType="VARCHAR" />
+		<result property="receiverMail" column="receiver_mail" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="orderStatus" column="order_status" javaType="int" jdbcType="INTEGER" />
+		<result property="deliveryerStatus" column="deliveryer_status" javaType="int" jdbcType="INTEGER" />
+		<result property="receiverStatus" column="receiver_status" javaType="int" jdbcType="INTEGER" />
+		<result property="deliveryerId" column="deliveryer_id" javaType="long" jdbcType="BIGINT" />
+		<result property="deliveryerName" column="deliveryer_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="deliveryerMobile" column="deliveryer_mobile" javaType="string" jdbcType="VARCHAR" />
+		<result property="deliveryerDate" column="deliveryer_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="isPay" column="is_pay" javaType="int" jdbcType="INTEGER" />
+		<result property="payType" column="pay_type" javaType="int" jdbcType="INTEGER" />
+		<result property="payAccount" column="pay_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="orderCategory" column="order_category" javaType="int" jdbcType="INTEGER" />
+		<result property="receiveCode" column="receive_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="vipCoin" column="vip_coin" javaType="double" jdbcType="DOUBLE" />
+		<result property="coinAmount" column="coin_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="realAmount" column="real_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="isChild" column="is_child" javaType="int" jdbcType="INTEGER" />
+		<result property="s3ordercode" column="s3ordercode" javaType="string" jdbcType="VARCHAR" />
+		<result property="s3ordercode2" column="s3ordercode2" javaType="string" jdbcType="VARCHAR" />
+		<result property="s3createdate" column="s3createdate" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="s3op" column="s3op" javaType="string" jdbcType="VARCHAR" />
+		<result property="s3ucode" column="s3ucode" javaType="string" jdbcType="VARCHAR" />
+		<result property="s3stcode" column="s3stcode" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<!-- 所有的订单字段 -->
+	<sql id="allOrderColumns">
+		id,
+		order_no,
+		goods_count,
+		goods_amount,
+		goods_transport_amount,
+		member_id,
+		member_account,
+		receiver_address_id,
+		receiver_address,
+		receiver_longitude,
+		receiver_latitude,
+		receiver_name,
+		receiver_mobile,
+		create_date,
+		order_status,
+		deliveryer_status,
+		receiver_status,
+		order_category,
+		receive_code,
+		vip_coin,
+		coin_amount,
+		real_amount,
+		is_comment
+	</sql>
+	
+	<sql id="orderListWhere">
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			unit_id = #{unitId}
+		</trim>	
+	</sql>
+	
+	<select id="getListMap" parameterType="hashmap" resultMap="orderDaoListMap">
+	
+		SELECT
+			o.*
+		FROM
+			(SELECT
+				<include refid="allOrderColumns"></include>
+			FROM
+				tb_order_hi
+				<include refid="orderListWhere"></include>
+			UNION
+			SELECT
+				<include refid="allOrderColumns"></include>
+			FROM
+				tb_order 
+				<include refid="orderListWhere"></include>
+				) o
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if>
+			</when>
+			<otherwise>
+				order by o.id desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(o.order_no)
+		FROM
+			(SELECT
+				<include refid="allOrderColumns"></include>
+			FROM
+				tb_order_hi
+			<include refid="orderListWhere"></include>
+			UNION
+			SELECT
+				<include refid="allOrderColumns"></include>
+			FROM
+				tb_order 
+			<include refid="orderListWhere"></include>
+			) o
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="getRowsByOrderNo" parameterType="string" resultType="long">
+		SELECT
+			count(id)
+		FROM
+			tb_order
+		where order_no = #{orderNo}
+	</select>
+	
+	<select id="getHisRowsByOrderNo" parameterType="string" resultType="long">
+		SELECT
+			count(id)
+		FROM
+			tb_order_hi
+		where order_no = #{orderNo}
+	</select>
+	
+	<select id="getByOrderNo" parameterType="string" resultMap="orderDaoListMap">
+		select * from tb_order where order_no = #{orderNo}
+	</select>
+	
+	<select id="getHisByOrderNo" parameterType="string" resultMap="orderDaoListMap">
+		select * from tb_order_hi where order_no = #{orderNo}
+	</select>
+	
+	<select id="getTodayCountList" parameterType="hashmap" resultMap="orderDaoMap">
+		select * from tb_order
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			deliveryer_status in (12,-11)
+			and DATE(create_date) = DATE(now())
+			and unit_id = #{unitId}
+			<if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+				and TIME(create_date) BETWEEN #{startTime} AND #{endTime}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="getOrderAnalysesData" parameterType="hashmap" resultMap="orderDaoMap">
+		select	id,goods_amount,goods_transport_amount,unit_name,unit_short_name,unit_type,unit_id,create_date,
+				order_status,deliveryer_status,pay_type,vip_coin,real_amount,coupons_amount,zone_code
+		from tb_order
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="unitId != 1">
+				<choose>
+					<when test="unitType == 1">
+						and unit_id = #{unitId}
+					</when>
+					<when test="unitType == 2">
+						and zone_code LIKE #{zoneCode}
+					</when>
+					<otherwise>
+						and ((zone_code LIKE #{zoneCode} and unit_type = 1 ) or unit_id = #{unitId})
+					</otherwise>
+				</choose>
+			</if>
+			
+			<if test="unitName!=null and unitName!=''">
+				and unit_name like #{unitName}
+			</if>
+			
+			<if test=" startDate != null and startDate != '' and endDate != null and endDate != '' ">
+				and create_date BETWEEN #{startDate,jdbcType=TIMESTAMP} AND #{endDate,jdbcType=TIMESTAMP}
+			</if>
+			
+			and getDistance(receiver_latitude,receiver_longitude,#{latitude,jdbcType=DECIMAL},#{longitude,jdbcType=DECIMAL}) <![CDATA[<=]]> #{radius,jdbcType=DOUBLE}
+			
+			and deliveryer_status in (12,-11)
+			
+			and unit_id = #{unitIdOption}
+		</trim>
+	</select>
+	
+	<select id="getOrderAnalysesUnitInfoList" parameterType="hashmap" resultType="hashmap">
+		select	
+		unit_id as unitID,
+		unit_short_name as shortName
+		from tb_order
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="unitId != 1">
+				<choose>
+					<when test="unitType == 1">
+						and unit_id = #{unitId}
+					</when>
+					<when test="unitType == 2">
+						and zone_code LIKE #{zoneCode}
+					</when>
+					<otherwise>
+						and ((zone_code LIKE #{zoneCode} and unit_type = 1 ) or unit_id = #{unitId})
+					</otherwise>
+				</choose>
+			</if>
+			
+			<if test="unitName!=null and unitName!=''">
+				and unit_name like #{unitName}
+			</if>
+			
+			<if test=" startDate != null and startDate != '' and endDate != null and endDate != '' ">
+				and create_date BETWEEN #{startDate,jdbcType=TIMESTAMP} AND #{endDate,jdbcType=TIMESTAMP}
+			</if>
+			
+			and getDistance(receiver_latitude,receiver_longitude,#{latitude,jdbcType=DECIMAL},#{longitude,jdbcType=DECIMAL}) <![CDATA[<=]]> #{radius,jdbcType=DOUBLE}
+			
+			and deliveryer_status in (12,-11)
+			
+			group by unit_id
+		</trim>
+	</select>
+	
+</mapper>

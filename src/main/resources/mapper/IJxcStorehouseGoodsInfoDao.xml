@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.jxc.dao.IJxcStorehouseGoodsInfoDao">
+
+	<resultMap type="com.h2y.jxc.entity.StorehouseGoodsInfo" id="storehousegoodsinfoDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="storehouseId" column="storehouse_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsId" column="goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsPriceId" column="goods_price_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsCount" column="goods_count" javaType="int" jdbcType="INTEGER" />
+		<result property="virtualCount" column="virtual_count" javaType="int" jdbcType="INTEGER" />
+		<result property="shopId" column="shop_id" javaType="long" jdbcType="BIGINT" />
+		<result property="subareaId" column="subarea_id" javaType="long" jdbcType="BIGINT" />
+		<result property="data1" column="data1" javaType="string" jdbcType="VARCHAR" />
+		<result property="data2" column="data2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data3" javaType="string" jdbcType="VARCHAR" />
+		<result property="data4" column="data4" javaType="string" jdbcType="VARCHAR" />
+		<result property="data5" column="data5" javaType="long" jdbcType="BIGINT" />
+		<result property="data6" column="data6" javaType="long" jdbcType="BIGINT" />
+		<result property="data7" column="data7" javaType="long" jdbcType="BIGINT" />
+		<result property="data8" column="data8" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	<select id="getGoodsInfo" parameterType="hashmap" resultMap="storehousegoodsinfoDaoMap">
+		select * 
+		from tb_storehouse_goods_info 
+		where storehouse_id = ${storageId} and goods_price_id = ${goodsId}  
+	</select>
+	
+	
+	<insert id="add" parameterType="com.h2y.jxc.entity.StorehouseGoodsInfo">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_storehouse_goods_info 
+		</selectKey>  
+		insert into tb_storehouse_goods_info
+		(
+		storehouse_id,
+		goods_id,
+		goods_price_id,
+		goods_count,
+		virtual_count,
+		shop_id,
+		subarea_id,
+		data1,
+		data2,
+		data3,
+		data4,
+		data5,
+		data6,
+		data7,
+		data8
+		)
+		values (
+		#{storehouseId,jdbcType=BIGINT},
+		#{goodsId,jdbcType=BIGINT},
+		#{goodsPriceId,jdbcType=BIGINT},
+		#{goodsCount,jdbcType=INTEGER},
+		#{virtualCount,jdbcType=INTEGER},
+		#{shopId,jdbcType=BIGINT},
+		#{subareaId,jdbcType=BIGINT},
+		#{data1,jdbcType=VARCHAR},
+		#{data2,jdbcType=VARCHAR},
+		#{data3,jdbcType=VARCHAR},
+		#{data4,jdbcType=VARCHAR},
+		#{data5,jdbcType=BIGINT},
+		#{data6,jdbcType=BIGINT},
+		#{data7,jdbcType=BIGINT},
+		#{data8,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.jxc.entity.StorehouseGoodsInfo">
+		update tb_storehouse_goods_info
+		set
+		storehouse_id = #{storehouseId,jdbcType=BIGINT},
+		goods_id = #{goodsId,jdbcType=BIGINT},
+		goods_price_id = #{goodsPriceId,jdbcType=BIGINT},
+		goods_count = #{goodsCount,jdbcType=INTEGER},
+		virtual_count = #{virtualCount,jdbcType=INTEGER},
+		shop_id = #{shopId,jdbcType=BIGINT},
+		subarea_id = #{subareaId,jdbcType=BIGINT},
+		data1 = #{data1,jdbcType=VARCHAR},
+		data2 = #{data2,jdbcType=VARCHAR},
+		data3 = #{data3,jdbcType=VARCHAR},
+		data4 = #{data4,jdbcType=VARCHAR},
+		data5 = #{data5,jdbcType=BIGINT},
+		data6 = #{data6,jdbcType=BIGINT},
+		data7 = #{data7,jdbcType=BIGINT},
+		data8 = #{data8,jdbcType=BIGINT}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.jxc.entity.StorehouseGoodsInfo">
+		delete from
+		tb_storehouse_goods_info
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_storehouse_goods_info
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_storehouse_goods_info
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="storehousegoodsinfoDaoMap">
+		select * from tb_storehouse_goods_info where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.jxc.entity.StorehouseGoodsInfo"
+		resultMap="storehousegoodsinfoDaoMap">
+		select * from
+		tb_storehouse_goods_info
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="storehouseId!= null">
+			and storehouse_id = #{storehouseId}
+			</if>
+			<if test="goodsId!= null">
+			and goods_id = #{goodsId}
+			</if>
+			<if test="goodsPriceId!= null">
+			and goods_price_id = #{goodsPriceId}
+			</if>
+			<if test="goodsCount!= null">
+			and goods_count = #{goodsCount}
+			</if>
+			<if test="virtualCount!= null">
+			and virtual_count = #{virtualCount}
+			</if>
+			<if test="shopId!= null">
+			and shop_id = #{shopId}
+			</if>
+			<if test="subareaId!= null">
+			and subarea_id = #{subareaId}
+			</if>
+			<if test="data1!= null and data1!=''">
+			and data1 = #{data1}
+			</if>
+			<if test="data2!= null and data2!=''">
+			and data2 = #{data2}
+			</if>
+			<if test="data3!= null and data3!=''">
+			and data3 = #{data3}
+			</if>
+			<if test="data4!= null and data4!=''">
+			and data4 = #{data4}
+			</if>
+			<if test="data5!= null">
+			and data5 = #{data5}
+			</if>
+			<if test="data6!= null">
+			and data6 = #{data6}
+			</if>
+			<if test="data7!= null">
+			and data7 = #{data7}
+			</if>
+			<if test="data8!= null">
+			and data8 = #{data8}
+			</if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="storehousegoodsinfoDaoMap">
+		select
+		*
+		from
+		tb_storehouse_goods_info
+		<if test="keyStorehouseGoodsInfo!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keyStorehouseGoodsInfo.id!= null">
+				and id = #{keyStorehouseGoodsInfo.id}
+				</if>
+				<if test="keyStorehouseGoodsInfo.storehouseId!= null">
+				and storehouse_id = #{keyStorehouseGoodsInfo.storehouseId}
+				</if>
+				<if test="keyStorehouseGoodsInfo.goodsId!= null">
+				and goods_id = #{keyStorehouseGoodsInfo.goodsId}
+				</if>
+				<if test="keyStorehouseGoodsInfo.goodsPriceId!= null">
+				and goods_price_id = #{keyStorehouseGoodsInfo.goodsPriceId}
+				</if>
+				<if test="keyStorehouseGoodsInfo.goodsCount!= null">
+				and goods_count = #{keyStorehouseGoodsInfo.goodsCount}
+				</if>
+				<if test="keyStorehouseGoodsInfo.virtualCount!= null">
+				and virtual_count = #{keyStorehouseGoodsInfo.virtualCount}
+				</if>
+				<if test="keyStorehouseGoodsInfo.shopId!= null">
+				and shop_id = #{keyStorehouseGoodsInfo.shopId}
+				</if>
+				<if test="keyStorehouseGoodsInfo.subareaId!= null">
+				and subarea_id = #{keyStorehouseGoodsInfo.subareaId}
+				</if>
+				<if test="keyStorehouseGoodsInfo.data1!= null and keyStorehouseGoodsInfo.data1!=''">
+				and data1 = #{keyStorehouseGoodsInfo.data1}
+				</if>
+				<if test="keyStorehouseGoodsInfo.data2!= null and keyStorehouseGoodsInfo.data2!=''">
+				and data2 = #{keyStorehouseGoodsInfo.data2}
+				</if>
+				<if test="keyStorehouseGoodsInfo.data3!= null and keyStorehouseGoodsInfo.data3!=''">
+				and data3 = #{keyStorehouseGoodsInfo.data3}
+				</if>
+				<if test="keyStorehouseGoodsInfo.data4!= null and keyStorehouseGoodsInfo.data4!=''">
+				and data4 = #{keyStorehouseGoodsInfo.data4}
+				</if>
+				<if test="keyStorehouseGoodsInfo.data5!= null">
+				and data5 = #{keyStorehouseGoodsInfo.data5}
+				</if>
+				<if test="keyStorehouseGoodsInfo.data6!= null">
+				and data6 = #{keyStorehouseGoodsInfo.data6}
+				</if>
+				<if test="keyStorehouseGoodsInfo.data7!= null">
+				and data7 = #{keyStorehouseGoodsInfo.data7}
+				</if>
+				<if test="keyStorehouseGoodsInfo.data8!= null">
+				and data8 = #{keyStorehouseGoodsInfo.data8}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_storehouse_goods_info
+		<if test="keyStorehouseGoodsInfo!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keyStorehouseGoodsInfo.id!= null">
+				and id = #{keyStorehouseGoodsInfo.id}
+				</if>
+				<if test="keyStorehouseGoodsInfo.storehouseId!= null">
+				and storehouse_id = #{keyStorehouseGoodsInfo.storehouseId}
+				</if>
+				<if test="keyStorehouseGoodsInfo.goodsId!= null">
+				and goods_id = #{keyStorehouseGoodsInfo.goodsId}
+				</if>
+				<if test="keyStorehouseGoodsInfo.goodsPriceId!= null">
+				and goods_price_id = #{keyStorehouseGoodsInfo.goodsPriceId}
+				</if>
+				<if test="keyStorehouseGoodsInfo.goodsCount!= null">
+				and goods_count = #{keyStorehouseGoodsInfo.goodsCount}
+				</if>
+				<if test="keyStorehouseGoodsInfo.virtualCount!= null">
+				and virtual_count = #{keyStorehouseGoodsInfo.virtualCount}
+				</if>
+				<if test="keyStorehouseGoodsInfo.shopId!= null">
+				and shop_id = #{keyStorehouseGoodsInfo.shopId}
+				</if>
+				<if test="keyStorehouseGoodsInfo.subareaId!= null">
+				and subarea_id = #{keyStorehouseGoodsInfo.subareaId}
+				</if>
+				<if test="keyStorehouseGoodsInfo.data1!= null and keyStorehouseGoodsInfo.data1!=''">
+				and data1 = #{keyStorehouseGoodsInfo.data1}
+				</if>
+				<if test="keyStorehouseGoodsInfo.data2!= null and keyStorehouseGoodsInfo.data2!=''">
+				and data2 = #{keyStorehouseGoodsInfo.data2}
+				</if>
+				<if test="keyStorehouseGoodsInfo.data3!= null and keyStorehouseGoodsInfo.data3!=''">
+				and data3 = #{keyStorehouseGoodsInfo.data3}
+				</if>
+				<if test="keyStorehouseGoodsInfo.data4!= null and keyStorehouseGoodsInfo.data4!=''">
+				and data4 = #{keyStorehouseGoodsInfo.data4}
+				</if>
+				<if test="keyStorehouseGoodsInfo.data5!= null">
+				and data5 = #{keyStorehouseGoodsInfo.data5}
+				</if>
+				<if test="keyStorehouseGoodsInfo.data6!= null">
+				and data6 = #{keyStorehouseGoodsInfo.data6}
+				</if>
+				<if test="keyStorehouseGoodsInfo.data7!= null">
+				and data7 = #{keyStorehouseGoodsInfo.data7}
+				</if>
+				<if test="keyStorehouseGoodsInfo.data8!= null">
+				and data8 = #{keyStorehouseGoodsInfo.data8}
+				</if>
+			</trim>
+		</if>
+	</select>
+</mapper>

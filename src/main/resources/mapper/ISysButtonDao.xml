@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ISysButtonDao">
+
+    <resultMap type="com.h2y.bmg.entity.SysButton" id="sysbuttonDaoMap">
+        <result property="id" column="id" javaType="long" jdbcType="BIGINT"/>
+        <result property="menuId" column="menu_id" javaType="long" jdbcType="BIGINT"/>
+        <result property="buttonName" column="button_name" javaType="string" jdbcType="VARCHAR"/>
+        <result property="buttonUrl" column="button_url" javaType="string" jdbcType="VARCHAR"/>
+        <result property="buttonIcon" column="button_icon" javaType="string" jdbcType="VARCHAR"/>
+        <result property="buttonClick" column="button_click" javaType="string" jdbcType="VARCHAR"/>
+        <result property="buttonOrd" column="button_ord" javaType="long" jdbcType="BIGINT"/>
+        <result property="ifVisible" column="if_visible" javaType="long" jdbcType="BIGINT"/>
+        <result property="ifPublic" column="if_public" javaType="long" jdbcType="BIGINT"/>
+        <result property="ifSys" column="if_sys" javaType="long" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <resultMap type="java.util.Map" id="sysbuttonListDaoMap">
+        <result property="ID" column="id" javaType="long" jdbcType="BIGINT"/>
+        <result property="MENU_ID" column="menu_id" javaType="long" jdbcType="BIGINT"/>
+        <result property="BUTTON_NAME" column="button_name" javaType="string" jdbcType="VARCHAR"/>
+        <result property="BUTTON_URL" column="button_url" javaType="string" jdbcType="VARCHAR"/>
+        <result property="BUTTON_ICON" column="button_icon" javaType="string" jdbcType="VARCHAR"/>
+        <result property="BUTTON_CLICK" column="button_click" javaType="string" jdbcType="VARCHAR"/>
+        <result property="BUTTON_ORD" column="button_ord" javaType="long" jdbcType="BIGINT"/>
+        <result property="IF_VISIBLE" column="if_visible" javaType="long" jdbcType="BIGINT"/>
+        <result property="IF_PUBLIC" column="if_public" javaType="long" jdbcType="BIGINT"/>
+        <result property="IF_SYS" column="if_sys" javaType="long" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <insert id="add" parameterType="com.h2y.bmg.entity.SysButton">
+        <selectKey keyProperty="id" resultType="Long" order="AFTER">
+            SELECT max(id) AS value from tb_sys_button
+        </selectKey>
+        insert into tb_sys_button
+        (
+        menu_id,
+        button_name,
+        button_url,
+        button_icon,
+        button_click,
+        button_ord,
+        if_visible,
+        if_public,
+        if_sys
+        )
+        values (
+        #{menuId,jdbcType=BIGINT},
+        #{buttonName,jdbcType=VARCHAR},
+        #{buttonUrl,jdbcType=VARCHAR},
+        #{buttonIcon,jdbcType=VARCHAR},
+        #{buttonClick,jdbcType=VARCHAR},
+        #{buttonOrd,jdbcType=BIGINT},
+        #{ifVisible,jdbcType=BIGINT},
+        #{ifPublic,jdbcType=BIGINT},
+        #{ifSys,jdbcType=BIGINT}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.h2y.bmg.entity.SysButton">
+		update tb_sys_button
+		set
+		menu_id = #{menuId,jdbcType=BIGINT},
+		button_name = #{buttonName,jdbcType=VARCHAR},
+		button_url = #{buttonUrl,jdbcType=VARCHAR},
+		button_icon = #{buttonIcon,jdbcType=VARCHAR},
+		button_click = #{buttonClick,jdbcType=VARCHAR},
+		button_ord = #{buttonOrd,jdbcType=BIGINT},
+		if_visible = #{ifVisible,jdbcType=BIGINT},
+		if_public = #{ifPublic,jdbcType=BIGINT},
+		if_sys = #{ifSys,jdbcType=BIGINT}
+		where id = #{id}
+	</update>
+
+    <delete id="delete" parameterType="com.h2y.bmg.entity.SysButton">
+		delete from
+		tb_sys_button
+		where
+		id = #{id} 
+	</delete>
+
+    <delete id="deleteById" parameterType="long">
+		delete from
+		tb_sys_button
+		where
+		id = #{id} 
+	</delete>
+
+    <delete id="deleteByIds">
+        delete from
+        tb_sys_button
+        where
+        id in
+        <foreach collection="list" item="id" open="(" separator=","
+                 close=")">#{id}
+        </foreach>
+    </delete>
+
+
+    <select id="get" parameterType="long"
+            resultMap="sysbuttonDaoMap">
+		select * from tb_sys_button where id = #{id}
+	</select>
+
+    <select id="getList" parameterType="com.h2y.bmg.entity.SysButton"
+            resultMap="sysbuttonDaoMap">
+        select * from
+        tb_sys_button
+
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+            <if test="id!= null">
+                and id = #{id}
+            </if>
+            <if test="menuId!= null">
+                and menu_id = #{menuId}
+            </if>
+            <if test="buttonName!= null and buttonName!=''">
+                and button_name = #{buttonName}
+            </if>
+            <if test="buttonUrl!= null and buttonUrl!=''">
+                and button_url = #{buttonUrl}
+            </if>
+            <if test="buttonIcon!= null and buttonIcon!=''">
+                and button_icon = #{buttonIcon}
+            </if>
+            <if test="buttonClick!= null and buttonClick!=''">
+                and button_click = #{buttonClick}
+            </if>
+            <if test="buttonOrd!= null">
+                and button_ord = #{buttonOrd}
+            </if>
+            <if test="ifVisible!= null">
+                and if_visible = #{ifVisible}
+            </if>
+            <if test="ifPublic!= null">
+                and if_public = #{ifPublic}
+            </if>
+            <if test="ifSys!= null">
+                and if_sys = #{ifSys}
+            </if>
+        </trim>
+
+    </select>
+
+
+    <select id="getListPage" parameterType="hashmap" resultMap="sysbuttonDaoMap">
+        select
+        *
+        from
+        tb_sys_button
+        <if test="keySysButton!= null">
+            <trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+                <if test="keySysButton.id!= null">
+                    and id = #{keySysButton.id}
+                </if>
+                <if test="keySysButton.menuId!= null">
+                    and menu_id = #{keySysButton.menuId}
+                </if>
+                <if test="keySysButton.buttonName!= null and keySysButton.buttonName!=''">
+                    and button_name = #{keySysButton.buttonName}
+                </if>
+                <if test="keySysButton.buttonUrl!= null and keySysButton.buttonUrl!=''">
+                    and button_url = #{keySysButton.buttonUrl}
+                </if>
+                <if test="keySysButton.buttonIcon!= null and keySysButton.buttonIcon!=''">
+                    and button_icon = #{keySysButton.buttonIcon}
+                </if>
+                <if test="keySysButton.buttonClick= null and keySysButton.buttonClick!=''">
+                    and button_click = #{keySysButton.buttonClick}
+                </if>
+                <if test="keySysButton.buttonOrd!= null">
+                    and button_ord = #{keySysButton.buttonOrd}
+                </if>
+                <if test="keySysButton.ifVisible!= null">
+                    and if_visible = #{keySysButton.ifVisible}
+                </if>
+                <if test="keySysButton.ifPublic!= null">
+                    and if_public = #{keySysButton.ifPublic}
+                </if>
+                <if test="keySysButton.ifSys!= null">
+                    and if_sys = #{keySysButton.ifSys}
+                </if>
+            </trim>
+        </if>
+        limit ${(page-1)*pagesize},${pagesize}
+    </select>
+
+    <select id="getRows" parameterType="hashmap" resultType="long">
+        select
+        count(*) from
+        tb_sys_button
+        <if test="keySysButton!= null">
+            <trim prefix="WHERE" prefixOverrides="AND |OR ">
+                <if test="keySysButton.id!= null">
+                    and id = #{keySysButton.id}
+                </if>
+                <if test="keySysButton.menuId!= null">
+                    and menu_id = #{keySysButton.menuId}
+                </if>
+                <if test="keySysButton.buttonName!= null and keySysButton.buttonName!=''">
+                    and button_name = #{keySysButton.buttonName}
+                </if>
+                <if test="keySysButton.buttonUrl!= null and keySysButton.buttonUrl!=''">
+                    and button_url = #{keySysButton.buttonUrl}
+                </if>
+                <if test="keySysButton.buttonIcon!= null and keySysButton.buttonIcon!=''">
+                    and button_icon = #{keySysButton.buttonIcon}
+                </if>
+                <if test="keySysButton.buttonClick!= null and keySysButton.buttonClick!=''">
+                    and button_click = #{keySysButton.buttonClick}
+                </if>
+                <if test="keySysButton.buttonOrd!= null">
+                    and button_ord = #{keySysButton.buttonOrd}
+                </if>
+                <if test="keySysButton.ifVisible!= null">
+                    and if_visible = #{keySysButton.ifVisible}
+                </if>
+                <if test="keySysButton.ifPublic!= null">
+                    and if_public = #{keySysButton.ifPublic}
+                </if>
+                <if test="keySysButton.ifSys!= null">
+                    and if_sys = #{keySysButton.ifSys}
+                </if>
+            </trim>
+        </if>
+    </select>
+
+
+    <select id="getListMap" parameterType="hashmap" resultMap="sysbuttonListDaoMap">
+        select
+        *
+        from
+        tb_sys_button
+        where menu_id = #{menuId} order by button_ord
+    </select>
+
+    <delete id="deleteByMenuId" parameterType="hashmap">
+        delete from
+        tb_sys_button
+        where
+        menu_id = #{menuId}
+        <if test="filterIdList!=null">
+        	and id not in
+	        <foreach collection="filterIdList" item="id" open="(" separator=","
+	                 close=")">#{id}
+	        </foreach>
+        </if>
+    </delete>
+
+
+
+    <insert id="addBatch" parameterType="com.h2y.bmg.entity.SysButton">
+        insert into tb_sys_button
+        (
+        menu_id,
+        button_name,
+        button_url,
+        button_icon,
+        button_click,
+        button_ord,
+        if_visible,
+        if_public,
+        if_sys
+        )
+        values
+        <foreach collection="list" item="item" separator=",">
+        (
+            #{item.menuId,jdbcType=BIGINT},
+            #{item.buttonName,jdbcType=VARCHAR},
+            #{item.buttonUrl,jdbcType=VARCHAR},
+            #{item.buttonIcon,jdbcType=VARCHAR},
+            #{item.buttonClick,jdbcType=VARCHAR},
+            #{item.buttonOrd,jdbcType=BIGINT},
+            #{item.ifVisible,jdbcType=BIGINT},
+            #{item.ifPublic,jdbcType=BIGINT},
+            #{item.ifSys,jdbcType=BIGINT}
+        )
+        </foreach>
+    </insert>
+
+
+    <select id="getUserButtons" parameterType="hashmap" resultMap="sysbuttonDaoMap">
+    	<!-- 
+    	 select
+        *
+        from
+        tb_sys_button
+        where menu_id = #{menuId}
+        order by button_ord
+    	 -->
+    	 
+        SELECT
+        	DISTINCT
+			sb.*
+		FROM
+		<choose>
+			<when test="unitId == 1">
+				tb_sys_button
+			</when>
+			<otherwise>
+				(
+					SELECT
+						usb.*
+					FROM
+						tb_sys_button usb,
+						tb_sys_privilege_list upl
+					WHERE
+						upl.privilege_master = 'ROLE'
+					AND upl.privilege_access = 'BUTTON'
+					AND usb.menu_id = #{menuId}
+					AND upl.privilege_master_value = #{sysRoleId}
+					AND upl.privilege_access_value = usb.id
+				)
+			</otherwise>
+		</choose> sb
+		JOIN tb_sys_privilege_list pl ON pl.privilege_master = 'ROLE'
+		AND pl.privilege_access = 'BUTTON'
+		AND pl.privilege_access_value = sb.id
+		AND sb.menu_id = #{menuId}
+		WHERE pl.privilege_master_value in 
+		<foreach collection="roleList" item="id" open="(" separator=","
+                 close=")">#{id}
+        </foreach>
+		order by sb.button_ord
+    </select>
+    
+    
+   <select id="getButtonByMenuId" parameterType="long" resultMap="sysbuttonDaoMap">
+        select
+        *
+        from
+        tb_sys_button
+        where menu_id = #{menuId}
+        order by button_ord
+    </select>
+    
+    
+    <select id="getButtonIdsByMenuIds" parameterType="hashmap" resultType="long">
+        select
+        id
+        from
+        tb_sys_button
+        where menu_id in  
+        <foreach collection="list" item="id" open="(" separator=","
+                 close=")">#{id}
+        </foreach>
+    </select>
+
+</mapper>

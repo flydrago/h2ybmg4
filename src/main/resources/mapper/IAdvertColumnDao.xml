@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IAdvertColumnDao">
+
+	<resultMap type="com.h2y.bmg.entity.AdvertColumn" id="advertcolumnDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="columnName" column="column_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="columnType" column="column_type" javaType="int" jdbcType="INTEGER" />
+		<result property="ord" column="ord" javaType="int" jdbcType="INTEGER" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="advertcolumnDaolistMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="COLUMN_NAME" column="column_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="COLUMN_TYPE" column="column_type" javaType="int" jdbcType="INTEGER" />
+		<result property="ORD" column="ord" javaType="int" jdbcType="INTEGER" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.AdvertColumn">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_advert_column 
+		</selectKey>  
+		insert into tb_advert_column
+		(
+		column_name,
+		column_type,
+		ord,
+		create_date,
+		memo,
+		status
+		)
+		values (
+		#{columnName,jdbcType=VARCHAR},
+		#{columnType,jdbcType=INTEGER},
+		#{ord,jdbcType=INTEGER},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{memo,jdbcType=VARCHAR},
+		#{status,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.AdvertColumn">
+		update tb_advert_column
+		set
+		column_name = #{columnName,jdbcType=VARCHAR},
+		column_type = #{columnType,jdbcType=INTEGER},
+		ord = #{ord,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		memo = #{memo,jdbcType=VARCHAR},
+		status = #{status,jdbcType=INTEGER}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.AdvertColumn">
+		delete from
+		tb_advert_column
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_advert_column
+		where
+		id = #{id} 
+	</delete>
+
+	<select id="get" parameterType="long"
+		resultMap="advertcolumnDaoMap">
+		select * from tb_advert_column where id = #{id}
+	</select>
+	
+	
+	<select id="getListMap" parameterType="hashmap" resultMap="advertcolumnDaolistMap">
+		select 
+			*	
+		from
+		tb_advert_column
+		where status &lt;&gt; -1
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if>
+			</when>
+			<otherwise>
+				order by ord desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="getSelectList" parameterType="hashmap" resultType="hashmap">
+		select 
+			id as value,
+			column_name as text
+		from
+		tb_advert_column
+		where status &lt;&gt; -1
+		and column_type = 1
+		<if test="op == 'add'">
+		AND id NOT IN(
+			SELECT
+				column_id
+			FROM
+				tb_advert_column_unit_rt
+			WHERE
+				unit_id = #{unitId}
+			AND status &lt;&gt; -1
+		)
+		</if>
+	</select>
+	
+	
+	<select id="getUnitColumnTreeList" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			ac.id,
+			ac.column_name as text,
+			0 as pid,
+			ac.ord
+		FROM
+			tb_advert_column ac
+		where ac.`status` = 0
+		order by ac.ord desc
+	</select>
+	
+</mapper>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ISysValidationDao">
+
+	<resultMap type="com.h2y.bmg.entity.SysValidation" id="sysvalidationDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="fieldId" column="field_id" javaType="string" jdbcType="VARCHAR" />
+		<result property="joinId" column="join_id" javaType="long" jdbcType="BIGINT" />
+		<result property="joinType" column="join_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="ruleType" column="rule_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="ruleTypeValue" column="rule_type_value" javaType="string" jdbcType="VARCHAR" />
+		<result property="msg" column="msg" javaType="string" jdbcType="VARCHAR" />
+		<result property="ifWork" column="if_work" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	
+	<resultMap type="java.util.Map" id="sysvalidationDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="FIELD_ID" column="field_id" javaType="string" jdbcType="VARCHAR" />
+		<result property="JOIN_ID" column="join_id" javaType="long" jdbcType="BIGINT" />
+		<result property="JOIN_TYPE" column="join_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="RULE_TYPE" column="rule_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="RULE_TYPE_VALUE" column="rule_type_value" javaType="string" jdbcType="VARCHAR" />
+		<result property="MSG" column="msg" javaType="string" jdbcType="VARCHAR" />
+		<result property="IF_WORK" column="if_work" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.SysValidation">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_sys_validation 
+		</selectKey>  
+		insert into tb_sys_validation
+		(
+		field_id,
+		join_id,
+		join_type,
+		rule_type,
+		rule_type_value,
+		msg,
+		if_work
+		)
+		values (
+		#{fieldId,jdbcType=VARCHAR},
+		#{joinId,jdbcType=BIGINT},
+		#{joinType,jdbcType=VARCHAR},
+		#{ruleType,jdbcType=VARCHAR},
+		#{ruleTypeValue,jdbcType=VARCHAR},
+		#{msg,jdbcType=VARCHAR},
+		#{ifWork,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.SysValidation">
+		update tb_sys_validation
+		set
+		field_id = #{fieldId,jdbcType=VARCHAR},
+		join_id = #{joinId,jdbcType=BIGINT},
+		join_type = #{joinType,jdbcType=VARCHAR},
+		rule_type = #{ruleType,jdbcType=VARCHAR},
+		rule_type_value = #{ruleTypeValue,jdbcType=VARCHAR},
+		msg = #{msg,jdbcType=VARCHAR},
+		if_work = #{ifWork,jdbcType=BIGINT}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.SysValidation">
+		delete from
+		tb_sys_validation
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_sys_validation
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_sys_validation
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="sysvalidationDaoMap">
+		select * from tb_sys_validation where id = #{id}
+	</select>
+	
+	
+	
+	<select id="getListMap" parameterType="hashmap" resultMap="sysvalidationDaoListMap">
+        select
+        *
+        from
+        tb_sys_validation
+        where join_id = #{joinId} and join_type = #{joinType} order by field_id
+    </select>
+
+
+    <delete id="deleteByJoinType" parameterType="hashmap">
+        delete from
+        tb_sys_validation
+        where join_id = #{joinId} and join_type = #{joinType}
+    </delete>
+
+
+    <insert id="addBatch" parameterType="com.h2y.bmg.entity.SysValidation">
+    	insert into tb_sys_validation
+		(
+		field_id,
+		join_id,
+		join_type,
+		rule_type,
+		rule_type_value,
+		msg,
+		if_work
+		)
+		values 
+		<foreach collection="list" item="item" separator=",">
+            (
+			#{item.fieldId,jdbcType=VARCHAR},
+			#{item.joinId,jdbcType=BIGINT},
+			#{item.joinType,jdbcType=VARCHAR},
+			#{item.ruleType,jdbcType=VARCHAR},
+			#{item.ruleTypeValue,jdbcType=VARCHAR},
+			#{item.msg,jdbcType=VARCHAR},
+			#{item.ifWork,jdbcType=BIGINT}
+			)
+        </foreach>
+    </insert>
+    
+    
+    <select id="getListByJoinType" parameterType="hashmap" resultMap="sysvalidationDaoMap">
+        select
+        *
+        from
+        tb_sys_validation
+        where join_id = #{joinId} and join_type = #{joinType} and if_work = 1 order by field_id
+    </select>
+
+</mapper>

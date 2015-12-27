@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IDeliveryUserDao">
+
+	<resultMap type="com.h2y.bmg.entity.DeliveryUser" id="deliveryuserDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="account" column="account" javaType="string" jdbcType="VARCHAR" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="deptId" column="dept_id" javaType="long" jdbcType="BIGINT" />
+		<result property="shopId" column="shop_id" javaType="long" jdbcType="BIGINT" />
+		<result property="name" column="name" javaType="string" jdbcType="VARCHAR" />
+		<result property="password" column="password" javaType="string" jdbcType="VARCHAR" />
+		<result property="mobile" column="mobile" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="latitude" column="latitude" javaType="double" jdbcType="DOUBLE" />
+		<result property="longitude" column="longitude" javaType="double" jdbcType="DOUBLE" />
+		<result property="address" column="address" javaType="string" jdbcType="VARCHAR" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="checkStatus" column="check_status" javaType="int" jdbcType="INTEGER" />
+		<result property="workStatus" column="work_status" javaType="int" jdbcType="INTEGER" />
+		<result property="loginType" column="login_type" javaType="int" jdbcType="INTEGER" />
+		<result property="registerType" column="register_type" javaType="int" jdbcType="INTEGER" />
+		<result property="workType" column="work_type" javaType="int" jdbcType="INTEGER" />
+		<result property="iosPushCode" column="ios_push_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="androidPushCode" column="android_push_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="regZone" column="reg_zone" javaType="string" jdbcType="VARCHAR" />
+		<result property="regZoneDetail" column="reg_zone_detail" javaType="string" jdbcType="VARCHAR" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+	
+	<resultMap type="java.util.Map" id="deliveryuserDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="ACCOUNT" column="account" javaType="string" jdbcType="VARCHAR" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="DEPT_ID" column="dept_id" javaType="long" jdbcType="BIGINT" />
+		<result property="SHOP_ID" column="shop_id" javaType="long" jdbcType="BIGINT" />
+		<result property="NAME" column="name" javaType="string" jdbcType="VARCHAR" />
+		<result property="PASSWORD" column="password" javaType="string" jdbcType="VARCHAR" />
+		<result property="MOBILE" column="mobile" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="LATITUDE" column="latitude" javaType="double" jdbcType="DOUBLE" />
+		<result property="LONGITUDE" column="longitude" javaType="double" jdbcType="DOUBLE" />
+		<result property="ADDRESS" column="address" javaType="string" jdbcType="VARCHAR" />
+		<result property="UPDATE_DATE" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="CHECK_STATUS" column="check_status" javaType="int" jdbcType="INTEGER" />
+		<result property="WORK_STATUS" column="work_status" javaType="int" jdbcType="INTEGER" />
+		<result property="LOGIN_TYPE" column="login_type" javaType="int" jdbcType="INTEGER" />
+		<result property="REGISTER_TYPE" column="register_type" javaType="int" jdbcType="INTEGER" />
+		<result property="WORK_TYPE" column="work_type" javaType="int" jdbcType="INTEGER" />
+		<result property="IOS_PUSH_CODE" column="ios_push_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="ANDROID_PUSH_CODE" column="android_push_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="REG_ZONE" column="reg_zone" javaType="string" jdbcType="VARCHAR" />
+		<result property="REG_ZONE_DETAIL" column="reg_zone_detail" javaType="string" jdbcType="VARCHAR" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="UNIT_NAME" column="unit_name" javaType="string" jdbcType="VARCHAR" />
+		
+	</resultMap>
+	
+	<select id="getDeliveryChargeShopList" parameterType="string" resultType="long">
+		select shop_id 
+		from tb_delivery_user_shop_rt
+		where account = #{account,jdbcType=VARCHAR}
+	</select>
+	
+	<delete id="deleteDeliveryShopRt" parameterType="hashmap">
+		delete from tb_delivery_user_shop_rt
+		where account = #{account,jdbcType=VARCHAR} and shop_id = #{shopId,jdbcType=BIGINT}
+	</delete>
+	
+	<select id="getDeliveryTakeChargeShopList" parameterType="hashmap" resultType="hashmap">
+		select 
+		 d.id as ID,
+		 d.dept_name as DEPT_NAME,
+		 u.unit_name as UNIT_NAME,
+		 d.dept_desc as DEPT_DESC,
+		 d.position as POSITION,
+		 d.gps_longitude as GPS_LONGITUDE,
+		 d.gps_latitude as GPS_LATITUDE
+		from tb_sys_department d join tb_sys_units u on d.unit_id = u.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			d.id in
+			(select shop_id from tb_delivery_user_shop_rt where account = #{account,jdbcType=VARCHAR})
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if>
+			</when>
+			<otherwise>
+				order by d.dept_ord desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	<select id="getDeliveryTakeChargeShopRows" parameterType="hashmap" resultType="long">
+		select count(*) 
+		from tb_sys_department
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			id in
+			(select shop_id from tb_delivery_user_shop_rt where account = #{account,jdbcType=VARCHAR})
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	<insert id="addDeliveryShopRt">
+		insert into tb_delivery_user_shop_rt
+		(
+		account,
+		unit_id,
+		shop_id,
+		create_date
+		)
+		values(
+		#{account,jdbcType=VARCHAR},
+		#{unitId,jdbcType=BIGINT},
+		#{shopId,jdbcType=BIGINT},
+		#{createDate,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	
+	<update id="update" parameterType="com.h2y.bmg.entity.DeliveryUser">
+		update tb_delivery_user
+		set
+		account = #{account,jdbcType=VARCHAR},
+		unit_id = #{unitId,jdbcType=BIGINT},
+		dept_id = #{deptId,jdbcType=BIGINT},
+		shop_id = #{shopId,jdbcType=BIGINT},
+		name = #{name,jdbcType=VARCHAR},
+		password = #{password,jdbcType=VARCHAR},
+		mobile = #{mobile,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		latitude = #{latitude,jdbcType=DOUBLE},
+		longitude = #{longitude,jdbcType=DOUBLE},
+		address = #{address,jdbcType=VARCHAR},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		check_status = #{checkStatus,jdbcType=INTEGER},
+		work_status = #{workStatus,jdbcType=INTEGER},
+		login_type = #{loginType,jdbcType=INTEGER},
+		register_type = #{registerType,jdbcType=INTEGER},
+		work_type = #{workType,jdbcType=INTEGER},
+		ios_push_code = #{iosPushCode,jdbcType=VARCHAR},
+		android_push_code = #{androidPushCode,jdbcType=VARCHAR},
+		reg_zone = #{regZone,jdbcType=VARCHAR},
+		reg_zone_detail = #{regZoneDetail,jdbcType=VARCHAR},
+		memo = #{memo,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.DeliveryUser">
+		delete from
+		tb_delivery_user
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_delivery_user
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_delivery_user
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="deliveryuserDaoMap">
+		select * from tb_delivery_user where id = #{id}
+	</select>
+
+	<select id="getListMap" parameterType="hashmap" resultMap="deliveryuserDaoListMap">
+		select du.*,su.unit_name
+		from tb_delivery_user du left JOIN tb_sys_units su ON du.unit_id = su.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			<if test="zoneCode != null and zoneCode != '' and ifQuery != 'du.check_status =0'">
+				and su.zone_code like #{zoneCode,jdbcType=VARCHAR}
+			</if>
+			<if test="ifQuery==null or ifQuery==''">
+				or du.check_status = 0
+			</if>
+		</trim>
+		<if test="sortname !=null and sortname !='' ">
+			order by du.unit_id,${sortname}
+			<if test="sortorder !=null and sortorder !='' ">
+				${sortorder} 
+			</if>
+		</if>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select count(du.id)
+		from tb_delivery_user du left JOIN tb_sys_units su ON du.unit_id = su.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			<if test="zoneCode != null and zoneCode != '' and ifQuery != 'du.check_status =0'">
+				and su.zone_code like #{zoneCode,jdbcType=VARCHAR}
+			</if>
+			<if test="ifQuery==null or ifQuery==''">
+				or du.check_status = 0
+			</if>
+		</trim>
+	</select>
+	
+	<select id="getAllListMap" parameterType="hashmap" resultMap="deliveryuserDaoListMap">
+		select du.*,su.unit_name
+		from tb_delivery_user du left JOIN tb_sys_units su ON du.unit_id = su.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<if test="sortname !=null and sortname !='' ">
+			order by du.unit_id,${sortname}
+			<if test="sortorder !=null and sortorder !='' ">
+				${sortorder} 
+			</if>
+		</if>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getAllListRows" parameterType="hashmap" resultType="long">
+		select count(du.id)
+		from tb_delivery_user du left JOIN tb_sys_units su ON du.unit_id = su.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	<update id="updateStatus" parameterType="hashmap">
+		update tb_delivery_user
+		set
+		check_status = #{status}
+		where id  in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+		and !ISNULL(unit_id)
+	</update>
+	
+	
+	<select id="getPassUnitList" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			id as value,
+			unit_name as text
+		FROM
+			tb_sys_units
+		where (unit_status = 'pass' and stop_date &gt; now())
+	</select>
+	
+	<!-- 获取公司下的门店列表 -->
+	<select id="getShopList" parameterType="long" resultType="hashmap">
+		SELECT
+			id as value,
+			dept_name as text
+		FROM
+			tb_sys_department
+		where dept_type=1 and if_delete=0 and unit_id=#{unitId}
+	</select>
+	
+	<!-- 分页获取门店表格数据（供分配查询） -->
+	<select id="getShopGridData" parameterType="hashmap" resultType="hashmap">
+		select 
+		 d.id as ID,
+		 d.dept_name as DEPT_NAME,
+		 u.unit_name as UNIT_NAME,
+		 d.dept_desc as DEPT_DESC,
+		 d.position as POSITION,
+		 d.gps_longitude as GPS_LONGITUDE,
+		 d.gps_latitude as GPS_LATITUDE
+		from tb_sys_department d join tb_sys_units u on d.unit_id = u.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			d.dept_type = 1 and d.if_delete = 0 
+			<if test="zoneCode != null and zoneCode != ''">
+				and u.zone_code like #{zoneCode,jdbcType=VARCHAR}
+			</if>
+			and d.id not in (select shop_id from tb_delivery_user_shop_rt where account = #{account,jdbcType=VARCHAR})
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if>
+			</when>
+			<otherwise>
+				order by d.dept_ord desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	<!-- 获取门店表格数据总数  -->
+	<select id="getShopRows" parameterType="hashmap" resultType="long">
+		select count(*)
+		from tb_sys_department d join tb_sys_units u on d.unit_id = u.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			d.dept_type = 1 and d.if_delete = 0 
+			<if test="zoneCode != null and zoneCode != ''">
+				and u.zone_code like #{zoneCode,jdbcType=VARCHAR}
+			</if>
+			and d.id not in (select shop_id from tb_delivery_user_shop_rt where account = #{account,jdbcType=VARCHAR})
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="getSelectListMap" parameterType="hashmap" resultMap="deliveryuserDaoListMap">
+		SELECT
+			du.*
+		FROM
+			tb_delivery_user du
+		JOIN tb_delivery_user_shop_rt dus ON du.account = dus.account
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			dus.shop_id = #{shopId}
+			and check_status = 1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if>
+			</when>
+			<otherwise>
+				order by du.create_date desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	
+	<select id="getSelectListRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(du.id)
+		FROM
+			tb_delivery_user du
+		JOIN tb_delivery_user_shop_rt dus ON du.account = dus.account
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			dus.shop_id = #{shopId}
+			and check_status = 1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	<delete id="emptyDeliveryShopRt" parameterType="string">
+		delete 
+		from tb_delivery_user_shop_rt 
+		where account = #{account}
+	</delete>
+</mapper>

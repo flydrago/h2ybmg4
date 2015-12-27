@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IFindActivityCommentDao">
+
+	<resultMap type="com.h2y.bmg.entity.FindActivityComment" id="findactivitycommentDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="activityId" column="activity_id" javaType="long" jdbcType="BIGINT" />
+		<result property="memberId" column="member_id" javaType="long" jdbcType="BIGINT" />
+		<result property="content" column="content" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ifPass" column="if_pass" javaType="int" jdbcType="INTEGER" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="reverse1" column="reverse_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="reverse2" column="reverse_2" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="findactivitycommentDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="ACTIVITY_ID" column="activity_id" javaType="long" jdbcType="BIGINT" />
+		<result property="MEMBER_ID" column="member_id" javaType="long" jdbcType="BIGINT" />
+		<result property="CONTENT" column="content" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="IF_PASS" column="if_pass" javaType="int" jdbcType="INTEGER" />
+		<result property="IF_DELETE" column="if_delete" javaType="int" jdbcType="INTEGER" />
+		<result property="REVERSE_1" column="reverse_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="REVERSE_2" column="reverse_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="ACCOUNT" column="account" javaType="string" jdbcType="VARCHAR" />
+		<result property="REAL_NAME" column="real_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="NICK_NAME" column="nick_name" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.FindActivityComment">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_find_activity_comment 
+		</selectKey>  
+		insert into tb_find_activity_comment
+		(
+		activity_id,
+		member_id,
+		content,
+		create_date,
+		if_pass,
+		status,
+		reverse_1,
+		reverse_2
+		)
+		values (
+		#{activityId,jdbcType=BIGINT},
+		#{memberId,jdbcType=BIGINT},
+		#{content,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{ifPass,jdbcType=INTEGER},
+		#{status,jdbcType=INTEGER},
+		#{reverse1,jdbcType=VARCHAR},
+		#{reverse2,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.FindActivityComment">
+		update tb_find_activity_comment
+		set
+		activity_id = #{activityId,jdbcType=BIGINT},
+		member_id = #{memberId,jdbcType=BIGINT},
+		content = #{content,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		if_pass = #{ifPass,jdbcType=INTEGER},
+		status = #{status,jdbcType=INTEGER},
+		reverse_1 = #{reverse1,jdbcType=VARCHAR},
+		reverse_2 = #{reverse2,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.FindActivityComment">
+		delete from
+		tb_find_activity_comment
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_find_activity_comment
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_find_activity_comment
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="findactivitycommentDaoMap">
+		select * from tb_find_activity_comment where id = #{id}
+	</select>
+
+	<select id="getListMap" parameterType="hashmap"
+		resultMap="findactivitycommentDaoListMap">
+		SELECT
+			fac.*,
+			mu.account,
+			mu.real_name,
+			mu.nick_name
+		FROM
+			tb_find_activity_comment fac
+		JOIN tb_member_user mu ON fac.member_id = mu.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			fac.if_delete = 0
+			and fac.activity_id = #{activityId}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<if test="sortname !=null and sortname !='' ">
+			order by ${sortname}
+			<if test="sortorder !=null and sortorder !='' ">
+				${sortorder} 
+			</if>
+		</if>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(fac.id)
+		FROM
+			tb_find_activity_comment fac
+		JOIN tb_member_user mu ON fac.member_id = mu.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			fac.if_delete = 0
+			and fac.activity_id = #{activityId}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+</mapper>

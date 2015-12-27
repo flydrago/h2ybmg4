@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ISysParamTypeDao">
+
+	<resultMap type="com.h2y.bmg.entity.SysParamType" id="sysparamtypeDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="typeCode" column="type_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="typeName" column="type_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="ord" column="ord" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="sysparamtypeDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="TYPE_CODE" column="type_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="TYPE_NAME" column="type_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="ORD" column="ord" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.SysParamType">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_sys_param_type 
+		</selectKey>  
+		insert into tb_sys_param_type
+		(
+		type_code,
+		type_name,
+		memo,
+		ord
+		)
+		values (
+		#{typeCode,jdbcType=VARCHAR},
+		#{typeName,jdbcType=VARCHAR},
+		#{memo,jdbcType=VARCHAR},
+		#{ord,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.SysParamType">
+		update tb_sys_param_type
+		set
+		type_code = #{typeCode,jdbcType=VARCHAR},
+		type_name = #{typeName,jdbcType=VARCHAR},
+		memo = #{memo,jdbcType=VARCHAR},
+		ord = #{ord,jdbcType=BIGINT}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.SysParamType">
+		delete from
+		tb_sys_param_type
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_sys_param_type
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_sys_param_type
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="sysparamtypeDaoMap">
+		select * from tb_sys_param_type where id = #{id}
+	</select>
+
+	<select id="getListMap" parameterType="hashmap" resultMap="sysparamtypeDaoListMap">
+		select * from
+		tb_sys_param_type
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<if test="sortname !=null and sortname !='' ">
+			order by ${sortname}
+			<if test="sortorder !=null and sortorder !='' ">
+				${sortorder} 
+			</if>
+		</if>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select
+		count(id) from
+		tb_sys_param_type
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	
+	<select id="getRowsByCode" parameterType="hashmap" resultType="long">
+		select
+		count(id) from
+		tb_sys_param_type
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			type_code = #{typeCode}
+			<if test="id!=null">
+				and id &lt;&gt; #{id}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="getTreeList" resultType="hashmap">
+		select
+		id,
+		0 as pid,
+		type_name as text
+		from
+		tb_sys_param_type
+	</select>
+	
+	
+	<select id="getParamTypeByCode" parameterType="string" resultMap="sysparamtypeDaoMap">
+		select * from
+		tb_sys_param_type
+		where type_code = #{typeCode}
+		limit 0,1
+	</select>
+	
+</mapper>

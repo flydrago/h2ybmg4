@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IFindServiceUnitDao">
+
+	<resultMap type="com.h2y.bmg.entity.FindServiceUnit" id="findserviceunitDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="servicePrefix" column="service_prefix" javaType="string" jdbcType="VARCHAR" />
+		<result property="serviceId" column="service_id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="zoneCode" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ord" column="ord" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	<insert id="add" parameterType="com.h2y.bmg.entity.FindServiceUnit">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_find_service_unit 
+		</selectKey>  
+		insert into tb_find_service_unit
+		(
+		service_prefix,
+		service_id,
+		unit_id,
+		zone_code,
+		create_date,
+		ord
+		)
+		values (
+		#{servicePrefix,jdbcType=VARCHAR},
+		#{serviceId,jdbcType=BIGINT},
+		#{unitId,jdbcType=BIGINT},
+		#{zoneCode,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{ord,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.FindServiceUnit">
+		update tb_find_service_unit
+		set
+		service_prefix = #{servicePrefix,jdbcType=VARCHAR},
+		service_id = #{serviceId,jdbcType=BIGINT},
+		unit_id = #{unitId,jdbcType=BIGINT},
+		zone_code = #{zoneCode,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		ord = #{ord,jdbcType=BIGINT}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.FindServiceUnit">
+		delete from
+		tb_find_service_unit
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_find_service_unit
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_find_service_unit
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="findserviceunitDaoMap">
+		select * from tb_find_service_unit where id = #{id}
+	</select>
+
+	<select id="getUnitServiceTreeList" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			fs.id,
+			fs.NAME AS text,
+			fs.parent_id AS pid,
+			! ISNULL(fsu.id) AS isselect
+		FROM
+			tb_find_service fs
+		LEFT JOIN tb_find_service_unit fsu ON fs.id = fsu.service_id 
+		and fsu.unit_id = #{unitId}
+		WHERE
+			fs.status=0  and service_type = 1
+		ORDER BY fs.ord desc
+	</select>
+	
+	<!-- 根据公司id删除服务 -->
+	<delete id="deleteByUnitId" parameterType="hashmap">
+		delete from
+		tb_find_service_unit
+		where
+		unit_id = #{unitId}		
+		<if test="serviceIdList!=null and serviceIdList!=''">
+				and service_id in
+				<foreach collection="serviceIdList" item="serviceId" open="(" separator=","
+					close=")"> #{serviceId} 
+				</foreach>
+			</if>
+	</delete>
+	
+	<insert id="addBatch" parameterType="com.h2y.bmg.entity.FindServiceUnit">
+		insert into tb_find_service_unit
+		(
+		service_prefix,
+		service_id,
+		unit_id,
+		zone_code,
+		create_date
+		)
+		values 
+		<foreach collection="list" item="item" separator=",">
+        (
+			#{item.servicePrefix,jdbcType=VARCHAR},
+			#{item.serviceId,jdbcType=BIGINT},
+			#{item.unitId,jdbcType=BIGINT},
+			#{item.zoneCode,jdbcType=VARCHAR},
+			#{item.createDate,jdbcType=TIMESTAMP}
+		)
+        </foreach>
+    </insert>
+    
+    <!-- 获取当前公司服务列表 -->
+    <select id="getUnitServiceList" parameterType="hashmap" resultType="hashmap">
+		select f.service_code,f.service_prefix,f.create_date,f.service_type,f.name,f.status,u.ord,f.memo,u.id
+		from tb_find_service f,tb_find_service_unit u
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			f.service_type=0 
+			and u.unit_id=#{unitId} 
+			and f.id=u.service_id 
+			and f.status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by u.ord desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+    
+    
+    <select id="getUnitServiceListRows" parameterType="hashmap" resultType="long">
+		select count(f.id)
+		from tb_find_service f,tb_find_service_unit u
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			f.service_type=0 
+			and u.unit_id=#{unitId} 
+			and f.id=u.service_id 
+			and f.status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			
+		</trim>
+	</select>
+    
+    
+    <!-- 获取当前公司服务id -->
+	<select id="getUnitServiceIdList" parameterType="hashmap" resultType="long">	
+		select fu.service_id as serviceId 
+		from tb_find_service_unit  fu,tb_find_service fs
+		where fu.unit_id=#{unitId} and fu.service_id=fs.id and fs.service_type=#{serviceType}
+	</select>
+    
+    
+    <!-- 获取选择服务列表窗口 -->
+    <select id="getUnitServiceSelectList" parameterType="hashmap" resultType="hashmap">
+		select f.*
+		from tb_find_service f		
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			f.service_type=0
+			and f.status=0
+			and f.parent_id &lt;&gt; 0
+			<if test="serviceIdList!=null and serviceIdList!=''">
+				and f.id not in
+				<foreach collection="serviceIdList" item="serviceId" open="(" separator=","
+					close=")"> #{serviceId} 
+				</foreach>
+			</if>
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by f.ord desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+    
+    <!-- 获取选择服务列表总数 -->
+    <select id="getUnitServiceSelectListRows" parameterType="hashmap" resultType="long">
+		select count(f.id)
+		from tb_find_service f		
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			f.service_type=0
+			and f.status=0
+			<if test="serviceIdList!=null and serviceIdList!=''">
+				and f.id in
+				<foreach collection="serviceIdList" item="serviceId" open="(" separator=","
+					close=")"> #{serviceId} 
+				</foreach>
+			</if>
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			
+		</trim>
+
+	</select>
+    
+</mapper>

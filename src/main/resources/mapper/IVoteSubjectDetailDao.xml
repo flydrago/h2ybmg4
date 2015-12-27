@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IVoteSubjectDetailDao">
+
+	<resultMap type="com.h2y.bmg.entity.VoteSubjectDetail" id="votesubjectdetailDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="subjectId" column="subject_id" javaType="long" jdbcType="BIGINT" />
+		<result property="subjectRule" column="subject_rule" javaType="string" jdbcType="VARCHAR" />
+		<result property="text1" column="text_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="text2" column="text_2" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+		<resultMap type="java.util.Map" id="votesubjectdetailDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="SUBJECT_ID" column="subject_id" javaType="long" jdbcType="BIGINT" />
+		<result property="SUBJECT_RULE" column="subject_rule" javaType="string" jdbcType="VARCHAR" />
+		<result property="TEXT1" column="text_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="TEXT2" column="text_2" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.VoteSubjectDetail">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_vote_subject_detail 
+		</selectKey>  
+		insert into tb_vote_subject_detail
+		(
+		subject_id,
+		subject_rule,
+		text_1,
+		text_2
+		)
+		values (
+		#{subjectId,jdbcType=BIGINT},
+		#{subjectRule,jdbcType=VARCHAR},
+		#{text1,jdbcType=VARCHAR},
+		#{text2,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.VoteSubjectDetail">
+		update tb_vote_subject_detail
+		set
+		subject_id = #{subjectId,jdbcType=BIGINT},
+		subject_rule = #{subjectRule,jdbcType=VARCHAR},
+		text_1 = #{text1,jdbcType=VARCHAR},
+		text_2 = #{text2,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.VoteSubjectDetail">
+		delete from
+		tb_vote_subject_detail
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_vote_subject_detail
+		where
+		id = #{id} 
+	</delete>
+		<delete id="deleteBySubjectId" parameterType="long">
+		delete from
+		tb_vote_subject_detail
+		where
+		subject_id = #{subjectId} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_vote_subject_detail
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="votesubjectdetailDaoMap">
+		select * from tb_vote_subject_detail where id = #{id}
+	</select>
+	
+	<select id="getBySubjectId" parameterType="long"
+		resultMap="votesubjectdetailDaoMap">
+		select * from tb_vote_subject_detail where subject_id = #{subjectId}
+	</select>
+
+		<select id="getListMap" parameterType="hashmap" resultMap="votesubjectdetailDaoListMap">
+		select * from tb_vote_subject_detail
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder}
+				</if>
+			</when>
+			<otherwise>
+				order by create_date desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select count(id) from tb_vote_subject_detail
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+</mapper>

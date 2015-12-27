@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IOrderCountDao">
+
+	<resultMap type="com.h2y.bmg.entity.OrderCount" id="ordercountDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitType" column="unit_type" javaType="long" jdbcType="BIGINT" />
+		<result property="unitName" column="unit_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="unitShortName" column="unit_short_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="zoneCode" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="orderDay" column="order_day" javaType="date" jdbcType="DATE" />
+		<result property="orderCount" column="order_count" javaType="int" jdbcType="INTEGER" />
+		<result property="realAmount" column="real_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="goodsAmount" column="goods_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="coinAmount" column="coin_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="goodsTransportAmount" column="goods_transport_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="couponsAmount" column="coupons_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="double1" column="double1" javaType="double" jdbcType="DOUBLE" />
+		<result property="double2" column="double2" javaType="double" jdbcType="DOUBLE" />
+		<result property="str1" column="str1" javaType="string" jdbcType="VARCHAR" />
+		<result property="str2" column="str2" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+	<resultMap type="java.util.Map" id="ordercountDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_TYPE" column="unit_type" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_NAME" column="unit_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="UNIT_SHORT_NAME" column="unit_short_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="ZONE_CODE" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="UPDATE_DATE" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ORDER_DAY" column="order_day" javaType="date" jdbcType="DATE" />
+		<result property="ORDER_COUNT" column="order_count" javaType="int" jdbcType="INTEGER" />
+		<result property="REAL_AMOUNT" column="real_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="GOODS_AMOUNT" column="goods_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="COIN_AMOUNT" column="coin_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="GOODS_TRANSPORT_AMOUNT" column="goods_transport_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="COUPONS_AMOUNT" column="coupons_amount" javaType="double" jdbcType="DOUBLE" />
+		<result property="DOUBLE1" column="double1" javaType="double" jdbcType="DOUBLE" />
+		<result property="DOUBLE2" column="double2" javaType="double" jdbcType="DOUBLE" />
+		<result property="STR1" column="str1" javaType="string" jdbcType="VARCHAR" />
+		<result property="STR2" column="str2" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+	<select id="get" parameterType="long"
+		resultMap="ordercountDaoMap">
+		select * from tb_order_count where id = #{id}
+	</select>
+
+		
+	<select id="getListMap" parameterType="hashmap"
+		resultMap="ordercountDaoListMap">
+		select 
+			*
+		from tb_order_count 
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="unitId != 1">
+				<choose>
+					<when test="unitType == 1">
+						and unit_id = #{unitId}
+					</when>
+					<when test="unitType == 2">
+						and zone_code LIKE #{zoneCode}
+					</when>
+					<otherwise>
+						and ((zone_code LIKE #{zoneCode} and unit_type = 1 ) or unit_id = #{unitId})
+					</otherwise>
+				</choose>
+			</if>
+			<if test="unitName!=null and unitName!=''">
+				and unit_name like #{unitName}
+			</if>
+			<if test="startDay!=null and endDay!=null">
+				and order_day BETWEEN #{startDay} AND #{endDay}
+			</if>
+		</trim>	
+		order by order_day desc 
+	</select>
+	
+</mapper>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IFindActivityGoodsDao">
+
+	<resultMap type="com.h2y.bmg.entity.FindActivityGoods" id="findactivitygoodsDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="activityId" column="activity_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsId" column="goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="reverse1" column="reverse_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="reverse2" column="reverse_2" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<insert id="add" parameterType="com.h2y.bmg.entity.FindActivityGoods">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_find_activity_goods 
+		</selectKey>  
+		insert into tb_find_activity_goods
+		(
+		activity_id,
+		goods_id,
+		reverse_1,
+		reverse_2
+		)
+		values (
+		#{activityId,jdbcType=BIGINT},
+		#{goodsId,jdbcType=BIGINT},
+		#{reverse1,jdbcType=VARCHAR},
+		#{reverse2,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.FindActivityGoods">
+		update tb_find_activity_goods
+		set
+		activity_id = #{activityId,jdbcType=BIGINT},
+		goods_id = #{goodsId,jdbcType=BIGINT},
+		reverse_1 = #{reverse1,jdbcType=VARCHAR},
+		reverse_2 = #{reverse2,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.FindActivityGoods">
+		delete from
+		tb_find_activity_goods
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_find_activity_goods
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_find_activity_goods
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="findactivitygoodsDaoMap">
+		select * from tb_find_activity_goods where id = #{id}
+	</select>
+
+	<insert id="addBatch" parameterType="com.h2y.bmg.entity.FindActivityGoods">
+		insert into tb_find_activity_goods
+		(
+		activity_id,
+		goods_id,
+		reverse_1,
+		reverse_2
+		)
+		values
+		<foreach collection="list" item="item" separator=",">
+		(
+		#{item.activityId,jdbcType=BIGINT},
+		#{item.goodsId,jdbcType=VARCHAR},
+		#{item.reverse1,jdbcType=VARCHAR},
+		#{item.reverse2,jdbcType=VARCHAR}
+		)
+        </foreach>
+	</insert>
+	
+	<delete id="deleteByActivityId" parameterType="long">
+		delete from
+		tb_find_activity_goods
+		where
+		activity_id = #{activityId} 
+	</delete>
+	
+	
+	<select id="getGoodsListActivityId" parameterType="long" resultType="hashmap">
+		SELECT
+			g.id as ID,
+			g.`name` AS NAME
+		FROM
+			tb_goods g
+		JOIN tb_find_activity_goods ag ON g.id = ag.goods_id
+		where ag.activity_id = #{activityId} 
+	</select>
+</mapper>

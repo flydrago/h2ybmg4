@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ITraceCirculateRecordDao">
+
+	<resultMap type="com.h2y.bmg.entity.TraceCirculateRecord" id="tracecirculaterecordDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="boxQrcodeNo" column="box_qrcode_no" javaType="long" jdbcType="BIGINT" />
+		<result property="bottleQrcodeNo" column="bottle_qrcode_no" javaType="long" jdbcType="BIGINT" />
+		<result property="packFlag" column="pack_flag" javaType="int" jdbcType="INTEGER" />
+		<result property="spec" column="spec" javaType="int" jdbcType="INTEGER" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="circulateFlag" column="circulate_flag" javaType="int" jdbcType="INTEGER" />
+		<result property="showFlag" column="show_flag" javaType="int" jdbcType="INTEGER" />
+		<result property="newRecordFlag" column="new_record_flag" javaType="int" jdbcType="INTEGER" />
+		<result property="optUserId" column="opt_user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="optUserAccount" column="opt_user_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="optUserName" column="opt_user_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="data1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="data2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="tracecirculaterecordDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="BOX_QRCODE_NO" column="box_qrcode_no" javaType="long" jdbcType="BIGINT" />
+		<result property="BOTTLE_QRCODE_NO" column="bottle_qrcode_no" javaType="long" jdbcType="BIGINT" />
+		<result property="PACK_FLAG" column="pack_flag" javaType="int" jdbcType="INTEGER" />
+		<result property="SPEC" column="spec" javaType="int" jdbcType="INTEGER" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="CIRCULATE_FLAG" column="circulate_flag" javaType="int" jdbcType="INTEGER" />
+		<result property="SHOW_FLAG" column="show_flag" javaType="int" jdbcType="INTEGER" />
+		<result property="NEW_RECORD_FLAG" column="new_record_flag" javaType="int" jdbcType="INTEGER" />
+		<result property="OPT_USER_ID" column="opt_user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="OPT_USER_ACCOUNT" column="opt_user_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="OPT_USER_NAME" column="opt_user_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.TraceCirculateRecord">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_trace_circulate_record 
+		</selectKey>  
+		insert into tb_trace_circulate_record
+		(
+		box_qrcode_no,
+		bottle_qrcode_no,
+		pack_flag,
+		spec,
+		create_date,
+		circulate_flag,
+		show_flag,
+		new_record_flag,
+		opt_user_id,
+		opt_user_account,
+		opt_user_name,
+		data_1,
+		data_2,
+		data_3
+		)
+		values (
+		#{boxQrcodeNo,jdbcType=BIGINT},
+		#{bottleQrcodeNo,jdbcType=BIGINT},
+		#{packFlag,jdbcType=INTEGER},
+		#{spec,jdbcType=INTEGER},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{circulateFlag,jdbcType=INTEGER},
+		#{showFlag,jdbcType=INTEGER},
+		#{newRecordFlag,jdbcType=INTEGER},
+		#{optUserId,jdbcType=BIGINT},
+		#{optUserAccount,jdbcType=VARCHAR},
+		#{optUserName,jdbcType=VARCHAR},
+		#{data1,jdbcType=VARCHAR},
+		#{data2,jdbcType=VARCHAR},
+		#{data3,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="addPatch" parameterType="java.util.List">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_trace_circulate_record 
+		</selectKey>  
+		insert into tb_trace_circulate_record
+		(
+		box_qrcode_no,
+		bottle_qrcode_no,
+		pack_flag,
+		spec,
+		create_date,
+		circulate_flag,
+		show_flag,
+		new_record_flag,
+		opt_user_id,
+		opt_user_account,
+		opt_user_name,
+		data_1,
+		data_2,
+		data_3
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator="," >
+		 (
+		#{item.boxQrcodeNo,jdbcType=BIGINT},
+		#{item.bottleQrcodeNo,jdbcType=BIGINT},
+		#{item.packFlag,jdbcType=INTEGER},
+		#{item.spec,jdbcType=INTEGER},
+		#{item.createDate,jdbcType=TIMESTAMP},
+		#{item.circulateFlag,jdbcType=INTEGER},
+		#{item.showFlag,jdbcType=INTEGER},
+		#{item.newRecordFlag,jdbcType=INTEGER},
+		#{item.optUserId,jdbcType=BIGINT},
+		#{item.optUserAccount,jdbcType=VARCHAR},
+		#{item.optUserName,jdbcType=VARCHAR},
+		#{item.data1,jdbcType=VARCHAR},
+		#{item.data2,jdbcType=VARCHAR},
+		#{item.data3,jdbcType=VARCHAR}
+		)
+		</foreach>
+	</insert>
+	<update id="update" parameterType="com.h2y.bmg.entity.TraceCirculateRecord">
+		update tb_trace_circulate_record
+		set
+		box_qrcode_no = #{boxQrcodeNo,jdbcType=BIGINT},
+		bottle_qrcode_no = #{bottleQrcodeNo,jdbcType=BIGINT},
+		pack_flag = #{packFlag,jdbcType=INTEGER},
+		spec = #{spec,jdbcType=INTEGER},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		circulate_flag = #{circulateFlag,jdbcType=INTEGER},
+		show_flag = #{showFlag,jdbcType=INTEGER},
+		new_record_flag = #{newRecordFlag,jdbcType=INTEGER},
+		opt_user_id = #{optUserId,jdbcType=BIGINT},
+		opt_user_account = #{optUserAccount,jdbcType=VARCHAR},
+		opt_user_name = #{optUserName,jdbcType=VARCHAR},
+		data_1 = #{data1,jdbcType=VARCHAR},
+		data_2 = #{data2,jdbcType=VARCHAR},
+		data_3 = #{data3,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+	
+	<update id="updateNewRecord" parameterType="java.util.Map">
+		update tb_trace_circulate_record
+		set	
+		new_record_flag = 101
+		
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="boxQrcodeNo!= null">
+				and box_qrcode_no = #{boxQrcodeNo}
+			</if>
+			<if test="bottleQrcodeNo != null">
+				and bottle_qrcode_no = #{bottleQrcodeNo}
+			</if>
+			<if test="spec != null">
+				and spec = #{spec}
+			</if>
+			<if test="packFlag != null">
+				and pack_flag = #{packFlag}
+			</if>
+			<if test="optUserId != null">
+				and opt_user_id = #{optUserId}
+			</if>
+			<if test="circulateFlag != null">
+				and circulate_flag = #{circulateFlag}
+			</if>
+			<if test="newRecordFlag != null">
+				and new_record_flag = #{newRecordFlag}
+			</if>
+		</trim>
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.TraceCirculateRecord">
+		delete from
+		tb_trace_circulate_record
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_trace_circulate_record
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_trace_circulate_record
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="tracecirculaterecordDaoMap">
+		select * from tb_trace_circulate_record where id = #{id}
+	</select>
+
+	<select id="getListData" parameterType="hashmap" resultMap="tracecirculaterecordDaoMap">
+		select * from tb_trace_circulate_record
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="boxQrcodeNo!= null">
+				and box_qrcode_no = #{boxQrcodeNo}
+			</if>
+			<if test="bottleQrcodeNo!= null">
+				and bottle_qrcode_no = #{bottleQrcodeNo}
+			</if>
+			<if test="spec!= null">
+				and spec = #{spec}
+			</if>
+			<if test="packFlag!= null">
+				and pack_flag = #{packFlag}
+			</if>
+			<if test="optUserId!= null">
+				and opt_user_id = #{optUserId}
+			</if>
+			<if test="newRecordFlag!= null">
+				and new_record_flag = #{newRecordFlag}
+			</if>
+			<if test="circulateFlag!= null">
+				and circulate_flag = #{circulateFlag}
+			</if>
+		</trim>
+	</select>
+
+
+	<select id="getList" parameterType="com.h2y.bmg.entity.TraceCirculateRecord"
+		resultMap="tracecirculaterecordDaoMap">
+		select * from
+		tb_trace_circulate_record
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="boxQrcodeNo!= null">
+			and box_qrcode_no = #{boxQrcodeNo}
+			</if>
+			<if test="bottleQrcodeNo!= null">
+			and bottle_qrcode_no = #{bottleQrcodeNo}
+			</if>
+			<if test="packFlag!= null">
+			and pack_flag = #{packFlag}
+			</if>
+			<if test="spec!= null">
+			and spec = #{spec}
+			</if>
+			<if test="createDate!= null and createDate!=''">
+			and create_date = #{createDate}
+			</if>
+			<if test="circulateFlag!= null">
+			and circulate_flag = #{circulateFlag}
+			</if>
+			<if test="showFlag!= null">
+			and show_flag = #{showFlag}
+			</if>
+			<if test="newRecordFlag!= null">
+			and new_record_flag = #{newRecordFlag}
+			</if>
+			<if test="optUserId!= null">
+			and opt_user_id = #{optUserId}
+			</if>
+			<if test="optUserAccount!= null and optUserAccount!=''">
+			and opt_user_account = #{optUserAccount}
+			</if>
+			<if test="optUserName!= null and optUserName!=''">
+			and opt_user_name = #{optUserName}
+			</if>
+			<if test="data1!= null and data1!=''">
+			and data_1 = #{data1}
+			</if>
+			<if test="data2!= null and data2!=''">
+			and data_2 = #{data2}
+			</if>
+			<if test="data3!= null and data3!=''">
+			and data_3 = #{data3}
+			</if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="tracecirculaterecordDaoMap">
+		select
+		*
+		from
+		tb_trace_circulate_record
+		<if test="keyTraceCirculateRecord!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keyTraceCirculateRecord.id!= null">
+				and id = #{keyTraceCirculateRecord.id}
+				</if>
+				<if test="keyTraceCirculateRecord.boxQrcodeNo!= null">
+				and box_qrcode_no = #{keyTraceCirculateRecord.boxQrcodeNo}
+				</if>
+				<if test="keyTraceCirculateRecord.bottleQrcodeNo!= null">
+				and bottle_qrcode_no = #{keyTraceCirculateRecord.bottleQrcodeNo}
+				</if>
+				<if test="keyTraceCirculateRecord.packFlag!= null">
+				and pack_flag = #{keyTraceCirculateRecord.packFlag}
+				</if>
+				<if test="keyTraceCirculateRecord.spec!= null">
+				and spec = #{keyTraceCirculateRecord.spec}
+				</if>
+				<if test="keyTraceCirculateRecord.createDate!= null and keyTraceCirculateRecord.createDate!=''">
+				and create_date = #{keyTraceCirculateRecord.createDate}
+				</if>
+				<if test="keyTraceCirculateRecord.circulateFlag!= null">
+				and circulate_flag = #{keyTraceCirculateRecord.circulateFlag}
+				</if>
+				<if test="keyTraceCirculateRecord.showFlag!= null">
+				and show_flag = #{keyTraceCirculateRecord.showFlag}
+				</if>
+				<if test="keyTraceCirculateRecord.newRecordFlag!= null">
+				and new_record_flag = #{keyTraceCirculateRecord.newRecordFlag}
+				</if>
+				<if test="keyTraceCirculateRecord.optUserId!= null">
+				and opt_user_id = #{keyTraceCirculateRecord.optUserId}
+				</if>
+				<if test="keyTraceCirculateRecord.optUserAccount!= null and keyTraceCirculateRecord.optUserAccount!=''">
+				and opt_user_account = #{keyTraceCirculateRecord.optUserAccount}
+				</if>
+				<if test="keyTraceCirculateRecord.optUserName!= null and keyTraceCirculateRecord.optUserName!=''">
+				and opt_user_name = #{keyTraceCirculateRecord.optUserName}
+				</if>
+				<if test="keyTraceCirculateRecord.data1!= null and keyTraceCirculateRecord.data1!=''">
+				and data_1 = #{keyTraceCirculateRecord.data1}
+				</if>
+				<if test="keyTraceCirculateRecord.data2!= null and keyTraceCirculateRecord.data2!=''">
+				and data_2 = #{keyTraceCirculateRecord.data2}
+				</if>
+				<if test="keyTraceCirculateRecord.data3!= null and keyTraceCirculateRecord.data3!=''">
+				and data_3 = #{keyTraceCirculateRecord.data3}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_trace_circulate_record
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="bottleQrcodeNo!= null">
+				and bottle_qrcode_no = #{bottleQrcodeNo}
+			</if>
+			
+			<if test="packFlag!= null">
+				and pack_flag = #{packFlag}
+			</if>
+			<if test="optUserId!= null">
+				and opt_user_id = #{optUserId}
+			</if>
+			<if test="newRecordFlag!= null">
+				and new_record_flag = #{newRecordFlag}
+			</if>
+			<if test="circulateFlag!= null">
+				and circulate_flag = #{circulateFlag}
+			</if>
+		</trim>
+	</select>
+	
+	
+	<select id="getListDataByPage" parameterType="hashmap" resultMap="tracecirculaterecordDaoListMap">
+		select * from tb_trace_circulate_record
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="bottleQrcodeNo!= null">
+				and bottle_qrcode_no = #{bottleQrcodeNo}
+			</if>
+			
+			<if test="newRecordFlag!= null">
+				and new_record_flag = #{newRecordFlag}
+			</if>
+			<if test="showFlag!= null">
+				and show_flag = #{showFlag}
+			</if>
+		</trim>
+		
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+</mapper>

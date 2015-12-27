@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ITraceProviderItemDao">
+
+	<resultMap type="com.h2y.bmg.entity.TraceProviderItem" id="traceprovideritemDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="providerName" column="provider_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="legalUser" column="legal_user" javaType="string" jdbcType="VARCHAR" />
+		<result property="contactTelephone" column="contact_telephone" javaType="string" jdbcType="VARCHAR" />
+		<result property="companyAddress" column="company_address" javaType="string" jdbcType="VARCHAR" />
+		<result property="beneficiaryAccount" column="beneficiary_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="optUserId" column="opt_user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="optUserAccount" column="opt_user_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="optUserName" column="opt_user_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="ifEnable" column="if_enable" javaType="int" jdbcType="INTEGER" />
+		<result property="parentId" column="parent_id" javaType="long" jdbcType="BIGINT" />
+		<result property="zoneCode" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="data1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="data2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="traceprovideritemDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="PROVIDER_NAME" column="provider_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="LEGAL_USER" column="legal_user" javaType="string" jdbcType="VARCHAR" />
+		<result property="CONTACT_TELEPHONE" column="contact_telephone" javaType="string" jdbcType="VARCHAR" />
+		<result property="COMPANY_ADDRESS" column="company_address" javaType="string" jdbcType="VARCHAR" />
+		<result property="BENEFICIARY_ACCOUNT" column="beneficiary_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="UPDATE_DATE" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="OPT_USER_ID" column="opt_user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="OPT_USER_ACCOUNT" column="opt_user_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="OPT_USER_NAME" column="opt_user_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="IF_ENABLE" column="if_enable" javaType="int" jdbcType="INTEGER" />
+		<result property="PARENT_ID" column="parent_id" javaType="long" jdbcType="BIGINT" />
+		<result property="ZONE_CODE" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<insert id="add" parameterType="com.h2y.bmg.entity.TraceProviderItem">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_trace_provider_item 
+		</selectKey>  
+		insert into tb_trace_provider_item
+		(
+		provider_name,
+		legal_user,
+		contact_telephone,
+		company_address,
+		beneficiary_account,
+		create_date,
+		update_date,
+		opt_user_id,
+		opt_user_account,
+		opt_user_name,
+		if_enable,
+		parent_id,
+		zone_code,
+		data_1,
+		data_2,
+		data_3
+		)
+		values (
+		#{providerName,jdbcType=VARCHAR},
+		#{legalUser,jdbcType=VARCHAR},
+		#{contactTelephone,jdbcType=VARCHAR},
+		#{companyAddress,jdbcType=VARCHAR},
+		#{beneficiaryAccount,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{optUserId,jdbcType=BIGINT},
+		#{optUserAccount,jdbcType=VARCHAR},
+		#{optUserName,jdbcType=VARCHAR},
+		#{ifEnable,jdbcType=INTEGER},
+		#{parentId,jdbcType=BIGINT},
+		#{zoneCode,jdbcType=VARCHAR},
+		#{data1,jdbcType=VARCHAR},
+		#{data2,jdbcType=VARCHAR},
+		#{data3,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.TraceProviderItem">
+		update tb_trace_provider_item
+		set
+		provider_name = #{providerName,jdbcType=VARCHAR},
+		legal_user = #{legalUser,jdbcType=VARCHAR},
+		contact_telephone = #{contactTelephone,jdbcType=VARCHAR},
+		company_address = #{companyAddress,jdbcType=VARCHAR},
+		beneficiary_account = #{beneficiaryAccount,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		opt_user_id = #{optUserId,jdbcType=BIGINT},
+		opt_user_account = #{optUserAccount,jdbcType=VARCHAR},
+		opt_user_name = #{optUserName,jdbcType=VARCHAR},
+		if_enable = #{ifEnable,jdbcType=INTEGER},
+		parent_id = #{parentId,jdbcType=BIGINT},
+		zone_code = #{zoneCode,jdbcType=VARCHAR},
+		data_1 = #{data1,jdbcType=VARCHAR},
+		data_2 = #{data2,jdbcType=VARCHAR},
+		data_3 = #{data3,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+
+	<update id="updateStatusByIds" parameterType="hashmap">
+		update tb_trace_provider_item
+		set
+		
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		if_enable = #{ifEnable,jdbcType=INTEGER}
+		
+		where parent_id = #{parentId} and id in
+		<foreach collection="ids" item="id" open="(" separator="," close=")"> 
+			#{id} 
+		</foreach>
+	</update>
+	
+	
+	<delete id="delete" parameterType="com.h2y.bmg.entity.TraceProviderItem">
+		delete from
+		tb_trace_provider_item
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_trace_provider_item
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_trace_provider_item
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="traceprovideritemDaoMap">
+		select * from tb_trace_provider_item where id = #{id}
+	</select>
+	
+	<select id="getList" parameterType="com.h2y.bmg.entity.TraceProviderItem"
+		resultMap="traceprovideritemDaoMap">
+		select * from
+		tb_trace_provider_item
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="providerName!= null and providerName!=''">
+			and provider_name = #{providerName}
+			</if>
+			<if test="legalUser!= null and legalUser!=''">
+			and legal_user = #{legalUser}
+			</if>
+			<if test="contactTelephone!= null and contactTelephone!=''">
+			and contact_telephone = #{contactTelephone}
+			</if>
+			<if test="companyAddress!= null and companyAddress!=''">
+			and company_address = #{companyAddress}
+			</if>
+			<if test="beneficiaryAccount!= null and beneficiaryAccount!=''">
+			and beneficiary_account = #{beneficiaryAccount}
+			</if>
+			<if test="createDate!= null and createDate!=''">
+			and create_date = #{createDate}
+			</if>
+			<if test="updateDate!= null and updateDate!=''">
+			and update_date = #{updateDate}
+			</if>
+			<if test="optUserId!= null">
+			and opt_user_id = #{optUserId}
+			</if>
+			<if test="optUserAccount!= null and optUserAccount!=''">
+			and opt_user_account = #{optUserAccount}
+			</if>
+			<if test="optUserName!= null and optUserName!=''">
+			and opt_user_name = #{optUserName}
+			</if>
+			<if test="ifEnable!= null">
+			and if_enable = #{ifEnable}
+			</if>
+			<if test="parentId!= null">
+			and parent_id = #{parentId}
+			</if>
+			<if test="zoneCode!= null and zoneCode!=''">
+			and zone_code = #{zoneCode}
+			</if>
+			<if test="data1!= null and data1!=''">
+			and data_1 = #{data1}
+			</if>
+			<if test="data2!= null and data2!=''">
+			and data_2 = #{data2}
+			</if>
+			<if test="data3!= null and data3!=''">
+			and data_3 = #{data3}
+			</if>
+		</trim>
+
+	</select>
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="traceprovideritemDaoMap">
+		select
+		*
+		from
+		tb_trace_provider_item
+		<if test="keyTraceProviderItem!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keyTraceProviderItem.id!= null">
+				and id = #{keyTraceProviderItem.id}
+				</if>
+				<if test="keyTraceProviderItem.providerName!= null and keyTraceProviderItem.providerName!=''">
+				and provider_name = #{keyTraceProviderItem.providerName}
+				</if>
+				<if test="keyTraceProviderItem.legalUser!= null and keyTraceProviderItem.legalUser!=''">
+				and legal_user = #{keyTraceProviderItem.legalUser}
+				</if>
+				<if test="keyTraceProviderItem.contactTelephone!= null and keyTraceProviderItem.contactTelephone!=''">
+				and contact_telephone = #{keyTraceProviderItem.contactTelephone}
+				</if>
+				<if test="keyTraceProviderItem.companyAddress!= null and keyTraceProviderItem.companyAddress!=''">
+				and company_address = #{keyTraceProviderItem.companyAddress}
+				</if>
+				<if test="keyTraceProviderItem.beneficiaryAccount!= null and keyTraceProviderItem.beneficiaryAccount!=''">
+				and beneficiary_account = #{keyTraceProviderItem.beneficiaryAccount}
+				</if>
+				<if test="keyTraceProviderItem.createDate!= null and keyTraceProviderItem.createDate!=''">
+				and create_date = #{keyTraceProviderItem.createDate}
+				</if>
+				<if test="keyTraceProviderItem.updateDate!= null and keyTraceProviderItem.updateDate!=''">
+				and update_date = #{keyTraceProviderItem.updateDate}
+				</if>
+				<if test="keyTraceProviderItem.optUserId!= null">
+				and opt_user_id = #{keyTraceProviderItem.optUserId}
+				</if>
+				<if test="keyTraceProviderItem.optUserAccount!= null and keyTraceProviderItem.optUserAccount!=''">
+				and opt_user_account = #{keyTraceProviderItem.optUserAccount}
+				</if>
+				<if test="keyTraceProviderItem.optUserName!= null and keyTraceProviderItem.optUserName!=''">
+				and opt_user_name = #{keyTraceProviderItem.optUserName}
+				</if>
+				<if test="keyTraceProviderItem.ifEnable!= null">
+				and if_enable = #{keyTraceProviderItem.ifEnable}
+				</if>
+				<if test="keyTraceProviderItem.parentId!= null">
+				and parent_id = #{keyTraceProviderItem.parentId}
+				</if>
+				<if test="keyTraceProviderItem.zoneCode!= null and keyTraceProviderItem.zoneCode!=''">
+				and zone_code = #{keyTraceProviderItem.zoneCode}
+				</if>
+				<if test="keyTraceProviderItem.data1!= null and keyTraceProviderItem.data1!=''">
+				and data_1 = #{keyTraceProviderItem.data1}
+				</if>
+				<if test="keyTraceProviderItem.data2!= null and keyTraceProviderItem.data2!=''">
+				and data_2 = #{keyTraceProviderItem.data2}
+				</if>
+				<if test="keyTraceProviderItem.data3!= null and keyTraceProviderItem.data3!=''">
+				and data_3 = #{keyTraceProviderItem.data3}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_trace_provider_item
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="ifEnable!= null">
+			and if_enable = #{ifEnable}
+			</if>
+			<if test="parentId != null">
+			and parent_id = #{parentId}
+			</if>
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="getListByPage" parameterType="hashmap" resultMap="traceprovideritemDaoListMap">
+		select
+		*
+		from
+		tb_trace_provider_item
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="ifEnable != null">
+			and if_enable = #{ifEnable}
+			</if>
+			<if test="parentId != null">
+			and parent_id = #{parentId}
+			</if>
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		limit ${(page-1)*pagesize},${pagesize}
+		
+	</select>
+</mapper>

@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ISysUserDao">
+
+	<resultMap type="com.h2y.bmg.entity.SysUser" id="sysuserDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="userName" column="user_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="account" column="account" javaType="string" jdbcType="VARCHAR" />
+		<result property="password" column="password" javaType="string" jdbcType="VARCHAR" />
+		<result property="mobile" column="mobile" javaType="string" jdbcType="VARCHAR" />
+		<result property="email" column="email" javaType="string" jdbcType="VARCHAR" />
+		<result property="userCord" column="user_cord" javaType="string" jdbcType="VARCHAR" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ifLock" column="if_lock" javaType="long" jdbcType="BIGINT" />
+		<result property="ifSys" column="if_sys" javaType="long" jdbcType="BIGINT" />
+		<result property="ifDelete" column="if_delete" javaType="long" jdbcType="BIGINT" />
+		<result property="userOrd" column="user_ord" javaType="long" jdbcType="BIGINT" />
+		<result property="reverse1" column="reverse_1" javaType="long" jdbcType="BIGINT" />
+		<result property="reverse2" column="reverse_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="reverse3" column="reverse_3" javaType="string" jdbcType="VARCHAR" />
+		<result property="xghusercode" column="xghusercode" javaType="string" jdbcType="VARCHAR" />
+		<result property="xghcreatedate" column="xghcreatedate" javaType="date" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="sysuserDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="USER_ORD" column="user_ord" javaType="long" jdbcType="BIGINT" />
+		<result property="USER_NAME" column="user_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="ACCOUNT" column="account" javaType="string" jdbcType="VARCHAR" />
+		<result property="PASSWORD" column="password" javaType="string" jdbcType="VARCHAR" />
+		<result property="MOBILE" column="mobile" javaType="string" jdbcType="VARCHAR" />
+		<result property="EMAIL" column="email" javaType="string" jdbcType="VARCHAR" />
+		<result property="USER_CORD" column="user_cord" javaType="string" jdbcType="VARCHAR" />
+		<result property="UPDATE_DATE" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="IF_LOCK" column="if_lock" javaType="long" jdbcType="BIGINT" />
+		<result property="IF_DELETE" column="if_delete" javaType="long" jdbcType="BIGINT" />
+		<result property="IF_SYS" column="if_sys" javaType="long" jdbcType="BIGINT" />
+		<result property="REVERSE_1" column="reverse_1" javaType="long" jdbcType="BIGINT" />
+		<result property="REVERSE_2" column="reverse_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="REVERSE_3" column="reverse_3" javaType="string" jdbcType="VARCHAR" />
+		<result property="DU_ORD" column="du_ord" javaType="long" jdbcType="BIGINT" />
+		<result property="USER_LEVEL" column="user_level" javaType="long" jdbcType="BIGINT" />
+		<result property="DEPT_USER_ID" column="dept_user_id" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.SysUser">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_sys_user 
+		</selectKey>  
+		insert into tb_sys_user
+		(
+		unit_id,
+		user_name,
+		account,
+		password,
+		mobile,
+		email,
+		user_cord,
+		update_date,
+		if_lock,
+		if_sys,
+		if_delete,
+		user_ord,
+		reverse_1,
+		reverse_2,
+		reverse_3,
+		xghusercode,
+		xghcreatedate
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{userName,jdbcType=VARCHAR},
+		#{account,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR},
+		#{mobile,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR},
+		#{userCord,jdbcType=VARCHAR},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{ifLock,jdbcType=BIGINT},
+		#{ifSys,jdbcType=BIGINT},
+		#{ifDelete,jdbcType=BIGINT},
+		#{userOrd,jdbcType=BIGINT},
+		#{reverse1,jdbcType=BIGINT},
+		#{reverse2,jdbcType=VARCHAR},
+		#{reverse3,jdbcType=VARCHAR},
+		#{xghusercode,jdbcType=VARCHAR},
+		#{xghcreatedate,jdbcType=TIMESTAMP}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.SysUser">
+		update tb_sys_user
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		user_name = #{userName,jdbcType=VARCHAR},
+		account = #{account,jdbcType=VARCHAR},
+		password = #{password,jdbcType=VARCHAR},
+		mobile = #{mobile,jdbcType=VARCHAR},
+		email = #{email,jdbcType=VARCHAR},
+		user_cord = #{userCord,jdbcType=VARCHAR},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		if_lock = #{ifLock,jdbcType=BIGINT},
+		if_sys = #{ifSys,jdbcType=BIGINT},
+		if_delete = #{ifDelete,jdbcType=BIGINT},
+		user_ord = #{userOrd,jdbcType=BIGINT},
+		reverse_1 = #{reverse1,jdbcType=BIGINT},
+		reverse_2 = #{reverse2,jdbcType=VARCHAR},
+		reverse_3 = #{reverse3,jdbcType=VARCHAR},
+		xghusercode = #{xghusercode,jdbcType=VARCHAR},
+		xghcreatedate = #{xghcreatedate,jdbcType=TIMESTAMP}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.SysUser">
+		delete from
+		tb_sys_user
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_sys_user
+		where
+		id = #{id} 
+	</delete>
+
+	<select id="get" parameterType="long"
+		resultMap="sysuserDaoMap">
+		select * from tb_sys_user where id = #{id}
+	</select>
+	
+	<select id="getListMap" parameterType="hashmap" resultMap="sysuserDaoListMap">
+		SELECT
+			u.id,
+			u.account,
+			u.user_name,
+			u.user_cord,
+			u.mobile,
+			u.email,
+			du.du_ord,
+			u.if_lock,
+			du.user_level,
+			du.id as dept_user_id
+		FROM
+			tb_sys_user u
+		JOIN tb_sys_dept_user du ON u.id = du.user_id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			u.if_delete = 0 and u.if_sys = 0
+			<choose>
+				<when test="isCascade == 'no'">
+					and du.dept_id = #{deptId}
+				</when>
+				<otherwise>
+					and du.dept_code like #{deptCode}
+				</otherwise>
+			</choose>
+			<if test="userName!=null">
+				and (u.user_name like #{userName} or u.account like #{userName})
+			</if>
+			<if test="mobile!=null">
+				and u.mobile like #{mobile}
+			</if>
+			<if test="email!=null">
+				and u.email like #{email}
+			</if>
+        </trim>
+		<if test="sortname !=null and sortname !='' ">
+			order by ${sortname}
+			<if test="sortorder !=null and sortorder !='' ">
+				${sortorder} 
+			</if>
+		</if>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(u.id)
+		FROM
+			tb_sys_user u
+		JOIN tb_sys_dept_user du ON u.id = du.user_id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			u.if_delete = 0 and u.if_sys = 0
+			<choose>
+				<when test="isCascade == 'no'">
+					and du.dept_id = #{deptId}
+				</when>
+				<otherwise>
+					and du.dept_code like #{deptCode}
+				</otherwise>
+			</choose>
+			<if test="userName!=null">
+				and (u.user_name like #{userName} or u.account like #{userName})
+			</if>
+			<if test="mobile!=null">
+				and u.mobile like #{mobile}
+			</if>
+			<if test="email!=null">
+				and u.email like #{email}
+			</if>
+        </trim>
+	</select>
+	
+	
+	<select id="getSameAcountRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(id)
+		FROM
+			tb_sys_user
+		WHERE
+			account = #{account}
+		and unit_id = #{unitId}
+		AND if_delete = 0
+	 	<if test="id!= null">
+            and id &lt;&gt; #{id}
+        </if>
+	</select>
+	
+	<select id="getDeptUserRowsByUserId" parameterType="hashmap" resultType="long">
+		SELECT
+			count(du.id)
+		FROM
+			tb_sys_dept_user du
+		JOIN tb_sys_department d ON du.dept_id = d.id
+		where d.if_delete = 0 
+		and du.user_id = #{userId} 
+	</select>
+	
+	
+	<select id="getSelectDialogUserList" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			DISTINCT
+			u.id as ID,
+			u.user_name AS USER_NAME
+		FROM
+			tb_sys_user u
+		JOIN tb_sys_dept_user du ON u.id = du.user_id
+		where u.if_delete = 0 
+		and u.unit_id = #{unitId} 
+		and u.if_sys = 0
+		<choose>
+			<when test="isCascade == 'no'">
+				and du.dept_id = #{deptId}
+			</when>
+			<otherwise>
+				and du.dept_code like #{deptCode}
+			</otherwise>
+		</choose>
+		<if test="searchName!=null">
+			and u.user_name like #{searchName}
+		</if>
+		order by du.du_ord
+	</select>
+	
+	
+	
+	<select id="getLoginCheckUserList" parameterType="hashmap" resultMap="sysuserDaoMap">
+		SELECT u.* 
+		FROM tb_sys_user u,tb_sys_units t
+		where u.if_delete = 0 and u.unit_id=t.id and t.unit_status = 'pass' 
+		and IFNULL(t.stop_date,now())&gt;=now()
+		and u.unit_id = #{unitId} 
+		and u.account = #{account}
+	
+		 
+	</select>
+	
+	
+	<select id="getDeptInfoByUserId" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			d.*
+		FROM
+			tb_sys_dept_user du
+		JOIN tb_sys_department d ON du.dept_id = d.id
+		where du.user_id = #{userId} and d.if_delete = 0
+	</select>
+	
+	
+	<select id="getUserByAccountAndUnitId" parameterType="hashmap" resultMap="sysuserDaoMap">
+		SELECT 
+			u.* 
+		FROM tb_sys_user u
+		where u.if_delete = 0
+		and u.unit_id = #{unitId} 
+		and u.account = #{account} limit 0,1
+	</select>
+</mapper>

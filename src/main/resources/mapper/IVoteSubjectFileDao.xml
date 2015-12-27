@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IVoteSubjectFileDao">
+
+	<resultMap type="com.h2y.bmg.entity.VoteSubjectFile" id="votesubjectfileDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="subjectId" column="subject_id" javaType="long" jdbcType="BIGINT" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="fileName" column="file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="diskFileName" column="disk_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="rootPath" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="relativePath" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="fileSize" column="file_size" javaType="long" jdbcType="BIGINT" />
+		<result property="fileSuffix" column="file_suffix" javaType="string" jdbcType="VARCHAR" />
+		<result property="fileType" column="file_type" javaType="int" jdbcType="INTEGER" />
+		<result property="ifDelete" column="if_delete" javaType="int" jdbcType="INTEGER" />
+		<result property="ord" column="ord" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+		<resultMap type="java.util.Map" id="votesubjectfileDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="SUBJECT_ID" column="subject_id" javaType="long" jdbcType="BIGINT" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="FILE_NAME" column="file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="DISK_FILENAME" column="disk_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="ROOT_PATH" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="RELATIVE_PATH" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="FILE_SIZE" column="file_size" javaType="long" jdbcType="BIGINT" />
+		<result property="FILE_SUFFIX" column="file_suffix" javaType="string" jdbcType="VARCHAR" />
+		<result property="FILE_TYPE" column="file_type" javaType="int" jdbcType="INTEGER" />
+		<result property="IF_DELETE" column="if_delete" javaType="int" jdbcType="INTEGER" />
+		<result property="ORD" column="ord" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.VoteSubjectFile">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_vote_subject_file 
+		</selectKey>  
+		insert into tb_vote_subject_file
+		(
+		subject_id,
+		create_date,
+		file_name,
+		disk_file_name,
+		root_path,
+		relative_path,
+		file_size,
+		file_suffix,
+		file_type,
+		if_delete,
+		ord
+		)
+		values (
+		#{subjectId,jdbcType=BIGINT},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{fileName,jdbcType=VARCHAR},
+		#{diskFileName,jdbcType=VARCHAR},
+		#{rootPath,jdbcType=VARCHAR},
+		#{relativePath,jdbcType=VARCHAR},
+		#{fileSize,jdbcType=BIGINT},
+		#{fileSuffix,jdbcType=VARCHAR},
+		#{fileType,jdbcType=INTEGER},
+		#{ifDelete,jdbcType=INTEGER},
+		#{ord,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.VoteSubjectFile">
+		update tb_vote_subject_file
+		set
+		subject_id = #{subjectId,jdbcType=BIGINT},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		file_name = #{fileName,jdbcType=VARCHAR},
+		disk_file_name = #{diskFileName,jdbcType=VARCHAR},
+		root_path = #{rootPath,jdbcType=VARCHAR},
+		relative_path = #{relativePath,jdbcType=VARCHAR},
+		file_size = #{fileSize,jdbcType=BIGINT},
+		file_suffix = #{fileSuffix,jdbcType=VARCHAR},
+		file_type = #{fileType,jdbcType=INTEGER},
+		if_delete = #{ifDelete,jdbcType=INTEGER},
+		ord = #{ord,jdbcType=INTEGER}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.VoteSubjectFile">
+		delete from
+		tb_vote_subject_file
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_vote_subject_file
+		where
+		id = #{id} 
+	</delete>
+		<delete id="deleteBySubjectId" parameterType="long">
+		delete from
+		tb_vote_subject_file
+		where
+		subject_id = #{subjectId} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_vote_subject_file
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="votesubjectfileDaoMap">
+		select * from tb_vote_subject_file where id = #{id}
+	</select>
+	
+	<select id="getBySubjectId" parameterType="long"
+		resultMap="votesubjectfileDaoMap">
+		select * from tb_vote_subject_file where subject_id = #{subjectId} and if_delete = 0 and file_type = 0
+	</select>
+	
+		<select id="getListMap" parameterType="hashmap" resultMap="votesubjectfileDaoListMap">
+		select * from tb_vote_subject_file
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder}
+				</if>
+			</when>
+			<otherwise>
+				order by create_date desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select count(id) from tb_vote_subject_file
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+
+
+</mapper>

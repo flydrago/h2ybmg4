@@ -1,0 +1,15 @@
+.my_toptoolbar_td {
+    background: url('../images/panel/panel-toolbar.gif') repeat-x  #CEDFEF;
+    height: 23px;
+    line-height: 23px;
+    border-style: none;
+}
+
+#toptoolbar {
+    border-style: none;
+    float: right;
+}
+
+.l-toolbar{
+    border-style: none;
+}

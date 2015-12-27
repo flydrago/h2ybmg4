@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ISysUnitsFileDao">
+
+	<resultMap type="com.h2y.bmg.entity.SysUnitsFile" id="sysunitsfileDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="fileName" column="file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="diskFileName" column="disk_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="rootPath" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="relativePath" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="fileSize" column="file_size" javaType="long" jdbcType="BIGINT" />
+		<result property="fileSuffix" column="file_suffix" javaType="string" jdbcType="VARCHAR" />
+		<result property="fileType" column="file_type" javaType="int" jdbcType="INTEGER" />
+		<result property="ifDelete" column="if_delete" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	
+	<resultMap type="java.util.Map" id="sysunitsfileDaoListMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="fileName" column="file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="diskFileName" column="disk_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="rootPath" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="relativePath" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="fileSize" column="file_size" javaType="long" jdbcType="BIGINT" />
+		<result property="fileSuffix" column="file_suffix" javaType="string" jdbcType="VARCHAR" />
+		<result property="fileType" column="file_type" javaType="int" jdbcType="INTEGER" />
+		<result property="ifDelete" column="if_delete" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.SysUnitsFile">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_sys_units_file 
+		</selectKey>  
+		insert into tb_sys_units_file
+		(
+		unit_id,
+		file_name,
+		disk_file_name,
+		root_path,
+		relative_path,
+		file_size,
+		file_suffix,
+		file_type,
+		if_delete
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{fileName,jdbcType=VARCHAR},
+		#{diskFileName,jdbcType=VARCHAR},
+		#{rootPath,jdbcType=VARCHAR},
+		#{relativePath,jdbcType=VARCHAR},
+		#{fileSize,jdbcType=BIGINT},
+		#{fileSuffix,jdbcType=VARCHAR},
+		#{fileType,jdbcType=INTEGER},
+		#{ifDelete,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.SysUnitsFile">
+		update tb_sys_units_file
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		file_name = #{fileName,jdbcType=VARCHAR},
+		disk_file_name = #{diskFileName,jdbcType=VARCHAR},
+		root_path = #{rootPath,jdbcType=VARCHAR},
+		relative_path = #{relativePath,jdbcType=VARCHAR},
+		file_size = #{fileSize,jdbcType=BIGINT},
+		file_suffix = #{fileSuffix,jdbcType=VARCHAR},
+		file_type = #{fileType,jdbcType=INTEGER},
+		if_delete = #{ifDelete,jdbcType=INTEGER}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.SysUnitsFile">
+		delete from
+		tb_sys_units_file
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_sys_units_file
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_sys_units_file
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="sysunitsfileDaoMap">
+		select * from tb_sys_units_file where id = #{id}
+	</select>
+
+	<select id="getListByUnitId" parameterType="hashmap" resultMap="sysunitsfileDaoListMap">
+		select 
+			id,
+			file_name,
+			file_type
+		from
+		tb_sys_units_file
+		where unit_id = #{unitId} and if_delete = 0
+	</select>
+	
+	<insert id="addBatch" parameterType="com.h2y.bmg.entity.SysUnitsFile">
+		insert into tb_sys_units_file
+		(
+		unit_id,
+		file_name,
+		disk_file_name,
+		root_path,
+		relative_path,
+		file_size,
+		file_suffix,
+		file_type,
+		if_delete
+		)
+		values 
+		<foreach collection="list" item="item" separator=",">
+       (
+		#{item.unitId,jdbcType=BIGINT},
+		#{item.fileName,jdbcType=VARCHAR},
+		#{item.diskFileName,jdbcType=VARCHAR},
+		#{item.rootPath,jdbcType=VARCHAR},
+		#{item.relativePath,jdbcType=VARCHAR},
+		#{item.fileSize,jdbcType=BIGINT},
+		#{item.fileSuffix,jdbcType=VARCHAR},
+		#{item.fileType,jdbcType=INTEGER},
+		#{item.ifDelete,jdbcType=INTEGER}
+		)
+        </foreach>
+	</insert>
+	
+	<update id="updateIfDeleteByUnitId" parameterType="hashmap">
+		update tb_sys_units_file
+		set
+		if_delete = -1
+		where unit_id = #{unitId} 
+		<if test="filterIdList !=null ">
+			and id not in 
+			<foreach collection="filterIdList" item="id" open="(" separator=","
+				close=")"> #{id} 
+			</foreach> 
+		</if>
+	</update>
+	
+</mapper>

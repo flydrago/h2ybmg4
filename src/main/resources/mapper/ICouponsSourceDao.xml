@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ICouponsSourceDao">
+
+	<resultMap type="com.h2y.bmg.entity.CouponsSource" id="couponssourceDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitType" column="unit_type" javaType="int" jdbcType="INTEGER" />
+		<result property="zoneCode" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="sourceName" column="source_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="sourceCode" column="source_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="startDate" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="endDate" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="str1" column="str_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="str2" column="str_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="str3" column="str_3" javaType="string" jdbcType="VARCHAR" />
+		<result property="date1" column="date_1" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="date2" column="date_2" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="int1" column="int_1" javaType="int" jdbcType="INTEGER" />
+		<result property="int2" column="int_2" javaType="int" jdbcType="INTEGER" />
+		<result property="double1" column="double_1" javaType="double" jdbcType="DOUBLE" />
+		<result property="double2" column="double_2" javaType="double" jdbcType="DOUBLE" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="couponssourceDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_TYPE" column="unit_type" javaType="int" jdbcType="INTEGER" />
+		<result property="ZONE_CODE" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="SOURCE_NAME" column="source_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="SOURCE_CODE" column="source_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="START_DATE" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="END_DATE" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="STR_1" column="str_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="STR_2" column="str_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="STR_3" column="str_3" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATE_1" column="date_1" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="DATE_2" column="date_2" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="INT_1" column="int_1" javaType="int" jdbcType="INTEGER" />
+		<result property="INT_2" column="int_2" javaType="int" jdbcType="INTEGER" />
+		<result property="DOUBLE_1" column="double_1" javaType="double" jdbcType="DOUBLE" />
+		<result property="DOUBLE_2" column="double_2" javaType="double" jdbcType="DOUBLE" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="SOURCE_CODE_NAME" column="source_code_name" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.CouponsSource">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_coupons_source 
+		</selectKey>  
+		insert into tb_coupons_source
+		(
+		unit_id,
+		unit_type,
+		zone_code,
+		source_name,
+		source_code,
+		start_date,
+		end_date,
+		str_1,
+		str_2,
+		str_3,
+		date_1,
+		date_2,
+		int_1,
+		int_2,
+		double_1,
+		double_2,
+		memo,
+		create_date,
+		status
+		)
+		values (
+		#{unitId,jdbcType=BIGINT},
+		#{unitType,jdbcType=INTEGER},
+		#{zoneCode,jdbcType=VARCHAR},
+		#{sourceName,jdbcType=VARCHAR},
+		#{sourceCode,jdbcType=VARCHAR},
+		#{startDate,jdbcType=TIMESTAMP},
+		#{endDate,jdbcType=TIMESTAMP},
+		#{str1,jdbcType=VARCHAR},
+		#{str2,jdbcType=VARCHAR},
+		#{str3,jdbcType=VARCHAR},
+		#{date1,jdbcType=TIMESTAMP},
+		#{date2,jdbcType=TIMESTAMP},
+		#{int1,jdbcType=INTEGER},
+		#{int2,jdbcType=INTEGER},
+		#{double1,jdbcType=DOUBLE},
+		#{double2,jdbcType=DOUBLE},
+		#{memo,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{status,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.CouponsSource">
+		update tb_coupons_source
+		set
+		unit_id = #{unitId,jdbcType=BIGINT},
+		unit_type = #{unitType,jdbcType=INTEGER},
+		zone_code = #{zoneCode,jdbcType=VARCHAR},
+		source_name = #{sourceName,jdbcType=VARCHAR},
+		source_code = #{sourceCode,jdbcType=VARCHAR},
+		start_date = #{startDate,jdbcType=TIMESTAMP},
+		end_date = #{endDate,jdbcType=TIMESTAMP},
+		str_1 = #{str1,jdbcType=VARCHAR},
+		str_2 = #{str2,jdbcType=VARCHAR},
+		str_3 = #{str3,jdbcType=VARCHAR},
+		date_1 = #{date1,jdbcType=TIMESTAMP},
+		date_2 = #{date2,jdbcType=TIMESTAMP},
+		int_1 = #{int1,jdbcType=INTEGER},
+		int_2 = #{int2,jdbcType=INTEGER},
+		double_1 = #{double1,jdbcType=DOUBLE},
+		double_2 = #{double2,jdbcType=DOUBLE},
+		memo = #{memo,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		status = #{status,jdbcType=INTEGER}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.CouponsSource">
+		delete from
+		tb_coupons_source
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_coupons_source
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_coupons_source
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="couponssourceDaoMap">
+		select * from tb_coupons_source where id = #{id}
+	</select>
+
+	<select id="getListMap" parameterType="hashmap" resultMap="couponssourceDaoListMap">
+		SELECT
+			cs.*,
+			dd.`value` as source_code_name
+		FROM
+			tb_coupons_source cs JOIN(
+			tb_sys_dict_detail dd
+			JOIN tb_sys_dict_main dm ON dd.dict_main_id = dm.id
+			AND dm.dict_code = 'sourceCode'
+		)ON cs.source_code = dd.`code`
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			cs.unit_id = #{unitId}
+			and cs.status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			<if test="isStart!=null and isStart=='yes'">
+				and NOW() BETWEEN  cs.start_date AND  cs.end_date
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by cs.create_date desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(cs.id)
+		FROM
+			tb_coupons_source cs JOIN(
+			tb_sys_dict_detail dd
+			JOIN tb_sys_dict_main dm ON dd.dict_main_id = dm.id
+			AND dm.dict_code = 'sourceCode'
+		)ON cs.source_code = dd.`code`
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			cs.unit_id = #{unitId}
+			and cs.status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+			<if test="isStart!=null and isStart=='yes'">
+				and NOW() BETWEEN  cs.start_date AND  cs.end_date
+			</if>
+		</trim>
+	</select>
+	
+	
+	<select id="getDateCrossRows" parameterType="hashmap" resultType="long">
+		SELECT
+			count(id)
+		FROM
+			tb_coupons_source  
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			unit_id = #{unitId}
+			and source_code = #{sourceCode}
+			and status &lt;&gt; -1
+			AND !(
+				(start_date &gt;= #{endDate}) OR (end_date &lt;= #{startDate})
+			)
+			<if test="op == 'modify'">
+				and id &lt;&gt; #{id}
+			</if>
+		</trim>
+	</select>
+	
+	
+	<!-- 根据来源编码获取来源数量 -->
+	<select id="getCountBySourceCode" parameterType="hashmap" resultType="long">
+		SELECT
+			count(id)
+		FROM
+			tb_coupons_source  
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			unit_id = #{unitId}
+			and source_code = #{sourceCode}
+			and status &lt;&gt; -1
+			<if test="op == 'modify'">
+				and id &lt;&gt; #{id}
+			</if>
+		</trim>
+	</select>
+	
+</mapper>

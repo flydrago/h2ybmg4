@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IShoplifeConditionDao">
+
+	<resultMap type="com.h2y.bmg.entity.ShoplifeCondition" id="shoplifeconditionDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="parentId" column="parent_id" javaType="long" jdbcType="BIGINT" />
+		<result property="conditionCode" column="condition_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="conditionName" column="condition_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="conditionValue" column="condition_value" javaType="string" jdbcType="VARCHAR" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="ord" column="ord" javaType="long" jdbcType="BIGINT" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="updateDate" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="userId" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="fileName" column="file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="diskFileName" column="disk_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="rootPath" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="relativePath" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="fileSize" column="file_size" javaType="long" jdbcType="BIGINT" />
+		<result property="fileSuffix" column="file_suffix" javaType="string" jdbcType="VARCHAR" />
+		<result property="conditionKey" column="condition_key" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="shoplifeConditionMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="parent_id" column="parent_id" javaType="long" jdbcType="BIGINT" />
+		<result property="condition_code" column="condition_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="condition_name" column="condition_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="condition_value" column="condition_value" javaType="string" jdbcType="VARCHAR" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="ord" column="ord" javaType="long" jdbcType="BIGINT" />
+		<result property="create_date" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="update_date" column="update_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="user_id" column="user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="file_name" column="file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="disk_file_name" column="disk_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="root_path" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="relative_path" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="file_size" column="file_size" javaType="long" jdbcType="BIGINT" />
+		<result property="file_suffix" column="file_suffix" javaType="string" jdbcType="VARCHAR" />
+		<result property="user_name" column="user_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="condition_key" column="condition_key" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.ShoplifeCondition">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_shoplife_condition 
+		</selectKey>  
+		insert into tb_shoplife_condition
+		(
+		parent_id,
+		condition_code,
+		condition_name,
+		condition_value,
+		status,
+		ord,
+		create_date,
+		update_date,
+		memo,
+		user_id,
+		file_name,
+		disk_file_name,
+		root_path,
+		relative_path,
+		file_size,
+		file_suffix,
+		condition_key
+		)
+		values (
+		#{parentId,jdbcType=BIGINT},
+		#{conditionCode,jdbcType=VARCHAR},
+		#{conditionName,jdbcType=VARCHAR},
+		#{conditionValue,jdbcType=VARCHAR},
+		#{status,jdbcType=INTEGER},
+		#{ord,jdbcType=BIGINT},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{memo,jdbcType=VARCHAR},
+		#{userId,jdbcType=BIGINT},
+		#{fileName,jdbcType=VARCHAR},
+		#{diskFileName,jdbcType=VARCHAR},
+		#{rootPath,jdbcType=VARCHAR},
+		#{relativePath,jdbcType=VARCHAR},
+		#{fileSize,jdbcType=BIGINT},
+		#{fileSuffix,jdbcType=VARCHAR},
+		#{conditionKey,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.ShoplifeCondition">
+		update tb_shoplife_condition
+		set
+		parent_id = #{parentId,jdbcType=BIGINT},
+		condition_code = #{conditionCode,jdbcType=VARCHAR},
+		condition_name = #{conditionName,jdbcType=VARCHAR},
+		condition_value = #{conditionValue,jdbcType=VARCHAR},
+		status = #{status,jdbcType=INTEGER},
+		ord = #{ord,jdbcType=BIGINT},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		memo = #{memo,jdbcType=VARCHAR},
+		user_id = #{userId,jdbcType=BIGINT},
+		file_name = #{fileName,jdbcType=VARCHAR},
+		disk_file_name = #{diskFileName,jdbcType=VARCHAR},
+		root_path = #{rootPath,jdbcType=VARCHAR},
+		relative_path = #{relativePath,jdbcType=VARCHAR},
+		file_size = #{fileSize,jdbcType=BIGINT},
+		file_suffix = #{fileSuffix,jdbcType=VARCHAR},
+		condition_key = #{conditionKey,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.ShoplifeCondition">
+		delete from
+		tb_shoplife_condition
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_shoplife_condition
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_shoplife_condition
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="shoplifeconditionDaoMap">
+		select * from tb_shoplife_condition where id = #{id}
+	</select>
+
+
+	<!-- 获取列表树 -->
+	<select id="getAllTreeList" resultType="hashmap">
+		select
+		id,
+		parent_id as pid,
+		condition_name as text,
+		condition_code as code
+		from
+		tb_shoplife_condition
+		where status
+		&lt;&gt; -1
+		order by ord desc
+	</select>
+	
+	
+	<select id="getChildTreeListById" parameterType="long"
+		resultType="hashmap">
+		select
+		id,
+		parent_id as pid,
+		condition_name as text,
+		condition_code as code
+		from
+		tb_shoplife_condition
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			status &lt;&gt; -1
+			and
+			parent_id = #{id}
+		</trim>
+		order by ord desc
+	</select>
+	
+	
+	
+	<select id="getChildSelectListById" parameterType="long"
+		resultType="hashmap">
+		select
+		id,
+		condition_name as name,
+		condition_code as code
+		from
+		tb_shoplife_condition
+		where status &lt;&gt; -1
+		and parent_id = #{id}
+		order by ord
+		desc
+	</select>
+	
+	
+	
+	<select id="getGridData" parameterType="hashmap" resultMap="shoplifeConditionMap">
+		SELECT
+		gt.*,su.user_name
+		FROM
+		tb_shoplife_condition gt left join tb_sys_user su on gt.user_id=su.id
+		where gt.status &lt;&gt; -1
+		<if test="pagesize!= null">
+			limit ${(page-1)*pagesize},${pagesize}
+		</if>
+
+	</select>
+	
+	
+	<select id="getSameList" parameterType="com.h2y.bmg.entity.ShoplifeCondition" resultMap="shoplifeconditionDaoMap">
+		select * from
+		tb_shoplife_condition
+		where status &lt;&gt; -1
+		and  id &lt;&gt; #{id}
+		and condition_name = #{conditionName}
+		<if test="parentId!= null">
+				and parent_id = #{parentId}
+		</if>
+		
+	</select>
+	
+
+	<select id="getListMap" parameterType="hashmap" resultMap="shoplifeConditionMap">
+		select * from
+		tb_shoplife_condition
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			status &lt;&gt; -1
+			and parent_id = #{id}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder}
+				</if>
+			</when>
+			<otherwise>
+				order by ord desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select count(id) from
+		tb_shoplife_condition
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			status &lt;&gt; -1
+			and parent_id = #{id}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+
+
+	<select id="getChildRowsById" parameterType="long" resultType="long">
+		select
+		count(id)
+		from
+		tb_shoplife_condition
+		where status &lt;&gt; -1
+		and parent_id = #{id}
+	</select>
+
+
+
+	
+</mapper>

@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.jxc.dao.IJxcStorehouseDao">
+
+	<resultMap type="com.h2y.jxc.entity.Storehouse" id="storehouseDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="type" column="type" javaType="int" jdbcType="INTEGER" />
+		<result property="storeName" column="store_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="storeSpeName" column="store_spe_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="storeFirSpeName" column="store_fir_spe_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="unitType" column="unit_type" javaType="int" jdbcType="INTEGER" />
+		<result property="zoneCode" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="shopId" column="shop_id" javaType="long" jdbcType="BIGINT" />
+		<result property="parentType" column="parent_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="longitude" column="longitude" javaType="double" jdbcType="DOUBLE" />
+		<result property="latitude" column="latitude" javaType="double" jdbcType="DOUBLE" />
+		<result property="zoneDetail" column="zone_detail" javaType="string" jdbcType="VARCHAR" />
+		<result property="telePhone" column="tele_phone" javaType="string" jdbcType="VARCHAR" />
+		<result property="principal" column="principal" javaType="string" jdbcType="VARCHAR" />
+		<result property="principalMobile" column="principal_mobile" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="s3stcode" column="s3stcode" javaType="string" jdbcType="VARCHAR" />
+		<result property="s3createdate" column="s3createdate" javaType="date" jdbcType="TIMESTAMP" />
+		
+		<result property="storeCapacity" column="store_capacity" javaType="long" jdbcType="BIGINT" />
+		<result property="currentCapacity" column="current_capacity" javaType="long" jdbcType="BIGINT" />
+		<result property="data1" column="data1" javaType="string" jdbcType="VARCHAR" />
+		<result property="data2" column="data2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data3" javaType="string" jdbcType="VARCHAR" />
+		<result property="data4" column="data4" javaType="string" jdbcType="VARCHAR" />
+		<result property="data5" column="data5" javaType="long" jdbcType="BIGINT" />
+		<result property="data6" column="data6" javaType="long" jdbcType="BIGINT" />
+		<result property="data7" column="data7" javaType="long" jdbcType="BIGINT" />
+		<result property="data8" column="data8" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="storehouseListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="TYPE" column="type" javaType="int" jdbcType="INTEGER" />
+		<result property="STORE_NAME" column="store_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="STORE_SPE_NAME" column="store_spe_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="STORE_FIR_SPE_NAME" column="store_fir_spe_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="UNIT_TYPE" column="unit_type" javaType="int" jdbcType="INTEGER" />
+		<result property="ZONE_CODE" column="zone_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="SHOP_ID" column="shop_id" javaType="long" jdbcType="BIGINT" />
+		<result property="PARENT_TYPE" column="parent_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="LONGITUDE" column="longitude" javaType="double" jdbcType="DOUBLE" />
+		<result property="LATITUDE" column="latitude" javaType="double" jdbcType="DOUBLE" />
+		<result property="ZONE_DETAIL" column="zone_detail" javaType="string" jdbcType="VARCHAR" />
+		<result property="TELEPHONE" column="tele_phone" javaType="string" jdbcType="VARCHAR" />
+		<result property="PRINCIPAL" column="principal" javaType="string" jdbcType="VARCHAR" />
+		<result property="PRINCIPAL_MOBILE" column="principal_mobile" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="S3STCODE" column="s3stcode" javaType="string" jdbcType="VARCHAR" />
+		<result property="S3CREATEDATE" column="s3createdate" javaType="date" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	
+	
+	<insert id="add" parameterType="com.h2y.jxc.entity.Storehouse">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_storehouse 
+		</selectKey>  
+		insert into tb_storehouse
+		(
+		type,
+		store_name,
+		store_spe_name,
+		store_fir_spe_name,
+		status,
+		unit_id,
+		unit_type,
+		zone_code,
+		shop_id,
+		parent_type,
+		longitude,
+		latitude,
+		zone_detail,
+		tele_phone,
+		principal,
+		principal_mobile,
+		create_date,
+		memo,
+		s3stcode,
+		s3createdate,
+		store_capacity,
+		current_capacity,
+		data1,
+		data2,
+		data3,
+		data4,
+		data5,
+		data6,
+		data7,
+		data8
+		)
+		values (
+		#{type,jdbcType=INTEGER},
+		#{storeName,jdbcType=VARCHAR},
+		#{storeSpeName,jdbcType=VARCHAR},
+		#{storeFirSpeName,jdbcType=VARCHAR},
+		#{status,jdbcType=INTEGER},
+		#{unitId,jdbcType=BIGINT},
+		#{unitType,jdbcType=INTEGER},
+		#{zoneCode,jdbcType=VARCHAR},
+		#{shopId,jdbcType=BIGINT},
+		#{parentType,jdbcType=VARCHAR},
+		#{longitude,jdbcType=DOUBLE},
+		#{latitude,jdbcType=DOUBLE},
+		#{zoneDetail,jdbcType=VARCHAR},
+		#{telePhone,jdbcType=VARCHAR},
+		#{principal,jdbcType=VARCHAR},
+		#{principalMobile,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{memo,jdbcType=VARCHAR},
+		#{s3stcode,jdbcType=VARCHAR},
+		#{s3createdate,jdbcType=TIMESTAMP},
+		#{storeCapacity,jdbcType=BIGINT},
+		#{currentCapacity,jdbcType=BIGINT},
+		#{data1,jdbcType=VARCHAR},
+		#{data2,jdbcType=VARCHAR},
+		#{data3,jdbcType=VARCHAR},
+		#{data4,jdbcType=VARCHAR},
+		#{data5,jdbcType=BIGINT},
+		#{data6,jdbcType=BIGINT},
+		#{data7,jdbcType=BIGINT},
+		#{data8,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.jxc.entity.Storehouse">
+		update tb_storehouse
+		set
+		type = #{type,jdbcType=INTEGER},
+		store_name = #{storeName,jdbcType=VARCHAR},
+		store_spe_name = #{storeSpeName,jdbcType=VARCHAR},
+		store_fir_spe_name = #{storeFirSpeName,jdbcType=VARCHAR},
+		status = #{status,jdbcType=INTEGER},
+		unit_id = #{unitId,jdbcType=BIGINT},
+		unit_type = #{unitType,jdbcType=INTEGER},
+		zone_code = #{zoneCode,jdbcType=VARCHAR},
+		shop_id = #{shopId,jdbcType=BIGINT},
+		parent_type = #{parentType,jdbcType=VARCHAR},
+		longitude = #{longitude,jdbcType=DOUBLE},
+		latitude = #{latitude,jdbcType=DOUBLE},
+		zone_detail = #{zoneDetail,jdbcType=VARCHAR},
+		tele_phone = #{telePhone,jdbcType=VARCHAR},
+		principal = #{principal,jdbcType=VARCHAR},
+		principal_mobile = #{principalMobile,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		memo = #{memo,jdbcType=VARCHAR},
+		s3stcode = #{s3stcode,jdbcType=VARCHAR},
+		s3createdate = #{s3createdate,jdbcType=TIMESTAMP},
+				store_capacity = #{storeCapacity,jdbcType=BIGINT},
+		current_capacity = #{currentCapacity,jdbcType=BIGINT},
+		data1 = #{data1,jdbcType=VARCHAR},
+		data2 = #{data2,jdbcType=VARCHAR},
+		data3 = #{data3,jdbcType=VARCHAR},
+		data4 = #{data4,jdbcType=VARCHAR},
+		data5 = #{data5,jdbcType=BIGINT},
+		data6 = #{data6,jdbcType=BIGINT},
+		data7 = #{data7,jdbcType=BIGINT},
+		data8 = #{data8,jdbcType=BIGINT}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.jxc.entity.Storehouse">
+		delete from
+		tb_storehouse
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_storehouse
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_storehouse
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="storehouseDaoMap">
+		select * from tb_storehouse where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.jxc.entity.Storehouse"
+		resultMap="storehouseDaoMap">
+		select * from
+		tb_storehouse
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="type!= null">
+			and type = #{type}
+			</if>
+			<if test="storeName!= null and storeName!=''">
+			and store_name = #{storeName}
+			</if>
+			<if test="storeSpeName!= null and storeSpeName!=''">
+			and store_spe_name = #{storeSpeName}
+			</if>
+			<if test="storeFirSpeName!= null and storeFirSpeName!=''">
+			and store_fir_spe_name = #{storeFirSpeName}
+			</if>
+			<if test="status!= null">
+			and status = #{status}
+			</if>
+			<if test="unitId!= null">
+			and unit_id = #{unitId}
+			</if>
+			<if test="unitType!= null">
+			and unit_type = #{unitType}
+			</if>
+			<if test="zoneCode!= null and zoneCode!=''">
+			and zone_code = #{zoneCode}
+			</if>
+			<if test="shopId!= null">
+			and shop_id = #{shopId}
+			</if>
+			<if test="parentType!= null and parentType!=''">
+			and parent_type = #{parentType}
+			</if>
+			<if test="longitude!= null and longitude!=''">
+			and longitude = #{longitude}
+			</if>
+			<if test="latitude!= null and latitude!=''">
+			and latitude = #{latitude}
+			</if>
+			<if test="zoneDetail!= null and zoneDetail!=''">
+			and zone_detail = #{zoneDetail}
+			</if>
+			<if test="telePhone!= null and telePhone!=''">
+			and tele_phone = #{telePhone}
+			</if>
+			<if test="principal!= null and principal!=''">
+			and principal = #{principal}
+			</if>
+			<if test="principalMobile!= null and principalMobile!=''">
+			and principal_mobile = #{principalMobile}
+			</if>
+			<if test="createDate!= null and createDate!=''">
+			and create_date = #{createDate}
+			</if>
+			<if test="memo!= null and memo!=''">
+			and memo = #{memo}
+			</if>
+			<if test="s3stcode!= null and s3stcode!=''">
+			and s3stcode = #{s3stcode}
+			</if>
+			<if test="s3createdate!= null and s3createdate!=''">
+			and s3createdate = #{s3createdate}
+			</if>
+			
+			
+			<if test="storeCapacity!= null">
+			and store_capacity = #{storeCapacity}
+			</if>
+			<if test="currentCapacity!= null">
+			and current_capacity = #{currentCapacity}
+			</if>
+			<if test="data1!= null and data1!=''">
+			and data1 = #{data1}
+			</if>
+			<if test="data2!= null and data2!=''">
+			and data2 = #{data2}
+			</if>
+			<if test="data3!= null and data3!=''">
+			and data3 = #{data3}
+			</if>
+			<if test="data4!= null and data4!=''">
+			and data4 = #{data4}
+			</if>
+			<if test="data5!= null">
+			and data5 = #{data5}
+			</if>
+			<if test="data6!= null">
+			and data6 = #{data6}
+			</if>
+			<if test="data7!= null">
+			and data7 = #{data7}
+			</if>
+			<if test="data8!= null">
+			and data8 = #{data8}
+			</if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="storehouseDaoMap">
+		select
+		*
+		from
+		tb_storehouse
+		<if test="keyStorehouse!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keyStorehouse.id!= null">
+				and id = #{keyStorehouse.id}
+				</if>
+				<if test="keyStorehouse.type!= null">
+				and type = #{keyStorehouse.type}
+				</if>
+				<if test="keyStorehouse.storeName!= null and keyStorehouse.storeName!=''">
+				and store_name = #{keyStorehouse.storeName}
+				</if>
+				<if test="keyStorehouse.storeSpeName!= null and keyStorehouse.storeSpeName!=''">
+				and store_spe_name = #{keyStorehouse.storeSpeName}
+				</if>
+				<if test="keyStorehouse.storeFirSpeName!= null and keyStorehouse.storeFirSpeName!=''">
+				and store_fir_spe_name = #{keyStorehouse.storeFirSpeName}
+				</if>
+				<if test="keyStorehouse.status!= null">
+				and status = #{keyStorehouse.status}
+				</if>
+				<if test="keyStorehouse.unitId!= null">
+				and unit_id = #{keyStorehouse.unitId}
+				</if>
+				<if test="keyStorehouse.unitType!= null">
+				and unit_type = #{keyStorehouse.unitType}
+				</if>
+				<if test="keyStorehouse.zoneCode!= null and keyStorehouse.zoneCode!=''">
+				and zone_code = #{keyStorehouse.zoneCode}
+				</if>
+				<if test="keyStorehouse.shopId!= null">
+				and shop_id = #{keyStorehouse.shopId}
+				</if>
+				<if test="keyStorehouse.parentType!= null and keyStorehouse.parentType!=''">
+				and parent_type = #{keyStorehouse.parentType}
+				</if>
+				<if test="keyStorehouse.longitude!= null and keyStorehouse.longitude!=''">
+				and longitude = #{keyStorehouse.longitude}
+				</if>
+				<if test="keyStorehouse.latitude!= null and keyStorehouse.latitude!=''">
+				and latitude = #{keyStorehouse.latitude}
+				</if>
+				<if test="keyStorehouse.zoneDetail!= null and keyStorehouse.zoneDetail!=''">
+				and zone_detail = #{keyStorehouse.zoneDetail}
+				</if>
+				<if test="keyStorehouse.telePhone!= null and keyStorehouse.telePhone!=''">
+				and tele_phone = #{keyStorehouse.telePhone}
+				</if>
+				<if test="keyStorehouse.principal!= null and keyStorehouse.principal!=''">
+				and principal = #{keyStorehouse.principal}
+				</if>
+				<if test="keyStorehouse.principalMobile!= null and keyStorehouse.principalMobile!=''">
+				and principal_mobile = #{keyStorehouse.principalMobile}
+				</if>
+				<if test="keyStorehouse.createDate!= null and keyStorehouse.createDate!=''">
+				and create_date = #{keyStorehouse.createDate}
+				</if>
+				<if test="keyStorehouse.memo!= null and keyStorehouse.memo!=''">
+				and memo = #{keyStorehouse.memo}
+				</if>
+				<if test="keyStorehouse.s3stcode!= null and keyStorehouse.s3stcode!=''">
+				and s3stcode = #{keyStorehouse.s3stcode}
+				</if>
+				<if test="keyStorehouse.s3createdate!= null and keyStorehouse.s3createdate!=''">
+				and s3createdate = #{keyStorehouse.s3createdate}
+				</if>
+				
+				<if test="keyStorehouse.storeCapacity!= null">
+				and store_capacity = #{keyStorehouse.storeCapacity}
+				</if>
+				<if test="keyStorehouse.currentCapacity!= null">
+				and current_capacity = #{keyStorehouse.currentCapacity}
+				</if>
+				<if test="keyStorehouse.data1!= null and keyStorehouse.data1!=''">
+				and data1 = #{keyStorehouse.data1}
+				</if>
+				<if test="keyStorehouse.data2!= null and keyStorehouse.data2!=''">
+				and data2 = #{keyStorehouse.data2}
+				</if>
+				<if test="keyStorehouse.data3!= null and keyStorehouse.data3!=''">
+				and data3 = #{keyStorehouse.data3}
+				</if>
+				<if test="keyStorehouse.data4!= null and keyStorehouse.data4!=''">
+				and data4 = #{keyStorehouse.data4}
+				</if>
+				<if test="keyStorehouse.data5!= null">
+				and data5 = #{keyStorehouse.data5}
+				</if>
+				<if test="keyStorehouse.data6!= null">
+				and data6 = #{keyStorehouse.data6}
+				</if>
+				<if test="keyStorehouse.data7!= null">
+				and data7 = #{keyStorehouse.data7}
+				</if>
+				<if test="keyStorehouse.data8!= null">
+				and data8 = #{keyStorehouse.data8}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_storehouse
+		<if test="keyStorehouse!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keyStorehouse.id!= null">
+				and id = #{keyStorehouse.id}
+				</if>
+				<if test="keyStorehouse.type!= null">
+				and type = #{keyStorehouse.type}
+				</if>
+				<if test="keyStorehouse.storeName!= null and keyStorehouse.storeName!=''">
+				and store_name = #{keyStorehouse.storeName}
+				</if>
+				<if test="keyStorehouse.storeSpeName!= null and keyStorehouse.storeSpeName!=''">
+				and store_spe_name = #{keyStorehouse.storeSpeName}
+				</if>
+				<if test="keyStorehouse.storeFirSpeName!= null and keyStorehouse.storeFirSpeName!=''">
+				and store_fir_spe_name = #{keyStorehouse.storeFirSpeName}
+				</if>
+				<if test="keyStorehouse.status!= null">
+				and status = #{keyStorehouse.status}
+				</if>
+				<if test="keyStorehouse.unitId!= null">
+				and unit_id = #{keyStorehouse.unitId}
+				</if>
+				<if test="keyStorehouse.unitType!= null">
+				and unit_type = #{keyStorehouse.unitType}
+				</if>
+				<if test="keyStorehouse.zoneCode!= null and keyStorehouse.zoneCode!=''">
+				and zone_code = #{keyStorehouse.zoneCode}
+				</if>
+				<if test="keyStorehouse.shopId!= null">
+				and shop_id = #{keyStorehouse.shopId}
+				</if>
+				<if test="keyStorehouse.parentType!= null and keyStorehouse.parentType!=''">
+				and parent_type = #{keyStorehouse.parentType}
+				</if>
+				<if test="keyStorehouse.longitude!= null and keyStorehouse.longitude!=''">
+				and longitude = #{keyStorehouse.longitude}
+				</if>
+				<if test="keyStorehouse.latitude!= null and keyStorehouse.latitude!=''">
+				and latitude = #{keyStorehouse.latitude}
+				</if>
+				<if test="keyStorehouse.zoneDetail!= null and keyStorehouse.zoneDetail!=''">
+				and zone_detail = #{keyStorehouse.zoneDetail}
+				</if>
+				<if test="keyStorehouse.telePhone!= null and keyStorehouse.telePhone!=''">
+				and tele_phone = #{keyStorehouse.telePhone}
+				</if>
+				<if test="keyStorehouse.principal!= null and keyStorehouse.principal!=''">
+				and principal = #{keyStorehouse.principal}
+				</if>
+				<if test="keyStorehouse.principalMobile!= null and keyStorehouse.principalMobile!=''">
+				and principal_mobile = #{keyStorehouse.principalMobile}
+				</if>
+				<if test="keyStorehouse.createDate!= null and keyStorehouse.createDate!=''">
+				and create_date = #{keyStorehouse.createDate}
+				</if>
+				<if test="keyStorehouse.memo!= null and keyStorehouse.memo!=''">
+				and memo = #{keyStorehouse.memo}
+				</if>
+				<if test="keyStorehouse.s3stcode!= null and keyStorehouse.s3stcode!=''">
+				and s3stcode = #{keyStorehouse.s3stcode}
+				</if>
+				<if test="keyStorehouse.s3createdate!= null and keyStorehouse.s3createdate!=''">
+				and s3createdate = #{keyStorehouse.s3createdate}
+				</if>
+				
+				<if test="keyStorehouse.storeCapacity!= null">
+				and store_capacity = #{keyStorehouse.storeCapacity}
+				</if>
+				<if test="keyStorehouse.currentCapacity!= null">
+				and current_capacity = #{keyStorehouse.currentCapacity}
+				</if>
+				<if test="keyStorehouse.data1!= null and keyStorehouse.data1!=''">
+				and data1 = #{keyStorehouse.data1}
+				</if>
+				<if test="keyStorehouse.data2!= null and keyStorehouse.data2!=''">
+				and data2 = #{keyStorehouse.data2}
+				</if>
+				<if test="keyStorehouse.data3!= null and keyStorehouse.data3!=''">
+				and data3 = #{keyStorehouse.data3}
+				</if>
+				<if test="keyStorehouse.data4!= null and keyStorehouse.data4!=''">
+				and data4 = #{keyStorehouse.data4}
+				</if>
+				<if test="keyStorehouse.data5!= null">
+				and data5 = #{keyStorehouse.data5}
+				</if>
+				<if test="keyStorehouse.data6!= null">
+				and data6 = #{keyStorehouse.data6}
+				</if>
+				<if test="keyStorehouse.data7!= null">
+				and data7 = #{keyStorehouse.data7}
+				</if>
+				<if test="keyStorehouse.data8!= null">
+				and data8 = #{keyStorehouse.data8}
+				</if>
+			</trim>
+		</if>
+	</select>
+	
+	<select id="getListMap" parameterType="hashmap" resultMap="storehouseListMap">
+		select * from 
+		tb_storehouse
+		<where>
+			status = 0
+		</where>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if>
+			</when>
+			<otherwise>
+				order by create_date desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select count(*) from 
+		tb_storehouse
+		<where>
+			status = 0
+		</where>
+	</select>
+</mapper>

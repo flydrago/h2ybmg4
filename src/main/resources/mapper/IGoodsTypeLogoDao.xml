@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IGoodsTypeLogoDao">
+
+	<resultMap type="com.h2y.bmg.entity.GoodsTypeLogo" id="goodstypelogoDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+
+		<result property="typeId" column="type_id" javaType="long" jdbcType="BIGINT" />
+
+		<result property="typeCode" column="type_code" javaType="string" jdbcType="VARCHAR" />
+
+		<result property="logoName" column="logo_name" javaType="string" jdbcType="VARCHAR" />
+
+		<result property="rootPath" column="root_path" javaType="string" jdbcType="VARCHAR" />
+
+		<result property="relativePath" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+
+		<result property="iosFileName" column="ios_file_name" javaType="string" jdbcType="VARCHAR" />
+
+		<result property="androidFileName" column="android_file_name" javaType="string" jdbcType="VARCHAR" />
+
+		<result property="wechatFileName" column="wechat_file_name" javaType="string" jdbcType="VARCHAR" />
+
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+
+		<result property="startDate" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+
+		<result property="endDate" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+
+		<result property="isDefault" column="is_default" javaType="int" jdbcType="INTEGER" />
+
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+
+		<result property="userId" column="user_id" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="goodstypelogoDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="TYPE_ID" column="type_id" javaType="long" jdbcType="BIGINT" />
+		<result property="TYPE_CODE" column="type_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="LOGO_NAME" column="logo_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="ROOT_PATH" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="RELATIVE_PATH" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="IOS_FILE_NAME" column="ios_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="ANDROID_FILE_NAME" column="android_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="WECHAT_FILE_NAME" column="wechat_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="START_DATE" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="END_DATE" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="IS_DEFAULT" column="is_default" javaType="int" jdbcType="INTEGER" />
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<insert id="add" parameterType="com.h2y.bmg.entity.GoodsTypeLogo">
+		<selectKey keyProperty="id" resultType="long" order="AFTER">
+			SELECT max(id) AS value from tb_goods_type_logo
+		</selectKey>
+		insert into tb_goods_type_logo
+		(
+		type_id,
+		type_code,
+		logo_name,
+		root_path,
+		relative_path,
+		ios_file_name,
+		android_file_name,
+		wechat_file_name,
+		create_date,
+		start_date,
+		end_date,
+		is_default,
+		status,
+		memo,
+		user_id
+		)
+		values
+		(
+		#{typeId,jdbcType=BIGINT},
+		#{typeCode,jdbcType=VARCHAR},
+		#{logoName,jdbcType=VARCHAR},
+		#{rootPath,jdbcType=VARCHAR},
+		#{relativePath,jdbcType=VARCHAR},
+		#{iosFileName,jdbcType=VARCHAR},
+		#{androidFileName,jdbcType=VARCHAR},
+		#{wechatFileName,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{startDate,jdbcType=TIMESTAMP},
+		#{endDate,jdbcType=TIMESTAMP},
+		#{isDefault,jdbcType=INTEGER},
+		#{status,jdbcType=INTEGER},
+		#{memo,jdbcType=VARCHAR},
+		#{userId,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.GoodsTypeLogo">
+		update tb_goods_type_logo
+		set
+		type_id = #{typeId,jdbcType=BIGINT},
+		type_code =
+		#{typeCode,jdbcType=VARCHAR},
+		logo_name = #{logoName,jdbcType=VARCHAR},
+		root_path = #{rootPath,jdbcType=VARCHAR},
+		relative_path =
+		#{relativePath,jdbcType=VARCHAR},
+		ios_file_name =
+		#{iosFileName,jdbcType=VARCHAR},
+		android_file_name =
+		#{androidFileName,jdbcType=VARCHAR},
+		wechat_file_name =
+		#{wechatFileName,jdbcType=VARCHAR},
+		create_date =
+		#{createDate,jdbcType=TIMESTAMP},
+		start_date =
+		#{startDate,jdbcType=TIMESTAMP},
+		end_date =
+		#{endDate,jdbcType=TIMESTAMP},
+		is_default =
+		#{isDefault,jdbcType=INTEGER},
+		status = #{status,jdbcType=INTEGER},
+		memo = #{memo,jdbcType=VARCHAR},
+		user_id = #{userId,jdbcType=BIGINT}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.GoodsTypeLogo">
+		delete from
+		tb_goods_type_logo
+		where
+		id = #{id}
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_goods_type_logo
+		where
+		id = #{id}
+	</delete>
+
+	<select id="get" parameterType="long" resultMap="goodstypelogoDaoMap">
+		select * from
+		tb_goods_type_logo where id = #{id}
+	</select>
+
+
+	<select id="getListMap" parameterType="hashmap" resultMap="goodstypelogoDaoListMap">
+		select
+		*
+		from
+		tb_goods_type_logo
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			type_id = #{typeId}
+			and status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder}
+				</if>
+			</when>
+			<otherwise>
+				order by create_date desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select
+		count(id)
+		from
+		tb_goods_type_logo
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			type_id = #{typeId}
+			and status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+
+
+
+	<select id="getDateConflictRows" parameterType="hashmap"
+		resultType="long">
+		select
+		count(id)
+		from
+		tb_goods_type_logo
+		where type_id = #{typeId}
+		and is_default = 0
+		AND !(
+		(
+		start_date &gt;= #{endDate}
+		)
+		OR(
+		end_date &lt;= #{startDate}
+		)
+		)
+		and status &lt;&gt; -1
+		<if test="op == 'modify'">
+			and id &lt;&gt; #{id}
+		</if>
+	</select>
+
+	<select id="getDefaultRows" parameterType="hashmap" resultType="long">
+		select
+		count(id)
+		from
+		tb_goods_type_logo
+		where type_id = #{typeId}
+		and is_default = 1
+		and status &lt;&gt; -1
+		<if test="op == 'modify'">
+			and id &lt;&gt; #{id}
+		</if>
+	</select>
+
+</mapper>

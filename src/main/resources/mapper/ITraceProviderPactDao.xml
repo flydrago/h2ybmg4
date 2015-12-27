@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ITraceProviderPactDao">
+
+	<resultMap type="com.h2y.bmg.entity.TraceProviderPact" id="traceproviderpactDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="provideId" column="provide_id" javaType="long" jdbcType="BIGINT" />
+		<result property="providerName" column="provider_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="signDate" column="sign_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="startDate" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="endDate" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="ifEnable" column="if_enable" javaType="int" jdbcType="BIGINT" />
+		<result property="optUserId" column="opt_user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="optUserAccount" column="opt_user_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="optUserName" column="opt_user_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="data1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="data2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="data3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="traceproviderpactDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="PROVIDE_ID" column="provide_id" javaType="long" jdbcType="BIGINT" />
+		<result property="PROVIDER_NAME" column="provider_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="SIGN_DATE" column="sign_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="START_DATE" column="start_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="END_DATE" column="end_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="IF_ENABLE" column="if_enable" javaType="int" jdbcType="BIGINT" />
+		<result property="OPT_USER_ID" column="opt_user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="OPT_USER_ACCOUNT" column="opt_user_account" javaType="string" jdbcType="VARCHAR" />
+		<result property="OPT_USER_NAME" column="opt_user_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_1" column="data_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_2" column="data_2" javaType="string" jdbcType="VARCHAR" />
+		<result property="DATA_3" column="data_3" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<insert id="add" parameterType="com.h2y.bmg.entity.TraceProviderPact">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_trace_provider_pact 
+		</selectKey>  
+		insert into tb_trace_provider_pact
+		(
+		provide_id,
+		provider_name,
+		sign_date,
+		start_date,
+		end_date,
+		if_enable,
+		opt_user_id,
+		opt_user_account,
+		opt_user_name,
+		data_1,
+		data_2,
+		data_3
+		)
+		values (
+		#{provideId,jdbcType=BIGINT},
+		#{providerName,jdbcType=VARCHAR},
+		#{signDate,jdbcType=TIMESTAMP},
+		#{startDate,jdbcType=TIMESTAMP},
+		#{endDate,jdbcType=TIMESTAMP},
+		#{ifEnable,jdbcType=INTEGER},
+		#{optUserId,jdbcType=BIGINT},
+		#{optUserAccount,jdbcType=VARCHAR},
+		#{optUserName,jdbcType=VARCHAR},
+		#{data1,jdbcType=VARCHAR},
+		#{data2,jdbcType=VARCHAR},
+		#{data3,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.TraceProviderPact">
+		update tb_trace_provider_pact
+		set
+		provide_id = #{provideId,jdbcType=BIGINT},
+		provider_name = #{providerName,jdbcType=VARCHAR},
+		sign_date = #{signDate,jdbcType=TIMESTAMP},
+		start_date = #{startDate,jdbcType=TIMESTAMP},
+		end_date = #{endDate,jdbcType=TIMESTAMP},
+		if_enable = #{ifEnable,jdbcType=INTEGER},
+		opt_user_id = #{optUserId,jdbcType=BIGINT},
+		opt_user_account = #{optUserAccount,jdbcType=VARCHAR},
+		opt_user_name = #{optUserName,jdbcType=VARCHAR},
+		data_1 = #{data1,jdbcType=VARCHAR},
+		data_2 = #{data2,jdbcType=VARCHAR},
+		data_3 = #{data3,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.TraceProviderPact">
+		delete from
+		tb_trace_provider_pact
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_trace_provider_pact
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_trace_provider_pact
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="traceproviderpactDaoMap">
+		select * from tb_trace_provider_pact where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.bmg.entity.TraceProviderPact"
+		resultMap="traceproviderpactDaoMap">
+		select * from
+		tb_trace_provider_pact
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="provideId!= null">
+			and provide_id = #{provideId}
+			</if>
+			<if test="providerName!= null and providerName!=''">
+			and provider_name = #{providerName}
+			</if>
+			<if test="signDate!= null and signDate!=''">
+			and sign_date = #{signDate}
+			</if>
+			<if test="startDate!= null and startDate!=''">
+			and start_date = #{startDate}
+			</if>
+			<if test="endDate!= null and endDate!=''">
+			and end_date = #{endDate}
+			</if>
+			<if test="ifEnable!= null">
+			and if_enable = #{ifEnable}
+			</if>
+			<if test="optUserId!= null">
+			and opt_user_id = #{optUserId}
+			</if>
+			<if test="optUserAccount!= null and optUserAccount!=''">
+			and opt_user_account = #{optUserAccount}
+			</if>
+			<if test="optUserName!= null and optUserName!=''">
+			and opt_user_name = #{optUserName}
+			</if>
+			<if test="data1!= null and data1!=''">
+			and data_1 = #{data1}
+			</if>
+			<if test="data2!= null and data2!=''">
+			and data_2 = #{data2}
+			</if>
+			<if test="data3!= null and data3!=''">
+			and data_3 = #{data3}
+			</if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="traceproviderpactDaoMap">
+		select
+		*
+		from
+		tb_trace_provider_pact
+		<if test="keyTraceProviderPact!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keyTraceProviderPact.id!= null">
+				and id = #{keyTraceProviderPact.id}
+				</if>
+				<if test="keyTraceProviderPact.provideId!= null">
+				and provide_id = #{keyTraceProviderPact.provideId}
+				</if>
+				<if test="keyTraceProviderPact.providerName!= null and keyTraceProviderPact.providerName!=''">
+				and provider_name = #{keyTraceProviderPact.providerName}
+				</if>
+				<if test="keyTraceProviderPact.signDate!= null and keyTraceProviderPact.signDate!=''">
+				and sign_date = #{keyTraceProviderPact.signDate}
+				</if>
+				<if test="keyTraceProviderPact.startDate!= null and keyTraceProviderPact.startDate!=''">
+				and start_date = #{keyTraceProviderPact.startDate}
+				</if>
+				<if test="keyTraceProviderPact.endDate!= null and keyTraceProviderPact.endDate!=''">
+				and end_date = #{keyTraceProviderPact.endDate}
+				</if>
+				<if test="keyTraceProviderPact.ifEnable!= null">
+				and if_enable = #{keyTraceProviderPact.ifEnable}
+				</if>
+				<if test="keyTraceProviderPact.optUserId!= null">
+				and opt_user_id = #{keyTraceProviderPact.optUserId}
+				</if>
+				<if test="keyTraceProviderPact.optUserAccount!= null and keyTraceProviderPact.optUserAccount!=''">
+				and opt_user_account = #{keyTraceProviderPact.optUserAccount}
+				</if>
+				<if test="keyTraceProviderPact.optUserName!= null and keyTraceProviderPact.optUserName!=''">
+				and opt_user_name = #{keyTraceProviderPact.optUserName}
+				</if>
+				<if test="keyTraceProviderPact.data1!= null and keyTraceProviderPact.data1!=''">
+				and data_1 = #{keyTraceProviderPact.data1}
+				</if>
+				<if test="keyTraceProviderPact.data2!= null and keyTraceProviderPact.data2!=''">
+				and data_2 = #{keyTraceProviderPact.data2}
+				</if>
+				<if test="keyTraceProviderPact.data3!= null and keyTraceProviderPact.data3!=''">
+				and data_3 = #{keyTraceProviderPact.data3}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_trace_provider_pact
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="parentId!= null">
+			and provide_id = #{parentId}
+			</if>
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="getListByPage" parameterType="hashmap" resultMap="traceproviderpactDaoListMap">
+		select
+		*
+		from
+		tb_trace_provider_pact
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="parentId!= null">
+			and provide_id = #{parentId}
+			</if>
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		limit ${(page-1)*pagesize},${pagesize}
+		
+	</select>
+	
+	<select id="getProviderTreeList" parameterType="hashmap" resultType="hashmap">
+		select
+		
+		CONCAT("prov_",CAST(id AS CHAR)) AS id,
+		CONCAT("unit_",CAST(parent_id AS CHAR)) AS pid,
+		provider_name as text
+		from
+		tb_trace_provider_item
+		
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+			<if test="parentId != null">
+			and parent_id = #{parentId}
+			</if>
+		</trim>
+		union
+		select
+			CONCAT("unit_",CAST(id AS CHAR)) AS id,
+			0 AS pid,
+			unit_name as text
+		from 
+			tb_sys_units
+		where
+			id = #{parentId}
+	</select>
+</mapper>

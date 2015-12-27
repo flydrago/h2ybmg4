@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IScheduleTaskDao">
+	<resultMap type="com.h2y.bmg.entity.ScheduleTask" id="scheduleTaskDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="uid" column="uid" javaType="long" jdbcType="BIGINT" />
+		<result property="stname" column="stname" javaType="string" jdbcType="VARCHAR" />
+		<result property="sturl" column="sturl" javaType="string" jdbcType="VARCHAR" />
+		<result property="stparam" column="stparam" javaType="string" jdbcType="VARCHAR" />
+		<result property="createdate" column="createdate" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="begindate" column="begindate" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="enddate" column="enddate" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="sttime" column="sttime" javaType="long" jdbcType="BIGINT" />
+		<result property="stnum" column="stnum" javaType="int" jdbcType="INTEGER" />
+		<result property="ststatus" column="ststatus" javaType="int" jdbcType="INTEGER" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<resultMap type="java.util.Map" id="scheduleTaskDaoListMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="uid" column="uid" javaType="long" jdbcType="BIGINT" />
+		<result property="stname" column="stname" javaType="string" jdbcType="VARCHAR" />
+		<result property="sturl" column="sturl" javaType="string" jdbcType="VARCHAR" />
+		<result property="stparam" column="stparam" javaType="string" jdbcType="VARCHAR" />
+		<result property="createdate" column="createdate" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="begindate" column="begindate" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="enddate" column="enddate" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="sttime" column="sttime" javaType="long" jdbcType="BIGINT" />
+		<result property="stnum" column="stnum" javaType="int" jdbcType="INTEGER" />
+		<result property="ststatus" column="ststatus" javaType="int" jdbcType="INTEGER" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<select id="get" parameterType="long"
+		resultMap="scheduleTaskDaoMap">
+		select * from tb_schedule_task where id = 1
+	</select>
+
+	<select id="getListMap" parameterType="hashmap" resultMap="scheduleTaskDaoListMap">
+		select * from tb_schedule_task
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder}
+				</if>
+			</when>
+			<otherwise>
+				order by createdate desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select count(id) from tb_schedule_task
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+
+</mapper>

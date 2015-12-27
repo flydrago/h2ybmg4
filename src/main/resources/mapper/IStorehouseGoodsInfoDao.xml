@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IStorehouseGoodsInfoDao">
+
+	<resultMap type="com.h2y.bmg.entity.StorehouseGoodsInfo" id="storehousegoodsinfoDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="storehouseId" column="storehouse_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsId" column="goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsPriceId" column="goods_price_id" javaType="long" jdbcType="BIGINT" />
+		<result property="goodsCount" column="goods_count" javaType="int" jdbcType="INTEGER" />
+		<result property="virtualCount" column="virtual_count" javaType="int" jdbcType="INTEGER" />
+		<result property="shopId" column="shop_id" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="storehousegoodsinfoDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="GOODS_ID" column="goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="GOODS_NICK_NAME" column="goods_nick_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="MEMBER_PRICE" column="member_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="MARKET_PRICE" column="market_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="SELL_PRICE" column="sell_price" javaType="double" jdbcType="DOUBLE" />
+		<result property="TYPE_NAME" column="type_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="GOODS_NUMBER" column="goods_number" javaType="string" jdbcType="VARCHAR" />
+		<result property="NAME" column="name" javaType="string" jdbcType="VARCHAR" />
+		<result property="SPEC" column="spec" javaType="int" jdbcType="INTEGER" />
+		<result property="STOREHOUSE_ID" column="storehouse_id" javaType="long" jdbcType="BIGINT" />
+		<result property="GOODS_PRICE_ID" column="goods_price_id" javaType="long" jdbcType="BIGINT" />
+		<result property="GOODS_COUNT" column="goods_count" javaType="int" jdbcType="INTEGER" />
+		<result property="VIRTUAL_COUNT" column="virtual_count" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="storehousegoodsdetailDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="STOREHOUSE_ID" column="storehouse_id" javaType="long" jdbcType="BIGINT" />
+		<result property="GOODS_PRICE_ID" column="goods_price_id" javaType="long" jdbcType="BIGINT" />
+		<result property="GOODS_PRICE_VERSION" column="goods_price_version" javaType="int" jdbcType="INTEGER" />
+		<result property="GOODS_ID" column="goods_id" javaType="long" jdbcType="BIGINT" />
+		<result property="GOODS_LOCATION" column="goods_location" javaType="string" jdbcType="VARCHAR" />
+		<result property="GOODS_COUNT" column="goods_count" javaType="int" jdbcType="INTEGER" />
+		<result property="TYPE" column="type" javaType="string" jdbcType="VARCHAR" />
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="CREATE_USER_ID" column="create_user_id" javaType="long" jdbcType="BIGINT" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+		<result property="GOODS_NICK_NAME" column="goods_nick_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="USER_NAME" column="user_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="ACCOUNT" column="account" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.StorehouseGoodsInfo">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_storehouse_goods_info 
+		</selectKey>  
+		insert into tb_storehouse_goods_info
+		(
+		storehouse_id,
+		goods_id,
+		goods_price_id,
+		goods_count,
+		virtual_count,
+		shop_id
+		)
+		values (
+		#{storehouseId,jdbcType=BIGINT},
+		#{goodsId,jdbcType=BIGINT},
+		#{goodsPriceId,jdbcType=BIGINT},
+		#{goodsCount,jdbcType=INTEGER},
+		#{virtualCount,jdbcType=INTEGER},
+		#{shopId,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.StorehouseGoodsInfo">
+		update tb_storehouse_goods_info
+		set
+		storehouse_id = #{storehouseId,jdbcType=BIGINT},
+		goods_id = #{goodsId,jdbcType=BIGINT},
+		goods_price_id = #{goodsPriceId,jdbcType=BIGINT},
+		goods_count = #{goodsCount,jdbcType=INTEGER},
+		virtual_count = #{virtualCount,jdbcType=INTEGER},
+		shop_id = #{shopId,jdbcType=BIGINT}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.StorehouseGoodsInfo">
+		delete from
+		tb_storehouse_goods_info
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_storehouse_goods_info
+		where
+		id = #{id} 
+	</delete>
+	
+	
+	<select id="get" parameterType="long"
+		resultMap="storehousegoodsinfoDaoMap">
+		select * from tb_storehouse_goods_info where id = #{id}
+	</select>
+	
+	
+	<select id="getListMap" parameterType="long" resultMap="storehousegoodsinfoDaoListMap">
+		SELECT
+			gp.goods_nick_name,
+			gp.member_price,
+			gp.market_price,
+			gp.sell_price,
+			gp.goods_number,
+			gp.`goods_name`,
+			gp.spec,
+			gt.`type_name` AS type_name,
+			gf.*
+		FROM
+			tb_storehouse_goods_info gf
+		JOIN tb_goods_price gp ON gf.goods_price_id = gp.id
+		JOIN tb_goods_type gt ON gp.gds_code = gt.type_code
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			gp.status &lt;&gt; -1
+			and gt.status &lt;&gt; -1
+			and gp.unit_id = #{unitId}
+			and gf.storehouse_id = #{storehouseId}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if>
+			</when>
+			<otherwise>
+				order by gp.weight desc,gp.ord desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	<select id="getListRows" parameterType="long" resultType="long">
+		SELECT
+			count(gf.id)
+		FROM
+			tb_storehouse_goods_info gf
+		JOIN tb_goods_price gp ON gf.goods_price_id = gp.id
+		JOIN tb_goods_type gt ON gp.gds_code = gt.type_code
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			gp.status &lt;&gt; -1
+			and gt.status &lt;&gt; -1
+			and gp.unit_id = #{unitId}
+			and gf.storehouse_id = #{storehouseId}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="getByGoodsPriceId" parameterType="long" resultMap="storehousegoodsinfoDaoMap">
+		select * from tb_storehouse_goods_info 
+		where storehouse_id = #{storehouseId}
+		and goods_price_id = #{goodsPriceId}
+	</select>
+	
+	<select id="getDetailListMap" parameterType="long" resultMap="storehousegoodsdetailDaoListMap">
+		SELECT
+			gd.*,
+			gp.goods_nick_name,
+			sysu.user_name,
+			sysu.account
+		FROM
+			tb_storehouse_goods_detail gd
+		JOIN tb_goods_price gp ON gd.goods_price_id = gp.id
+		LEFT JOIN tb_sys_user sysu ON gd.create_user_id = sysu.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			gp.status &lt;&gt; -1
+			and gp.unit_id = #{unitId}
+			and sysu.unit_id = #{unitId}
+			and gd.storehouse_id = #{storehouseId}
+			and gd.goods_price_id = #{goodsPriceId}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if>
+			</when>
+			<otherwise>
+				order by gd.create_date desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	<select id="getDetailListRows" parameterType="long" resultType="long">
+		SELECT
+			count(gd.id)
+		FROM
+			tb_storehouse_goods_detail gd
+		JOIN tb_goods_price gp ON gd.goods_price_id = gp.id
+		LEFT JOIN tb_sys_user sysu ON gd.create_user_id = sysu.id
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			gp.status &lt;&gt; -1
+			and gp.unit_id = #{unitId}
+			and sysu.unit_id = #{unitId}
+			and gd.storehouse_id = #{storehouseId}
+			and gd.goods_price_id = #{goodsPriceId}
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	
+</mapper>

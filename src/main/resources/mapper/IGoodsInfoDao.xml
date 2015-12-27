@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IGoodsInfoDao">
+
+	<resultMap type="com.h2y.bmg.entity.GoodsInfo" id="goodsinfoDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+
+		<result property="goodsId" column="goods_id" javaType="long" jdbcType="BIGINT" />
+
+		<result property="introduce" column="introduce" javaType="string" jdbcType="VARCHAR" />
+
+		<result property="specParam" column="spec_param" javaType="string" jdbcType="VARCHAR" />
+
+		<result property="version" column="version" javaType="int" jdbcType="INTEGER" />
+
+		<result property="dataType" column="data_type" javaType="int" jdbcType="INTEGER" />
+
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+
+		<result property="userId" column="user_id" javaType="long" jdbcType="BIGINT" />
+	</resultMap>
+
+	<insert id="add" parameterType="com.h2y.bmg.entity.GoodsInfo">
+		<selectKey keyProperty="id" resultType="long" order="AFTER">
+			SELECT max(id) AS value from tb_goods_info
+		</selectKey>
+		insert into tb_goods_info
+		(
+		goods_id,
+		introduce,
+		spec_param,
+		version,
+		data_type,
+		create_date,
+		memo,
+		user_id
+		)
+		values (
+		#{goodsId,jdbcType=BIGINT},
+		#{introduce,jdbcType=VARCHAR},
+		#{specParam,jdbcType=VARCHAR},
+		#{version,jdbcType=INTEGER},
+		#{dataType,jdbcType=INTEGER},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{memo,jdbcType=VARCHAR},
+		#{userId,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.GoodsInfo">
+		update tb_goods_info
+		set
+		goods_id = #{goodsId,jdbcType=BIGINT},
+		introduce =
+		#{introduce,jdbcType=VARCHAR},
+		spec_param =
+		#{specParam,jdbcType=VARCHAR},
+		version = #{version,jdbcType=INTEGER},
+		data_type = #{dataType,jdbcType=INTEGER},
+		memo =
+		#{memo,jdbcType=VARCHAR}，
+		user_id = #{userId,jdbcType=BIGINT}
+		where id =
+		#{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.GoodsInfo">
+		delete from
+		tb_goods_info
+		where
+		id = #{id}
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_goods_info
+		where
+		id = #{id}
+	</delete>
+
+	<select id="get" parameterType="long" resultMap="goodsinfoDaoMap">
+		select * from
+		tb_goods_info where id = #{id}
+	</select>
+
+	<select id="getByVersionAndGoodsId" parameterType="hashmap"
+		resultMap="goodsinfoDaoMap">
+		select * from tb_goods_info where
+		goods_id = #{goodsId}
+		and version = #{version}
+		and data_type = #{dataType}
+	</select>
+	
+	<delete id="deleteByGoodsId" parameterType="long">
+		delete from
+		tb_goods_info
+		where
+		goods_id = #{goodsId}
+	</delete>
+
+</mapper>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.jxc.dao.IJxcStorehouseSubareaDao">
+
+	<resultMap type="com.h2y.jxc.entity.StorehouseSubarea" id="storehousesubareaDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="subareaName" column="subarea_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="subareaSpellCode" column="subarea_spell_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="storageId" column="storage_id" javaType="long" jdbcType="BIGINT" />
+		<result property="notes" column="notes" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<insert id="add" parameterType="com.h2y.jxc.entity.StorehouseSubarea">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_storehouse_subarea 
+		</selectKey>  
+		insert into tb_storehouse_subarea
+		(
+		subarea_name,
+		subarea_spell_code,
+		storage_id,
+		notes
+		)
+		values (
+		#{subareaName,jdbcType=VARCHAR},
+		#{subareaSpellCode,jdbcType=VARCHAR},
+		#{storageId,jdbcType=BIGINT},
+		#{notes,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.jxc.entity.StorehouseSubarea">
+		update tb_storehouse_subarea
+		set
+		subarea_name = #{subareaName,jdbcType=VARCHAR},
+		subarea_spell_code = #{subareaSpellCode,jdbcType=VARCHAR},
+		storage_id = #{storageId,jdbcType=BIGINT},
+		notes = #{notes,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.jxc.entity.StorehouseSubarea">
+		delete from
+		tb_storehouse_subarea
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_storehouse_subarea
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_storehouse_subarea
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="storehousesubareaDaoMap">
+		select * from tb_storehouse_subarea where id = #{id}
+	</select>
+
+	<select id="getList" parameterType="com.h2y.jxc.entity.StorehouseSubarea"
+		resultMap="storehousesubareaDaoMap">
+		select * from
+		tb_storehouse_subarea
+
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			
+			<if test="id!= null">
+			and id = #{id}
+			</if>
+			<if test="subareaName!= null and subareaName!=''">
+			and subarea_name = #{subareaName}
+			</if>
+			<if test="subareaSpellCode!= null and subareaSpellCode!=''">
+			and subarea_spell_code = #{subareaSpellCode}
+			</if>
+			<if test="storageId!= null">
+			and storage_id = #{storageId}
+			</if>
+			<if test="notes!= null and notes!=''">
+			and notes = #{notes}
+			</if>
+		</trim>
+
+	</select>
+
+
+
+
+	<select id="getListPage" parameterType="hashmap" resultMap="storehousesubareaDaoMap">
+		select
+		*
+		from
+		tb_storehouse_subarea
+		<if test="keyStorehouseSubarea!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+				<if test="keyStorehouseSubarea.id!= null">
+				and id = #{keyStorehouseSubarea.id}
+				</if>
+				<if test="keyStorehouseSubarea.subareaName!= null and keyStorehouseSubarea.subareaName!=''">
+				and subarea_name = #{keyStorehouseSubarea.subareaName}
+				</if>
+				<if test="keyStorehouseSubarea.subareaSpellCode!= null and keyStorehouseSubarea.subareaSpellCode!=''">
+				and subarea_spell_code = #{keyStorehouseSubarea.subareaSpellCode}
+				</if>
+				<if test="keyStorehouseSubarea.storageId!= null">
+				and storage_id = #{keyStorehouseSubarea.storageId}
+				</if>
+				<if test="keyStorehouseSubarea.notes!= null and keyStorehouseSubarea.notes!=''">
+				and notes = #{keyStorehouseSubarea.notes}
+				</if>
+			</trim>
+		</if> 
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getRows" parameterType="hashmap" resultType="long">
+		select
+		count(*) from
+		tb_storehouse_subarea
+		<if test="keyStorehouseSubarea!= null">
+			<trim prefix="WHERE" prefixOverrides="AND |OR ">
+				<if test="keyStorehouseSubarea.id!= null">
+				and id = #{keyStorehouseSubarea.id}
+				</if>
+				<if test="keyStorehouseSubarea.subareaName!= null and keyStorehouseSubarea.subareaName!=''">
+				and subarea_name = #{keyStorehouseSubarea.subareaName}
+				</if>
+				<if test="keyStorehouseSubarea.subareaSpellCode!= null and keyStorehouseSubarea.subareaSpellCode!=''">
+				and subarea_spell_code = #{keyStorehouseSubarea.subareaSpellCode}
+				</if>
+				<if test="keyStorehouseSubarea.storageId!= null">
+				and storage_id = #{keyStorehouseSubarea.storageId}
+				</if>
+				<if test="keyStorehouseSubarea.notes!= null and keyStorehouseSubarea.notes!=''">
+				and notes = #{keyStorehouseSubarea.notes}
+				</if>
+			</trim>
+		</if>
+	</select>
+</mapper>

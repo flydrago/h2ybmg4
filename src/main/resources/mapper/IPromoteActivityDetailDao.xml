@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.IPromoteActivityDetailDao">
+
+	<resultMap type="com.h2y.bmg.entity.PromoteActivityDetail" id="promoteactivitydetailDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="promoteId" column="promote_id" javaType="long" jdbcType="BIGINT" />
+		<result property="promoteRule" column="promote_rule" javaType="string" jdbcType="VARCHAR" />
+		<result property="text1" column="text_1" javaType="string" jdbcType="VARCHAR" />
+		<result property="text2" column="text_2" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<insert id="add" parameterType="com.h2y.bmg.entity.PromoteActivityDetail">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_promote_activity_detail 
+		</selectKey>  
+		insert into tb_promote_activity_detail
+		(
+		promote_id,
+		promote_rule,
+		text_1,
+		text_2
+		)
+		values (
+		#{promoteId,jdbcType=BIGINT},
+		#{promoteRule,jdbcType=VARCHAR},
+		#{text1,jdbcType=VARCHAR},
+		#{text2,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.PromoteActivityDetail">
+		update tb_promote_activity_detail
+		set
+		promote_id = #{promoteId,jdbcType=BIGINT},
+		promote_rule = #{promoteRule,jdbcType=VARCHAR},
+		text_1 = #{text1,jdbcType=VARCHAR},
+		text_2 = #{text2,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.PromoteActivityDetail">
+		delete from
+		tb_promote_activity_detail
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_promote_activity_detail
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_promote_activity_detail
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="promoteactivitydetailDaoMap">
+		select * from tb_promote_activity_detail where id = #{id}
+	</select>
+	
+	
+	<select id="getByPromoteId" parameterType="long"
+		resultMap="promoteactivitydetailDaoMap">
+		select * from tb_promote_activity_detail where promote_id = #{promoteId}
+	</select>
+
+	
+</mapper>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ISysDictMainDao">
+
+	<resultMap type="com.h2y.bmg.entity.SysDictMain" id="sysdictmainDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="parentId" column="parent_id" javaType="long" jdbcType="BIGINT" />
+		<result property="dictPrefix" column="dict_prefix" javaType="string" jdbcType="VARCHAR" />
+		<result property="dictCode" column="dict_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="dictName" column="dict_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="dictType" column="dict_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="dictValue" column="dict_value" javaType="string" jdbcType="VARCHAR" />
+		<result property="dictOrd" column="dict_ord" javaType="long" jdbcType="BIGINT" />
+		<result property="ifSys" column="if_sys" javaType="long" jdbcType="BIGINT" />
+		<result property="ifUserConf" column="if_user_conf" javaType="long" jdbcType="BIGINT" />
+		<result property="isMate" column="is_mate" javaType="int" jdbcType="INTEGER" />
+		<result property="isExtends" column="is_extends" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="sysdictmainDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="PARENT_ID" column="parent_id" javaType="long" jdbcType="BIGINT" />
+		<result property="DICT_PREFIX" column="dict_prefix" javaType="string" jdbcType="VARCHAR" />
+		<result property="DICT_CODE" column="dict_code" javaType="string" jdbcType="VARCHAR" />
+		<result property="DICT_NAME" column="dict_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="DICT_TYPE" column="dict_type" javaType="string" jdbcType="VARCHAR" />
+		<result property="DICT_VALUE" column="dict_value" javaType="string" jdbcType="VARCHAR" />
+		<result property="DICT_ORD" column="dict_ord" javaType="long" jdbcType="BIGINT" />
+		<result property="IF_SYS" column="if_sys" javaType="long" jdbcType="BIGINT" />
+		<result property="IF_USER_CONF" column="if_user_conf" javaType="long" jdbcType="BIGINT" />
+		<result property="IS_MATE" column="is_mate" javaType="int" jdbcType="INTEGER" />
+		<result property="IS_EXTENDS" column="is_extends" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.SysDictMain">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_sys_dict_main 
+		</selectKey>  
+		insert into tb_sys_dict_main
+		(
+		parent_id,
+		dict_prefix,
+		dict_code,
+		dict_name,
+		dict_type,
+		dict_value,
+		dict_ord,
+		if_sys,
+		if_user_conf,
+		is_mate,
+		is_extends
+		)
+		values (
+		#{parentId,jdbcType=BIGINT},
+		#{dictPrefix,jdbcType=VARCHAR},
+		#{dictCode,jdbcType=VARCHAR},
+		#{dictName,jdbcType=VARCHAR},
+		#{dictType,jdbcType=VARCHAR},
+		#{dictValue,jdbcType=VARCHAR},
+		#{dictOrd,jdbcType=BIGINT},
+		#{ifSys,jdbcType=BIGINT},
+		#{ifUserConf,jdbcType=BIGINT},
+		#{isMate,jdbcType=INTEGER},
+		#{isExtends,jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.SysDictMain">
+		update tb_sys_dict_main
+		set
+		parent_id = #{parentId,jdbcType=BIGINT},
+		dict_prefix = #{dictPrefix,jdbcType=VARCHAR},
+		dict_code = #{dictCode,jdbcType=VARCHAR},
+		dict_name = #{dictName,jdbcType=VARCHAR},
+		dict_type = #{dictType,jdbcType=VARCHAR},
+		dict_value = #{dictValue,jdbcType=VARCHAR},
+		dict_ord = #{dictOrd,jdbcType=BIGINT},
+		if_sys = #{ifSys,jdbcType=BIGINT},
+		if_user_conf = #{ifUserConf,jdbcType=BIGINT},
+		is_mate = #{isMate,jdbcType=INTEGER},
+		is_extends = #{isExtends,jdbcType=INTEGER}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.SysDictMain">
+		delete from
+		tb_sys_dict_main
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_sys_dict_main
+		where
+		id = #{id} 
+	</delete>
+	<!--
+	<delete id="deleteByIds">
+		delete from
+		tb_sys_dict_main
+		where
+		id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")"> #{id} 
+		</foreach>
+	</delete>
+	-->
+
+	<select id="get" parameterType="long"
+		resultMap="sysdictmainDaoMap">
+		select * from tb_sys_dict_main where id = #{id}
+	</select>
+
+
+	<select id="getListMap" parameterType="hashmap" resultMap="sysdictmainDaoListMap">
+		
+		select * from tb_sys_dict_main 
+		where parent_id = #{parentId}
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if>
+			</when>
+			<otherwise>
+				order by dict_ord desc 
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+	
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select count(id) from tb_sys_dict_main where parent_id = #{parentId}
+	</select>
+	
+	<select id="getRowsByDictCode" parameterType="hashmap" resultType="long">
+		select count(id) from tb_sys_dict_main 
+		where dict_code = #{dictCode} 
+		<if test="id!=null"> and id!= #{id}</if>
+	</select>
+	
+	
+	<select id="getDictDetailRowsByMainId" parameterType="long" resultType="long">
+		SELECT
+			count(dd.id)
+		FROM
+			tb_sys_dict_detail dd
+		where dd.dict_main_id = #{mainId}
+	</select>
+	
+	
+	<select id="getDictMainTreeList" parameterType="hashmap" resultType="hashmap">
+		select 
+			id,
+			dict_name as text,
+			parent_id as pid,
+			is_extends as isextends
+		from tb_sys_dict_main 
+		where 
+		(parent_id = 0 or dict_type = 'dict' )
+		<if test="unitId != 1">
+			and if_sys = 0
+		</if>
+	</select>
+	
+	<select id="getAllList" resultMap="sysdictmainDaoMap">
+		select 
+			*
+		from tb_sys_dict_main where parent_id &lt;&gt; 0
+	</select>
+	
+	<select id="getSysDictMainByCode" parameterType="string" resultMap="sysdictmainDaoMap">
+		select 
+			*
+		from tb_sys_dict_main 
+		where 
+		dict_code = #{code} limit 0,1
+	</select>
+	
+	<select id="getSysDictMainFirstTreeData" resultType="hashmap">
+		select 
+			id,
+			dict_name as text,
+			parent_id as pid,
+			is_extends as isextends
+		from tb_sys_dict_main 
+		where 
+			parent_id = 0
+		order by dict_ord desc
+	</select>
+	
+	
+	<select id="getSysDictMainChildRows" parameterType="long" resultType="long">
+		select 
+			count(id)
+		from tb_sys_dict_main 
+		where 
+			parent_id = #{parentId}
+	</select>
+</mapper>

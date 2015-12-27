@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.h2y.bmg.dao.ICommonSubjectDao">
+
+	<resultMap type="com.h2y.bmg.entity.CommonSubject" id="commonsubjectDaoMap">
+		<result property="id" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="subjectName" column="subject_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="subjectType" column="subject_type" javaType="int" jdbcType="INTEGER" />
+		<result property="subjectContent" column="subject_content" javaType="string" jdbcType="VARCHAR" />
+		<result property="unitId" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="rootPath" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="relativePath" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="iosFileName" column="ios_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="androidFileName" column="android_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="wechatFileName" column="wechat_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="createDate" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="status" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="memo" column="memo" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="commonsubjectDaoListMap">
+		<result property="ID" column="id" javaType="long" jdbcType="BIGINT" />
+		<result property="SUBJECT_NAME" column="subject_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="SUBJECT_TYPE" column="subject_type" javaType="int" jdbcType="INTEGER" />
+		<result property="SUBJECT_CONTENT" column="subject_content" javaType="string" jdbcType="VARCHAR" />
+		<result property="UNIT_ID" column="unit_id" javaType="long" jdbcType="BIGINT" />
+		<result property="ROOT_PATH" column="root_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="RELATIVE_PATH" column="relative_path" javaType="string" jdbcType="VARCHAR" />
+		<result property="IOS_FILE_NAME" column="ios_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="ANDROID_FILE_NAME" column="android_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="WECHAT_FILE_NAME" column="wechat_file_name" javaType="string" jdbcType="VARCHAR" />
+		<result property="CREATE_DATE" column="create_date" javaType="date" jdbcType="TIMESTAMP" />
+		<result property="STATUS" column="status" javaType="int" jdbcType="INTEGER" />
+		<result property="MEMO" column="memo" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<insert id="add" parameterType="com.h2y.bmg.entity.CommonSubject">
+		<selectKey keyProperty="id" resultType="long" order="AFTER"> 
+			SELECT max(id)  AS value  from tb_common_subject 
+		</selectKey>  
+		insert into tb_common_subject
+		(
+		subject_name,
+		subject_type,
+		subject_content,
+		unit_id,
+		root_path,
+		relative_path,
+		ios_file_name,
+		android_file_name,
+		wechat_file_name,
+		create_date,
+		status,
+		memo
+		)
+		values (
+		#{subjectName,jdbcType=VARCHAR},
+		#{subjectType,jdbcType=INTEGER},
+		#{subjectContent,jdbcType=VARCHAR},
+		#{unitId,jdbcType=BIGINT},
+		#{rootPath,jdbcType=VARCHAR},
+		#{relativePath,jdbcType=VARCHAR},
+		#{iosFileName,jdbcType=VARCHAR},
+		#{androidFileName,jdbcType=VARCHAR},
+		#{wechatFileName,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{status,jdbcType=INTEGER},
+		#{memo,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.h2y.bmg.entity.CommonSubject">
+		update tb_common_subject
+		set
+		subject_name = #{subjectName,jdbcType=VARCHAR},
+		subject_type = #{subjectType,jdbcType=INTEGER},
+		subject_content = #{subjectContent,jdbcType=VARCHAR},
+		unit_id = #{unitId,jdbcType=BIGINT},
+		root_path = #{rootPath,jdbcType=VARCHAR},
+		relative_path = #{relativePath,jdbcType=VARCHAR},
+		ios_file_name = #{iosFileName,jdbcType=VARCHAR},
+		android_file_name = #{androidFileName,jdbcType=VARCHAR},
+		wechat_file_name = #{wechatFileName,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		status = #{status,jdbcType=INTEGER},
+		memo = #{memo,jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.h2y.bmg.entity.CommonSubject">
+		delete from
+		tb_common_subject
+		where
+		id = #{id} 
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		tb_common_subject
+		where
+		id = #{id} 
+	</delete>
+
+	<select id="get" parameterType="long"
+		resultMap="commonsubjectDaoMap">
+		select * from tb_common_subject where id = #{id}
+	</select>
+	
+	
+	<select id="getListMap" parameterType="hashmap" resultMap="commonsubjectDaoListMap">
+		select
+		 *
+		from
+		tb_common_subject
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			unit_id = #{unitId}
+			and status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by create_date desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getListRows" parameterType="hashmap" resultType="long">
+		select
+		 count(id)
+		from
+		tb_common_subject
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			unit_id = #{unitId}
+			and status &lt;&gt; -1
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="getSelectListMap" parameterType="hashmap" resultMap="commonsubjectDaoListMap">
+		select
+		 *
+		from
+		tb_common_subject
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			unit_id = #{unitId}
+			and status &lt;&gt; -1
+			and id not in 
+			(select subject_id from tb_common_activity_subject_rt where activity_id = #{activityId})
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortname !=null and sortname !=''">
+				order by ${sortname}
+				<if test="sortorder !=null and sortorder !='' ">
+					${sortorder} 
+				</if> 
+			</when>
+			<otherwise>
+				order by create_date desc
+			</otherwise>
+		</choose>
+		limit ${(page-1)*pagesize},${pagesize}
+	</select>
+
+	<select id="getSelectListRows" parameterType="hashmap" resultType="long">
+		select
+		 count(id)
+		from
+		tb_common_subject
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			unit_id = #{unitId}
+			and status &lt;&gt; -1
+			and id not in 
+			(select subject_id from tb_common_activity_subject_rt where activity_id = #{activityId})
+			<if test="ifQuery!=null and ifQuery!=''">
+				and ${ifQuery}
+			</if>
+		</trim>
+	</select>
+	
+</mapper>
