@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class BaseService {
 
-	//获取六位随机数 
+	//获取六位随机数    
 	public String getRandomCode(){
 		Random random = new Random();
 		String randomCode = "";
