@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="h2ybmg Maven Webapp">
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/" source-path="/target/m2e-jee/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java_util"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/java/test"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java_business"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src_xgh"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java_jxc"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/coupons"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java_img"/>
+        <property name="java-output-path" value="/h2ybmg Maven Webapp/target/classes"/>
+        <property name="context-root" value="/h2ybmg4"/>
+    </wb-module>
+</project-modules>
