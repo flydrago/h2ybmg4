@@ -353,11 +353,7 @@ public class SysUnitsController extends BaseController{
 			}else if(op.equals("modify")){//修改
 				SysUnits sysUnits2 = sysUnitsService.get(sysUnits.getId());
 				sysUnits.setUnitStatus(sysUnits2.getUnitStatus());
-				sysUnits.setUnitCode(sysUnits.getZoneCode());
-				sysUnits.setRegDate(sysUnits2.getRegDate());
 				sysUnits.setS3createdate(sysUnits2.getS3createdate());
-				sysUnits.setS3ucode(sysUnits2.getS3ucode());
-				sysUnits.setS3uname(sysUnits2.getS3uname());
 				//UnitStatus：register初次审核 rechange再次审核并修改权限 recheck再次审核 pass审核通过  unpass审核不通过
 				sysUnitsService.update(sysUnits);
 				sysUnitsService.saveUnitFile(request, op, sysUnits, sysDictMain.getDictValue());
