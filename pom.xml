@@ -470,6 +470,14 @@
 			<artifactId>poi-examples</artifactId>
 			<version>3.12</version>
 		</dependency>
+		
+		
+	  <dependency>
+	    <groupId>org.directwebremoting</groupId>
+	    <artifactId>dwr</artifactId>
+	    <version>3.0.1-RELEASE</version>
+	  </dependency>
+		
 
 	</dependencies>
 
