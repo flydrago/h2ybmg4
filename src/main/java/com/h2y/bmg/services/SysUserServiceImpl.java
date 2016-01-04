@@ -184,7 +184,7 @@ public class SysUserServiceImpl implements ISysUserService{
 			//String pwd = (int)(Math.random()*1000000)+"";
 			String pwd = String.valueOf((int) ((Math.random() * 9 + 1) * 100000));
 
-			sysUser.setPassword(MD5Util.getMD5(pwd));
+			sysUser.setPassword(MD5Util.getMD5("123456"));
 			sysUserDao.add(sysUser);
 
 			sysDeptUser.setUserId(sysUser.getId());
@@ -192,40 +192,6 @@ public class SysUserServiceImpl implements ISysUserService{
 			sysDeptUser.setDeptCode(sysDepartment.getDeptCode());
 			sysDeptUserService.add(sysDeptUser);
 
-			//发送短信
-			if (StringUtils.isNotBlank(sysUser.getMobile())) {
-				
-				String msgTempl = SmsContentTemplate.bmgUserRegisterPwd.value;
-				SysDictDetail sysDictDetail = DictUtil.getDetailByCode(1, "sms_template", "bmgUserRegisterPwd");
-				if (null!=sysDictDetail && null!=sysDictDetail.getValue() && !"".equals(sysDictDetail.getValue())) {
-					msgTempl = sysDictDetail.getValue();
-				}
-				
-				Map<String,Object> dataMap = new HashMap<String, Object>();
-				dataMap.put("account", sysUser.getAccount());
-				dataMap.put("pwd", pwd);
-				
-				String message = FreeMarkerUtil.getContentFromStringTemplate(dataMap, msgTempl);		
-				
-				Map<String, Object> smsMap = new HashMap<String, Object>();
-				smsMap.put("mobile", sysUser.getMobile());
-				smsMap.put("createDate", DateUtil.DateNow());
-				smsMap.put("msg", message);
-
-				Map<String, Object> postMap = new HashMap<String, Object>();
-				postMap.put("msms", smsMap);
-
-				Map<String,Object> resultData = DataRequestUtil.getRequestData("sms/sendsms.htm", postMap);
-				if ("0".equals(resultData.get(SInvokeKeys.resultFlag.value())+"")) {
-					logger.info("用户："+sysUser.getAccount()+"注册，密码发送成功！");
-				}else {
-					logger.info("用户："+sysUser.getAccount()+"注册，密码发送失败！");
-				}
-			}
-			
-			//更新象过河
-			SysUnits sysUnits = sysUnitsDao.get(sysDepartment.getUnitId());
-			updateUserXgh(sysUnits, sysDepartment, sysUser);
 		}else {
 
 			SysUser sysUser2 = sysUserDao.get(sysUser.getId());
@@ -245,12 +211,6 @@ public class SysUserServiceImpl implements ISysUserService{
 			sysDeptUser2.setDuOrd(sysDeptUser.getDuOrd());
 			sysDeptUser2.setUserLevel(sysDeptUser.getUserLevel());
 			sysDeptUserService.update(sysDeptUser2);
-			
-			
-			//更新象过河
-			SysDepartment sysDepartment = sysDepartmentService.get(sysDeptUser2.getDeptId());
-			SysUnits sysUnits = sysUnitsDao.get(sysDepartment.getUnitId());
-			updateUserXgh(sysUnits, sysDepartment, sysUser2);
 		}
 	}
 

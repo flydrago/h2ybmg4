@@ -369,19 +369,6 @@ public class SysUserController extends BaseController{
 				sysUserService.update(sysUser);
 				map.put("code", "1");
 				map.put("msg","密码修改成功！");
-
-				//推送密码重置
-				//				Map<String,Object> params = new HashMap<String, Object>();
-				//				params.put("token", SysBaseUtil.MSGS_TOKEN);
-				//				params.put("ts", SysBaseUtil.MSGS_TS);
-				//				
-				//				Map<String,Object> jsonMap = new HashMap<String, Object>();
-				//				jsonMap.put("account", sysUser.getAccount());
-				//				jsonMap.put("oldpwd", request.getParameter("oldPassword"));
-				//				jsonMap.put("password", request.getParameter("newPassword"));
-				//				params.put("ps", JSONUtil.getJson(jsonMap));
-				//				String result = HttpTookit.doPost(SysBaseUtil.MSGS_RESETPWD_URL, params);
-				//				logger.info("用户："+sysUser.getAccount()+"，推送用户修改密码结果："+result);
 			}else{
 				map.put("code", "0");
 				map.put("msg","密码错误！");
