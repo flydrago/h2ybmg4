@@ -237,15 +237,6 @@ public class SysDepartmentController extends BaseController{
 			map.put("code", "1");
 			map.put("msg", "保存成功！");
 			sysDepartmentService.save(request,sysDepartment,sysShopInfo, op);
-
-			try {
-				
-				sysDepartmentService.updateDeptXgh(request, sysDepartment, getLoginUnit(), op);
-			} catch (Exception e) {
-				e.printStackTrace();
-				logger.error(e.getMessage(), e);
-			}
-			
 			String memo = op.equals("add")?"部门添加":"部门修改";
 			sysLogService.addLog(request, getLoginUser(), "部门维护", op, OpRresult.success.toString(),
 					memo, sysDepartment.getId()+"", BusinessTableName.SysDepartment.name);
