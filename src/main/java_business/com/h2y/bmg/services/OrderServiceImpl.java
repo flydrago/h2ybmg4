@@ -86,5 +86,10 @@ public class OrderServiceImpl implements IOrderService {
 		gridData.put("Total", dataList.size());
 		return gridData;
 	}
+
+	public long getWaitOrderRows(long unitId) {
+		
+		return orderDao.getWaitOrderRows(unitId);
+	}
 	
 }

@@ -329,4 +329,8 @@
 		</trim>
 	</select>
 	
+	<select id="getWaitOrderRows" parameterType="long" resultType="long">
+		select count(id) from tb_order where unit_id = #{unitId} and deliveryer_status = 20
+	</select>
+	
 </mapper>
