@@ -70,7 +70,8 @@
             tree = liger.get("tree1");
             $("#pageloading").hide();
             
-            f_tip();
+            
+            setInterval("f_tip()",10000);
         });
         function f_heightChanged(options) {
             if (tab)
@@ -158,23 +159,16 @@
         		tipManager = $.ligerDialog.tip({  title: '订单提醒',content:'未处理订单！'});
         		tipManager.hidden();
         	}
-
-        	
-        	 $.ajax({url:"business/order/getWaitOrderRows.htm",async:true,success:function(result){
-        		 f_tip_show(result)
-        		 f_tip();
-        	 }});
-        	 
         	 
        	 	<%--注意该处url可能不符合你的要求，请注意修改--%>
             $.post("business/order/getWaitOrderRows.htm",function (data,status,xhr) {
 
-            	if(status=="timeout"){
+            	
+            	if(data==0){
             		f_tip_hide();
-            	}else if(status=="success"){
+            	}else{
             		f_tip_show(data)
             	}
-            	f_tip();
             });
         }
         
@@ -189,7 +183,8 @@
         }
         
         function test(){
-        	alert("test121");
+        	
+        	f_addTab("business_order_init_htm","订单处理","business/order/init.htm")
         }
     </script>
 </head>
@@ -200,8 +195,6 @@
 	    <div class="l-topmenu-welcome">
 	    	<span class="l-link2" >${sysUser.userName}&nbsp;&nbsp;您好，欢迎回来！</span>
 	    	<span class="l-link2" style="color:#006fb4;">${deptMentInfo}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	    	<a href="javascript:f_tip_show();" class="l-link2"><img src="<%=uiPath%>portal/login/img/iconLock.png"/>&nbsp;显示</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	    	<a href="javascript:f_tip_hide();" class="l-link2"><img src="<%=uiPath%>portal/login/img/iconLock.png"/>&nbsp;隐藏</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	    	<a href="javascript:changePwd();" class="l-link2"><img src="<%=uiPath%>portal/login/img/iconLock.png"/>&nbsp;修改密码</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	        <a href="javascript:logout();" class="l-link2"><img src="<%=uiPath%>portal/login/img/iconExit.png"/>&nbsp;注销</a>
 	    </div>
