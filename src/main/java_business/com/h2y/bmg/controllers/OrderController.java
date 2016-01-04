@@ -124,5 +124,23 @@ public class OrderController extends BaseController{
 	}
 	
 	
+	/**
+	 * 得到待处理订单行数
+	 */
+	@RequestMapping(value = "/getWaitOrderRows")
+	public void getWaitOrderRows(String orderNo) {
+		
+		long rows = orderService.getWaitOrderRows(getLoginUnitId());
+		if (rows!=0) {
+			out(rows+"");
+		}else{
+			
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	
 }

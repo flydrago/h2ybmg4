@@ -94,4 +94,11 @@ public interface IOrderDao{
 	 * @return
 	 */
 	public List<Map<String,Object>> getOrderAnalysesUnitInfoList(Map<String, Object> paraMap);
+	
+	/**
+	 * 根据单位id，获取待处理订单数量
+	 * @param unitId
+	 * @return
+	 */
+	public long getWaitOrderRows(long unitId);
 }

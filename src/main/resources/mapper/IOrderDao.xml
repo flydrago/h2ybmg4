@@ -29,7 +29,7 @@
 		<result property="shopLatitude" column="shop_latitude" javaType="decimal" jdbcType="DECIMAL" />
 		<result property="shopType" column="shop_type" javaType="string" jdbcType="VARCHAR" />
 		<result property="shopAddress" column="shop_address" javaType="string" jdbcType="VARCHAR" />
-		<result property="memberId" column="member_id" javaType="long" jdbcType="BIGINT" />
+		<result property="memberId" column="member_id" javaType="string" jdbcType="VARCHAR" />
 		<result property="memberAccount" column="member_account" javaType="string" jdbcType="VARCHAR" />
 		<result property="receiverAddressId" column="receiver_address_id" javaType="long" jdbcType="BIGINT" />
 		<result property="receiverAddress" column="receiver_address" javaType="string" jdbcType="VARCHAR" />
@@ -95,7 +95,7 @@
 		<result property="shopLatitude" column="shop_latitude" javaType="decimal" jdbcType="DECIMAL" />
 		<result property="shopType" column="shop_type" javaType="string" jdbcType="VARCHAR" />
 		<result property="shopAddress" column="shop_address" javaType="string" jdbcType="VARCHAR" />
-		<result property="memberId" column="member_id" javaType="long" jdbcType="BIGINT" />
+		<result property="memberId" column="member_id" javaType="string" jdbcType="VARCHAR" />
 		<result property="memberAccount" column="member_account" javaType="string" jdbcType="VARCHAR" />
 		<result property="receiverAddressId" column="receiver_address_id" javaType="long" jdbcType="BIGINT" />
 		<result property="receiverAddress" column="receiver_address" javaType="string" jdbcType="VARCHAR" />
@@ -327,6 +327,10 @@
 			
 			group by unit_id
 		</trim>
+	</select>
+	
+	<select id="getWaitOrderRows" parameterType="long" resultType="long">
+		select count(id) from tb_order where unit_id = #{unitId} and deliveryer_status = 20
 	</select>
 	
 </mapper>

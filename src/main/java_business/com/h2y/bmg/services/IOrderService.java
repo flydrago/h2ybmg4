@@ -40,4 +40,12 @@ public interface IOrderService {
 	 * @return
 	 */
 	public Map<String,Object> getFlowGridData(String orderNo);
+	
+	
+	/**
+	 * 得到订单对应的流程
+	 * @param orderNo 订单编码
+	 * @return
+	 */
+	public long getWaitOrderRows(long unitId);
 }
