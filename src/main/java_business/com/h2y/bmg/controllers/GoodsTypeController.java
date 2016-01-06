@@ -198,7 +198,7 @@ public class GoodsTypeController extends BaseController {
 
 			GoodsType goodsType2 = goodsTypeDao.get(goodsType.getId());
 			// 检验是否有标签
-			if (goodsMarkDao.getRowsByTypeCode(goodsType2.getTypeCode()) > 0) {
+			if (goodsMarkDao.getRowsByTypeCode(goodsType.getId()) > 0) {
 				map.put("code", "0");
 				map.put("msg", "当前节点有标签不可删除！");
 				outJson(map);

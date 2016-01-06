@@ -66,7 +66,7 @@ public interface IGoodsMarkDao{
 	 * @param typeCode 类型编码
 	 * @return
 	 */
-	public long getRowsByTypeCode(String typeCode);
+	public long getRowsByTypeCode(Long typeCode);
 	
 	/**
 	 * 根据类型编码得到对应标签的树数据
